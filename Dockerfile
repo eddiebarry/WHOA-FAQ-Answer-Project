@@ -20,3 +20,5 @@ RUN rm -rf pylucene
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 RUN git clone --recursive https://github.com/eddiebarry/WHOA-FAQ-Answer-Project.git
 WORKDIR /usr/src/WHOA-FAQ-Answer-Project
+
+RUN pip install tokenizers==0.7 transformers==2.10.0 torch==1.4.0

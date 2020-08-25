@@ -12,3 +12,8 @@ exit()
 docker start faq_project
 docker run -it faq_project /bin/bash
 ```
+
+### Function for updating all submodules
+```
+git submodule foreach git pull origin master
+```
