@@ -1,22 +1,26 @@
 import sys, os, lucene, json
+sys.path.append('WHO-FAQ-Keyword-Engine')
+sys.path.append('WHO-FAQ-Search-Engine')
+sys.path.append('WHO-FAQ-Update-Engine')
 
-from keyword_engine.keyword_extractor import KeywordExtract
-from search_engine.search import SearchEngine
-from search_engine.query_generator import QueryGenerator
-from search_engine.index import IndexFiles
+
+from keyword_extractor import KeywordExtract
+from search import SearchEngine
+from query_generator import QueryGenerator
+from index import IndexFiles
 from org.apache.lucene.analysis.standard import StandardAnalyzer
 
 lucene.initVM(vmargs=['-Djava.awt.headless=true'])
 
 # Index generator
 Index = IndexFiles("./VaccineIndex.Index",StandardAnalyzer())
-Index.indexFolder("./keyword_engine/test_excel_data/json_data")
+Index.indexFolder("./WHO-FAQ-Keyword-Engine/test_excel_data/json_data")
 indexDir = Index.getIndexDir()
 
 QueryGenTest = QueryGenerator(StandardAnalyzer())
 
 # Keyword Extractor
-jsonpath = "./keyword_engine/test_excel_data/curated_keywords.json"
+jsonpath = "./WHO-FAQ-Keyword-Engine/test_excel_data/curated_keywords.json"
 f = open(jsonpath,)
 jsonObj = json.load(f)
 keyword_extractor = KeywordExtract(jsonObj)
