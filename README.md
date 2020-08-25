@@ -16,4 +16,7 @@ docker run -it faq_project /bin/bash
 ### Function for updating all submodules
 ```
 git submodule foreach git pull origin master
+git add .
+git commit -m "updating submodules"
+git push origin master
 ```
