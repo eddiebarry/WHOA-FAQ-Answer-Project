@@ -1,9 +1,9 @@
-[submodule "WHO-FAQ-Search-Engine"]
-	path = WHO-FAQ-Search-Engine
-	url = https://github.com/eddiebarry/WHO-FAQ-Search-Engine.git
 [submodule "WHO-FAQ-Keyword-Engine"]
 	path = WHO-FAQ-Keyword-Engine
 	url = https://github.com/eddiebarry/WHO-FAQ-Keyword-Engine.git
+[submodule "WHO-FAQ-Search-Engine"]
+	path = WHO-FAQ-Search-Engine
+	url = https://github.com/eddiebarry/WHO-FAQ-Search-Engine.git
 [submodule "WHO-FAQ-Update-Engine"]
 	path = WHO-FAQ-Update-Engine
 	url = https://github.com/eddiebarry/WHO-FAQ-Update-Engine.git
