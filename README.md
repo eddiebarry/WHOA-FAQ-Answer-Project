@@ -2,9 +2,9 @@
 
 ### To install
 ```
-docker build --tag=faq_project_docker .
-docker run -it --name faq_project faq_project_docker:latest
-exit
+docker build -t faq_project .
+docker run --name faq_project_test -i -t faq_project
+exit()
 ```
 
 ### To run
