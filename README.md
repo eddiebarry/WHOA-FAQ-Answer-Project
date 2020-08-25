@@ -9,8 +9,8 @@ exit()
 
 ### To run
 ```
-docker start faq_project
-docker run -it faq_project /bin/bash
+docker start faq_project_test
+docker exec -it faq_project_test /bin/bash
 ```
 
 ### Function for updating all submodules
