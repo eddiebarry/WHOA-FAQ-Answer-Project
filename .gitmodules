@@ -7,3 +7,6 @@
 [submodule "WHO-FAQ-Update-Engine"]
 	path = WHO-FAQ-Update-Engine
 	url = https://github.com/eddiebarry/WHO-FAQ-Update-Engine.git
+[submodule "WHO-FAQ-Dialog-Manager"]
+	path = WHO-FAQ-Dialog-Manager
+	url = https://github.com/eddiebarry/WHO-FAQ-Dialog-Manager.git

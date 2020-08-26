@@ -40,14 +40,11 @@ query = QueryGen.build_query(query_string, \
 print(query)
 
 # Search Engine
-SearchEngine = SearchEngine(indexDir)
+SearchEngine = SearchEngine(indexDir, rerank=True)
 
-hits = SearchEngine.search(query, top_n=10)
-search_docs  = hits.scoreDocs
-print("%s total matching documents." % len(search_docs))
+hits = SearchEngine.search(query, \
+        query_string=query_string, query_field="Master Question")
+print("%s total matching documents." % len(hits))
 
-for scoreDoc in search_docs:
-    doc = SearchEngine.return_doc(scoreDoc.doc)
-    print("question : " , doc.get("Master Question"),\
-        "\nAnswer : " , doc.get("Master Answer"), \
-        "\nscore : ", scoreDoc.score)
+for doc in hits:
+    print("contents : " , doc[1], "\nscore : ", doc[0])
