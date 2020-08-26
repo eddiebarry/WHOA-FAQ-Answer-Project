@@ -14,12 +14,13 @@ def answer_question():
     with open('log.txt', 'a') as f:
         sys.stdout = f # Change the standard output to the file we created.
         print(request.args)
+        print(request.args['user_id'])
         sys.stdout = original_stdout
 
     resp_json = {
         "ask_more_question": True,
         "what_to_say": "what disease are you talking about ?",
-        "user_id": "100200"
+        "user_id": "100200",
     }
 
     return jsonify(resp_json)

@@ -1,1 +1,11 @@
 ImmutableMultiDict([('query', 'foot and mouth disease'), ('user', '100200}')])
+ImmutableMultiDict([('query', 'how often should I brush my teeth?'), ('user_id', '-1')])
+-1
+ImmutableMultiDict([('query', 'foot and mouth disease'), ('user_id', '100200}')])
+100200}
+ImmutableMultiDict([('query', 'how often should I brush my teeth?'), ('user_id', '-1')])
+-1
+ImmutableMultiDict([('query', 'foot and mouth disease'), ('user_id', '100200}')])
+100200}
+ImmutableMultiDict([('query', 'foot and mouth disease'), ('user_id', '100200}')])
+100200}
