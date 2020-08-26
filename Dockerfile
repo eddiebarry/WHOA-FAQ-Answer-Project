@@ -23,3 +23,6 @@ ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 RUN git clone --recursive https://github.com/eddiebarry/WHOA-FAQ-Answer-Project.git
 WORKDIR /usr/src/WHOA-FAQ-Answer-Project
 
+EXPOSE 5001 
+ENTRYPOINT [ "python" ] 
+CMD [ "app.py" ] 
