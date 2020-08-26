@@ -78,9 +78,15 @@ def answer_question():
     all_token_keys = set(boosting_tokens.keys()).\
         union(ID_KEYWORD_DICT[unique_id].keys())
     
-    new_boosting_dict = {k : boosting_tokens[k].\
-        extend(ID_KEYWORD_DICT[unique_id][k]) \
-        for k in all_token_keys}
+    new_boosting_dict = defaultdict(list)
+    for key in all_token_keys:
+        # Add all the tokens present in the current query
+        if key in boosting_tokens.keys():
+            new_boosting_dict[key].extend(boosting_tokens[key])
+
+        # Add all the tokens present in past queries
+        if key in ID_KEYWORD_DICT[unique_id].keys():
+            new_boosting_dict[key].extend(bID_KEYWORD_DICT[unique_id][key])
 
     original_stdout = sys.stdout 
     with open('log.txt', 'a') as f:
@@ -105,7 +111,7 @@ def answer_question():
     resp_json = {
             "ask_more_question": True,
             "what_to_say": "what disease are you talking about ?",
-            "user_id": "100200",
+            "user_id": unique_id,
         }
 
     return jsonify(resp_json)
