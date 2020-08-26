@@ -3,7 +3,7 @@
 ### To install
 ```
 docker build -t faq_project .
-docker run --name faq_project_test -i -t faq_project
+docker run -p 5001:5001 --name faq_project_test -i -t faq_project
 exit()
 ```
 
