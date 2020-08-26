@@ -1,0 +1,1 @@
+ImmutableMultiDict([('query', 'foot and mouth disease'), ('user', '100200}')])
