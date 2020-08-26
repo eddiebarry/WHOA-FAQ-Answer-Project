@@ -19,3 +19,26 @@ ImmutableMultiDict([('query', 'disease'), ('user_id', '100200')])
 100200
 ImmutableMultiDict([('query', 'disease'), ('user_id', '100200')])
 100200
+How often should I brush is the query
+a5ca0ff4b3dd3a0e06aae51dea2540e2133c5a2877d7d77eb8a9202092c9fa04d9f1811019c4095e9846125aa0f185b08292505d463767602c80e4315044030c is the id
+the query is  What is the meaning of life
+the id is  97615b2c68845f5c237b881b53e586c39cc7f0a7cf080557b115099c59505a5d51a9f2feae50317d7a1a260b4b4daa34512c11336c39845cff9968ad51fe82a3
+the keywords are  {}
+the query is  my daughter is sick with the flu. should I vaccinate anyway ?
+the id is  100200
+the keywords are  {'Vaccine': 'flu'}
+the query is  I am talking about measles
+the id is  100200
+the keywords are  {'Disease 1': 'measles', 'Disease 2': 'measles', 'Vaccine': 'measles'}
+the query is  What is the limit of autism you can get from a peanut allergy ?
+the id is  058ffd3d218aa523e2f9f36df30f8e66dcfc77e2df1898f5bd28bc40e09f8431608194a97b3825288153b2cc541a95cf1fea905bf75c3ef8b5ce044b6992cfde
+the keywords are  {}
+the query is  Is it safe to get vaccinated for the flu vaccine if my child is sick ?
+the id is  100200
+the keywords are  {'Subject 1 - Immunization': ['safe'], 'Vaccine': ['flu'], 'Who is writing this': ['child']}
+the query is  Is it safe to get vaccinated for the flu vaccine if my child is sick ?
+the id is  9f2c16af62849093a4a223319720af21931b35552937037ca05d803657a8e0390393c40e57257c2ea25f68298820c371183a832670224c73b7eb29da0e1dde01
+the keywords are  {'Subject 1 - Immunization': ['safe'], 'Vaccine': ['flu'], 'Who is writing this': ['child']}
+the query is  Is it safe to get vaccinated for the flu vaccine if my child is sick ? what is the cost ?
+the id is  100200
+the keywords are  {'Subject 1 - Immunization': ['safe'], 'Subject 2 - Vaccination / General': ['cost'], 'Vaccine': ['flu'], 'Who is writing this': ['child']}
