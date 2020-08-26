@@ -65,19 +65,30 @@ def answer_question_test():
 @app.route('/api/v2/qna', methods=['GET'])
 def answer_question():
     global ID_KEYWORD_DICT
+    global ID_QUERY_DICT
     global KEYWORD_EXTRACTOR
+    global QUESTION_ASKER
+    global QUERY_GEN
+    global SEARCH_ENGINE
+    vm_env = lucene.getVMEnv()
+    vm_env.attachCurrentThread()
 
     # If first time being sent, calculate a unique id
-    query = request.args['query']
+    query_string = request.args['query'].replace("?","")
     if request.args['user_id'] == "-1":
-        unique_id = hashlib.sha512(query.encode()).hexdigest()
+        unique_id = hashlib.sha512(query_string.encode()).hexdigest()
+        ID_QUERY_DICT[unique_id] = query_string
     else:
         unique_id = request.args['user_id']
   
-    boosting_tokens = KEYWORD_EXTRACTOR.parse_regex_query(query)
+    # Extract keywords on the basis of the user input
+    boosting_tokens = KEYWORD_EXTRACTOR.parse_regex_query(query_string)
+    
+    # Make a set of all fields which have had keywords detected
     all_token_keys = set(boosting_tokens.keys()).\
         union(ID_KEYWORD_DICT[unique_id].keys())
     
+    # Create a combined dictinary of old keywords and new keywords
     new_boosting_dict = defaultdict(list)
     for key in all_token_keys:
         # Add all the tokens present in the current query
@@ -87,45 +98,33 @@ def answer_question():
         # Add all the tokens present in past queries
         if key in ID_KEYWORD_DICT[unique_id].keys():
             new_boosting_dict[key].extend(ID_KEYWORD_DICT[unique_id][key])
-
-    original_stdout = sys.stdout 
-    with open('log.txt', 'a') as f:
-        sys.stdout = f # Change the standard output to the file we created.
-        print("the query is ", query)
-        print("the id is ", unique_id)
-        print("the keywords are ", new_boosting_dict)
-        sys.stdout = original_stdout
     
+    # Store the newly created keyword dictionary in global memory
     ID_KEYWORD_DICT[unique_id] = new_boosting_dict
+
+    # Identify wether more questions need to be asked or not
+    should_search, resp_json = QUESTION_ASKER.process(\
+        unique_id, new_boosting_dict)
     
+    # If no more questions need to be asked, isolate the search results and return
+    if should_search:
+        query = QUERY_GEN.build_query(ID_QUERY_DICT[unique_id], \
+            boosting_tokens, "OR_QUERY", field="Master Question")
+        hits = SEARCH_ENGINE.search(query, \
+            query_string=query_string, query_field="Master Question", top_n=10)
+        
+        what_to_say = ""
+        for doc in hits:
+            what_to_say += "\ncontents : " + doc[1] + "\nscore : "+str(doc[0]) + "\n"
+        
+        resp_json["what_to_say"] = what_to_say
 
-    # import pdb
-    # pdb.set_trace()
-    # Get response dict from question asker
-
-    # process the query and send the closest question
-
-    # If response contains all necessary keywords, ask query to 
-    # search engine
-
-    resp_json = {
-            "ask_more_question": True,
-            "what_to_say": "what disease are you talking about ?",
-            "user_id": unique_id,
-        }
-
-    return jsonify(resp_json)
-
-    
-
-    
+    return jsonify(resp_json)    
 
 @app.route('/')
 def hello_world():
     return 'Hello, World! Bye world, Hi world'
         
-
-    
 
 if __name__ == '__main__':
     INDEX = IndexFiles("./VaccineIndex.Index",StandardAnalyzer())
@@ -142,5 +141,9 @@ if __name__ == '__main__':
     KEYWORD_EXTRACTOR = KeywordExtract(jsonObj)
     
     ID_KEYWORD_DICT = defaultdict(dict)
+    ID_QUERY_DICT = defaultdict(str)
+
+    qa_config_path = "./WHO-FAQ-Dialog-Manager/QNA/question_asker_config.json"
+    QUESTION_ASKER = QuestionAsker(qa_config_path)
 
     app.run(host='0.0.0.0', port = 5001)
