@@ -20,3 +20,6 @@ git add .
 git commit -m "updating submodules"
 git push origin master
 ```
+
+### Loading model only once
+[StackOverflow](https://stackoverflow.com/questions/32213893/how-to-cache-a-large-machine-learning-model-in-flask)
