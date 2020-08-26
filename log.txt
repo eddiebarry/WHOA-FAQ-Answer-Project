@@ -60,3 +60,12 @@ the keywords are  defaultdict(<class 'list'>, {})
 the query is  I am talking about measles
 the id is  0d64af001c3134f28d8a6f4fd5313e36bcc7288780b51d01cb64139d9ed3b5928656e7808b6c67153ce2187c0650a18331f44dd8e21abef88203195997d09535
 the keywords are  defaultdict(<class 'list'>, {'Vaccine': ['measles'], 'Disease 2': ['measles'], 'Disease 1': ['measles']})
+the query is  I am talking about measles
+the id is  0d64af001c3134f28d8a6f4fd5313e36bcc7288780b51d01cb64139d9ed3b5928656e7808b6c67153ce2187c0650a18331f44dd8e21abef88203195997d09535
+the keywords are  defaultdict(<class 'list'>, {'Vaccine': ['measles'], 'Disease 1': ['measles'], 'Disease 2': ['measles']})
+the query is  my daughter is sick with the flu. should I vaccinate anyway ?
+the id is  ad3e9216d99f8f9b65e54fd4b19e1e8823378b23b877e2c2f8ae4f57dfdd642c7d6f882ff06ddcce4b22862cddb8086b4cef1738830cfac214f3bc0ed7eaab68
+the keywords are  defaultdict(<class 'list'>, {'Vaccine': ['flu'], 'Who is writing this': ['daughter']})
+the query is  I am talking about measles
+the id is  ad3e9216d99f8f9b65e54fd4b19e1e8823378b23b877e2c2f8ae4f57dfdd642c7d6f882ff06ddcce4b22862cddb8086b4cef1738830cfac214f3bc0ed7eaab68
+the keywords are  defaultdict(<class 'list'>, {'Who is writing this': ['daughter'], 'Vaccine': ['measles', 'flu'], 'Disease 2': ['measles'], 'Disease 1': ['measles']})

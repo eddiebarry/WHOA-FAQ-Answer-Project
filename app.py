@@ -86,7 +86,7 @@ def answer_question():
 
         # Add all the tokens present in past queries
         if key in ID_KEYWORD_DICT[unique_id].keys():
-            new_boosting_dict[key].extend(bID_KEYWORD_DICT[unique_id][key])
+            new_boosting_dict[key].extend(ID_KEYWORD_DICT[unique_id][key])
 
     original_stdout = sys.stdout 
     with open('log.txt', 'a') as f:
