@@ -7,18 +7,17 @@ app.config["DEBUG"] = True
 
 keywords = {"user1": [..., ... ]}
 
+# defines what kind of query we are serving
+    # qna / location finding / connecting to human
 @app.route('/api/v2/qna', methods=['GET'])
-def api_question():
-    # Get Question
-        # Check if id is present
+def answer_question():
+    pass
+    # request will have user query and sentinel value
 
-    # Extract Keywords
-        # merge with previous if value is not sentinel
+    # process the query and send the closest question
+        
 
-    # Check if keywords are present, if yes answer
-
-    # If not, Store keywords, return question id, return specific question
-
+    
 
 
 app.run(host='0.0.0.0')
