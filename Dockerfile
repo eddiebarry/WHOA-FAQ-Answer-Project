@@ -24,5 +24,5 @@ RUN git clone --recursive https://github.com/eddiebarry/WHOA-FAQ-Answer-Project.
 WORKDIR /usr/src/WHOA-FAQ-Answer-Project
 
 EXPOSE 5001 
-ENTRYPOINT [ "python" ] 
-CMD [ "app.py" ] 
+# ENTRYPOINT [ "python" ] 
+# CMD [ "app.py" ] 
