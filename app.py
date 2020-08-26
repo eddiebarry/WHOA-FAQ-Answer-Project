@@ -1,11 +1,8 @@
 import flask
 from flask import request, jsonify
-from match import matcher
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
-
-keywords = {"user1": [..., ... ]}
 
 # defines what kind of query we are serving
     # qna / location finding / connecting to human
@@ -15,6 +12,10 @@ def answer_question():
     # request will have user query and sentinel value
 
     # process the query and send the closest question
+
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
         
 
     

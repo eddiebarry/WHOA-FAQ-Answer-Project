@@ -16,7 +16,7 @@ RUN make all install JCC='python -m jcc' ANT=ant PYTHON=python NUM_FILES=8
 
 WORKDIR /usr/src
 RUN rm -rf pylucene
-RUN pip install tokenizers==0.7 transformers==2.10.0 torch==1.4.0
+RUN pip install tokenizers==0.7 transformers==2.10.0 torch==1.4.0 flask==1.1.2
 
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 RUN git clone --recursive https://github.com/eddiebarry/WHOA-FAQ-Answer-Project.git
