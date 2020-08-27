@@ -148,7 +148,7 @@ if __name__ == '__main__':
     QUERY_GEN = QueryGenerator(StandardAnalyzer())
     
     indexDir = INDEX.getIndexDir()
-    SEARCH_ENGINE = SearchEngine(indexDir, rerank=False)
+    SEARCH_ENGINE = SearchEngine(indexDir, rerank=True)
     
     extractor_json_path = \
         "./WHO-FAQ-Keyword-Engine/test_excel_data/curated_keywords.json"
