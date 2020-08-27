@@ -23,6 +23,7 @@ app.config["DEBUG"] = True
 lucene.initVM(vmargs=['-Djava.awt.headless=true'])
 
 
+# TODO : Document
 # defines what kind of query we are serving
     # qna / location finding / connecting to human
 @app.route('/api/v2/qna_test', methods=['GET'])
@@ -103,22 +104,35 @@ def answer_question():
     ID_KEYWORD_DICT[unique_id] = new_boosting_dict
 
     # Identify wether more questions need to be asked or not
+    # TODO : Ask question only once
     should_search, resp_json = QUESTION_ASKER.process(\
         unique_id, new_boosting_dict)
     
+    query = None
     # If no more questions need to be asked, isolate the search results and return
     if should_search:
         query = QUERY_GEN.build_query(ID_QUERY_DICT[unique_id], \
-            ID_KEYWORD_DICT[unique_id], "OR_QUERY", field="Master_Question")
+            ID_KEYWORD_DICT[unique_id], "OR_QUERY", field="Master_Question",\
+            boost_val=2.0)
         hits = SEARCH_ENGINE.search(query, \
             query_string=ID_QUERY_DICT[unique_id], \
             query_field="Master_Question", top_n=10)
 
         what_to_say = ""
         for doc in hits:
-            what_to_say += "\ncontents : " + doc[1] + "\nscore : "+str(doc[0]) + "\n"
+            what_to_say += "\ncontents : " + doc[1] + "\nscore : "+str(doc[0]) \
+            + "\n\n\n" 
         
         resp_json["what_to_say"] = what_to_say
+    
+        # Logging
+        original_stdout = sys.stdout 
+        with open('log.txt', 'a') as f:
+            sys.stdout = f # Change the standard output to the file we created.
+            print("The user question is ", ID_QUERY_DICT[unique_id])
+            print("The generated lucene query is ", query)
+            print("The results of the search are ", hits)
+            sys.stdout = original_stdout
 
     return jsonify(resp_json)    
 
@@ -134,7 +148,7 @@ if __name__ == '__main__':
     QUERY_GEN = QueryGenerator(StandardAnalyzer())
     
     indexDir = INDEX.getIndexDir()
-    SEARCH_ENGINE = SearchEngine(indexDir, rerank=True)
+    SEARCH_ENGINE = SearchEngine(indexDir, rerank=False)
     
     extractor_json_path = \
         "./WHO-FAQ-Keyword-Engine/test_excel_data/curated_keywords.json"
