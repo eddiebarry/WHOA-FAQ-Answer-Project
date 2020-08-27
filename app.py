@@ -56,15 +56,12 @@ def answer_question_test():
 
     return jsonify(resp_json)
 
-    # request will have user query and sentinel value
-
-    # process the query and send the closest question
-
 
 # defines what kind of query we are serving
     # qna / location finding / connecting to human
 @app.route('/api/v2/qna', methods=['GET'])
 def answer_question():
+
     global ID_KEYWORD_DICT
     global ID_QUERY_DICT
     global KEYWORD_EXTRACTOR
@@ -81,7 +78,11 @@ def answer_question():
         ID_QUERY_DICT[unique_id] = query_string
     else:
         unique_id = request.args['user_id']
-  
+    
+    # If question has already been answered allow new question to be asked
+    if ID_QUERY_DICT[unique_id] == "-1":
+        ID_QUERY_DICT[unique_id] = query_string
+
     # Extract keywords on the basis of the user input
     boosting_tokens = KEYWORD_EXTRACTOR.parse_regex_query(query_string)
     
@@ -124,17 +125,23 @@ def answer_question():
             + "\n\n\n" 
         
         resp_json["what_to_say"] = what_to_say
+
+        # Reset unique id query to sentinel value
+        ID_QUERY_DICT[unique_id] = "-1"
     
         # Logging
         original_stdout = sys.stdout 
         with open('log.txt', 'a') as f:
             sys.stdout = f # Change the standard output to the file we created.
+            print('$'*80)
+            print("unique id", unique_id)
             print("The user question is ", ID_QUERY_DICT[unique_id])
             print("The generated lucene query is ", query)
             print("The results of the search are ", hits)
+            print('$'*80)
             sys.stdout = original_stdout
 
-    return jsonify(resp_json)    
+    return jsonify(resp_json) 
 
 @app.route('/')
 def hello_world():
@@ -160,6 +167,7 @@ if __name__ == '__main__':
     ID_QUERY_DICT = defaultdict(str)
 
     qa_config_path = "./WHO-FAQ-Dialog-Manager/QNA/question_asker_config.json"
-    QUESTION_ASKER = QuestionAsker(qa_config_path)
+    QUESTION_ASKER = QuestionAsker(qa_config_path, show_options=True, \
+        qa_keyword_path = extractor_json_path)
 
     app.run(host='0.0.0.0', port = 5001)
