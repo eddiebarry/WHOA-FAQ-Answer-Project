@@ -109,10 +109,11 @@ def answer_question():
     # If no more questions need to be asked, isolate the search results and return
     if should_search:
         query = QUERY_GEN.build_query(ID_QUERY_DICT[unique_id], \
-            boosting_tokens, "OR_QUERY", field="Master Question")
+            ID_KEYWORD_DICT[unique_id], "OR_QUERY", field="Master_Question")
         hits = SEARCH_ENGINE.search(query, \
-            query_string=query_string, query_field="Master Question", top_n=10)
-        
+            query_string=ID_QUERY_DICT[unique_id], \
+            query_field="Master_Question", top_n=10)
+
         what_to_say = ""
         for doc in hits:
             what_to_say += "\ncontents : " + doc[1] + "\nscore : "+str(doc[0]) + "\n"
@@ -128,7 +129,8 @@ def hello_world():
 
 if __name__ == '__main__':
     INDEX = IndexFiles("./VaccineIndex.Index",StandardAnalyzer())
-    
+    INDEX.indexFolder("./WHO-FAQ-Keyword-Engine/test_excel_data/json_data")
+
     QUERY_GEN = QueryGenerator(StandardAnalyzer())
     
     indexDir = INDEX.getIndexDir()
