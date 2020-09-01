@@ -24,44 +24,24 @@ lucene.initVM(vmargs=['-Djava.awt.headless=true'])
 
 
 # TODO : Document
-# defines what kind of query we are serving
-    # qna / location finding / connecting to human
-@app.route('/api/v2/qna_test', methods=['GET'])
-def answer_question_test():
-    global num_encountered
-    # Save a reference to the original standard output
-    original_stdout = sys.stdout 
-    with open('log.txt', 'a') as f:
-        sys.stdout = f # Change the standard output to the file we created.
-        print(request.args)
-        print(request.args['user_id'])
-        sys.stdout = original_stdout
-
-    if request.args['user_id'] == "100200":
-        num_encountered += 1
-        print(num_encountered)
-    
-    if num_encountered <2:
-        resp_json = {
-            "ask_more_question": True,
-            "what_to_say": "what disease are you talking about ?",
-            "user_id": "100200",
-        }
-    else:
-        resp_json = {
-            "ask_more_question": False,
-            "what_to_say": "what disease are you talking about ?",
-            "user_id": "100200",
-        }
-
-    return jsonify(resp_json)
-
-
-# defines what kind of query we are serving
-    # qna / location finding / connecting to human
+# TODO : Make this function stateless
 @app.route('/api/v2/qna', methods=['GET'])
 def answer_question():
+    """
+    This api answers questions
 
+    Inputs
+    ------
+    Expects a api call of the form : ""
+    
+    Query : String
+        The string from which we need to extract keywords
+
+    Outputs
+    -------
+    Json Object : 
+        The form of the json object is as follows : -
+    """
     global ID_KEYWORD_DICT
     global ID_QUERY_DICT
     global KEYWORD_EXTRACTOR
@@ -141,7 +121,112 @@ def answer_question():
             print('$'*80)
             sys.stdout = original_stdout
 
-    return jsonify(resp_json) 
+    return jsonify(resp_json)
+
+
+@app.route('/api/v2/keyword_extract', methods=['GET'])
+def return_keyword():
+    """
+    After the keyword engine is set up with a configuration file,
+    this api extracts the keywords from the user query and returns them
+    as a json object
+
+    Inputs
+    ------
+    Expects a api call of the form : ""
+    
+    Query : String
+        The string from which we need to extract keywords
+
+    Outputs
+    -------
+    Json Object : 
+        The form of the json object is as follows : -
+            
+    """
+    global KEYWORD_EXTRACTOR
+
+    # If first time being sent, calculate a unique id
+    query_string = request.args['query'].replace("?","")
+
+    # Extract keywords on the basis of the user input
+    boosting_tokens = KEYWORD_EXTRACTOR.parse_regex_query(query_string)    
+    
+    # Logging
+    original_stdout = sys.stdout 
+    with open('keyword_log.txt', 'a') as f:
+        sys.stdout = f # Change the standard output to the file we created.
+        print('$'*80)
+        print("The user query is ", query_string)
+        print("The extracted tokens are ", boosting_tokens)
+        print('$'*80)
+        sys.stdout = original_stdout
+
+    #TODO :  preprocess cleaned boosting tokens to line up with specified tokens
+    return jsonify(boosting_tokens)
+
+@app.route('/api/v2/index_json_array', methods=['PUT'])
+def index_json_array():
+    """
+    This function takes a json array specified by the labelling web service 
+    and add its to the search index
+
+    Inputs
+    ------
+    Expects a api call of the form : ""
+    
+    jsonArray : Array of Json Objects
+        This array consists of the json objects that we want to index
+        The array is of the form :
+            {
+                "QA_Pairs":[
+                    {
+                        "Subject - Person": "Child",
+                        "Subject 1 - Immunization": "Immunization General",
+                        "Subject 2 - Vaccination / General": "",
+                        "Who is writing this": "Parent"
+                    },
+                    {
+                        "Subject 1 - Immunization": "Immunization Required",
+                        "Subject 2 - Vaccination / General": "",
+                        "Subject Sex": "Male",
+                        "Vaccine": "Varicella (Chickenpox)",
+                        "Who is writing this": "Unknown "
+                    },
+                    {
+                        "Disease 1": "Chickenpox",
+                        "Keyword": "Shingles vaccines",
+                        "Subject - Person": "",
+                        "Subject 1 - Immunization": "Immunization Required",
+                        "Subject 2 - Vaccination / General": "Vaccine Cost",
+                        "Who is writing this": "Adult"
+                    }
+                ]
+            }
+
+    Outputs
+    -------
+    Json Object : 
+        The form of the json object is as follows : -
+
+    """
+    global INDEX
+
+    # Adding the files to the array
+    jsonArray - request.args['Json_Array']
+    INDEX.index_json_array(jsonArray)
+
+    # Logging
+    original_stdout = sys.stdout 
+    with open('json_array_log.txt', 'a') as f:
+        sys.stdout = f # Change the standard output to the file we created.
+        print('$'*80)
+        print("The recieved json array is is : \n", jsonArray)
+        print('$'*80)
+        sys.stdout = original_stdout
+
+    #TODO :  preprocess
+    return jsonify(boosting_tokens)
 
 @app.route('/')
 def hello_world():
