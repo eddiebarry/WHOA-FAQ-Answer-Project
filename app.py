@@ -235,7 +235,8 @@ def hello_world():
 
 if __name__ == '__main__':
     INDEX = IndexFiles("./VaccineIndex.Index",StandardAnalyzer())
-    INDEX.indexFolder("./WHO-FAQ-Keyword-Engine/test_excel_data/json_data")
+    
+    INDEX.indexFolder("./WHO-FAQ-Search-Engine/test_data/json_folder_data")
 
     QUERY_GEN = QueryGenerator(StandardAnalyzer())
     

@@ -14,7 +14,7 @@ lucene.initVM(vmargs=['-Djava.awt.headless=true'])
 
 # Index generator
 Index = IndexFiles("./VaccineIndex.Index",StandardAnalyzer())
-Index.indexFolder("./WHO-FAQ-Keyword-Engine/test_excel_data/json_data")
+Index.indexFolder("./WHO-FAQ-Search-Engine/test_data/json_folder_data")
 indexDir = Index.getIndexDir()
 
 QueryGenTest = QueryGenerator(StandardAnalyzer())

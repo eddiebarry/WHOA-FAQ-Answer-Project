@@ -11,3 +11,9 @@
 |Search Engine - synonym_expander.py | Done | Done|
 |FAQ Answer Project - app.py | TODO | TODO|
 |FAQ Answer Project - run_search_process_test.py | Done | Done|
+
+|Application APIS|Documented|Testing|
+|---|---|---|
+|QA | TODO | TODO|
+|Keyword Extract | TODO | TODO|
+|JsonArray Ingestion | TODO | TODO|
