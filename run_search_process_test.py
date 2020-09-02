@@ -33,7 +33,7 @@ boosting_tokens = keyword_extractor.parse_regex_query(query_string)
 print(boosting_tokens)
 
 # Create a lucene query
-QueryGen = QueryGenerator(StandardAnalyzer())
+QueryGen = QueryGenerator(StandardAnalyzer(), use_synonyms=True)
 query = QueryGen.build_query(query_string, \
     boosting_tokens, "OR_QUERY", field="Master Question")
 

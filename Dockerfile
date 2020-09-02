@@ -18,6 +18,8 @@ WORKDIR /usr/src
 RUN rm -rf pylucene
 RUN pip install tokenizers==0.7 transformers==2.10.0 torch==1.4.0 
 RUN pip install flask==1.1.2
+RUN pip install spacy==2.3.2 spacy-wordnet==0.0.4
+RUN python -m nltk.downloader wordnet && python -m nltk.downloader omw && python -m spacy download en
 
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 RUN git clone --recursive https://github.com/eddiebarry/WHOA-FAQ-Answer-Project.git

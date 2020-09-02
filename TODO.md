@@ -1,4 +1,4 @@
-|File|Documented|Tested|
+|File|Documented|Basic Tests|
 |---|---|---|
 |Software Design Document | TODO | NA|
 |Dialog Manager - question_asker.py | TODO | TODO|
