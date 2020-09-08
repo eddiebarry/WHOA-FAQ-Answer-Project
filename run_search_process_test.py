@@ -15,7 +15,7 @@ lucene.initVM(vmargs=['-Djava.awt.headless=true'])
 # Index generator
 Index = IndexFiles("./VaccineIndex.Index",StandardAnalyzer())
 # Index.indexFolder("./WHO-FAQ-Search-Engine/test_data/json_folder_data")
-Index.indexFolder("./metrics/intermediate_results/json_folder_with_variations")
+Index.indexFolder("./metrics/intermediate_results/json_folder_with_variations_1500")
 
 indexDir = Index.getIndexDir()
 
@@ -28,8 +28,7 @@ jsonObj = json.load(f)
 keyword_extractor = KeywordExtract(jsonObj)
 
 # Process query
-query_string = "I very recently became pregnant. Is it advisable to give\
-    one and a half year old the measles vaccine"
+query_string = "What should i do about cumpolsory vaccinations if i have allergies"
     
 boosting_tokens = keyword_extractor.parse_regex_query(query_string)
 print(boosting_tokens)
@@ -37,8 +36,8 @@ print(boosting_tokens)
 # Create a lucene query
 QueryGen = QueryGenerator(StandardAnalyzer(), \
         synonym_config=[
-            True, #use_wordnet
-            True, #use_syblist
+            False, #use_wordnet
+            False, #use_syblist
             "./WHO-FAQ-Search-Engine/synonym_expansion/synlist.txt" #synlist path
         ])
 query = QueryGen.build_query(query_string, \
@@ -47,7 +46,7 @@ query = QueryGen.build_query(query_string, \
 print(query)
 
 # Search Engine
-SearchEngine = SearchEngine(indexDir, rerank=False)
+SearchEngine = SearchEngine(indexDir, rerank=True)
 
 hits = SearchEngine.search(query, \
         query_string=query_string, query_field="Master Question")
