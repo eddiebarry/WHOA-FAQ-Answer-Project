@@ -64,7 +64,8 @@ def answer_question():
         ID_QUERY_DICT[unique_id] = query_string
 
     # Extract keywords on the basis of the user input
-    boosting_tokens = KEYWORD_EXTRACTOR.parse_regex_query(query_string)
+    boosting_tokens = KEYWORD_EXTRACTOR.parse_regex_query(\
+        query_string.lower())
     
     # Make a set of all fields which have had keywords detected
     all_token_keys = set(boosting_tokens.keys()).\
@@ -238,7 +239,12 @@ if __name__ == '__main__':
     
     INDEX.indexFolder("./WHO-FAQ-Search-Engine/test_data/json_folder_data")
 
-    QUERY_GEN = QueryGenerator(StandardAnalyzer())
+    QUERY_GEN = QueryGenerator(StandardAnalyzer(),\
+        synonym_config=[
+            True, #use_wordnet
+            True, #use_syblist
+            "./WHO-FAQ-Search-Engine/synonym_expansion/synlist.txt" #synlist path
+        ])
     
     indexDir = INDEX.getIndexDir()
     SEARCH_ENGINE = SearchEngine(indexDir, rerank=True)
