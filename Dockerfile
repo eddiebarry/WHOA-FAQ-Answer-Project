@@ -24,9 +24,9 @@ RUN python -m nltk.downloader wordnet && python -m nltk.downloader omw && python
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 RUN git clone --recursive https://github.com/eddiebarry/WHOA-FAQ-Answer-Project.git
 WORKDIR /usr/src/WHOA-FAQ-Answer-Project/WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights
-RUN chmod +x ./gdown.pl 
-    && ./gdown.pl https://drive.google.com/file/d/1jsIH4q0CU33sEFBzyIcFCucmNuisgJ5v/view?usp=sharing query_expansion_weights.zip
-    && unzip query_expansion_weights.zip
+RUN chmod +x ./gdown.pl \
+    && ./gdown.pl https://drive.google.com/file/d/1jsIH4q0CU33sEFBzyIcFCucmNuisgJ5v/view?usp=sharing query_expansion_weights.zip \
+    && unzip query_expansion_weights.zip \
     && rm query_expansion_weights.zip
 
 WORKDIR /usr/src/WHOA-FAQ-Answer-Project
