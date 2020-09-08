@@ -102,8 +102,8 @@ def answer_question():
 
         what_to_say = ""
         for doc in hits[:5]:
-            what_to_say += "\ncontents : " + doc[1] + "\nscore : "+str(doc[0]) \
-            + "\n"+"**************"+"\n"+"**************"+"\n" 
+            what_to_say += "\noriginal question : " + doc[1] +  \
+            "\nscore : "+str(doc[0]) + "\n" + "-"*20 + "\n"
         what_to_say += "The synonyms we extracted from the user question are :\n"
         for syn in synonyms:
             if syn != "":
@@ -254,7 +254,7 @@ if __name__ == '__main__':
     SEARCH_ENGINE = SearchEngine(indexDir, rerank=False, debug=True)
     
     extractor_json_path = \
-        "./WHO-FAQ-Keyword-Engine/test_excel_data/curated_keywords.json"
+        "./WHO-FAQ-Keyword-Engine/test_excel_data/curated_keywords_1500.json"
     f = open(extractor_json_path,)
     jsonObj = json.load(f)
     KEYWORD_EXTRACTOR = KeywordExtract(jsonObj)
