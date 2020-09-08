@@ -1,0 +1,17 @@
+{
+    "Disease 1": "",
+    "Disease 2": "",
+    "Keyword": "",
+    "Master Answer": "No. Not all tetanus-containing vaccines protect against pertussis. \u00a0\nThe vaccine routinely given to adults every 10 years to boost protection against tetanus is the Td vaccine. This vaccine provides protection against tetanus and diphtheria but not pertussis.\u00a0\nThe Tdap vaccine provides protection against tetanus, diphtheria and pertussis. A booster dose of this vaccine is recommended for adults who were immunized against pertussis in childhood but is not provided for free in BC. It is however provided free for adults who have never been immunized against pertussis or whose immunization history is unknown.\u00a0\nThe clinic where you were immunized may have a record of your immunization and may be able to tell you which vaccine you received.\u00a0\n- Immunization Nurse\n",
+    "Master Question": "I have been told to get a Pertussis vaccination. I had a Tetanus shot in May 2013. Would that shot have automatically had pertussis with it? I am 65 years old.\n",
+    "Master Question variation 0": "do i need pertussis vaccination or tetanus shot in order to get pertussis vaccination",
+    "Master Question variation 1": "what shot does pertussis vaccine go on",
+    "Master Question variation 2": "can pertussis vaccination come in the name",
+    "Other -condition, symptom etc": "",
+    "Subject - Person": "",
+    "Subject 1 - Immunization": "Vaccination",
+    "Subject 2 - Vaccination / General": "",
+    "Vaccine 1": "Pertussis",
+    "Vaccine 2": "Tetanus",
+    "Who is writing this": "Elderly"
+}

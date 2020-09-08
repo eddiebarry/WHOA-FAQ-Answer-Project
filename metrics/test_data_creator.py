@@ -28,8 +28,8 @@ def get_json_obj_with_variations(jsonObj, \
     return new_json_obj
 
 if __name__ == "__main__":
-    indexDir = "./test_data/json_folder_data"
-    newIndexStore = "./intermediate_results/json_folder_with_variations/"
+    indexDir = "./test_data/json_folder_data_1500"
+    newIndexStore = "./intermediate_results/json_folder_with_variations_1500/"
     variation_generation_model_weights = "../WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights/model.ckpt-1004000"
     variation_generator = VariationGenerator(\
         path=variation_generation_model_weights)
@@ -45,10 +45,19 @@ if __name__ == "__main__":
             try:
                 print("analyszing", filename)
                 f = open(jsonpath,)
-                jsonObj = json.load(f)
+                json_obj = json.load(f)
+                json_name = hashlib.sha512(\
+                        json_obj['Master Question'].encode()\
+                    ).hexdigest()
+                json_file_name = os.path.join(\
+                    newIndexStore, json_name + ".json")
+
+                # Continue if file exists
+                if os.path.isfile(json_file_name):
+                    continue
 
                 new_json_obj = get_json_obj_with_variations(\
-                    jsonObj, fields_to_expand, variation_generator)
+                    json_obj, fields_to_expand, variation_generator)
 
                 json_name = hashlib.sha512(\
                         new_json_obj['Master Question'].encode()\

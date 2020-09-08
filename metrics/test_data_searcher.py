@@ -23,7 +23,7 @@ if __name__ == '__main__':
     print( 'lucene', lucene.VERSION)
 
 
-    index_path = "./intermediate_results/VariationIndex.Index"
+    index_path = "./intermediate_results/VariationIndex1500.Index"
     index = IndexFiles(index_path,StandardAnalyzer())
 
     query_gen = QueryGenerator(StandardAnalyzer())
@@ -32,12 +32,12 @@ if __name__ == '__main__':
     search_engine = SearchEngine(indexDir, rerank=False)
 
     extractor_json_path = \
-        "../WHO-FAQ-Keyword-Engine/test_excel_data/curated_keywords.json"
+        "../WHO-FAQ-Keyword-Engine/test_excel_data/curated_keywords_1500.json"
     f = open(extractor_json_path,)
     jsonObj = json.load(f)
     keyword_extractor= KeywordExtract(jsonObj)
 
-    qa_list_path = "./intermediate_results/qa_user_list.csv"
+    qa_list_path = "./intermediate_results/qa_user_list_1500.csv"
     df = pd.read_csv(qa_list_path)
 
     accuracy = 0
@@ -49,12 +49,12 @@ if __name__ == '__main__':
 
             boosting_tokens = keyword_extractor.parse_regex_query(query_string)
             query = query_gen.build_query(query_string, \
-                    boosting_tokens, "OR_QUERY", field="Master_Question",\
-                    boost_val=2.0)
+                    boosting_tokens, "OR_QUERY", field="Master Question",\
+                    boost_val=1.0)
 
             hits = search_engine.search(query, \
                     query_string=query_string, \
-                    query_field="Master_Question", top_n=10)
+                    query_field="Master Question", top_n=50)
             
             print(query_string)
             for doc in hits:

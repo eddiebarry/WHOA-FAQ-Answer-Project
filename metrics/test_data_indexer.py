@@ -14,8 +14,8 @@ from org.apache.lucene.analysis.standard import StandardAnalyzer
 if __name__ == "__main__":
     lucene.initVM(vmargs=['-Djava.awt.headless=true'])
     # create new files needed
-    indexDir = "./intermediate_results/json_folder_with_variations/"
-    oneVariationRemovedDataStore = "./intermediate_results/2_variations_json_folder/"
+    indexDir = "./intermediate_results/json_folder_with_variations_1500/"
+    oneVariationRemovedDataStore = "./intermediate_results/2_variations_json_folder_1500/"
     
     new_data = []
     for filename in sorted(os.listdir(indexDir)):
@@ -51,10 +51,11 @@ if __name__ == "__main__":
     new_df = pd.DataFrame(new_data, \
         columns = ["User Question", "Master Question"])
     
-    master_qa_path = "./intermediate_results/qa_user_list.csv"
+    master_qa_path = "./intermediate_results/qa_user_list_1500.csv"
     new_df.to_csv(master_qa_path)
 
-    index_with_variations_dir = "./intermediate_results/VariationIndex.Index"
+    index_with_variations_dir = \
+        "./intermediate_results/VariationIndex1500.Index"
     
     Index = IndexFiles(index_with_variations_dir,StandardAnalyzer())
     Index.indexFolder(oneVariationRemovedDataStore)

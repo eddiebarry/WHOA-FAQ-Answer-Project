@@ -1,0 +1,16 @@
+{
+    "Disease 1": "Mumps",
+    "Disease 2": "",
+    "Keyword": "",
+    "Master Answer": "The provincial mumps vaccine recommendations are outlined below. These recommendations may be different for select populations (for example, health care workers) and in outbreak situations. \u00a0There have been a small number of recently confirmed mumps cases in BC, however BC is not currently experiencing a mumps outbreak.\u00a0\nMumps vaccine recommendations:\nOne dose of mumps-containing vaccine (usually given as the MMR vaccine) is recommended for adults born in 1970 or later who do not have a history of mumps disease and laboratory confirmation of the same. The following groups need two doses:\n\n\t\tchildren as per the routine schedule\n\n\t\tstudents of post-secondary educational settings\n\n\t\ttravelers to outside of North America\nPeople born before 1970 are generally assumed to have acquired immunity to mumps from natural infection. However, there may be susceptible people in this age group, and those who do not have a history of mumps disease or vaccine should talk to their health care provider about getting vaccinated. \u00a0\u00a0\u00a0\nFor measles protection, two doses of the MMR vaccine are recommended for people born in 1970 or later (who do not have laboratory evidence of measles immunity).\nIf you are unsure if your immunizations are up-to-date, we recommend that you contact your\u00a0immunizing health care provider (public health nurse, physician or pharmacist). Your immunizing health care provider can review your immunization records and let you know if you are missing any vaccines.\u00a0\nAn important note about immunization records:\nWithout a record of immunization, or proof of immunity to a disease, a person is considered unimmunized and unprotected.\u00a0 You can find tips on locating immunization records\u00a0here.\u00a0\nVaccination is the best protection against mumps. For more information on the MMR vaccine, see the\u00a0HealthLinkBC File: Measles, Mumps, Rubella (MMR) Vaccine.\nFor information about mumps disease, see the\u00a0HealthLinkBC File: Mumps.\n- Immunization Nurse\n",
+    "Master Question": "Do people who only had one MMR dose (likely born between 1979 and 1995) need a second dose to protect against mumps?\n",
+    "Master Question variation 0": "do people who only had one mmr dose need a second dose",
+    "Master Question variation 1": "when mmr dose is missed do you need a second dose",
+    "Other -condition, symptom etc": "",
+    "Subject - Person": "",
+    "Subject 1 - Immunization": "Vaccination",
+    "Subject 2 - Vaccination / General": "Booster",
+    "Vaccine 1": "(MMR) Measles/Mumps/Rubella",
+    "Vaccine 2": "",
+    "Who is writing this": "Unknown "
+}

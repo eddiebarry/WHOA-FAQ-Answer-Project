@@ -1,0 +1,17 @@
+{
+    "Disease 1": "",
+    "Disease 2": "",
+    "Keyword": "",
+    "Master Answer": "ImmunizeBC does not have access to immunization records. \u00a0You will need to contact the clinic that has your child's record for information on how you can obtain a copy of it.\u00a0\nYou can find more information on obtaining immunization records here.\u00a0\n- Immunization Nurse\n",
+    "Master Question": "Hello, Is it possible to obtain a copy of immunization records for my child without coming into the clinic where they were administered?\u00a0\n",
+    "Master Question variation 0": "immunization records can be obtained without referring clinic",
+    "Master Question variation 1": "immunization records copy",
+    "Master Question variation 2": "immunization records cannot be obtained without going into clinic in which they are administered",
+    "Other -condition, symptom etc": "",
+    "Subject - Person": "Child",
+    "Subject 1 - Immunization": "Immunization Record",
+    "Subject 2 - Vaccination / General": "",
+    "Vaccine 1": "",
+    "Vaccine 2": "",
+    "Who is writing this": "Parent"
+}

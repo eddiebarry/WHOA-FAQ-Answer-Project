@@ -1,0 +1,17 @@
+{
+    "Disease 1": "",
+    "Disease 2": "",
+    "Keyword": "",
+    "Master Answer": "Contact your local health unit and ask to book an immunization appointment.\u00a0 Tell them your baby was not previously vaccinated in BC, but you have the vaccination records. At the appointment, a nurse will review the records and determine which vaccines your baby needs following the BC immunization schedule. They can photocopy your baby's vaccination records and enter it into their charting system\nFind the health unit near you here.\nImmunization Nurse\n",
+    "Master Question": "How long does it take to enter the vaccination record of a baby who's less than a year old into the system? Can we schedule the shots by producing the record of vaccination while we wait to avoid delays in vaccination schedule?\n",
+    "Master Question variation 0": "how long can it take for a record of vaccinations to become a vaccine record for a child",
+    "Master Question variation 1": "how long do vaccine record take for a baby who is less than a year",
+    "Master Question variation 2": "how long to enter vaccine record",
+    "Other -condition, symptom etc": "",
+    "Subject - Person": "Infant/baby",
+    "Subject 1 - Immunization": "Immunization Record",
+    "Subject 2 - Vaccination / General": "Vaccination",
+    "Vaccine 1": "General vaccine safety information",
+    "Vaccine 2": "",
+    "Who is writing this": "Adult"
+}
