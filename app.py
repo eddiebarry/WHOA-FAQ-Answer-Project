@@ -93,17 +93,21 @@ def answer_question():
     query = None
     # If no more questions need to be asked, isolate the search results and return
     if should_search:
-        query = QUERY_GEN.build_query(ID_QUERY_DICT[unique_id], \
+        query, synonyms = QUERY_GEN.build_query(ID_QUERY_DICT[unique_id], \
             ID_KEYWORD_DICT[unique_id], "OR_QUERY", field="Master_Question",\
             boost_val=2.0)
         hits = SEARCH_ENGINE.search(query, \
             query_string=ID_QUERY_DICT[unique_id], \
-            query_field="Master_Question", top_n=10)
+            query_field="Master_Question*", top_n=10)
 
         what_to_say = ""
-        for doc in hits:
+        for doc in hits[:5]:
             what_to_say += "\ncontents : " + doc[1] + "\nscore : "+str(doc[0]) \
-            + "\n\n\n" 
+            + "\n"+"**************"+"\n"+"**************"+"\n" 
+        what_to_say += "The synonyms we extracted from the user question are :\n"
+        for syn in synonyms:
+            if syn != "":
+                what_to_say += syn + "\n"
         
         resp_json["what_to_say"] = what_to_say
 
@@ -237,17 +241,17 @@ def hello_world():
 if __name__ == '__main__':
     INDEX = IndexFiles("./VaccineIndex.Index",StandardAnalyzer())
     
-    INDEX.indexFolder("./metrics/test_data/json_folder_data_1500")
+    INDEX.indexFolder("./metrics/intermediate_results/json_folder_with_variations_1500")
 
     QUERY_GEN = QueryGenerator(StandardAnalyzer(),\
         synonym_config=[
             True, #use_wordnet
             True, #use_syblist
             "./WHO-FAQ-Search-Engine/synonym_expansion/synlist.txt" #synlist path
-        ])
+        ], debug=True)
     
     indexDir = INDEX.getIndexDir()
-    SEARCH_ENGINE = SearchEngine(indexDir, rerank=True)
+    SEARCH_ENGINE = SearchEngine(indexDir, rerank=False, debug=True)
     
     extractor_json_path = \
         "./WHO-FAQ-Keyword-Engine/test_excel_data/curated_keywords.json"
@@ -258,7 +262,7 @@ if __name__ == '__main__':
     ID_KEYWORD_DICT = defaultdict(dict)
     ID_QUERY_DICT = defaultdict(str)
 
-    qa_config_path = "./WHO-FAQ-Dialog-Manager/QNA/question_asker_config.json"
+    qa_config_path = "./WHO-FAQ-Dialog-Manager/QNA/question_asker_reduced_config.json"
     QUESTION_ASKER = QuestionAsker(qa_config_path, show_options=True, \
         qa_keyword_path = extractor_json_path)
 

@@ -7,6 +7,14 @@ docker run -p 5001:5001 --name faq_project_test -i -t faq_project
 exit()
 ```
 
+### To restart
+```
+docker stop faq_project_test
+docker rm faq_project_test
+docker build -t faq_project .
+docker run -p 5001:5001 --name faq_project_test -i -t faq_project
+```
+
 ### To run
 ```
 docker start faq_project_test
