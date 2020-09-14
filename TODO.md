@@ -17,3 +17,7 @@
 |QA | TODO | TODO|
 |Keyword Extract | TODO | TODO|
 |JsonArray Ingestion | TODO | TODO|
+
+Major refactorings :
+	Testing Automation
+	App structure
