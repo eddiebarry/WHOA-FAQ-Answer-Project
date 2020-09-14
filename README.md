@@ -3,22 +3,22 @@
 ### To install
 ```
 docker build -t faq_project .
-docker run -p 5001:5001 --name faq_project_test -i -t faq_project
+docker run -p 5001:5001 --name faq_project_dev -i -t faq_project
 exit()
 ```
 
 ### To restart
 ```
-docker stop faq_project_test
-docker rm faq_project_test
+docker stop faq_project_dev
+docker rm faq_project_dev
 docker build -t faq_project .
-docker run -p 5001:5001 --name faq_project_test -i -t faq_project
+docker run -p 5001:5001 --name faq_project_dev -i -t faq_project
 ```
 
 ### To run
 ```
-docker start faq_project_test
-docker exec -it faq_project_test /bin/bash
+docker start faq_project_dev
+docker exec -it faq_project_dev /bin/bash
 ```
 
 ### Function for updating all submodules
