@@ -23,10 +23,10 @@ docker exec -it faq_project_dev /bin/bash
 
 ### Function for updating all submodules
 ```
-git submodule foreach git pull origin adding_first_500_QA_pairs_branch
+git submodule foreach git pull origin master
 git add .
-git commit -m "updating submodules"
-git push origin adding_first_500_QA_pairs_branch
+git commit -m "updating submodules after meging 500 questions"
+git push origin master
 ```
 ### adding_first_500_QA_pairs_branch
 
