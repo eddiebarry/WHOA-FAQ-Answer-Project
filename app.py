@@ -266,4 +266,4 @@ if __name__ == '__main__':
     QUESTION_ASKER = QuestionAsker(qa_config_path, show_options=True, \
         qa_keyword_path = extractor_json_path)
 
-    app.run(host='0.0.0.0', port = 5001)
+    app.run(host='0.0.0.0', port = 5002)
