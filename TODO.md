@@ -21,3 +21,7 @@
 Major refactorings :
 	Testing Automation
 	App structure
+
+Features :
+	Adding dynamic QAsking
+	Adding Conversation support
