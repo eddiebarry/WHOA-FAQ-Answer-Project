@@ -88,7 +88,7 @@ def answer_question():
     # Identify wether more questions need to be asked or not
     # TODO : Ask question only once
     should_search, resp_json = QUESTION_ASKER.process(\
-        unique_id, new_boosting_dict)
+        unique_id, new_boosting_dict,ID_QUERY_DICT[unique_id])
     
     query = None
     # If no more questions need to be asked, isolate the search results and return
