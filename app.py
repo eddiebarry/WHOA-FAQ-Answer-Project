@@ -4,6 +4,7 @@ sys.path.append('WHO-FAQ-Keyword-Engine')
 sys.path.append('WHO-FAQ-Search-Engine')
 sys.path.append('WHO-FAQ-Update-Engine')
 sys.path.append('WHO-FAQ-Dialog-Manager')
+sys.path.append('WHO-FAQ-Dialog-Manager/QNA')
 
 import flask
 from flask import request, jsonify
@@ -15,6 +16,7 @@ from query_generator import QueryGenerator
 from index import IndexFiles
 from org.apache.lucene.analysis.standard import StandardAnalyzer
 # TODO : Fix naming
+from QNA.common import preprocess, tokenize, porter_stemmer_instance
 from QNA.question_asker import QuestionAsker
 
 
@@ -52,7 +54,9 @@ def answer_question():
     vm_env.attachCurrentThread()
 
     # If first time being sent, calculate a unique id
-    query_string = request.args['query'].replace("?","")
+    query_string = request.args['query']\
+        .replace("?","")\
+        .replace("-","")
     if request.args['user_id'] == "-1":
         unique_id = hashlib.sha512(query_string.encode()).hexdigest()
         ID_QUERY_DICT[unique_id] = query_string
@@ -263,7 +267,12 @@ if __name__ == '__main__':
     ID_QUERY_DICT = defaultdict(str)
 
     qa_config_path = "./WHO-FAQ-Dialog-Manager/QNA/question_asker_reduced_config.json"
+    use_question_predicter_config = \
+        [True, \
+        "./WHO-FAQ-Dialog-Manager/QNA/models.txt", \
+        "./WHO-FAQ-Dialog-Manager/QNA/vectoriser.txt"]#tokeniser path
     QUESTION_ASKER = QuestionAsker(qa_config_path, show_options=True, \
-        qa_keyword_path = extractor_json_path)
+        qa_keyword_path = extractor_json_path,
+        use_question_predicter_config=use_question_predicter_config)
 
     app.run(host='0.0.0.0', port = 5002)
