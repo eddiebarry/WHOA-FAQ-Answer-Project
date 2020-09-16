@@ -25,7 +25,7 @@ RUN python -m nltk.downloader wordnet \
 
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 RUN git clone \
-    # -b adding_first_500_QA_pairs_branch 
+    -b adding_dynamic_qasking \ 
     --recursive https://github.com/eddiebarry/WHOA-FAQ-Answer-Project.git
 WORKDIR /usr/src/WHOA-FAQ-Answer-Project/WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights
 RUN chmod +x ./gdown.pl \
@@ -35,6 +35,6 @@ RUN chmod +x ./gdown.pl \
 
 WORKDIR /usr/src/WHOA-FAQ-Answer-Project
 
-EXPOSE 5001 
+EXPOSE 5002
 ENTRYPOINT [ "python" ] 
 CMD [ "app.py" ] 
