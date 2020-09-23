@@ -12,7 +12,7 @@ exit()
 docker stop faq_project_dev
 docker rm faq_project_dev
 docker build -t faq_project .
-docker run -p 5003:5003 --name faq_project_dev -i -t faq_project
+docker run -p 5004:5004 --name faq_project_dev -i -t faq_project
 ```
 
 ### To run
