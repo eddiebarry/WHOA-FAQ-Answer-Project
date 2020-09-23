@@ -54,9 +54,11 @@ def answer_question():
     vm_env.attachCurrentThread()
 
     # If first time being sent, calculate a unique id
-    query_string = request.args['query']\
+    query_string = request.args['query'].lower()\
         .replace("?","")\
-        .replace("-","")
+        .replace("-","")\
+        .replace("not relevant","")\
+        .replace("none","")
     if request.args['user_id'] == "-1":
         unique_id = hashlib.sha512(query_string.encode()).hexdigest()
         ID_QUERY_DICT[unique_id] = query_string
@@ -94,6 +96,8 @@ def answer_question():
     should_search, resp_json = QUESTION_ASKER.process(\
         unique_id, new_boosting_dict,ID_QUERY_DICT[unique_id])
     
+    # Add entire conversation to search engine
+    ID_QUERY_DICT[unique_id] += query_string.lower()
     query = None
     # If no more questions need to be asked, isolate the search results and return
     if should_search:
@@ -266,7 +270,7 @@ if __name__ == '__main__':
     ID_KEYWORD_DICT = defaultdict(dict)
     ID_QUERY_DICT = defaultdict(str)
 
-    qa_config_path = "./WHO-FAQ-Dialog-Manager/QNA/question_asker_reduced_config.json"
+    qa_config_path = "./WHO-FAQ-Dialog-Manager/QNA/question_asker_app_config.json"
     use_question_predicter_config = \
         [True, \
         "./WHO-FAQ-Dialog-Manager/QNA/models.txt", \
@@ -275,4 +279,4 @@ if __name__ == '__main__':
         qa_keyword_path = extractor_json_path,
         use_question_predicter_config=use_question_predicter_config)
 
-    app.run(host='0.0.0.0', port = 5002)
+    app.run(host='0.0.0.0', port = 5003)
