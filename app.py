@@ -270,7 +270,7 @@ if __name__ == '__main__':
     ID_KEYWORD_DICT = defaultdict(dict)
     ID_QUERY_DICT = defaultdict(str)
 
-    qa_config_path = "./WHO-FAQ-Dialog-Manager/QNA/question_asker_app_config.json"
+    qa_config_path = "./WHO-FAQ-Dialog-Manager/QNA/question_asker_reduced_config.json"
     use_question_predicter_config = \
         [True, \
         "./WHO-FAQ-Dialog-Manager/QNA/models.txt", \
