@@ -68,10 +68,16 @@ def answer_question():
     # If question has already been answered allow new question to be asked
     if ID_QUERY_DICT[unique_id] == "-1":
         ID_QUERY_DICT[unique_id] = query_string
+    else:
+        # Add entire conversation to search engine
+        ID_QUERY_DICT[unique_id] += query_string.lower()
 
     # Extract keywords on the basis of the user input
     boosting_tokens = KEYWORD_EXTRACTOR.parse_regex_query(\
         query_string.lower())
+    
+    import pdb
+    pdb.set_trace()
     
     # Make a set of all fields which have had keywords detected
     all_token_keys = set(boosting_tokens.keys()).\
@@ -96,8 +102,6 @@ def answer_question():
     should_search, resp_json = QUESTION_ASKER.process(\
         unique_id, new_boosting_dict,ID_QUERY_DICT[unique_id])
     
-    # Add entire conversation to search engine
-    ID_QUERY_DICT[unique_id] += query_string.lower()
     query = None
     # If no more questions need to be asked, isolate the search results and return
     if should_search:
@@ -280,4 +284,4 @@ if __name__ == '__main__':
         qa_keyword_path = extractor_json_path,
         use_question_predicter_config=use_question_predicter_config)
 
-    app.run(host='0.0.0.0', port = 5003)
+    app.run(host='0.0.0.0', port = 5002)
