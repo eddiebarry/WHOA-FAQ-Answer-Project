@@ -280,4 +280,4 @@ if __name__ == '__main__':
         qa_keyword_path = extractor_json_path,
         use_question_predicter_config=use_question_predicter_config)
 
-    app.run(host='0.0.0.0', port = 5002)
+    app.run(host='0.0.0.0', port = 5003)
