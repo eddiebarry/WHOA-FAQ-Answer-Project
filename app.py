@@ -259,7 +259,7 @@ if __name__ == '__main__':
         ], debug=True)
     
     indexDir = INDEX.getIndexDir()
-    SEARCH_ENGINE = SearchEngine(indexDir, rerank=False, debug=True)
+    SEARCH_ENGINE = SearchEngine(indexDir, rerank=True, debug=True)
     
     extractor_json_path = \
         "./WHO-FAQ-Keyword-Engine/test_excel_data/curated_keywords_1500.json"
@@ -270,11 +270,12 @@ if __name__ == '__main__':
     ID_KEYWORD_DICT = defaultdict(dict)
     ID_QUERY_DICT = defaultdict(str)
 
-    qa_config_path = "./WHO-FAQ-Dialog-Manager/QNA/question_asker_reduced_config.json"
-    use_question_predicter_config = \
-        [True, \
-        "./WHO-FAQ-Dialog-Manager/QNA/models.txt", \
-        "./WHO-FAQ-Dialog-Manager/QNA/vectoriser.txt"]#tokeniser path
+    qa_config_path = "./WHO-FAQ-Dialog-Manager/QNA/question_asker_test_config.json"
+    use_question_predicter_config = [
+            False, #Use question predictor
+            "./WHO-FAQ-Dialog-Manager/QNA/models.txt", #models path
+            "./WHO-FAQ-Dialog-Manager/QNA/vectoriser.txt" #tokeniser path
+        ]
     QUESTION_ASKER = QuestionAsker(qa_config_path, show_options=True, \
         qa_keyword_path = extractor_json_path,
         use_question_predicter_config=use_question_predicter_config)
