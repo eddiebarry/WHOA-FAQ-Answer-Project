@@ -22,6 +22,7 @@ from QNA.question_asker import QuestionAsker
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
+# app.config['JSON_AS_ASCII'] = False
 lucene.initVM(vmargs=['-Djava.awt.headless=true'])
 
 
@@ -91,6 +92,9 @@ def answer_question():
         if key in ID_KEYWORD_DICT[unique_id].keys():
             new_boosting_dict[key].extend(ID_KEYWORD_DICT[unique_id][key])
     
+    # import pdb
+    # pdb.set_trace()
+    
     # Store the newly created keyword dictionary in global memory
     ID_KEYWORD_DICT[unique_id] = new_boosting_dict
 
@@ -109,14 +113,28 @@ def answer_question():
             query_string=ID_QUERY_DICT[unique_id], \
             query_field="Master_Question*", top_n=10)
 
-        what_to_say = ""
-        for doc in hits[:5]:
-            what_to_say += "\noriginal question : " + doc[1] +  \
-            "\nscore : "+str(doc[0]) + "\n" + "-"*20 + "\n"
-        what_to_say += "The synonyms we extracted from the user question are :\n"
+        what_to_say = {}
+        for idx, doc in enumerate(hits[:5]):
+            question_and_variation = doc[1].split(" ||| ")
+            for var_idx, question_var in enumerate(question_and_variation[:3]):
+                title = "question_"+str(idx)+"_variation_"+str(var_idx)
+                what_to_say[title] = question_var
+            
+            score_title = "question_"+str(idx)+"_score"
+            what_to_say[score_title] = doc[0]
+
+            answer_title = "question_"+str(idx)+"_answer"
+            what_to_say[answer_title] = question_and_variation[-1]
+        
+
+        import pdb
+        pdb.set_trace()
+        # what_to_say += "The synonyms we extracted from the user question are :\n"
+        syn_str = ""
         for syn in synonyms:
             if syn != "":
-                what_to_say += syn + "\n"
+                syn_str += syn+" ,"
+        what_to_say["synonyms"] = syn_str
         
         resp_json["what_to_say"] = what_to_say
 
@@ -244,7 +262,7 @@ def index_json_array():
 
 @app.route('/')
 def hello_world():
-    return 'Hello, World! Bye world, Hi world This is the end'
+    return 'Hello, World! The service is up'
         
 
 if __name__ == '__main__':
@@ -260,7 +278,7 @@ if __name__ == '__main__':
         ], debug=True)
     
     indexDir = INDEX.getIndexDir()
-    SEARCH_ENGINE = SearchEngine(indexDir, rerank=True, debug=True)
+    SEARCH_ENGINE = SearchEngine(indexDir, rerank=False, debug=True)
     
     extractor_json_path = \
         "./WHO-FAQ-Keyword-Engine/test_excel_data/curated_keywords_1500.json"
