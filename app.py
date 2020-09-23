@@ -126,9 +126,6 @@ def answer_question():
             answer_title = "question_"+str(idx)+"_answer"
             what_to_say[answer_title] = question_and_variation[-1]
         
-
-        import pdb
-        pdb.set_trace()
         # what_to_say += "The synonyms we extracted from the user question are :\n"
         syn_str = ""
         for syn in synonyms:
