@@ -76,9 +76,6 @@ def answer_question():
     boosting_tokens = KEYWORD_EXTRACTOR.parse_regex_query(\
         query_string.lower())
     
-    import pdb
-    pdb.set_trace()
-    
     # Make a set of all fields which have had keywords detected
     all_token_keys = set(boosting_tokens.keys()).\
         union(ID_KEYWORD_DICT[unique_id].keys())
@@ -247,7 +244,7 @@ def index_json_array():
 
 @app.route('/')
 def hello_world():
-    return 'Hello, World! Bye world, Hi world'
+    return 'Hello, World! Bye world, Hi world This is the end'
         
 
 if __name__ == '__main__':
