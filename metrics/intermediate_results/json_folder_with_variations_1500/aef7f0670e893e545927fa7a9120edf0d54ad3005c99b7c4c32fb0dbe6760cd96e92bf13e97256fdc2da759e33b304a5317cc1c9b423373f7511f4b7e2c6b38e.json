@@ -1,0 +1,17 @@
+{
+    "Disease 1": "Varicella (Chickenpox)",
+    "Disease 2": "-",
+    "Keyword": "",
+    "Master Answer": "Please contact your immunization provider or your local public health office to discuss your daughter's eligibility for a 2nd varicella. A 2nd dose of varicella is given to suseptible individuals. You can find the health unit number here.\nImmunization Nurse\n",
+    "Master Question": "My daughter received her varicella vaccine at 18 months. Her immunization records show she never received a second vaccination. She is now 18 years old. Should she get one now?\n",
+    "Master Question variation 0": "should my child receive a second vaccination",
+    "Master Question variation 1": "if my child gets a varicella shot should she get a second vaccination",
+    "Master Question variation 2": "when should a child get another varicella shot?",
+    "Other -condition, symptom etc": "",
+    "Subject - Person": "Child",
+    "Subject 1 - Immunization": "Immunization Record",
+    "Subject 2 - Vaccination / General": "Vaccination",
+    "Vaccine 1": "-",
+    "Vaccine 2": "",
+    "Who is writing this": "parent"
+}

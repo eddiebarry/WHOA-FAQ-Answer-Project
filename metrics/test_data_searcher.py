@@ -1,6 +1,7 @@
 import sys, os, lucene, json
 import hashlib
 import pandas as pd
+import pickle
 
 sys.path.append('../WHO-FAQ-Keyword-Engine')
 sys.path.append('../WHO-FAQ-Search-Engine')
@@ -42,34 +43,36 @@ if __name__ == '__main__':
 
     accuracy = 0
     total = 0
-    for idx, x in df.iterrows():
-        try:
-            query_string = x['User Question'].\
-                replace("?","").replace("(","").replace(")","")
-
-            boosting_tokens = keyword_extractor.parse_regex_query(query_string)
-            query = query_gen.build_query(query_string, \
-                    boosting_tokens, "OR_QUERY", field="Master Question",\
-                    boost_val=1.0)
-
-            hits = search_engine.search(query, \
-                    query_string=query_string, \
-                    query_field="Master Question", top_n=50)
-            
-            print(query_string)
-            for doc in hits:
-                if x['Master Question']==doc[1]:
-                    accuracy +=1
-                print(doc[1])
-            print("*"*80)
-            
-            total += 1
-
-        except Exception as e:
-                print( "Failure in search", e)
     
-    print(accuracy, total)
-            
+    rerank_test = []
+    for idx, x in df.iterrows():
+        # try:
+        query_string = x['User Question'].\
+            replace("?","").replace("(","").replace(")","").replace("-","")
+        print(query_string)
+
+        boosting_tokens = keyword_extractor.parse_regex_query(query_string)
+        query = query_gen.build_query(query_string, \
+                boosting_tokens, "OR_QUERY", field="Master Question",\
+                boost_val=1.0)
+
+        hits = search_engine.search(query, \
+                query_string=query_string, \
+                query_field="Master Question", top_n=5)
+        
+        rerank_test.append([query_string, x['Master Question'], hits])  
+
+        for doc in hits:
+            if x['Master Question']==doc[1]:
+                accuracy +=1
+        print("*"*80)
+        
+        total += 1
+    
+    print(accuracy, total, accuracy/total)
+    
+    import pickle
+    pickle.dump( rerank_test, open( "rerank.p", "wb" ) )
 
 
 

@@ -1,0 +1,17 @@
+{
+    "Disease 1": "Overweight and Obesity",
+    "Disease 2": "general vaccine safety information",
+    "Keyword": "",
+    "Master Answer": "Vaccines do not work like medications so in many cases the same vaccine dose can be given to different age groups; however, in some cases, different versions of vaccines are available for different age groups. There are specific adult and pediatric versions of hepatitis A, hepatitis B, and tetanus, diphtheria, and pertussis vaccines. With hepatitis A and hepatitis B vaccines, adults receive greater quantities of the components that give protection in order to produce a protective response. However, in the case of the latter vaccines, the quantities of components of the diphtheria and pertussis vaccines used in adults are less than those found in pediatric doses because adults are more likely to experience side effects from these vaccines.\nPeople are sometimes concerned about the dosing of vaccines because they compare them with medications, which are given in different doses based on body weight. This is like comparing apples and oranges. Medications work when a certain level is present in the bloodstream; so, the weight of a person is important. It takes more of a medicine to see the same effect in a larger person than it does in a smaller person. This is similar to the effects of alcohol on a large man and a small woman.\nVaccines work differently. For a vaccine to be effective, the cells of the immune system are important. Immune cells, called T cells and B cells, must be able to recognize the component of the vaccine, so that if a person comes into contact with that virus or bacteria again, these educated cells can become active and protect the person from an infection. Since these cells are throughout the body, they are usually educated near where the vaccine is given and then the cells, not the vaccines, travel throughout the body. Because of the way that vaccines work, they typically require very low quantities of active ingredients.\nDuring the phases of vaccine development, different doses are tested to determine the lowest effective dose for the target age group.\nWe do not recommend delaying immunization in underweight children for the reasons above. We recommend following the recommended schedule in order to protect the child as soon as possible.\nImmunization Nurse\n\u00a0\nSource: Vaccine Education Center at the Children's Hospital of Philadelphia\u00a0 (a credible source of evidence based vaccine information).\n",
+    "Master Question": "Does an adult get the same amount of vaccine than a baby? how do you decide how much to give if not by weight? if a child is underweight would waiting make more sense?\n",
+    "Master Question variation 0": "do adults receive vaccine more than babies?",
+    "Master Question variation 1": "does an adult get the same amount of vaccine as a baby",
+    "Master Question variation 2": "does the adult get the same amount of vaccine as a baby",
+    "Other -condition, symptom etc": "",
+    "Subject - Person": "Child",
+    "Subject 1 - Immunization": "Vaccination",
+    "Subject 2 - Vaccination / General": "Vaccination",
+    "Vaccine 1": "-",
+    "Vaccine 2": "",
+    "Who is writing this": "unknown"
+}

@@ -1,0 +1,17 @@
+{
+    "Disease 1": "-",
+    "Disease 2": "-",
+    "Keyword": "",
+    "Master Answer": "ImmunizeBC is an immunization resource for members of the public, not health care workers (HCWs). Please speak with your educational institution about their occupational health program and exemptions. In general:\n\n\t\tHCWs are at risk of exposure to infectious diseases because of their contact with patients.\n\n\t\tHaving immunity against vaccine-preventable diseases protects HCWs and may also protect patients from becoming infected by HCWs.\n\n\t\tAll routine immunizations, including booster doses, are recommended to HCWs.\n\n\t\tIn BC, there is an influenza prevention policy for all health care settings. More information is here.\nImmunization Nurse\n",
+    "Master Question": "I want to enroll in an MD program, but I have VAX sensitivities. Is there exemptions to this? I don't think risking my health for flu shots would prevent me from providing medical care to others...\n",
+    "Master Question variation 0": "what is the exemption for flu shots?",
+    "Master Question variation 1": "is there an exemption to flu shots",
+    "Master Question variation 2": "if risking your health for flu shots would prevent me from providing medical care to others?",
+    "Other -condition, symptom etc": "",
+    "Subject - Person": "Unknown ",
+    "Subject 1 - Immunization": "Generic",
+    "Subject 2 - Vaccination / General": "Generic",
+    "Vaccine 1": "Influenza (Flu)",
+    "Vaccine 2": "",
+    "Who is writing this": "unknown"
+}

@@ -1,0 +1,17 @@
+{
+    "Disease 1": "-",
+    "Disease 2": "-",
+    "Keyword": "",
+    "Master Answer": "The consent of one parent is needed for a health care provider to immunize a child. This parent must have the authority to give consent. Please discuss this further with your health care provider.\u00a0\nImmunization nurse\n",
+    "Master Question": "We have shared guardianship of two children. I want to follow the vaccination plan. My ex believes the children should not be vaccinated. Do I need my ex's permission to do this?\n",
+    "Master Question variation 0": "whose ex believes the children should not be vaccinated",
+    "Master Question variation 1": "can my children be vaccinated after vaccination",
+    "Master Question variation 2": "vaccinating children do you need permission from ex",
+    "Other -condition, symptom etc": "permisssion",
+    "Subject - Person": "Child",
+    "Subject 1 - Immunization": "Vaccination",
+    "Subject 2 - Vaccination / General": "Generic",
+    "Vaccine 1": "-",
+    "Vaccine 2": "",
+    "Who is writing this": "parent"
+}

@@ -1,0 +1,17 @@
+{
+    "Disease 1": "-",
+    "Disease 2": "-",
+    "Keyword": "",
+    "Master Answer": "ImmunizeBC cannot confirm that information for this location. In general, the majority of health units throughout BC are open Monday to Friday. Depending on the time of year or if a disease outbreak occurs, there may be adjustments to hours or days of services.\nOn the Island Health website, it does not specify the days for this location: https://www.islandhealth.ca/our-locations/health-unit-locations/esquimal....\nImmunization Nurse\n",
+    "Master Question": "The Health Unit pages show the hours, but not the days. Are all offices M-F only, or are any open on weekends? e.g. https://immunizebc.ca/public-health-unit/esquimalt-health-unit\n",
+    "Master Question variation 0": "are health centres open on weekends",
+    "Master Question variation 1": "do offices close on weekends",
+    "Master Question variation 2": "are all office hours and hours the same day",
+    "Other -condition, symptom etc": "",
+    "Subject - Person": "Unknown ",
+    "Subject 1 - Immunization": "Generic",
+    "Subject 2 - Vaccination / General": "Generic",
+    "Vaccine 1": "-",
+    "Vaccine 2": "",
+    "Who is writing this": "Unknown"
+}

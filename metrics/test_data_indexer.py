@@ -30,6 +30,11 @@ if __name__ == "__main__":
                 jsonObj = json.load(f)
 
                 user_question = jsonObj.pop('Master Question variation 2')
+                
+                # Debugging
+                # jsonObj.pop('Master Question variation 0')
+                # jsonObj.pop('Master Question variation 1')
+                
                 master_question = jsonObj['Master Question']
 
                 new_data.append([user_question, master_question])

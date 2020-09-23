@@ -1,0 +1,16 @@
+{
+    "Disease 1": "Measles",
+    "Disease 2": "(MMR) Measles / Mumps / Rubella",
+    "Keyword": "",
+    "Master Answer": "ImmunizeBC is for members of the public, not health care professionals. Please contact the health unit in your area directly.\nImmunization Nurse\n",
+    "Master Question": "Hello, I have a few adult patients requesting the measles vaccine with no record of immunization. Can I order some MMR for pick up from the Health Unit? Thank you kindly,\n",
+    "Master Question variation 0": "can I pick up MMR from healthcare unit",
+    "Master Question variation 1": "can i order mmr for pick up from the health unit?",
+    "Other -condition, symptom etc": "",
+    "Subject - Person": "Unknown ",
+    "Subject 1 - Immunization": "Vaccination",
+    "Subject 2 - Vaccination / General": "Vaccination",
+    "Vaccine 1": "Measles",
+    "Vaccine 2": "",
+    "Who is writing this": "adult"
+}

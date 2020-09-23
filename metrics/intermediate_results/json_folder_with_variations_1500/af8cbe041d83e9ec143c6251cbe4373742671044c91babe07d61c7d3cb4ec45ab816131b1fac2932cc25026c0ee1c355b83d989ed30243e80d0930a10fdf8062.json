@@ -1,0 +1,17 @@
+{
+    "Disease 1": "-",
+    "Disease 2": "-",
+    "Keyword": "",
+    "Master Answer": "Please contact your local public health unit for this information. You will find the number here.\nImmunization Nurse\n",
+    "Master Question": "Does my pharmacy need to acquire a new thermometer for our flu fridge each season? Does my fridge need to be inspected by my local PHU before I can use it for flu vaccines?\n",
+    "Master Question variation 0": "how to inspected fridge for flu vaccines",
+    "Master Question variation 1": "what phu inspection is needed for flu vaccines",
+    "Master Question variation 2": "flu fridge inspection",
+    "Other -condition, symptom etc": "",
+    "Subject - Person": "Child",
+    "Subject 1 - Immunization": "Vaccination",
+    "Subject 2 - Vaccination / General": "Vaccination",
+    "Vaccine 1": "Influenza (Flu)",
+    "Vaccine 2": "",
+    "Who is writing this": "unknown"
+}

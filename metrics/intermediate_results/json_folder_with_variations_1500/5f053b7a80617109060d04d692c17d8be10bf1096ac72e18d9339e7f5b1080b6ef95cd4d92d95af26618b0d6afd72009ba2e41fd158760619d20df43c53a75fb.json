@@ -1,0 +1,17 @@
+{
+    "Disease 1": "Measles",
+    "Disease 2": "Measles",
+    "Keyword": "",
+    "Master Answer": "You do not need to have your blood drawn to see if you have measles immunity.\n\n\t\tFor all individuals born after January 1, 1970, two doses of measles-containing vaccine (given as MMR) are recommended. Individuals born in 1970 or later with documentation of two doses of a measles-containing vaccine are considered immune and no booster doses are recommended.\u00a0\n\n\t\tIndividuals born before 1970 are generally assumed to have acquired immunity to measles from natural infection, and therefore MMR vaccine is not recommended for these individuals.\nLearn more about measles and the MMR vaccine here.\nImmunization Nurse\n",
+    "Master Question": "Im not sure if i ever got the measles vaccine. Should i just get the vaccine or get a doctor to get my blood drawn to see if i do have immunity to it? I would like to get the vaccine right away!\n",
+    "Master Question variation 0": "if i never got vaccine can i have measles vaccine right away",
+    "Master Question variation 1": "do you get the vaccine when you get my measles vaccine",
+    "Master Question variation 2": "will measles vaccine work for measles",
+    "Other -condition, symptom etc": "",
+    "Subject - Person": "Unknown ",
+    "Subject 1 - Immunization": "immunity",
+    "Subject 2 - Vaccination / General": "Vaccination",
+    "Vaccine 1": "Measles",
+    "Vaccine 2": "",
+    "Who is writing this": "unknown"
+}

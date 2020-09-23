@@ -1,0 +1,17 @@
+{
+    "Disease 1": "Measles",
+    "Disease 2": "",
+    "Keyword": "",
+    "Master Answer": "Please contact your local public health unit and ask to speak to a public health nurse. A public health nurse can discuss your results and answer any questions you may have. You will find the phone number for your health unit here.\nImmunization Nurse\n",
+    "Master Question": "I am HCW, I did not remember took MMR VACCINE, I have one rubella IGg positive and other viruses no available.result test. Is it meaning immunized for three viruses.\n",
+    "Master Question variation 0": "does rubella igg positive mean immunized for virus",
+    "Master Question variation 1": "can i have rubella IGg positive in my urine",
+    "Master Question variation 2": "is it normal i was immunized for three viruses",
+    "Other -condition, symptom etc": "",
+    "Subject - Person": "Adult",
+    "Subject 1 - Immunization": "Immunization Safety",
+    "Subject 2 - Vaccination / General": "Protection",
+    "Vaccine 1": "(MMR) Measles / Mumps / Rubella",
+    "Vaccine 2": "",
+    "Who is writing this": "Adult"
+}

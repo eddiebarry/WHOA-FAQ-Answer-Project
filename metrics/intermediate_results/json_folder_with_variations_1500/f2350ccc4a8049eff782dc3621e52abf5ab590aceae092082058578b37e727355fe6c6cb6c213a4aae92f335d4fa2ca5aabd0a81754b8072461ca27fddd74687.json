@@ -1,0 +1,17 @@
+{
+    "Disease 1": "Asthma",
+    "Disease 2": "Influenza (Flu)",
+    "Keyword": "",
+    "Master Answer": "In BC, the influenza vaccine is recommended and provided free to persons with chronic health conditions, such as asthma. Find an influenza vaccine clinic near you here.\nImmunization Nurse\n",
+    "Master Question": "I'm a 27 year old female and a PR. I have suffered from wheezing since childhood and can't go without using my inhaler everyday. Am I eligible for free flu shots?\n",
+    "Master Question variation 0": "wheezing since childhood",
+    "Master Question variation 1": "wheezing since childhood can't go without inhaler everyday",
+    "Master Question variation 2": "wheezing since childhood",
+    "Other -condition, symptom etc": "",
+    "Subject - Person": "Adult",
+    "Subject 1 - Immunization": "Immunization Required",
+    "Subject 2 - Vaccination / General": "Vaccine Cost",
+    "Vaccine 1": "Influenza (Flu)",
+    "Vaccine 2": "",
+    "Who is writing this": "Adult"
+}

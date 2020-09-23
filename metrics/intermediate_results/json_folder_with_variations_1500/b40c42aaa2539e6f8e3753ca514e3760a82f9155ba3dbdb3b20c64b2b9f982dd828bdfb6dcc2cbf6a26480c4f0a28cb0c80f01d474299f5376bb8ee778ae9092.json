@@ -1,0 +1,17 @@
+{
+    "Disease 1": "Measles",
+    "Disease 2": "Measles",
+    "Keyword": "",
+    "Master Answer": "Tips for locating immunization records are here.\n\n\t\tFor all individuals born after January 1, 1970, two doses of measles-containing vaccine are recommended.\n\n\t\tIndividuals born before 1970 are generally assumed to have acquired immunity to measles from natural infection, and therefore MMR vaccine is not recommended for these individuals.\n\n\t\tWithout a record of immunization (or proof of immunity to a disease), a person is considered unimmunized and unprotected and should generally be vaccinated (or revaccinated) to ensure protection. It is safe to repeat vaccines.\n\n\t\tInformation about where to get the Measles, Mumps, Rubella (MMR) Vaccine is here.\nImmunization Nurse\n",
+    "Master Question": "My brother is looking to get his immunization record and be tested to make sure he is still immune to measles as his work had a case of someone with measles. Where can he get this?\n",
+    "Master Question variation 0": "can you test a measles patient for immunization",
+    "Master Question variation 1": "can immunization records show immunity to measles",
+    "Master Question variation 2": "is immunization record still valid for immunity to measles",
+    "Other -condition, symptom etc": "",
+    "Subject - Person": "Sibling",
+    "Subject 1 - Immunization": "Immunization Record",
+    "Subject 2 - Vaccination / General": "Generic",
+    "Vaccine 1": "Measles",
+    "Vaccine 2": "",
+    "Who is writing this": "Unknown"
+}

@@ -1,0 +1,16 @@
+{
+    "Disease 1": "-",
+    "Disease 2": "-",
+    "Keyword": "",
+    "Master Answer": "Please contact your local health unit to have the name changed on the immunization record. You will find the number for the health unit here.\nImmunization Nurse\n",
+    "Master Question": "Recently I changed my kid's last name. How can I change it on immunization record?\n",
+    "Master Question variation 0": "name change on immunization record",
+    "Master Question variation 1": "last name change child last name  change on immunization record? change on immunization record? change name in s child's last name name",
+    "Other -condition, symptom etc": "",
+    "Subject - Person": "Child",
+    "Subject 1 - Immunization": "Immunization Record",
+    "Subject 2 - Vaccination / General": "Generic",
+    "Vaccine 1": "-",
+    "Vaccine 2": "",
+    "Who is writing this": "parent"
+}

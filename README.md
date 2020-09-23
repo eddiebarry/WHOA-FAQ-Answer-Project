@@ -32,15 +32,16 @@ git push origin $branch_name
 
 ### checking out and work on a new branch
 ```
-git submodule foreach git checkout -b adding_dynamic_qasking
-git checkout -b adding_dynamic_qasking
+branch_name=new_branch_name
+git submodule foreach git checkout -b $branch_name
+git checkout -b $branch_name
 ```
 
 ### checking out and work on a existing branch
 ```
-git submodule foreach git checkout adding_dynamic_qasking
-git checkout adding_dynamic_qasking
-git submodule foreach git push --set-upstream origin adding_dynamic_qasking
+git submodule foreach git checkout $branch_name
+git checkout $branch_name
+git submodule foreach git push --set-upstream origin $branch_name
 ```
 
 ### merging all branches and returning to master

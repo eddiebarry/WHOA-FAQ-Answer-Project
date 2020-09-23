@@ -1,0 +1,17 @@
+{
+    "Disease 1": "Cancer",
+    "Disease 2": "General vaccine safety information",
+    "Keyword": "",
+    "Master Answer": "In general, people who have cancer are considered to be at high-risk for serious illness from influenza (the flu) and should get the inactivated influenza vaccine. If you received a checkpoint inhibitor to treat cancer, this may affect the timing of when you should get the vaccine.\u00a0Please speak with your health care provider about getting vaccinated.\u00a0\nImmunization Nurse\n",
+    "Master Question": "I have just finished chemotherapy and my cancer is now in remission (as of Sept 6, 2019). Is it safe for me to get a flu shot now?\n",
+    "Master Question variation 0": "when will flu shot come out",
+    "Master Question variation 1": "when is safe to get flu shot",
+    "Master Question variation 2": "is flu shot safe now",
+    "Other -condition, symptom etc": "chemotherapy",
+    "Subject - Person": "unknown ",
+    "Subject 1 - Immunization": "Immunization Safety",
+    "Subject 2 - Vaccination / General": "Safety",
+    "Vaccine 1": "Influenza (Flu)",
+    "Vaccine 2": "",
+    "Who is writing this": "unknown"
+}
