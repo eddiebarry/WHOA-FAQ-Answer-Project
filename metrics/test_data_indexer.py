@@ -15,7 +15,7 @@ if __name__ == "__main__":
     lucene.initVM(vmargs=['-Djava.awt.headless=true'])
     # create new files needed
     indexDir = "./intermediate_results/json_folder_with_variations_1500/"
-    oneVariationRemovedDataStore = "./intermediate_results/2_variations_json_folder_1500/"
+    oneVariationRemovedDataStore = "./intermediate_results/json_folder_with_no_variations/"
     
     new_data = []
     for filename in sorted(os.listdir(indexDir)):
@@ -32,8 +32,8 @@ if __name__ == "__main__":
                 user_question = jsonObj.pop('Master Question variation 2')
                 
                 # Debugging
-                # jsonObj.pop('Master Question variation 0')
-                # jsonObj.pop('Master Question variation 1')
+                jsonObj.pop('Master Question variation 0')
+                jsonObj.pop('Master Question variation 1')
                 
                 master_question = jsonObj['Master Question']
 
