@@ -56,9 +56,10 @@ if __name__ == '__main__':
                 boosting_tokens, "OR_QUERY", field="Master Question",\
                 boost_val=1.0)
 
+        top_n = 100
         hits = search_engine.search(query, \
                 query_string=query_string, \
-                query_field="Master Question", top_n=5)
+                query_field="Master Question", top_n=top_n)
         
         rerank_test.append([query_string, x['Master Question'], hits])  
 
@@ -72,7 +73,7 @@ if __name__ == '__main__':
     print(accuracy, total, accuracy/total)
     
     import pickle
-    pickle.dump( rerank_test, open( "rerank.p", "wb" ) )
+    pickle.dump( rerank_test, open( "pure_search_"+str(top_n)+"_"+str(round(accuracy/total,3))+".p", "wb" ) )
 
 
 
