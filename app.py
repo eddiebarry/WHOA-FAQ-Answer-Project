@@ -62,16 +62,12 @@ def answer_question():
         .replace("none","")
     if request.args['user_id'] == "-1":
         unique_id = hashlib.sha512(query_string.encode()).hexdigest()
-        ID_QUERY_DICT[unique_id] = query_string
+        # If question has already been answered allow new question to be asked
+        ID_QUERY_DICT[unique_id] = query_string + " "
     else:
         unique_id = request.args['user_id']
-    
-    # If question has already been answered allow new question to be asked
-    if ID_QUERY_DICT[unique_id] == "-1":
-        ID_QUERY_DICT[unique_id] = query_string
-    else:
         # Add entire conversation to search engine
-        ID_QUERY_DICT[unique_id] += query_string.lower()
+        ID_QUERY_DICT[unique_id] += query_string.lower() + " "    
 
     # Extract keywords on the basis of the user input
     boosting_tokens = KEYWORD_EXTRACTOR.parse_regex_query(\
@@ -111,7 +107,7 @@ def answer_question():
             boost_val=2.0)
         hits = SEARCH_ENGINE.search(query, \
             query_string=ID_QUERY_DICT[unique_id], \
-            query_field="Master_Question*", top_n=10)
+            query_field="Master_Question*", top_n=50)
 
         what_to_say = {}
         for idx, doc in enumerate(hits[:5]):
@@ -275,7 +271,7 @@ if __name__ == '__main__':
         ], debug=True)
     
     indexDir = INDEX.getIndexDir()
-    SEARCH_ENGINE = SearchEngine(indexDir, rerank=False, debug=True)
+    SEARCH_ENGINE = SearchEngine(indexDir, rerank=True, debug=True)
     
     extractor_json_path = \
         "./WHO-FAQ-Keyword-Engine/test_excel_data/curated_keywords_1500.json"
