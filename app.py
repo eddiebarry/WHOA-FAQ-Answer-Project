@@ -230,35 +230,6 @@ def index_json_array():
     Inputs
     ------
     Expects a api call of the form : ""
-    
-    jsonArray : Array of Json Objects
-        This array consists of the json objects that we want to index
-        The array is of the form :
-            {
-                "QA_Pairs":[
-                    {
-                        "Subject - Person": "Child",
-                        "Subject 1 - Immunization": "Immunization General",
-                        "Subject 2 - Vaccination / General": "",
-                        "Who is writing this": "Parent"
-                    },
-                    {
-                        "Subject 1 - Immunization": "Immunization Required",
-                        "Subject 2 - Vaccination / General": "",
-                        "Subject Sex": "Male",
-                        "Vaccine": "Varicella (Chickenpox)",
-                        "Who is writing this": "Unknown "
-                    },
-                    {
-                        "Disease 1": "Chickenpox",
-                        "Keyword": "Shingles vaccines",
-                        "Subject - Person": "",
-                        "Subject 1 - Immunization": "Immunization Required",
-                        "Subject 2 - Vaccination / General": "Vaccine Cost",
-                        "Who is writing this": "Adult"
-                    }
-                ]
-            }
 
     Outputs
     -------
@@ -323,4 +294,4 @@ if __name__ == '__main__':
         qa_keyword_path = extractor_json_path,
         use_question_predicter_config=use_question_predicter_config)
 
-    app.run(host='0.0.0.0', port = 5003)
+    app.run(host='0.0.0.0', port = 5006)
