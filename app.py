@@ -273,7 +273,7 @@ if __name__ == '__main__':
         ], debug=True)
     
     indexDir = INDEX.getIndexDir()
-    SEARCH_ENGINE = SearchEngine(indexDir, rerank=False, debug=True)
+    SEARCH_ENGINE = SearchEngine(indexDir, rerank=True, debug=True)
     
     extractor_json_path = \
         "./WHO-FAQ-Keyword-Engine/test_excel_data/curated_keywords_1500.json"
