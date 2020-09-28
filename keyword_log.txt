@@ -1,0 +1,32 @@
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+The user query is  abac
+The extracted tokens are  {}
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+The user query is  my child has measles
+The extracted tokens are  {'Disease 1': ['measles'], 'Disease 2': ['measles'], 'Keyword': ['child', 'measles'], 'Other -condition, symptom etc': ['child'], 'Subject - Person': ['child'], 'Vaccine 1': ['measles'], 'Vaccine 2': ['measles'], 'Who is writing this': ['child']}
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+The user query is  my child has measles' where can i get a vaccine
+The extracted tokens are  {'Disease 1': ['measles'], 'Disease 2': ['measles'], 'Keyword': ['child', 'measles'], 'Other -condition, symptom etc': ['child'], 'Subject - Person': ['child'], 'Vaccine 1': ['measles'], 'Vaccine 2': ['measles'], 'Who is writing this': ['child']}
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+The user query is  My child is sick where can he get measles vaccine Please go to khandala
+The extracted tokens are  {'Disease 1': ['measles'], 'Disease 2': ['measles'], 'Keyword': ['child', 'measles'], 'Other -condition, symptom etc': ['sick', 'child'], 'Subject - Person': ['child'], 'Vaccine 1': ['measles'], 'Vaccine 2': ['measles'], 'Who is writing this': ['child']}
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+The user query is  My child is sick where can he get measles vaccine Please go to khandala
+The extracted tokens are  {'Disease 1': ['measles'], 'Disease 2': ['measles'], 'Keyword': ['child', 'measles'], 'Other -condition, symptom etc': ['sick', 'child'], 'Subject - Person': ['child'], 'Vaccine 1': ['measles'], 'Vaccine 2': ['measles'], 'Who is writing this': ['child']}
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+The user query is  My child is sick where can he get measles vaccine Please go to khandala
+The extracted tokens are  {'Disease 1': ['measles'], 'Disease 2': ['measles'], 'Keyword': ['child', 'measles'], 'Other -condition, symptom etc': ['sick', 'child'], 'Subject - Person': ['child'], 'Vaccine 1': ['measles'], 'Vaccine 2': ['measles'], 'Who is writing this': ['child']}
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+The user query is  my child has measles where can i get a vaccinego to khandala
+The extracted tokens are  {'Disease 1': ['measles'], 'Disease 2': ['measles'], 'Keyword': ['child', 'measles'], 'Other -condition, symptom etc': ['child'], 'Subject - Person': ['child'], 'Vaccine 1': ['measles'], 'Vaccine 2': ['measles'], 'Who is writing this': ['child']}
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+The user query is  my baby has measles where can i get a vaccinego to khandala
+The extracted tokens are  {'Disease 1': ['measles'], 'Disease 2': ['measles'], 'Keyword': ['measles'], 'Other -condition, symptom etc': ['baby'], 'Subject - Person': ['baby'], 'Vaccine 1': ['measles'], 'Vaccine 2': ['measles']}
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$

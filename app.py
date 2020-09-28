@@ -158,7 +158,9 @@ def return_keyword():
 
     Inputs
     ------
-    Expects a api call of the form : ""
+    Expects a api call of the form : 
+        localhost:5003/api/v2/keyword_extract?
+            question=QUESTION&answer=ANSWER
     
     Query : String
         The string from which we need to extract keywords
@@ -167,12 +169,41 @@ def return_keyword():
     -------
     Json Object : 
         The form of the json object is as follows : -
+        {
+            "Disease 1": [
+                "measles"
+            ], 
+            "Disease 2": [
+                "measles"
+            ], 
+            "Keyword": [
+                "child", 
+                "measles"
+            ], 
+            "Other -condition, symptom etc": [
+                "sick", 
+                "child"
+            ], 
+            "Subject - Person": [
+                "child"
+            ], 
+            "Vaccine 1": [
+                "measles"
+            ], 
+            "Vaccine 2": [
+                "measles"
+            ], 
+            "Who is writing this": [
+                "child"
+            ]
+        }
             
     """
     global KEYWORD_EXTRACTOR
 
     # If first time being sent, calculate a unique id
-    query_string = request.args['query'].replace("?","")
+    query_string = request.args['question'].replace("?","") \
+        + request.args['answer'].replace("?","")
 
     # Extract keywords on the basis of the user input
     boosting_tokens = KEYWORD_EXTRACTOR.parse_regex_query(query_string)    
@@ -271,7 +302,7 @@ if __name__ == '__main__':
         ], debug=True)
     
     indexDir = INDEX.getIndexDir()
-    SEARCH_ENGINE = SearchEngine(indexDir, rerank=True, debug=True)
+    SEARCH_ENGINE = SearchEngine(indexDir, rerank=False, debug=True)
     
     extractor_json_path = \
         "./WHO-FAQ-Keyword-Engine/test_excel_data/curated_keywords_1500.json"
@@ -292,4 +323,4 @@ if __name__ == '__main__':
         qa_keyword_path = extractor_json_path,
         use_question_predicter_config=use_question_predicter_config)
 
-    app.run(host='0.0.0.0', port = 5006)
+    app.run(host='0.0.0.0', port = 5003)

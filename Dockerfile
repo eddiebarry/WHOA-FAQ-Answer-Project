@@ -36,6 +36,6 @@ RUN chmod +x ./gdown.pl \
 
 WORKDIR /usr/src/WHOA-FAQ-Answer-Project
 
-EXPOSE 5006
+EXPOSE 5003
 ENTRYPOINT [ "python" ] 
 CMD [ "app.py" ] 
