@@ -264,7 +264,7 @@ def index_json_array():
 
 @app.route('/')
 def hello_world():
-    return 'Hello, World! The service is up for now'
+    return 'Hello, World! The service is up :)'
         
 
 if __name__ == '__main__':
