@@ -1,6 +1,6 @@
 import requests
 
-base_url="http://0.0.0.0:5003/api/v2/keyword_extract"
+base_url="http://18.220.219.51:5003/api/v2/keyword_extract"
 params = {
     "question":"My child is sick where can he get measles vaccine ?",
     "answer":"Please go to khandala",

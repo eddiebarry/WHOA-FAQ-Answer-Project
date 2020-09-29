@@ -200,10 +200,17 @@ def return_keyword():
             
     """
     global KEYWORD_EXTRACTOR
+    global QUERY_GEN
 
     # If first time being sent, calculate a unique id
     query_string = request.args['question'].replace("?","") \
-        + request.args['answer'].replace("?","")
+        + " " + request.args['answer'].replace("?","")
+
+    # Get synonyms present in the query string
+    synonyms = QUERY_GEN.synonym_expander.return_synonyms(query_string)
+    synonyms = [word.strip('"') for word in synonyms]
+
+    query_string = query_string +" " + " ".join(x for x in synonyms)
 
     # Extract keywords on the basis of the user input
     boosting_tokens = KEYWORD_EXTRACTOR.parse_regex_query(query_string)    
@@ -257,7 +264,7 @@ def index_json_array():
 
 @app.route('/')
 def hello_world():
-    return 'Hello, World! The service is up'
+    return 'Hello, World! The service is up for now'
         
 
 if __name__ == '__main__':
