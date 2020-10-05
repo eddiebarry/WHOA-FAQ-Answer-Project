@@ -26,7 +26,6 @@ RUN pip install sklearn
 
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 RUN git clone \
-    -b all_user_input_and_catch_all \ 
     --recursive https://github.com/eddiebarry/WHOA-FAQ-Answer-Project.git
 WORKDIR /usr/src/WHOA-FAQ-Answer-Project/WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights
 RUN chmod +x ./gdown.pl \
