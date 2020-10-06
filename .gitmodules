@@ -10,3 +10,6 @@
 [submodule "WHO-FAQ-Dialog-Manager"]
 	path = WHO-FAQ-Dialog-Manager
 	url = https://github.com/eddiebarry/WHO-FAQ-Dialog-Manager.git
+[submodule "WHO-FAQ-Rerank-Engine"]
+	path = WHO-FAQ-Rerank-Engine
+	url = https://github.com/eddiebarry/WHO-FAQ-Rerank-Engine.git
