@@ -19,6 +19,8 @@ from org.apache.lucene.analysis.standard import StandardAnalyzer
 from QNA.common import preprocess, tokenize, porter_stemmer_instance
 from QNA.question_asker import QuestionAsker
 
+from rerank.config import RE_RANK_ENDPOINT
+
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -280,7 +282,11 @@ if __name__ == '__main__':
         ], debug=True)
     
     indexDir = INDEX.getIndexDir()
-    SEARCH_ENGINE = SearchEngine(indexDir, rerank=True, debug=True)
+    SEARCH_ENGINE = SearchEngine(
+        indexDir, 
+        rerank_endpoint=RE_RANK_ENDPOINT,
+        debug=True
+    )
     
     extractor_json_path = \
         "./WHO-FAQ-Keyword-Engine/test_excel_data/curated_keywords_1500.json"

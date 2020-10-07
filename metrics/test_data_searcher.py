@@ -30,7 +30,7 @@ if __name__ == '__main__':
     query_gen = QueryGenerator(StandardAnalyzer())
     
     indexDir = index.getIndexDir()
-    search_engine = SearchEngine(indexDir, rerank=False)
+    search_engine = SearchEngine(indexDir)
 
     extractor_json_path = \
         "../WHO-FAQ-Keyword-Engine/test_excel_data/curated_keywords_1500.json"

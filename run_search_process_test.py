@@ -10,6 +10,8 @@ from query_generator import QueryGenerator
 from index import IndexFiles
 from org.apache.lucene.analysis.standard import StandardAnalyzer
 
+from rerank.config import RE_RANK_ENDPOINT
+
 lucene.initVM(vmargs=['-Djava.awt.headless=true'])
 
 # Index generator
@@ -47,7 +49,10 @@ query = QueryGen.build_query(query_string, \
 print(query)
 
 # Search Engine
-SearchEngine = SearchEngine(indexDir, rerank=True)
+SearchEngine = SearchEngine(
+    indexDir, 
+    rerank_endpoint=RE_RANK_ENDPOINT
+)
 
 hits = SearchEngine.search(query, \
         query_string=query_string, query_field="Master Question")
