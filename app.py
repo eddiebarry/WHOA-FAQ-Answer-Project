@@ -68,7 +68,7 @@ def answer_question():
         # If question has already been answered allow new question to be asked
         ID_QUERY_DICT[unique_id] = query_string + " "
     else:
-        unique_id = request.args['user_id']
+        unique_id = request_json['user_id']
         # Add entire conversation to search engine
         ID_QUERY_DICT[unique_id] += query_string.lower() + " "    
 
