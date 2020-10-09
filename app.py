@@ -56,13 +56,14 @@ def answer_question():
     vm_env = lucene.getVMEnv()
     vm_env.attachCurrentThread()
 
+    request_json = json.loads(request.data)
     # If first time being sent, calculate a unique id
-    query_string = request.args['query'].lower()\
+    query_string = request_json['query'].lower()\
         .replace("?","")\
         .replace("-","")\
         .replace("not relevant","")\
         .replace("none","")
-    if request.args['user_id'] == "-1":
+    if request_json['user_id'] == "-1":
         unique_id = hashlib.sha512(query_string.encode()).hexdigest()
         # If question has already been answered allow new question to be asked
         ID_QUERY_DICT[unique_id] = query_string + " "
