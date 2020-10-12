@@ -55,6 +55,8 @@ def answer_question():
     global SEARCH_ENGINE
     vm_env = lucene.getVMEnv()
     vm_env.attachCurrentThread()
+    
+
 
     request_json = json.loads(request.data)
     # If first time being sent, calculate a unique id
@@ -90,10 +92,7 @@ def answer_question():
         # Add all the tokens present in past queries
         if key in ID_KEYWORD_DICT[unique_id].keys():
             new_boosting_dict[key].extend(ID_KEYWORD_DICT[unique_id][key])
-    
-    # import pdb
-    # pdb.set_trace()
-    
+
     # Store the newly created keyword dictionary in global memory
     ID_KEYWORD_DICT[unique_id] = new_boosting_dict
 
@@ -148,7 +147,7 @@ def answer_question():
             print("The results of the search are ", hits)
             print('$'*80)
             sys.stdout = original_stdout
-
+        
     return jsonify(resp_json)
 
 
