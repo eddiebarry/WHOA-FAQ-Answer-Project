@@ -67,3 +67,14 @@ git clone -b $branch_name \
 
 ### Loading model only once
 [StackOverflow](https://stackoverflow.com/questions/32213893/how-to-cache-a-large-machine-learning-model-in-flask)
+
+
+### botpress quick install
+'''
+mkdir bot
+cd bot
+wget https://s3.amazonaws.com/botpress-binaries/botpress-v12_10_8-linux-x64.zip
+sudo apt install unzip
+unzip botpress-v12_10_8-linux-x64.zip
+./bp
+'''
