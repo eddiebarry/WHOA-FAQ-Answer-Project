@@ -1,4 +1,4 @@
-ARG VERSION=latest
+ARG VERSION=7.0
 FROM python:$VERSION
 
 RUN apt-get update \
