@@ -2,7 +2,7 @@ import pickle
 import os
 import timeit
 import requests
-import numpy as np
+from statistics import mean 
 import json
 
 # torch.backends.cudnn.benchmark = True
@@ -14,9 +14,9 @@ import json
 base_url="http://18.203.115.216:5007/api/v1/reranking"
 
 gpu_times_dict = {}
-for x in sorted(os.listdir("./Search_data/")):
-    title = "./Search_data/"+x
-    if title.endswith("checkpoints"):
+for x in sorted(os.listdir("./")):
+    title = "./"+x
+    if not(title.endswith(".p")):
         continue
 
     batch_size = int(x.split("_")[2])
@@ -67,12 +67,10 @@ for x in sorted(os.listdir("./Search_data/")):
 
 
         if idx%10==0:
-            print("mean time : ", np.mean(gpu_times))
+            print("mean time : ", mean(gpu_times))
 
         if idx%30== 0:
-            print("mean time : ", np.mean(gpu_times[-30:]))
-        
-        if idx%100==0:
+            print("mean time : ", mean(gpu_times[-30:]))
             break
     print(accuracy, total, accuracy/total)
 
@@ -104,4 +102,4 @@ for x in range(30):
         if idx==1:
             stop = timeit.default_timer()
             times.append(stop-start)
-print(np.mean(times))
+print(mean(times))
