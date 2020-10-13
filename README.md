@@ -78,3 +78,9 @@ sudo apt install unzip
 unzip botpress-v12_10_8-linux-x64.zip
 ./bp
 '''
+
+### install docker
+'''c
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+'''

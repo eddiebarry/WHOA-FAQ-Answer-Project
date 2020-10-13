@@ -55,8 +55,6 @@ def answer_question():
     global SEARCH_ENGINE
     vm_env = lucene.getVMEnv()
     vm_env.attachCurrentThread()
-    
-
 
     request_json = json.loads(request.data)
     # If first time being sent, calculate a unique id
@@ -110,7 +108,7 @@ def answer_question():
         hits = SEARCH_ENGINE.search(query, \
             query_string=ID_QUERY_DICT[unique_id], \
             query_field="Master_Question*", top_n=50)
-
+        
         what_to_say = {}
         for idx, doc in enumerate(hits[:5]):
             question_and_variation = doc[1].split(" ||| ")
@@ -135,6 +133,7 @@ def answer_question():
 
         # Reset unique id query to sentinel value
         ID_QUERY_DICT[unique_id] = "-1"
+        ID_KEYWORD_DICT[unique_id] = defaultdict(list)
     
         # Logging
         original_stdout = sys.stdout 
@@ -147,7 +146,7 @@ def answer_question():
             print("The results of the search are ", hits)
             print('$'*80)
             sys.stdout = original_stdout
-        
+
     return jsonify(resp_json)
 
 
@@ -266,7 +265,7 @@ def index_json_array():
 
 @app.route('/')
 def hello_world():
-    return 'Hello, World! The service is up :)'
+    return 'Hello, World! The service is up for reranking:)'
         
 
 if __name__ == '__main__':
