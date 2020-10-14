@@ -229,6 +229,117 @@ def return_keyword():
     #TODO :  preprocess cleaned boosting tokens to line up with specified tokens
     return jsonify(boosting_tokens)
 
+@app.route('/api/v2/batch_keyword_extract', methods=['GET'])
+def return_batch_keyword():
+    """
+    After the keyword engine is set up with a configuration file,
+    this api extracts the keywords from the user query and returns them
+    as a json object
+
+    Inputs
+    ------
+    Expects a api call of the form : 
+        localhost:5003/api/v2/batch_keyword_extract
+        {
+            num_questions : Integer,
+
+            question_answer_list = [
+                {
+                    question : "abc",
+                    answer : "def",
+                    hash : sha512 hash of question+answer
+                },
+                ...
+                ...
+                {
+                    question : "ghi",
+                    answer : "jkl"
+                    hash : sha512 hash of question+answer
+                },
+            ]
+        }
+    
+    Query : String
+        The string from which we need to extract keywords
+
+    Outputs
+    -------
+    Json Object : 
+        The form of the json object is as follows : -
+        {
+            questions_keywords_dict : {
+                question_1_hash : {
+                    category_1 : [
+                        cat_1_keyword_1,
+                        cat_1_keyword_2
+                    ],
+                    category_2 : [
+                        cat_2_keyword_1,
+                        cat_2_keyword_2
+                    ],
+                    category_3: [
+                        cat_3_keyword_1,
+                        cat_3_keyword_2
+                    ]
+                },
+                ...
+                question_n_hash : {
+                    category_1 : [
+                        cat_1_keyword_1,
+                        cat_1_keyword_2
+                    ],
+                    category_2 : [
+                        cat_2_keyword_1,
+                        cat_2_keyword_2
+                    ],
+                    category_3: [
+                        cat_3_keyword_1,
+                        cat_3_keyword_2
+                    ]
+                }
+            }
+        }
+            
+    """
+    global KEYWORD_EXTRACTOR
+    global QUERY_GEN
+
+    request_json = json.loads(request.data)
+    questions_keywords_dict = {}
+
+    for qa_pair in request_json['question_answer_list']:
+        # If first time being sent, calculate a unique id
+        query_string = qa_pair['question'].replace("?","") \
+            + " " + qa_pair['answer'].replace("?","")
+
+        # Get synonyms present in the query string
+        synonyms = QUERY_GEN.synonym_expander.return_synonyms(query_string)
+        synonyms = [word.strip('"') for word in synonyms]
+
+        query_string = query_string +" " + " ".join(x for x in synonyms)
+
+        # Extract keywords on the basis of the user input
+        boosting_tokens = KEYWORD_EXTRACTOR.parse_regex_query(query_string)
+
+        questions_keywords_dict[qa_pair['hash']]=boosting_tokens    
+        
+        # Logging
+        original_stdout = sys.stdout 
+        with open('keyword_log.txt', 'a') as f:
+            sys.stdout = f # Change the standard output to the file we created.
+            print('$'*80)
+            print("The user query is ", query_string)
+            print("The extracted tokens are ", boosting_tokens)
+            print('$'*80)
+            sys.stdout = original_stdout
+
+    response = {
+        "questions_keywords_dict":questions_keywords_dict
+    }
+
+    #TODO :  preprocess cleaned boosting tokens to line up with specified tokens
+    return jsonify(response)
+
 @app.route('/api/v2/index_json_array', methods=['PUT'])
 def index_json_array():
     """
