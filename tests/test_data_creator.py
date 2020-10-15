@@ -28,7 +28,7 @@ def get_json_obj_with_variations(jsonObj, \
     return new_json_obj
 
 if __name__ == "__main__":
-    indexDir = "./test_data/json_folder_data_1500"
+    indexDir = "../test_data/json_folder_data_1500"
     newIndexStore = "./intermediate_results/json_folder_with_variations_1500/"
     variation_generation_model_weights = "../WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights/model.ckpt-1004000"
     variation_generator = VariationGenerator(\

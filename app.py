@@ -18,8 +18,12 @@ from org.apache.lucene.analysis.standard import StandardAnalyzer
 # TODO : Fix naming
 from QNA.common import preprocess, tokenize, porter_stemmer_instance
 from QNA.question_asker import QuestionAsker
-
 from rerank.config import RE_RANK_ENDPOINT
+# Update engine
+from update_engine import UpdateEngine
+from keyword_engine_manager import KeywordEngineManager
+from qa_keyword_manager import  QAKeywordManager
+from category_question_manager import CategoryQuestionManager
 
 
 app = flask.Flask(__name__)
@@ -340,7 +344,8 @@ def return_batch_keyword():
     #TODO :  preprocess cleaned boosting tokens to line up with specified tokens
     return jsonify(response)
 
-@app.route('/api/v2/index_json_array', methods=['PUT'])
+# Need json objects with variations
+@app.route('/api/v2/train_bot_json_array', methods=['PUT'])
 def index_json_array():
     """
     This function takes a json array specified by the labelling web service 
@@ -348,7 +353,23 @@ def index_json_array():
 
     Inputs
     ------
-    Expects a api call of the form : ""
+    Expects a api call with json data of the form : 
+    {
+        version_hash : hash of user id and version id,
+        question_array : [
+            {
+                question : "ABC"
+                answer : "DEF"
+                category1 : ["cat_1_keyword_1", "cat_2_keyword_2", ...]
+                category2 : ["cat_2_keyword_1", "cat_2_keyword_2", ...]
+            }
+        ],
+        keyword_directory : {
+            category1 : ["cat_1_unique_kw_1", "cat_1_unique_kw_2", ...],
+            category2 : ["cat_2_unique_kw_1", "cat_2_unique_kw_2", ...],
+            category2 : ["cat_2_unique_kw_1", "cat_2_unique_kw_2", ...],
+        }
+    }
 
     Outputs
     -------
@@ -356,33 +377,40 @@ def index_json_array():
         The form of the json object is as follows : -
 
     """
-    global INDEX
+    global UPDATE_ENGINE
 
+    request_json = json.loads(request.data)
     # Adding the files to the array
-    jsonArray - request.args['Json_Array']
-    INDEX.index_json_array(jsonArray)
+    questionArray = request_json['question_array']
+    data_hash_id = request_json['version_hash']
+    keyword_dir = request_json['keyword_directory']
 
-    # Logging
-    original_stdout = sys.stdout 
-    with open('json_array_log.txt', 'a') as f:
-        sys.stdout = f # Change the standard output to the file we created.
-        print('$'*80)
-        print("The recieved json array is is : \n", jsonArray)
-        print('$'*80)
-        sys.stdout = original_stdout
+    UPDATE_ENGINE.add_questions(questionArray, data_hash_id)
+    # INDEX.index_json_array(jsonArray)
+
+
+    # # Logging
+    # original_stdout = sys.stdout 
+    # with open('json_array_log.txt', 'a') as f:
+    #     sys.stdout = f # Change the standard output to the file we created.
+    #     print('$'*80)
+    #     print("The recieved json array is is : \n", jsonArray)
+    #     print('$'*80)
+    #     sys.stdout = original_stdout
 
     #TODO :  preprocess
-    return jsonify(boosting_tokens)
+    # return jsonify(boosting_tokens)
 
 @app.route('/')
 def hello_world():
-    return 'Hello, World! The service is up for reranking:)'
+    return 'Hello, World! The service is up for serving qna to the bot:)'
         
 
 if __name__ == '__main__':
+
+    # TODO : remove dependecy for hardcoded data
     INDEX = IndexFiles("./VaccineIndex.Index",StandardAnalyzer())
-    
-    INDEX.indexFolder("./metrics/intermediate_results/json_folder_with_variations_1500")
+    INDEX.indexFolder("./tests/intermediate_results/json_folder_with_variations_1500")
 
     QUERY_GEN = QueryGenerator(StandardAnalyzer(),\
         synonym_config=[
@@ -416,5 +444,18 @@ if __name__ == '__main__':
     QUESTION_ASKER = QuestionAsker(qa_config_path, show_options=True, \
         qa_keyword_path = extractor_json_path,
         use_question_predicter_config=use_question_predicter_config)
+
+
+    # Setting up the update engine
+    qa_keyword_manager = QAKeywordManager(
+        search_engine=SEARCH_ENGINE,
+        index = INDEX)
+    keyword_engine_manager = KeywordEngineManager()
+    category_question_manager = CategoryQuestionManager()
+    UPDATE_ENGINE = UpdateEngine(
+        keyword_engine_manager=keyword_engine_manager,
+        qa_keyword_manager=qa_keyword_manager
+        category_question_manager=category_question_manager
+    )
 
     app.run(host='0.0.0.0', port = 5006)

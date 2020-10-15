@@ -18,7 +18,7 @@ lucene.initVM(vmargs=['-Djava.awt.headless=true'])
 Index = IndexFiles("./VaccineIndex.Index",StandardAnalyzer())
 # Index.indexFolder("./WHO-FAQ-Search-Engine/test_data/json_folder_data")
 Index.indexFolder(\
-    "./metrics/intermediate_results/json_folder_with_variations_1500")
+    "./tests/intermediate_results/json_folder_with_variations_1500")
 
 indexDir = Index.getIndexDir()
 

@@ -84,3 +84,10 @@ unzip botpress-v12_10_8-linux-x64.zip
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 '''
+
+### bot dependencies
+'''
+Keyword Directory for keyword engine
+QA+Keyword pairs for Bot search engine
+Questions per category
+'''
