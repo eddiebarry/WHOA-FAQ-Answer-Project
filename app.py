@@ -305,23 +305,29 @@ def index_json_array():
     Outputs
     -------
     Json Object : 
-        The form of the json object is as follows : -
-
+    The form of the json object is as follows : -
+    {
+        "project_id": project_id,
+        "version_id": version_id,
+        "status":"ok",
+    }
     """
     global UPDATE_ENGINE
 
     request_json = json.loads(request.data)
     # Adding the files to the array
-    questionArray = request_json['question_array']
+    question_list = request_json['question_list']
     project_id = request_json['project_id']
     version_id = request_json['version_id']
     version_number = request_json['version_number']
-    
-
     keyword_dir = request_json['keyword_directory']
 
-    def update_data(question_array, data_hash_id, keyword_dir):
-        UPDATE_ENGINE.add_questions(questionArray, data_hash_id)
+    data_hash_string = project_id + version_id
+    data_hash_id = hashlib.sha512(data_hash_string.encode())\
+                        .hexdigest()
+
+    def update_data(question_list, data_hash_id, keyword_dir):
+        UPDATE_ENGINE.add_questions(question_list, data_hash_id)
         # TODO: move urls to config file
         # server_url = "0.0.0.0"
         # end_url = server_url +"/api/train-bot-status"
@@ -331,15 +337,15 @@ def index_json_array():
     thread = Thread(\
         target=update_data, \
         kwargs={
-                'question_array' : questionArray,
+                'question_list' : question_list,
                 'data_hash_id' : data_hash_id,
                 'keyword_dir' : keyword_dir
             })
     thread.start()
 
     response = {
-        "project_id":"123",
-        "version_id":"0.1",
+        "project_id": project_id,
+        "version_id": version_id,
         "status":"ok",
     }
 
@@ -353,7 +359,8 @@ def hello_world():
 
 if __name__ == '__main__':
     INDEX = IndexFiles("./VaccineIndex.Index",StandardAnalyzer())
-    INDEX.indexFolder("./tests/intermediate_results/vsn_data_variations")
+    INDEX.indexFolder("./data/")
+    # INDEX.indexFolder("./tests/intermediate_results/vsn_data_variations")
 
     QUERY_GEN = QueryGenerator(StandardAnalyzer(),\
         synonym_config=[
