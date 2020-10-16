@@ -57,7 +57,7 @@ example input
 }
 """
 
-base_url="http://0.0.0.0:5007/api/v2/batch_keyword_extract"
+base_url="http://52.209.188.140:5007/api/v2/batch_keyword_extract"
 
 r = requests.post(base_url, data=json.dumps(batch_response_test))
 print(r.text)
@@ -179,208 +179,204 @@ example response
 """
 
 
-"""
-Batch QA index 
-"""
+# """
+# Batch QA index 
+# """
 
-data = {
-  "version_hash" : "user_1_version_1",
-}
-questions = []
-dir_ = "./tests/test_data/vsn_data"
-dir_ = "./tests/intermediate_results/vsn_data_variations"
-for idx,x in enumerate(sorted(os.listdir(dir_))):
-	if x.endswith(".json"):
-		jsonpath = os.path.join(dir_,x)
-		f = open(jsonpath,)
-		jsonObj = json.load(f)
-		jsonObj['id']=str(idx)
-		f.close()
-		questions.append(jsonObj)
+# data = {
+#   "version_hash" : "user_1_version_1",
+# }
+# questions = []
+# dir_ = "./tests/test_data/vsn_data"
+# dir_ = "./tests/intermediate_results/vsn_data_variations"
+# for idx,x in enumerate(sorted(os.listdir(dir_))):
+# 	if x.endswith(".json"):
+# 		jsonpath = os.path.join(dir_,x)
+# 		f = open(jsonpath,)
+# 		jsonObj = json.load(f)
+# 		jsonObj['id']=str(idx)
+# 		f.close()
+# 		questions.append(jsonObj)
 
-keyword_dir_path = "./tests/unique_keywords.json"
-f = open(keyword_dir_path,)
-keyword_directory = json.load(f)
+# keyword_dir_path = "./tests/unique_keywords.json"
+# f = open(keyword_dir_path,)
+# keyword_directory = json.load(f)
 
-data['question_array'] = questions
-data['keyword_directory'] = keyword_directory
+# data['question_array'] = questions
+# data['keyword_directory'] = keyword_directory
 
-base_url="http://0.0.0.0:5007/api/v2/train_bot_json_array"
+# base_url="http://0.0.0.0:5007/api/v2/train_bot_json_array"
 
-r = requests.post(base_url, data=json.dumps(data))
-print(r.text)
-
-
+# r = requests.post(base_url, data=json.dumps(data))
+# print(r.text)
 
 
 
 
-"""
-Reranking timer test
-"""
-base_url="http://18.203.115.216:5007/api/v1/reranking"
 
-gpu_times_dict = {}
-dir_ = "./tests/intermediate_results"
-for x in sorted(os.listdir(dir_)):
-    title = os.path.join(dir_ , x)
-    if not(title.endswith(".p")):
-        continue
 
-    batch_size = int(x.split("_")[2])
+# """
+# Reranking timer test
+# """
+# base_url="http://18.203.115.216:5007/api/v1/reranking"
+
+# gpu_times_dict = {}
+# dir_ = "./tests/intermediate_results"
+# for x in sorted(os.listdir(dir_)):
+#     title = os.path.join(dir_ , x)
+#     if not(title.endswith(".p")):
+#         continue
+
+#     batch_size = int(x.split("_")[2])
     
-    if batch_size != 50:
-        continue
+#     if batch_size != 50:
+#         continue
 
-    print("batch size : ", batch_size)
+#     print("batch size : ", batch_size)
 
 
-    gpu_times = []
+#     gpu_times = []
 
-    with open(title,'rb') as f:
-        rerank_test = pickle.load(f)
+#     with open(title,'rb') as f:
+#         rerank_test = pickle.load(f)
 
-    idx = 0
-    accuracy = 0
-    total = 0
-    for x in rerank_test:
-        idx += 1
-        query_string = x[0]
-        master_question = x[1]
-        hits = x[2]
+#     idx = 0
+#     accuracy = 0
+#     total = 0
+#     for x in rerank_test:
+#         idx += 1
+#         query_string = x[0]
+#         master_question = x[1]
+#         hits = x[2]
         
 
-        texts = [[0,x[1]] for x in hits]
+#         texts = [[0,x[1]] for x in hits]
 
 
-        start = timeit.default_timer()
-        params = {
-            "query": query_string,
-            "texts": texts,
-        }
-        r = requests.get(base_url, json=json.dumps(params))
-        response  = r.json()
-        scoreDocs = response['scoreDocs']
+#         start = timeit.default_timer()
+#         params = {
+#             "query": query_string,
+#             "texts": texts,
+#         }
+#         r = requests.get(base_url, json=json.dumps(params))
+#         response  = r.json()
+#         scoreDocs = response['scoreDocs']
 
-        stop = timeit.default_timer()
-        gpu_times.append(stop-start)
+#         stop = timeit.default_timer()
+#         gpu_times.append(stop-start)
 	
-	#Top 5
-        selected = scoreDocs[:5]
-        for y in selected:
-            if master_question == y[1]:
-                accuracy +=1
-                break
-        total += 1
+# 	#Top 5
+#         selected = scoreDocs[:5]
+#         for y in selected:
+#             if master_question == y[1]:
+#                 accuracy +=1
+#                 break
+#         total += 1
 
 
-        if idx%10==0:
-            print("mean time : ", mean(gpu_times))
+#         if idx%10==0:
+#             print("mean time : ", mean(gpu_times))
 
-        if idx%30== 0:
-            print("mean time : ", mean(gpu_times[-30:]))
-            break
-    print(accuracy, total, accuracy/total)
-
-
-print('$'*80)
-print("reranking service done")
+#         if idx%30== 0:
+#             print("mean time : ", mean(gpu_times[-30:]))
+#             break
+#     print(accuracy, total, accuracy/total)
 
 
-"""
-QUESTION ASKER TIMING TEST
-"""
-
-base_url="http://0.0.0.0:5007/api/v2/qna"
-
-data_ = [
-    {
-        "query":"My child was vaccinated recently with MMR for school", 
-        "user_id":"-1"
-    }
-    ,
-    {
-        "query":"what restrictions are there for immuno compromised people visiting ?",
-        "user_id":"2d07dcffc217bf2864ba64fc8b60fdaa41d0b08f74fb522582f1031e77cb2a4fc3b5b0b98392efc0dce2b96f9be453c07373bfecea25964379c422e4f9e89877"
-    }
-]
-
-times = []
-for x in range(30):
-    for idx,x in enumerate(data_):
-        if idx==1:
-            start = timeit.default_timer()
-        r = requests.get(base_url, data=json.dumps(x))
-        if idx==1:
-            stop = timeit.default_timer()
-            times.append(stop-start)
-print(mean(times))
-print(r.text)
+# print('$'*80)
+# print("reranking service done")
 
 
+# """
+# QUESTION ASKER TIMING TEST
+# """
 
-data={
-    "project_id":"123",
-    "version_id":"0.1",
-    "version_number":"0.2",
-    "question_array" : [
-      {
-        "question" : "where can i get a vaccine in khandala",
-        #"question_variation_1" : "where can i get a vaccine in khandala",
-        #"question_variation_0" : "where can i get a vaccine in khandala",
-        "answer" : "go to hospital",
-        "keywords" : [
-          {
-            "category_1" : [
-              "cat_1_key_1",
-              "cat_1_key_2",
-            ]
-          },
-          {
-            "category_2" : [
-              "cat_2_key_1",
-              "cat_2_key_2",
-            ]
-          }
-        ],
-        "id": "12345"
-      },
-      {
-        "question" : "where can i get a vaccine in lonavla",
-        # "question_variation_1" : "where can i get a vaccine in lonavla",
-        # "question_variation_0" : "where can i get a vaccine in lonavla",
-        "answer" : "go to hospital",
-        "keywords" : [
-          {
-            "category_1" : [
-              "cat_1_key_1",
-              "cat_1_key_2",
-            ]
-          },
-          {
-            "category_2" : [
-              "cat_2_key_1",
-              "cat_2_key_2",
-            ]
-          }
-        ],
-        "id": "23456"
-      },
-      # case where no keyword in a category
-      {
-        "question" : "where can i get a vaccine in san marino",
-        "question_variation_1" : "where can i get a vaccine in san marino",
-        "question_variation_0" : "where can i get a vaccine in san marino",
-        "answer" : "go to hospital",
-        "id" : "34567"
-      }
-    ],
-    "keywords" : [
-        {"category_1" : "cat_1_keyword_1"},
-        {"category_2" : "cat_2_keyword_1"}
-    ]
-  }
+# base_url="http://0.0.0.0:5007/api/v2/qna"
+
+# data_ = [
+#     {
+#         "query":"My child was vaccinated recently with MMR for school", 
+#         "user_id":"-1"
+#     }
+#     ,
+#     {
+#         "query":"what restrictions are there for immuno compromised people visiting ?",
+#         "user_id":"2d07dcffc217bf2864ba64fc8b60fdaa41d0b08f74fb522582f1031e77cb2a4fc3b5b0b98392efc0dce2b96f9be453c07373bfecea25964379c422e4f9e89877"
+#     }
+# ]
+
+# times = []
+# for x in range(30):
+#     for idx,x in enumerate(data_):
+#         if idx==1:
+#             start = timeit.default_timer()
+#         r = requests.get(base_url, data=json.dumps(x))
+#         if idx==1:
+#             stop = timeit.default_timer()
+#             times.append(stop-start)
+# print(mean(times))
+# print(r.text)
 
 
-data_info = project_id + version_number
-hash_ = hashlib.sha512(data_info.encode()).hexdigest()
+
+# data={
+#     "project_id":"123",
+#     "version_id":"0.1",
+#     "version_number":"0.2",
+#     "question_array" : [
+#       {
+#         "question" : "where can i get a vaccine in khandala",
+#         "answer" : "go to hospital",
+#         "keywords" : [
+#           {
+#             "category_1" : [
+#               "cat_1_key_1",
+#               "cat_1_key_2",
+#             ]
+#           },
+#           {
+#             "category_2" : [
+#               "cat_2_key_1",
+#               "cat_2_key_2",
+#             ]
+#           }
+#         ],
+#         "id": "12345"
+#       },
+#       {
+#         "question" : "where can i get a vaccine in lonavla",
+#         "answer" : "go to hospital",
+#         "keywords" : [
+#           {
+#             "category_1" : [
+#               "cat_1_key_1",
+#               "cat_1_key_2",
+#             ]
+#           },
+#           {
+#             "category_2" : [
+#               "cat_2_key_1",
+#               "cat_2_key_2",
+#             ]
+#           }
+#         ],
+#         "id": "23456"
+#       },
+#       # case where no keyword in a category
+#       {
+#         "question" : "where can i get a vaccine in san marino",
+#         "question_variation_1" : "where can i get a vaccine in san marino",
+#         "question_variation_0" : "where can i get a vaccine in san marino",
+#         "keywords" : [],
+#         "id" : "34567"
+#       }
+#     ],
+#     "keywords" : [
+#         {"category_1" : ["cat_1_keyword_1", "cat_1_keyword_2"]},
+#         {"category_2" : ["cat_2_keyword_1", "cat_1_keyword_2"]}
+#     ]
+#   }
+
+
+# data_info = project_id + version_number
+# hash_ = hashlib.sha512(data_info.encode()).hexdigest()

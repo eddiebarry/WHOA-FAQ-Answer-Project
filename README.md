@@ -9,8 +9,8 @@ exit()
 
 ### To restart
 ```
-docker stop faq_project_dev
-docker rm faq_project_dev
+docker stop faq_project_test
+docker rm faq_project_test
 docker build -t faq_project .
 docker run -p 5007:5007 --name faq_project_test -i -t faq_project
 ```

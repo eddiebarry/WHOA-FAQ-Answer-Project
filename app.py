@@ -313,7 +313,11 @@ def index_json_array():
     request_json = json.loads(request.data)
     # Adding the files to the array
     questionArray = request_json['question_array']
-    data_hash_id = request_json['version_hash']
+    project_id = request_json['project_id']
+    version_id = request_json['version_id']
+    version_number = request_json['version_number']
+    
+
     keyword_dir = request_json['keyword_directory']
 
     def update_data(question_array, data_hash_id, keyword_dir):
