@@ -10,7 +10,7 @@ from statistics import mean
 """
 Single Keyword Extract Test
 """
-base_url="http://0.0.0.0:5006/api/v2/keyword_extract"
+base_url="http://0.0.0.0:5007/api/v2/keyword_extract"
 params = {
     "question":"My child is sick where can he get measles vaccine ?",
     "answer":"Please go to khandala",
@@ -102,7 +102,7 @@ example input
 }
 """
 
-base_url="http://0.0.0.0:5006/api/v2/batch_keyword_extract"
+base_url="http://0.0.0.0:5007/api/v2/batch_keyword_extract"
 
 r = requests.get(base_url, data=json.dumps(batch_response_test))
 print(r.text)
@@ -256,53 +256,10 @@ keyword_directory = json.load(f)
 data['question_array'] = questions
 data['keyword_directory'] = keyword_directory
 
-base_url="http://0.0.0.0:5006/api/v2/train_bot_json_array"
+base_url="http://0.0.0.0:5007/api/v2/train_bot_json_array"
 
 r = requests.post(base_url, data=json.dumps(data))
 print(r.text)
-
-# data={
-#     "version_hash" : "user_1_version_1",
-#     "question_array" : [
-#       {
-#         "question" : "where can i get a vaccine in khandala",
-# 		"question_variation_1" : "where can i get a vaccine in khandala",
-# 		"question_variation_0" : "where can i get a vaccine in khandala",
-#         "answer" : "go to hospital",
-#         "disease_1" : "heart attack liver failure",
-#         "disease_2" : "eye failure",
-# 		"id": "12345"
-#       },
-#       {
-#         "question" : "where can i get a vaccine in lonavla",
-# 		"question_variation_1" : "where can i get a vaccine in lonavla",
-# 		"question_variation_0" : "where can i get a vaccine in lonavla",
-#         "answer" : "go to hospital",
-#         "vaccine_1" : "measles polio",
-#         "vaccine_2" : "MMR",
-#         "disease_1" : "heart attack liver failure",
-# 		"id": "23456"
-#       },
-#       # case where no keyword in a category
-#       {
-#         "question" : "where can i get a vaccine in san marino",
-# 		"question_variation_1" : "where can i get a vaccine in san marino",
-# 		"question_variation_0" : "where can i get a vaccine in san marino",
-#         "answer" : "go to hospital",
-# 		"id" : "34567"
-#       }
-#     ],
-# 	"keywords" : [
-# 		{"category_1" : "cat_1_keyword_1"},
-# 		{"category_2" : "cat_2_keyword_1"}
-# 	]
-#   }
-
-# data['keyword_directory'] = keyword_directory
-# base_url="http://0.0.0.0:5006/api/v2/train_bot_json_array"
-
-# r = requests.post(base_url, data=json.dumps(data))
-# print(r.text)
 
 base_url="http://18.203.115.216:5007/api/v1/reranking"
 
@@ -373,7 +330,7 @@ print('$'*80)
 print("reranking service done")
 
 
-base_url="http://0.0.0.0:5006/api/v2/qna"
+base_url="http://0.0.0.0:5007/api/v2/qna"
 
 data_ = [
     {

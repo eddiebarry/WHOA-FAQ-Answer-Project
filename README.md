@@ -12,7 +12,7 @@ exit()
 docker stop faq_project_dev
 docker rm faq_project_dev
 docker build -t faq_project .
-docker run -p 5006:5006 --name faq_project_dev -i -t faq_project
+docker run -p 5007:5007 --name faq_project_test -i -t faq_project
 ```
 
 ### To run
@@ -60,34 +60,35 @@ done
 ```
 
 ### clone a particular branch
+```
 git clone -b $branch_name \
     --recursive \
     https://github.com/eddiebarry/WHOA-FAQ-Answer-Project.git
-
+```
 
 ### Loading model only once
 [StackOverflow](https://stackoverflow.com/questions/32213893/how-to-cache-a-large-machine-learning-model-in-flask)
 
 
 ### botpress quick install
-'''
+```
 mkdir bot
 cd bot
 wget https://s3.amazonaws.com/botpress-binaries/botpress-v12_10_8-linux-x64.zip
 sudo apt install unzip
 unzip botpress-v12_10_8-linux-x64.zip
 ./bp
-'''
+```
 
 ### install docker
-'''c
+```
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
-'''
+```
 
 ### bot dependencies
-'''
+```
 Keyword Directory for keyword engine
 QA+Keyword pairs for Bot search engine
 Questions per category
-'''
+```
