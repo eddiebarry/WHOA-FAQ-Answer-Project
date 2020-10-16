@@ -7,47 +7,47 @@ import timeit
 from statistics import mean 
 # TODO : Use Pytest
 
-"""
-Single Keyword Extract Test
-"""
-base_url="http://52.209.188.140:5007/api/v2/keyword_extract"
-params = {
-    "question":"My child is sick where can he get measles vaccine ?",
-    "answer":"Please go to khandala",
-}
+# """
+# Single Keyword Extract Test
+# """
+# base_url="http://0.0.0.0:5007/api/v2/keyword_extract"
+# params = {
+#     "question":"My child is sick where can he get measles vaccine ?",
+#     "answer":"Please go to khandala",
+# }
 
-r = requests.get(base_url, params=params)
-print(r.text)
-"""
-{
-    "Disease 1": [
-        "measles"
-    ], 
-    "Disease 2": [
-        "measles"
-    ], 
-    "Keyword": [
-        "child", 
-        "measles"
-    ], 
-    "Other -condition, symptom etc": [
-        "sick", 
-        "child"
-    ], 
-    "Subject - Person": [
-        "child"
-    ], 
-    "Vaccine 1": [
-        "measles"
-    ], 
-    "Vaccine 2": [
-        "measles"
-    ], 
-    "Who is writing this": [
-        "child"
-    ]
-}
-"""
+# r = requests.get(base_url, params=params)
+# print(r.text)
+# """
+# {
+#     "Disease 1": [
+#         "measles"
+#     ], 
+#     "Disease 2": [
+#         "measles"
+#     ], 
+#     "Keyword": [
+#         "child", 
+#         "measles"
+#     ], 
+#     "Other -condition, symptom etc": [
+#         "sick", 
+#         "child"
+#     ], 
+#     "Subject - Person": [
+#         "child"
+#     ], 
+#     "Vaccine 1": [
+#         "measles"
+#     ], 
+#     "Vaccine 2": [
+#         "measles"
+#     ], 
+#     "Who is writing this": [
+#         "child"
+#     ]
+# }
+# """
 
 
 """
@@ -71,45 +71,160 @@ qa_list = [
 for x in qa_list:
     query_string = x['question']+x['answer']
     qa_hash = hashlib.sha512(query_string.encode()).hexdigest()
-    x['hash']=qa_hash
+    x['id']=qa_hash
 
 batch_response_test = {
-    "num_questions" : len(qa_list),
     "question_answer_list" : qa_list
 }
-# print(json.dumps(batch_response_test,indent=4))
+print(json.dumps(batch_response_test,indent=4))
 """
 example input
 {
-    "num_questions": 3,
     "question_answer_list": [
         {
             "question": "My child is sick where can he get measles vaccine ?",
             "answer": "Please go to khandala",
-            "hash": "30f05b0d8b1d20dde20fd58ac8bc07e9ae1e664eefeada3d843d48dbe653afec1df8116a1755fb4a956166ecd67c61103f9fea5a9deb14ed1b551e80eecaeb5b"
+            "id": "1"
         },
         {
             "question": "My child is sick where can he get rubella vaccine ?",
             "answer": "Please go to khandala",
-            "hash": "74ef7552dbf54d910a22174b0905b5965be9d2644cbb4d68406c9a23d128d20df8f6386106e8a7fdd7dddec549a204a54089887e89d0a86bf7cfca1ab2ba0ad8"
+            "id": "2"
         },
         {
             "question": "My child is sick where can he get polio vaccine ?",
             "answer": "Please go to khandala",
-            "hash": "3b454a1b958d0abe190821768e21a837be283e02ff2c6a2b30d2f5363c1275221aabb35aa23319fc0ae24a33f022f8664b5a93d5eb0659c2eb1e1b0a2ae66383"
+            "id": "3"
         }
     ]
 }
 """
 
-base_url="http://52.209.188.140:5007/api/v2/batch_keyword_extract"
+base_url="http://0.0.0.0:5007/api/v2/batch_keyword_extract"
 
-r = requests.get(base_url, data=json.dumps(batch_response_test))
+r = requests.post(base_url, data=json.dumps(batch_response_test))
 print(r.text)
 
 """
+example response
 {
-  "questions_keywords_dict": {
+  "questions_keywords_list": [
+    {
+      "id": "1"
+      "keywords": {
+        "disease_1": [
+          "measles"
+        ], 
+        "disease_2": [
+          "measles"
+        ], 
+        "other_conditions_or_symptoms_etc": [
+          "sick", 
+          "child", 
+          "baby"
+        ], 
+        "subject_1_immunization": [
+          "vaccination", 
+          "i", 
+          "immunization"
+        ], 
+        "subject_2_vaccination_general": [
+          "vaccination", 
+          "travel"
+        ], 
+        "subject_person": [
+          "baby", 
+          "child"
+        ], 
+        "vaccine_1": [
+          "measles"
+        ], 
+        "vaccine_2": [
+          "measles"
+        ], 
+        "who_is_writing_this": [
+          "child"
+        ]
+      }
+    }, 
+    {
+      "id": "2",
+      "keywords": {
+        "disease_1": [
+          "rubella"
+        ], 
+        "disease_2": [
+          "rubella"
+        ], 
+        "other_conditions_or_symptoms_etc": [
+          "sick", 
+          "child", 
+          "baby"
+        ], 
+        "subject_1_immunization": [
+          "vaccination", 
+          "i", 
+          "immunization"
+        ], 
+        "subject_2_vaccination_general": [
+          "vaccination", 
+          "travel"
+        ], 
+        "subject_person": [
+          "baby", 
+          "child"
+        ], 
+        "vaccine_1": [
+          "rubella"
+        ], 
+        "vaccine_2": [
+          "rubella"
+        ], 
+        "who_is_writing_this": [
+          "child"
+        ]
+      }
+    }, 
+    {
+      "id": "3",
+      "keywords": {
+        "other_conditions_or_symptoms_etc": [
+          "sick", 
+          "child", 
+          "baby"
+        ], 
+        "subject_1_immunization": [
+          "vaccination", 
+          "i", 
+          "immunization"
+        ], 
+        "subject_2_vaccination_general": [
+          "vaccination", 
+          "travel"
+        ], 
+        "subject_person": [
+          "baby", 
+          "child"
+        ], 
+        "vaccine_1": [
+          "polio"
+        ], 
+        "vaccine_2": [
+          "polio"
+        ], 
+        "who_is_writing_this": [
+          "child"
+        ]
+      }
+    }
+  ]
+}
+"""
+
+
+"""
+{
+  "questions_keywords_dict": [
     "30f05b0d8b1d20dde20fd58ac8bc07e9ae1e664eefeada3d843d48dbe653afec1df8116a1755fb4a956166ecd67c61103f9fea5a9deb14ed1b551e80eecaeb5b": {
       "Disease 1": [
         "measles"
@@ -225,7 +340,7 @@ print(r.text)
         "child"
       ]
     }
-  }
+  ]
 }
 """
 
@@ -256,7 +371,7 @@ keyword_directory = json.load(f)
 data['question_array'] = questions
 data['keyword_directory'] = keyword_directory
 
-base_url="http://52.209.188.140:5007/api/v2/train_bot_json_array"
+base_url="http://0.0.0.0:5007/api/v2/train_bot_json_array"
 
 r = requests.post(base_url, data=json.dumps(data))
 print(r.text)
@@ -330,7 +445,7 @@ print('$'*80)
 print("reranking service done")
 
 
-base_url="http://52.209.188.140:5007/api/v2/qna"
+base_url="http://0.0.0.0:5007/api/v2/qna"
 
 data_ = [
     {
@@ -355,3 +470,71 @@ for x in range(30):
             times.append(stop-start)
 print(mean(times))
 print(r.text)
+
+
+
+data={
+    "project_id":"123",
+    "version_id":"0.1",
+    "version_number":"0.2",
+    "question_array" : [
+      {
+        "question" : "where can i get a vaccine in khandala",
+        #"question_variation_1" : "where can i get a vaccine in khandala",
+        #"question_variation_0" : "where can i get a vaccine in khandala",
+        "answer" : "go to hospital",
+        "keywords" : [
+          {
+            "category_1" : [
+              "cat_1_key_1",
+              "cat_1_key_2",
+            ]
+          },
+          {
+            "category_2" : [
+              "cat_2_key_1",
+              "cat_2_key_2",
+            ]
+          }
+        ],
+        "id": "12345"
+      },
+      {
+        "question" : "where can i get a vaccine in lonavla",
+        # "question_variation_1" : "where can i get a vaccine in lonavla",
+        # "question_variation_0" : "where can i get a vaccine in lonavla",
+        "answer" : "go to hospital",
+        "keywords" : [
+          {
+            "category_1" : [
+              "cat_1_key_1",
+              "cat_1_key_2",
+            ]
+          },
+          {
+            "category_2" : [
+              "cat_2_key_1",
+              "cat_2_key_2",
+            ]
+          }
+        ],
+        "id": "23456"
+      },
+      # case where no keyword in a category
+      {
+        "question" : "where can i get a vaccine in san marino",
+        "question_variation_1" : "where can i get a vaccine in san marino",
+        "question_variation_0" : "where can i get a vaccine in san marino",
+        "answer" : "go to hospital",
+        "id" : "34567"
+      }
+    ],
+    "keywords" : [
+        {"category_1" : "cat_1_keyword_1"},
+        {"category_2" : "cat_2_keyword_1"}
+    ]
+  }
+
+
+data_info = project_id + version_number
+hash_ = hashlib.sha512(data_info.encode()).hexdigest()
