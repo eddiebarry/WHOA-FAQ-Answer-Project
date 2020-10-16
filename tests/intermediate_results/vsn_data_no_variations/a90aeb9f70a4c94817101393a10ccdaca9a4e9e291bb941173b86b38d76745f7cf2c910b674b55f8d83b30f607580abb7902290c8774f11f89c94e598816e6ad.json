@@ -1,0 +1,13 @@
+{
+    "answer": "Immunization schedules do vary between countries. Provide your local public health unit with a copy of your son's immunization record and they can determine any vaccines needed for him to be up-to-date on the BC schedule. Find your local health unit here.\nImmunization Nurse\n",
+    "disease_1": "Measles",
+    "disease_2": "Mumps",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "Hello My son was born in the U.K and we just moved to Canada. He is due for his second MMR and other vaccines in November but in B.C it said you need to be 4 years old. Do I wait",
+    "subject_1_immunization": "Immunization Required",
+    "subject_2_vaccination_general": "Protection",
+    "subject_person": "Child",
+    "vaccine_1": "(MMR) Measles / Mumps / Rubella",
+    "vaccine_2": "",
+    "who_is_writing_this": "Parent"
+}

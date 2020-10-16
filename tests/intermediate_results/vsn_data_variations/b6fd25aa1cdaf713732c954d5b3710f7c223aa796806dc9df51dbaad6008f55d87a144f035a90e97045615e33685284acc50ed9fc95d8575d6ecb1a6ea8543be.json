@@ -1,0 +1,16 @@
+{
+    "answer": "The measles, mumps, rubella (MMR) vaccine is publicly funded (free) for people born in 1970 or later.\nThe tetanus, diphtheria, pertussis (Tdap) vaccine is not routinely provided free for adults. It is, however, free for adults who have not been immunized against pertussis or whose immunization history is unknown.\nThe hepatitis B vaccine is free for staff that work in a childcare setting in which there is a child infected with hepatitis B. The vaccine is also free for adults at high risk of hepatitis B infection. You can find a list of people eligible for the free hepatitis B vaccine here.\nYou can get publicly-funded (free) vaccines from your local health unit, most pharmacies, and some doctors' offices. You can purchase non-publicly funded vaccines at most pharmacies and travel clinics.\u00a0\nIf you received immunizations in the past but do not have your record, you can find tips for locating your record here.\u00a0\nImmunization Nurse",
+    "disease_1": "Tetanus",
+    "disease_2": "Tetanus",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "hello, I have just started working in a childcare center I need to get my vaccinations updated. I was born in 1970 do I have to pay for these? specifically the Diptheria/tetanus/pertussis , Hepatitus & MMR",
+    "question_variation_0": "vaccinations to renew vaccinations born in 1970",
+    "question_variation_1": "do i need to pay for my vaccination",
+    "question_variation_2": "do i have to pay for vaccines if i was born in 1970",
+    "subject_1_immunization": "Vaccination",
+    "subject_2_vaccination_general": "Vaccine Cost",
+    "subject_person": "",
+    "vaccine_1": "(mmR) Measles / Mumps / Rubella",
+    "vaccine_2": "",
+    "who_is_writing_this": "adult"
+}

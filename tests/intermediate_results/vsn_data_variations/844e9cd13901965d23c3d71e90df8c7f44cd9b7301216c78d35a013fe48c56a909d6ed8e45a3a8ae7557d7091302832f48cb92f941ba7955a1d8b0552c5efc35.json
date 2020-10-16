@@ -1,0 +1,16 @@
+{
+    "answer": "You can find tips for locating immunization records here. Blood tests to determine immunity to vaccine-preventable diseases are not routinely recommended.\u00a0 Instead, it is generally recommended that people without immunization records get reimmunized. Blood tests can determine immunity to some vaccine-preventable diseases but not all. For more information, please speak with your health care provider.\u00a0Your health care provider can help you determine what is best for you.\nImmunization Nurse\u00a0\n",
+    "disease_1": "Chickenpox",
+    "disease_2": "Varicella (Chickenpox)",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "I lost my vaccination records. Can I get a blood test to document immunity? DTPP, MMR, Chickenpox, HepB\n",
+    "question_variation_0": "can we have a blood test to document immunity",
+    "question_variation_1": "blood test to document immunity",
+    "question_variation_2": "what blood test for immunity is mrm",
+    "subject_1_immunization": "Immunization Record",
+    "subject_2_vaccination_general": "Generic",
+    "subject_person": "Unknown ",
+    "vaccine_1": "(DTap) Diphtheria / Tetanus / Pertussis",
+    "vaccine_2": "",
+    "who_is_writing_this": "unknown"
+}

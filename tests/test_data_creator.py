@@ -20,7 +20,7 @@ def get_json_obj_with_variations(jsonObj, \
             variations = variation_generator.get_variations(jsonObj[x])
 
             for idx, variation in enumerate(variations):
-                field_name = x + " variation "+str(idx)
+                field_name = x + "_variation_"+str(idx)
                 new_json_obj[field_name] = variation
 
         new_json_obj[x]=jsonObj[x]
@@ -28,13 +28,13 @@ def get_json_obj_with_variations(jsonObj, \
     return new_json_obj
 
 if __name__ == "__main__":
-    indexDir = "../test_data/json_folder_data_1500"
-    newIndexStore = "./intermediate_results/json_folder_with_variations_1500/"
+    indexDir = "./test_data/vsn_data"
+    newIndexStore = "./intermediate_results/vsn_data_variations/"
     variation_generation_model_weights = "../WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights/model.ckpt-1004000"
     variation_generator = VariationGenerator(\
         path=variation_generation_model_weights)
 
-    fields_to_expand = ["Master_Question"]
+    fields_to_expand = ["question"]
 
     for filename in sorted(os.listdir(indexDir)):
         if not filename.endswith('.json'):
@@ -47,7 +47,7 @@ if __name__ == "__main__":
                 f = open(jsonpath,)
                 json_obj = json.load(f)
                 json_name = hashlib.sha512(\
-                        json_obj['Master Question'].encode()\
+                        json_obj['question'].encode()\
                     ).hexdigest()
                 json_file_name = os.path.join(\
                     newIndexStore, json_name + ".json")
@@ -60,7 +60,7 @@ if __name__ == "__main__":
                     json_obj, fields_to_expand, variation_generator)
 
                 json_name = hashlib.sha512(\
-                        new_json_obj['Master Question'].encode()\
+                        new_json_obj['question'].encode()\
                     ).hexdigest()
                 json_file_name = os.path.join(\
                     newIndexStore, json_name + ".json")

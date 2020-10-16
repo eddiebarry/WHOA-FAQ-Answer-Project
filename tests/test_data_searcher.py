@@ -33,7 +33,7 @@ if __name__ == '__main__':
     search_engine = SearchEngine(indexDir)
 
     extractor_json_path = \
-        "../WHO-FAQ-Keyword-Engine/test_excel_data/curated_keywords_1500.json"
+        "../WHO-FAQ-Keyword-Engine/keyword_config/curated_keywords_1500.json"
     f = open(extractor_json_path,)
     jsonObj = json.load(f)
     keyword_extractor= KeywordExtract(jsonObj)
@@ -48,18 +48,19 @@ if __name__ == '__main__':
     for idx, x in df.iterrows():
         # try:
         query_string = x['User Question'].\
-            replace("?","").replace("(","").replace(")","").replace("-","")
+            replace("?","").replace("(","")\
+                .replace(")","").replace("-","").replace("\"","").replace("'","")
         print(query_string)
 
         boosting_tokens = keyword_extractor.parse_regex_query(query_string)
         query = query_gen.build_query(query_string, \
-                boosting_tokens, "OR_QUERY", field="Master Question",\
+                boosting_tokens, "OR_QUERY", field="question",\
                 boost_val=1.0)
 
-        top_n = 100
+        top_n = 50
         hits = search_engine.search(query, \
                 query_string=query_string, \
-                query_field="Master Question", top_n=top_n)
+                query_field="question", top_n=top_n)
         
         rerank_test.append([query_string, x['Master Question'], hits])  
 
@@ -67,13 +68,12 @@ if __name__ == '__main__':
             if x['Master Question']==doc[1]:
                 accuracy +=1
         print("*"*80)
-        
         total += 1
     
     print(accuracy, total, accuracy/total)
     
-    import pickle
-    pickle.dump( rerank_test, open( "pure_search_"+str(top_n)+"_"+str(round(accuracy/total,3))+".p", "wb" ) )
+    # import pickle
+    # pickle.dump( rerank_test, open( "./intermediate_results/pure_search_"+str(top_n)+"_"+str(round(accuracy/total,3))+".p", "wb" ) )
 
 
 

@@ -2,10 +2,10 @@ import pickle
 
 if __name__ == '__main__':
     rerank = [
-        './pure_search_5_0.757.p',
-        "./reranked_search_10_0.816.p",
-        "./reranked_search_50_0.905.p",
-        "./reranked_search_100_0.944.p",
+        './intermediate_results/pure_search_5_0.757.p',
+        "./intermediate_results/reranked_search_10_0.816.p",
+        "./intermediate_results/reranked_search_50_0.905.p",
+        "./intermediate_results/reranked_search_100_0.944.p",
     ]
     for path in rerank:
         with open(path,'rb') as f:

@@ -14,8 +14,8 @@ from org.apache.lucene.analysis.standard import StandardAnalyzer
 if __name__ == "__main__":
     lucene.initVM(vmargs=['-Djava.awt.headless=true'])
     # create new files needed
-    indexDir = "./intermediate_results/json_folder_with_variations_1500/"
-    oneVariationRemovedDataStore = "./intermediate_results/json_folder_with_no_variations/"
+    indexDir = "./intermediate_results/vsn_data_variations/"
+    oneVariationRemovedDataStore = "./intermediate_results/vsn_data_no_variations/"
     
     new_data = []
     for filename in sorted(os.listdir(indexDir)):
@@ -29,18 +29,18 @@ if __name__ == "__main__":
                 f = open(jsonpath,)
                 jsonObj = json.load(f)
 
-                user_question = jsonObj.pop('Master Question variation 2')
+                user_question = jsonObj.pop('question_variation_2')
                 
                 # Debugging
-                jsonObj.pop('Master Question variation 0')
-                jsonObj.pop('Master Question variation 1')
+                jsonObj.pop('question_variation_0')
+                jsonObj.pop('question_variation_1')
                 
-                master_question = jsonObj['Master Question']
+                master_question = jsonObj['question']
 
                 new_data.append([user_question, master_question])
 
                 json_name = hashlib.sha512(\
-                        jsonObj['Master Question'].encode()\
+                        jsonObj['question'].encode()\
                     ).hexdigest()
                 json_file_name = os.path.join(\
                     oneVariationRemovedDataStore, json_name + ".json")

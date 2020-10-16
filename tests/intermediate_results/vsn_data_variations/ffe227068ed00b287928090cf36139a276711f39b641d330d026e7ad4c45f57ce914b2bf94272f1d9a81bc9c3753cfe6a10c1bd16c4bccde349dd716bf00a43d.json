@@ -1,0 +1,16 @@
+{
+    "answer": "Vaccines contain small amounts of specific ingredients (also called components), all of which play necessary and important roles during vaccine production. People with a history of an anaphylactic (severe life-threatening allergic) reaction to components of a vaccine should generally not receive that vaccine. Allergy to cephalosporin should not be a contraindication to getting Tetanus diphtheria. Before getting a vaccine, your health care provider will tell you about the contraindications or possible side effects of the vaccine. It's important to be open with your health care provider and ask any questions you have and tell them about any allergies or health conditions.\nImmunization Nurse\n",
+    "disease_1": "Allergy",
+    "disease_2": "Tetanus",
+    "other_conditions_or_symptoms_etc": "cephalosporin",
+    "question": "Is there any danger of tetanus and diphtheria vaccine on cephalosporin allergic patient???\n",
+    "question_variation_0": "is the vaccine on cephalosporin the same as the tetanus vaccine for cephalosporin",
+    "question_variation_1": "is there any danger of tetanus and diphtheria vaccine on cephalosporin allergic patient",
+    "question_variation_2": "is there any danger of tetanus and diphtheria vaccine on cephalosporin allergic patient?",
+    "subject_1_immunization": "Vaccination",
+    "subject_2_vaccination_general": "Vaccination",
+    "subject_person": "Unknown ",
+    "vaccine_1": "Tetanus",
+    "vaccine_2": "",
+    "who_is_writing_this": "unknown"
+}

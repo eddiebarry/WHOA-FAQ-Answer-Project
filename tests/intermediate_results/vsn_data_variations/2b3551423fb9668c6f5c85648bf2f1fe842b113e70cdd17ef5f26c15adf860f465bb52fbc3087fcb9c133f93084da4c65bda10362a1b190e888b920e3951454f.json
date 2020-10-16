@@ -1,0 +1,16 @@
+{
+    "answer": "You will find tips for locating immunization records here.\nImmunization Nurse\n",
+    "disease_1": "-",
+    "disease_2": "-",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "I need an immunization history for college, but my last vaccine was ~2003ish in Dawson Creek, and my GP has no records. Who will have my history?",
+    "question_variation_0": "who will have my immunization history",
+    "question_variation_1": "who has my vaccine history",
+    "question_variation_2": "who will have my vaccination history",
+    "subject_1_immunization": "Immunization Record",
+    "subject_2_vaccination_general": "Vaccination",
+    "subject_person": "Child",
+    "vaccine_1": "-",
+    "vaccine_2": "",
+    "who_is_writing_this": "adult"
+}

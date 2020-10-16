@@ -1,0 +1,16 @@
+{
+    "answer": "Children can usually get vaccinated if they have a mild common illness like a cold, ear infection, or diarrhea. Mild common diseases do not interfere with the immune response to vaccines and do not increase the risk of adverse events following immunization. Children taking antibiotics can also receive vaccines as antibiotics do not interfere with the immune response to the vaccine. If you have questions about whether or not your child should be vaccinated, we recommend that you speak with your immunizing health care provider.\nIf you have concerns about your child's current health, you can talk with a nurse at HealthLinkBC by calling 8-1-1.\nImmunization Nurse",
+    "disease_1": "Pneumococcal (Pneumonia)",
+    "disease_2": "Pneumococcal (Pneumonia)",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "Is it okay to administer a Measles Vaccine despite the 2 year old patient having a pneumonia without any record of the said vaccine?",
+    "question_variation_0": "vaccination vaccine despite pneumonia",
+    "question_variation_1": "when to administer measles vaccine",
+    "question_variation_2": "can a 2 year old get pneumonia without a record of the said vaccine?",
+    "subject_1_immunization": "i",
+    "subject_2_vaccination_general": "Vaccination",
+    "subject_person": "child",
+    "vaccine_1": "Pneumococcal (Pneumonia)",
+    "vaccine_2": "",
+    "who_is_writing_this": "parent"
+}

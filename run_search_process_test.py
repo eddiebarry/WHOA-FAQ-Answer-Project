@@ -16,16 +16,15 @@ lucene.initVM(vmargs=['-Djava.awt.headless=true'])
 
 # Index generator
 Index = IndexFiles("./VaccineIndex.Index",StandardAnalyzer())
-# Index.indexFolder("./WHO-FAQ-Search-Engine/test_data/json_folder_data")
 Index.indexFolder(\
-    "./tests/intermediate_results/json_folder_with_variations_1500")
+    "./tests/intermediate_results/vsn_data_variations")
 
 indexDir = Index.getIndexDir()
 
 QueryGenTest = QueryGenerator(StandardAnalyzer())
 
 # Keyword Extractor
-jsonpath = "./WHO-FAQ-Keyword-Engine/test_excel_data/curated_keywords.json"
+jsonpath = "./tests/unique_keywords.json"
 f = open(jsonpath,)
 jsonObj = json.load(f)
 keyword_extractor = KeywordExtract(jsonObj)
@@ -44,7 +43,7 @@ QueryGen = QueryGenerator(StandardAnalyzer(), \
             "./WHO-FAQ-Search-Engine/synonym_expansion/synlist.txt" #synlist path
         ])
 query = QueryGen.build_query(query_string, \
-    boosting_tokens, "OR_QUERY", field="Master Question")
+    boosting_tokens, "OR_QUERY", field="question")
 
 print(query)
 
@@ -55,7 +54,7 @@ SearchEngine = SearchEngine(
 )
 
 hits = SearchEngine.search(query, \
-        query_string=query_string, query_field="Master Question")
+        query_string=query_string, query_field="question")
 print("%s total matching documents." % len(hits))
 
 for doc in hits:

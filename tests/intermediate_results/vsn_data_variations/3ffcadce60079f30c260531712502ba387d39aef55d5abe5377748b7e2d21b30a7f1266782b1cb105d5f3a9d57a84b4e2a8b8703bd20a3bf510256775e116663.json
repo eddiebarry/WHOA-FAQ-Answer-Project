@@ -1,0 +1,16 @@
+{
+    "answer": "The routine immunization schedule is publicly funded (free) for residents of BC. Immunizations are available through health units, doctors' offices, and pharmacies (for those 5 years of age and older). Services vary across BC. To book an appointment, find a health unit near you here.\nImmunization Nurse",
+    "disease_1": "",
+    "disease_2": "",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "Do you need to book an appointment? Is there a cost to get the immunizations\n",
+    "question_variation_0": "costs of immunizations",
+    "question_variation_1": "do you need to book an appointment?",
+    "question_variation_2": "cost to get immunizations",
+    "subject_1_immunization": "Immunization Schedule",
+    "subject_2_vaccination_general": "Vaccine Cost",
+    "subject_person": "Unknown ",
+    "vaccine_1": "General vaccine safety information",
+    "vaccine_2": "",
+    "who_is_writing_this": "Unknown "
+}

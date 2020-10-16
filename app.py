@@ -12,14 +12,15 @@ from collections import defaultdict
 
 from keyword_extractor import KeywordExtract
 from search import SearchEngine
+from rerank.config import RE_RANK_ENDPOINT
+from variation_generation.variation_generator import VariationGenerator
 from query_generator import QueryGenerator
 from index import IndexFiles
 from org.apache.lucene.analysis.standard import StandardAnalyzer
-# TODO : Fix naming
+
 from QNA.common import preprocess, tokenize, porter_stemmer_instance
 from QNA.question_asker import QuestionAsker
-from rerank.config import RE_RANK_ENDPOINT
-# Update engine
+
 from update_engine import UpdateEngine
 from keyword_engine_manager import KeywordEngineManager
 from qa_keyword_manager import  QAKeywordManager
@@ -107,11 +108,11 @@ def answer_question():
     # If no more questions need to be asked, isolate the search results and return
     if should_search:
         query, synonyms = QUERY_GEN.build_query(ID_QUERY_DICT[unique_id], \
-            ID_KEYWORD_DICT[unique_id], "OR_QUERY", field="Master_Question",\
+            ID_KEYWORD_DICT[unique_id], "OR_QUERY", field="question",\
             boost_val=2.0)
         hits = SEARCH_ENGINE.search(query, \
             query_string=ID_QUERY_DICT[unique_id], \
-            query_field="Master_Question*", top_n=50)
+            query_field="question*", top_n=50)
         
         what_to_say = {}
         for idx, doc in enumerate(hits[:5]):
@@ -345,7 +346,7 @@ def return_batch_keyword():
     return jsonify(response)
 
 # Need json objects with variations
-@app.route('/api/v2/train_bot_json_array', methods=['PUT'])
+@app.route('/api/v2/train_bot_json_array', methods=['POST'])
 def index_json_array():
     """
     This function takes a json array specified by the labelling web service 
@@ -362,6 +363,12 @@ def index_json_array():
                 answer : "DEF"
                 category1 : ["cat_1_keyword_1", "cat_2_keyword_2", ...]
                 category2 : ["cat_2_keyword_1", "cat_2_keyword_2", ...]
+            },
+            {
+                question : "GHI"
+                answer : "JKL"
+                category3 : ["cat_1_keyword_1", "cat_2_keyword_2", ...]
+                category4 : ["cat_2_keyword_1", "cat_2_keyword_2", ...]
             }
         ],
         keyword_directory : {
@@ -399,7 +406,7 @@ def index_json_array():
     #     sys.stdout = original_stdout
 
     #TODO :  preprocess
-    # return jsonify(boosting_tokens)
+    return jsonify({"status":"200"})
 
 @app.route('/')
 def hello_world():
@@ -410,7 +417,7 @@ if __name__ == '__main__':
 
     # TODO : remove dependecy for hardcoded data
     INDEX = IndexFiles("./VaccineIndex.Index",StandardAnalyzer())
-    INDEX.indexFolder("./tests/intermediate_results/json_folder_with_variations_1500")
+    INDEX.indexFolder("./data")
 
     QUERY_GEN = QueryGenerator(StandardAnalyzer(),\
         synonym_config=[
@@ -427,7 +434,7 @@ if __name__ == '__main__':
     )
     
     extractor_json_path = \
-        "./WHO-FAQ-Keyword-Engine/test_excel_data/curated_keywords_1500.json"
+        "./tests/unique_keywords.json"
     f = open(extractor_json_path,)
     jsonObj = json.load(f)
     KEYWORD_EXTRACTOR = KeywordExtract(jsonObj)
@@ -435,7 +442,7 @@ if __name__ == '__main__':
     ID_KEYWORD_DICT = defaultdict(dict)
     ID_QUERY_DICT = defaultdict(str)
 
-    qa_config_path = "./WHO-FAQ-Dialog-Manager/QNA/question_asker_test_config.json"
+    qa_config_path = "./tests/question_asker_config.json"
     use_question_predicter_config = [
             False, #Use question predictor
             "./WHO-FAQ-Dialog-Manager/QNA/models.txt", #models path
@@ -445,7 +452,6 @@ if __name__ == '__main__':
         qa_keyword_path = extractor_json_path,
         use_question_predicter_config=use_question_predicter_config)
 
-
     # Setting up the update engine
     qa_keyword_manager = QAKeywordManager(
         search_engine=SEARCH_ENGINE,
@@ -454,8 +460,8 @@ if __name__ == '__main__':
     category_question_manager = CategoryQuestionManager()
     UPDATE_ENGINE = UpdateEngine(
         keyword_engine_manager=keyword_engine_manager,
-        qa_keyword_manager=qa_keyword_manager
+        qa_keyword_manager=qa_keyword_manager,
         category_question_manager=category_question_manager
     )
 
-    app.run(host='0.0.0.0', port = 5006)
+    app.run(host='0.0.0.0', port = 5007)
