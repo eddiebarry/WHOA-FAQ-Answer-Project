@@ -10,7 +10,7 @@ from statistics import mean
 """
 Single Keyword Extract Test
 """
-base_url="http://0.0.0.0:5007/api/v2/keyword_extract"
+base_url="http://52.209.188.140:5007/api/v2/keyword_extract"
 params = {
     "question":"My child is sick where can he get measles vaccine ?",
     "answer":"Please go to khandala",
@@ -102,7 +102,7 @@ example input
 }
 """
 
-base_url="http://0.0.0.0:5007/api/v2/batch_keyword_extract"
+base_url="http://52.209.188.140:5007/api/v2/batch_keyword_extract"
 
 r = requests.get(base_url, data=json.dumps(batch_response_test))
 print(r.text)
@@ -256,7 +256,7 @@ keyword_directory = json.load(f)
 data['question_array'] = questions
 data['keyword_directory'] = keyword_directory
 
-base_url="http://0.0.0.0:5007/api/v2/train_bot_json_array"
+base_url="http://52.209.188.140:5007/api/v2/train_bot_json_array"
 
 r = requests.post(base_url, data=json.dumps(data))
 print(r.text)
@@ -330,7 +330,7 @@ print('$'*80)
 print("reranking service done")
 
 
-base_url="http://0.0.0.0:5007/api/v2/qna"
+base_url="http://52.209.188.140:5007/api/v2/qna"
 
 data_ = [
     {
