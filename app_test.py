@@ -311,7 +311,7 @@ print(r.text)
 
 data = {
     "project_id":"1",
-    "version_id":"0.3",
+    "version_id":"0.2",
     "version_number":"0.1",
 }
 questions = []

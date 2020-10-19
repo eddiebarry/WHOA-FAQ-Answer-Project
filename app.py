@@ -357,6 +357,8 @@ def index_json_array():
                         .hexdigest()
 
     def update_data(question_list, data_hash_id, keyword_dir):
+        # vm_env = lucene.getVMEnv()
+        # vm_env.attachCurrentThread()
         UPDATE_ENGINE.add_questions(question_list, data_hash_id)
         # TODO: move urls to config file
         # server_url = "0.0.0.0"
@@ -388,7 +390,14 @@ def hello_world():
         
 
 if __name__ == '__main__':
-    INDEX = IndexFiles("./VaccineIndex.Index",StandardAnalyzer())
+    INDEX = IndexFiles("./VaccineIndex.Index",StandardAnalyzer(),\
+         variation_generator_config=[
+            True,                   #should_expand_queries
+            VariationGenerator(\
+            path="./WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights/model.ckpt-1004000",
+            max_length=20),   #variation_generator
+            ["question"] #fields_to_expand
+        ])
     INDEX.indexFolder("./data/")
     # INDEX.indexFolder("./tests/intermediate_results/vsn_data_variations")
 
