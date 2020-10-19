@@ -63,12 +63,19 @@ def answer_question():
     vm_env.attachCurrentThread()
 
     request_json = json.loads(request.data)
+    if 'query' not in request_json.keys():
+        return jsonify({"message":"request does not contain query"})
+    
     # If first time being sent, calculate a unique id
     query_string = request_json['query'].lower()\
         .replace("?","")\
         .replace("-","")\
         .replace("not relevant","")\
         .replace("none","")
+
+    if 'user_id' not in request_json.keys():
+        return jsonify({"message":"request does not contain user id"})
+    
     if request_json['user_id'] == "-1":
         unique_id = hashlib.sha512(query_string.encode()).hexdigest()
         # If question has already been answered allow new question to be asked
@@ -233,8 +240,18 @@ def return_batch_keyword():
     request_json = json.loads(request.data)
     questions_keywords_list = []
 
+    if 'question_answer_list' not in request_json.keys():
+        return jsonify({"message":"request does not contain a question answer list"})
+
     for qa_pair in request_json['question_answer_list']:
         temp_keyword_dict = {}
+
+        if 'question' not in qa_pair.keys():
+            return jsonify({"message":"a qa pair does not have a question"})
+        
+        if 'answer' not in qa_pair.keys():
+            return jsonify({"message":"a qa pair does not have an answer"})
+        
         # If first time being sent, calculate a unique id
         query_string = qa_pair['question'].replace("?","") \
             + " " + qa_pair['answer'].replace("?","")
@@ -247,6 +264,9 @@ def return_batch_keyword():
 
         # Extract keywords on the basis of the user input
         boosting_tokens = KEYWORD_EXTRACTOR.parse_regex_query(query_string)
+
+        if 'id' not in qa_pair.keys():
+            return jsonify({"message":"a qa pair does not have an id"})
 
         temp_keyword_dict['id'] = qa_pair['id']
         temp_keyword_dict['keywords']=boosting_tokens
@@ -315,11 +335,21 @@ def index_json_array():
     global UPDATE_ENGINE
 
     request_json = json.loads(request.data)
+    requires = [
+            'project_id', 'version_id', 'question_list',
+            'version_number', 'keyword_directory'
+        ]
+    for x in requires:
+        if x not in request_json.keys():
+            return jsonify({"message":"given request does not have a "+x })
+
     # Adding the files to the array
     question_list = request_json['question_list']
     project_id = request_json['project_id']
     version_id = request_json['version_id']
     version_number = request_json['version_number']
+    
+    # TODO : check question list format
     keyword_dir = request_json['keyword_directory']
 
     data_hash_string = project_id + version_id

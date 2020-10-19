@@ -187,7 +187,7 @@ example input
     "project_id":"1",
     "version_id":"0.1",
     "version_number":"0.1",
-    "question_array" : [
+    "question_list" : [
         {
             "question" : "where can i get a vaccine in khandala",
             "answer" : "go to hospital",
@@ -234,7 +234,7 @@ example input
             "id" : "34567"
         }
     ],
-    "keywords" : [
+    "keyword_directory" : [
         {"category_1" : ["cat_1_keyword_1", "cat_1_keyword_2"]},
         {"category_2" : ["cat_2_keyword_1", "cat_1_keyword_2"]}
     ]
@@ -355,10 +355,6 @@ base_url= url + "/api/v2/train_bot_json_array"
 
 r = requests.post(base_url, data=json.dumps(data))
 print(r.text)
-
-
-
-
 
 
 """
