@@ -348,6 +348,13 @@ def index_json_array():
     project_id = request_json['project_id']
     version_id = request_json['version_id']
     version_number = request_json['version_number']
+
+    if type(project_id) != str:
+        project_id = str(project_id)
+    if type(version_id) != str:
+        version_id = str(version_id)
+    if type(version_number) != str:
+        version_number = str(version_number)
     
     # TODO : check question list format
     keyword_dir = request_json['keyword_directory']
@@ -356,24 +363,11 @@ def index_json_array():
     data_hash_id = hashlib.sha512(data_hash_string.encode())\
                         .hexdigest()
 
-    def update_data(question_list, data_hash_id, keyword_dir):
-        # vm_env = lucene.getVMEnv()
-        # vm_env.attachCurrentThread()
-        UPDATE_ENGINE.add_questions(question_list, data_hash_id)
-        # TODO: move urls to config file
-        # server_url = "0.0.0.0"
-        # end_url = server_url +"/api/train-bot-status"
-        # response = {"status": 'Ok'}
-        # request.post(end_url, data=json.dumps(response))
-
-    thread = Thread(\
-        target=update_data, \
-        kwargs={
-                'question_list' : question_list,
-                'data_hash_id' : data_hash_id,
-                'keyword_dir' : keyword_dir
-            })
-    thread.start()
+    # def update_data(question_list, data_hash_id, keyword_dir):
+    #     # vm_env = lucene.getVMEnv()
+    #     # vm_env.attachCurrentThread()
+    
+    UPDATE_ENGINE.add_questions(question_list, data_hash_id)
 
     response = {
         "project_id": project_id,
