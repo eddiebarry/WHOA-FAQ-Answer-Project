@@ -362,12 +362,10 @@ def index_json_array():
     data_hash_string = project_id + version_id
     data_hash_id = hashlib.sha512(data_hash_string.encode())\
                         .hexdigest()
-
-    # def update_data(question_list, data_hash_id, keyword_dir):
-    #     # vm_env = lucene.getVMEnv()
-    #     # vm_env.attachCurrentThread()
     
-    UPDATE_ENGINE.add_questions(question_list, data_hash_id)
+    project_info = [data_hash_id, project_id, version_id, version_number]
+    
+    UPDATE_ENGINE.add_questions(question_list, project_info)
 
     response = {
         "project_id": project_id,
@@ -392,8 +390,8 @@ if __name__ == '__main__':
             max_length=20),   #variation_generator
             ["question"] #fields_to_expand
         ])
-    INDEX.indexFolder("./data/")
-    # INDEX.indexFolder("./tests/intermediate_results/vsn_data_variations")
+    # INDEX.indexFolder("./data/")
+    INDEX.indexFolder("./tests/intermediate_results/vsn_data_variations")
 
     QUERY_GEN = QueryGenerator(StandardAnalyzer(),\
         synonym_config=[
