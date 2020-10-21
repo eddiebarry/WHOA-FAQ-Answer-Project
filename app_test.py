@@ -8,8 +8,8 @@ from statistics import mean
 # TODO : Use Pytest
 
 
-# url = "http://52.209.188.140:5007"
-url = "http://0.0.0.0:5007"
+url = "http://52.209.188.140:5007"
+# url = "http://0.0.0.0:5007"
 
 """
 Batch Keyword Extract Test
