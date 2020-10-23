@@ -4,7 +4,7 @@ sys.path.append('WHO-FAQ-Keyword-Engine')
 sys.path.append('WHO-FAQ-Search-Engine')
 sys.path.append('WHO-FAQ-Update-Engine')
 sys.path.append('WHO-FAQ-Dialog-Manager')
-sys.path.append('WHO-FAQ-Dialog-Manager/QNA')
+sys.path.append('WHO-FAQ-Dialog-Manager/qna')
 
 import flask
 from flask import request, jsonify
@@ -19,8 +19,8 @@ from query_generator import QueryGenerator
 from index import IndexFiles
 from org.apache.lucene.analysis.standard import StandardAnalyzer
 
-from QNA.common import preprocess, tokenize, porter_stemmer_instance
-from QNA.question_asker import QuestionAsker
+from qna.common import preprocess, tokenize, porter_stemmer_instance
+from qna.question_asker import QuestionAsker
 
 from update_engine import UpdateEngine
 from keyword_engine_manager import KeywordEngineManager
@@ -419,8 +419,8 @@ if __name__ == '__main__':
     qa_config_path = "./tests/question_asker_config.json"
     use_question_predicter_config = [
             False, #Use question predictor
-            "./WHO-FAQ-Dialog-Manager/QNA/models.txt", #models path
-            "./WHO-FAQ-Dialog-Manager/QNA/vectoriser.txt" #tokeniser path
+            "./WHO-FAQ-Dialog-Manager/qna/models.txt", #models path
+            "./WHO-FAQ-Dialog-Manager/qna/vectoriser.txt" #tokeniser path
         ]
     QUESTION_ASKER = QuestionAsker(qa_config_path, show_options=True, \
         qa_keyword_path = extractor_json_path,
