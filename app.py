@@ -376,7 +376,7 @@ def index_json_array():
     #TODO :  preprocess
     return jsonify(response)
 
-@app.route('/api/v2/get_bot_host')
+@app.route('/api/v2/get-bot-host')
 def link_to_bot():
     request_json = json.loads(request.data)
     requires = [
