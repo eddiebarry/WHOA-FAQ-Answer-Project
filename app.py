@@ -376,6 +376,22 @@ def index_json_array():
     #TODO :  preprocess
     return jsonify(response)
 
+@app.route('/api/v2/get_bot_host')
+def link_to_bot():
+    request_json = json.loads(request.data)
+    requires = [
+            'project_id', 'version_id',
+        ]
+    for x in requires:
+        if x not in request_json.keys():
+            return jsonify({"message":"given request does not have a "+x })
+
+    response = {
+        "host_id": 'http://52.209.188.140:3000',
+        "bot_id": 'bot_question_asker_bot_fix'
+    }
+    return jsonify(response)
+
 @app.route('/')
 def hello_world():
     return 'Hello, World! The service is up for serving qna to the bot:)'
