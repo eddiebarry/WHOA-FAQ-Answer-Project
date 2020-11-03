@@ -319,7 +319,12 @@ def index_json_array():
             category1 : ["cat_1_unique_kw_1", "cat_1_unique_kw_2", ...],
             category2 : ["cat_2_unique_kw_1", "cat_2_unique_kw_2", ...],
             category2 : ["cat_2_unique_kw_1", "cat_2_unique_kw_2", ...],
-        }
+        },
+        "previous_versions" : [
+            1,
+            2,
+            3
+        ]
     }
 
     Outputs
@@ -330,6 +335,7 @@ def index_json_array():
         "project_id": project_id,
         "version_id": version_id,
         "status":"ok",
+        "version_number": "1.0" - string
     }
     """
     global UPDATE_ENGINE
@@ -337,7 +343,7 @@ def index_json_array():
     request_json = json.loads(request.data)
     requires = [
             'project_id', 'version_id', 'question_list',
-            'version_number', 'keyword_directory'
+            'keyword_directory'
         ]
     for x in requires:
         if x not in request_json.keys():
@@ -347,7 +353,12 @@ def index_json_array():
     question_list = request_json['question_list']
     project_id = request_json['project_id']
     version_id = request_json['version_id']
-    version_number = request_json['version_number']
+
+    if 'previous_versions' in request_json.keys():
+        version_number = len(request_json['previous_versions']) + 1.0
+        version_number = str(version_number)
+    else:
+        version_number = "1.0"
 
     if type(project_id) != str:
         project_id = str(project_id)
@@ -370,10 +381,10 @@ def index_json_array():
     response = {
         "project_id": project_id,
         "version_id": version_id,
+        "version_number": version_number,
         "status":"ok",
     }
 
-    #TODO :  preprocess
     return jsonify(response)
 
 @app.route('/api/v2/get-bot-host')
