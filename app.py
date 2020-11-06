@@ -399,7 +399,7 @@ def link_to_bot():
 
     response = {
         "host_id": 'http://52.209.188.140:3000',
-        "bot_id": 'bot_question_asker_bot_fix'
+        "bot_id": 'bot_test'
     }
     return jsonify(response)
 
