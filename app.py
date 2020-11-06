@@ -1,4 +1,4 @@
-import sys, os, lucene, json
+import sys, os, lucene, json, pdb
 import hashlib
 sys.path.append('WHO-FAQ-Keyword-Engine')
 sys.path.append('WHO-FAQ-Search-Engine')
@@ -12,7 +12,7 @@ from collections import defaultdict
 from threading import Thread
 
 from keyword_extractor import KeywordExtract
-from search import SearchEngine
+from solr_search import SolrSearchEngine
 from rerank.config import RE_RANK_ENDPOINT
 from variation_generation.variation_generator import VariationGenerator
 from query_generator import QueryGenerator
@@ -31,7 +31,7 @@ from category_question_manager import CategoryQuestionManager
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 # app.config['JSON_AS_ASCII'] = False
-lucene.initVM(vmargs=['-Djava.awt.headless=true'])
+# lucene.initVM(vmargs=['-Djava.awt.headless=true'])
 
 
 # TODO : Document
@@ -57,10 +57,10 @@ def answer_question():
     global ID_QUERY_DICT
     global KEYWORD_EXTRACTOR
     global QUESTION_ASKER
-    global QUERY_GEN
+    # global QUERY_GEN
     global SEARCH_ENGINE
-    vm_env = lucene.getVMEnv()
-    vm_env.attachCurrentThread()
+    # vm_env = lucene.getVMEnv()
+    # vm_env.attachCurrentThread()
 
     request_json = json.loads(request.data)
     if 'query' not in request_json.keys():
@@ -83,7 +83,7 @@ def answer_question():
     else:
         unique_id = request_json['user_id']
         # Add entire conversation to search engine
-        ID_QUERY_DICT[unique_id] += query_string.lower() + " "    
+        ID_QUERY_DICT[unique_id] += query_string.lower() + " " 
 
     # Extract keywords on the basis of the user input
     boosting_tokens = KEYWORD_EXTRACTOR.parse_regex_query(\
@@ -115,10 +115,13 @@ def answer_question():
     query = None
     # If no more questions need to be asked, isolate the search results and return
     if should_search:
-        query, synonyms = QUERY_GEN.build_query(ID_QUERY_DICT[unique_id], \
+        query, synonyms = SEARCH_ENGINE.build_query(ID_QUERY_DICT[unique_id], \
             ID_KEYWORD_DICT[unique_id], "OR_QUERY", field="question",\
             boost_val=2.0)
-        hits = SEARCH_ENGINE.search(query, \
+            
+        hits = SEARCH_ENGINE.search(query, 
+            project_id=UPDATE_ENGINE.qa_keyword_manager.latest_project_id,
+            version_id=UPDATE_ENGINE.qa_keyword_manager.latest_version_id,\
             query_string=ID_QUERY_DICT[unique_id], \
             query_field="question*", top_n=50)
         
@@ -235,7 +238,7 @@ def return_batch_keyword():
             
     """
     global KEYWORD_EXTRACTOR
-    global QUERY_GEN
+    global SEARCH_ENGINE
 
     request_json = json.loads(request.data)
     questions_keywords_list = []
@@ -257,7 +260,7 @@ def return_batch_keyword():
             + " " + qa_pair['answer'].replace("?","")
 
         # Get synonyms present in the query string
-        synonyms = QUERY_GEN.synonym_expander.return_synonyms(query_string)
+        synonyms = SEARCH_ENGINE.synonym_expander.return_synonyms(query_string)
         synonyms = [word.strip('"') for word in synonyms]
 
         query_string = query_string +" " + " ".join(x for x in synonyms)
@@ -369,6 +372,8 @@ def index_json_array():
     
     # TODO : check question list format
     keyword_dir = request_json['keyword_directory']
+    KEYWORD_EXTRACTOR.config = keyword_dir
+    KEYWORD_EXTRACTOR.dict = KEYWORD_EXTRACTOR.parse_config(keyword_dir)
 
     data_hash_string = project_id + version_id
     data_hash_id = hashlib.sha512(data_hash_string.encode())\
@@ -381,8 +386,8 @@ def index_json_array():
     response = {
         "project_id": project_id,
         "version_id": version_id,
-        "version_number": version_number,
         "status":"ok",
+        "estimated_time": len(question_list)
     }
 
     return jsonify(response)
@@ -405,32 +410,24 @@ def link_to_bot():
 
 @app.route('/')
 def hello_world():
-    return 'Hello, World! The service is up for serving qna to the bot:)'
+    return 'Hello, World! The service is up for serving qna to the bot :-)'
         
 
 if __name__ == '__main__':
-    INDEX = IndexFiles("./VaccineIndex.Index",StandardAnalyzer(),\
-         variation_generator_config=[
-            True,                   #should_expand_queries
+    SEARCH_ENGINE = SolrSearchEngine(
+        rerank_endpoint=RE_RANK_ENDPOINT,
+        variation_generator_config=[
             VariationGenerator(\
             path="./WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights/model.ckpt-1004000",
-            max_length=20),   #variation_generator
+            max_length=5),   #variation_generator
+            # None,
             ["question"] #fields_to_expand
-        ])
-    # INDEX.indexFolder("./data/")
-    INDEX.indexFolder("./tests/intermediate_results/vsn_data_variations")
-
-    QUERY_GEN = QueryGenerator(StandardAnalyzer(),\
+        ],
         synonym_config=[
             True, #use_wordnet
             True, #use_syblist
-            "./WHO-FAQ-Search-Engine/synonym_expansion/synlist.txt" #synlist path
-        ], debug=True)
-    
-    indexDir = INDEX.getIndexDir()
-    SEARCH_ENGINE = SearchEngine(
-        indexDir, 
-        rerank_endpoint=RE_RANK_ENDPOINT,
+            "./WHO-FAQ-Search-Engine/synonym_expansion/syn_test.txt" #synlist path
+        ],
         debug=True
     )
     
@@ -456,7 +453,7 @@ if __name__ == '__main__':
     # Setting up the update engine
     qa_keyword_manager = QAKeywordManager(
         search_engine=SEARCH_ENGINE,
-        index = INDEX)
+    )
     keyword_engine_manager = KeywordEngineManager()
     category_question_manager = CategoryQuestionManager()
     UPDATE_ENGINE = UpdateEngine(
