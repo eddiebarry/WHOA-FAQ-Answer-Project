@@ -8,8 +8,8 @@ from statistics import mean
 # TODO : Use Pytest
 
 
-# url = "http://52.209.188.140:5007"
-url = "http://0.0.0.0:5007"
+url = "http://52.209.188.140:5007"
+# url = "http://0.0.0.0:5007"
 
 """
 Batch Keyword Extract Test
@@ -247,70 +247,100 @@ example output :
 }
 """
 
-# data = {
-#     "project_id":1,
-#     "version_id":1,
-#     "question_list" : [
-#         {
-#             "question" : "where can i get a vaccine in khandala",
-#             "answer" : "go to hospital",
-#             "keywords" : [
-#                 {
-#                     "category_1" : [
-#                     "cat_1_key_1",
-#                     "cat_1_key_2",
-#                     ]
-#                 },
-#                 {
-#                     "category_2" : [
-#                     "cat_2_key_1",
-#                     "cat_2_key_2",
-#                     ]
-#                 }
-#             ],
-#             "id": "12345"
-#         },
-#         {
-#             "question" : "where can i get a vaccine in lonavla",
-#             "answer" : "go to hospital",
-#             "keywords" : [
-#                 {
-#                     "category_1" : [
-#                     "cat_1_key_1",
-#                     "cat_1_key_2",
-#                     ]
-#                 },
-#                 {
-#                     "category_2" : [
-#                     "cat_2_key_1",
-#                     "cat_2_key_2",
-#                     ]
-#                 }
-#             ],
-#             "id": "23456"
-#         },
-#         # case where no keyword in a category
-#         {
-#             "question" : "where can i get a vaccine in san marino",
-#             "answer" : "go to hospital",
-#             "keywords" : [],
-#             "id" : "34567"
-#         }
-#     ],
-#     "keyword_directory" : [
-#         {"category_1" : ["cat_1_keyword_1", "cat_1_keyword_2"]},
-#         {"category_2" : ["cat_2_keyword_1", "cat_1_keyword_2"]}
-#     ],
-#     "previous_versions" : [
-#       1,
-#       2,
-#       3
-#     ] #- INT
-# }
-# base_url= url + "/api/v2/train_bot_json_array"
+data = {
+    "project_id":999,
+    "version_id":1,
+    "question_list" : [
+        {
+            "question" : "where can i get a vaccine in khandala",
+            "answer" : "go to hospital",
+            "keywords" : [
+                {
+                    "category_1" : [
+                    "cat_1_key_1",
+                    "cat_1_key_2",
+                    ]
+                },
+                {
+                    "category_2" : [
+                    "cat_2_key_1",
+                    "cat_2_key_2",
+                    ]
+                }
+            ],
+            "id": "12345"
+        },
+        {
+            "question" : "where can i get a vaccine in lonavla",
+            "answer" : "go to hospital",
+            "keywords" : [
+                {
+                    "category_1" : [
+                    "cat_1_key_1",
+                    "cat_1_key_2",
+                    ]
+                },
+                {
+                    "category_2" : [
+                    "cat_2_key_1",
+                    "cat_2_key_2",
+                    ]
+                }
+            ],
+            "id": "23456"
+        },
+        # case where no keyword in a category
+        {
+            "question" : "where can i get a vaccine in san marino",
+            "answer" : "go to hospital",
+            "keywords" : [],
+            "id" : "34567"
+        }
+    ],
+    "keyword_directory" : [
+        {"category_1" : ["cat_1_keyword_1", "cat_1_keyword_2"]},
+        {"category_2" : ["cat_2_keyword_1", "cat_1_keyword_2"]}
+    ],
+    "previous_versions" : [
+      1,
+      2,
+      3
+    ] #- INT
+}
+base_url= url + "/api/v2/train_bot_json_array"
 
-# r = requests.post(base_url, data=json.dumps(data))
-# print(r.text)
+r = requests.post(base_url, data=json.dumps(data))
+print(r.text)
+
+"""
+QUESTION ASKER TIMING TEST
+"""
+
+base_url= url + "/api/v2/qna"
+
+data_ = [
+    {
+        "query":"My child was vaccinated recently with MMR for school", 
+        "user_id":"-1"
+    }
+    ,
+    {
+        "query":"what restrictions are there for immuno compromised people visiting ?",
+        "user_id":"2d07dcffc217bf2864ba64fc8b60fdaa41d0b08f74fb522582f1031e77cb2a4fc3b5b0b98392efc0dce2b96f9be453c07373bfecea25964379c422e4f9e89877"
+    }
+]
+
+times = []
+for x in range(1):
+    for idx,x in enumerate(data_):
+        if idx==1:
+            start = timeit.default_timer()
+        r = requests.get(base_url, data=json.dumps(x))
+        if idx==1:
+            stop = timeit.default_timer()
+            times.append(stop-start)
+print(mean(times))
+print(r.text)
 
 data = {
     "project_id":999,
@@ -453,7 +483,7 @@ data_ = [
 ]
 
 times = []
-for x in range(30):
+for x in range(10):
     for idx,x in enumerate(data_):
         if idx==1:
             start = timeit.default_timer()

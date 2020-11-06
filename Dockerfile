@@ -19,7 +19,7 @@ RUN rm -rf pylucene
 RUN pip install tokenizers==0.7 transformers==2.10.0 \
     torch==1.4.0 flask==1.1.2 pandas==1.1.1 \
     tensorflow==2.3.0 xlrd==1.2.0 \
-    spacy==2.3.2 spacy-wordnet==0.0.4 pysolr
+    spacy==2.3.2 spacy-wordnet==0.0.4 pysolr==3.9.0
 RUN python -m nltk.downloader wordnet \
     && python -m nltk.downloader omw && python -m spacy download en
 RUN pip install sklearn
@@ -36,5 +36,5 @@ RUN chmod +x ./gdown.pl \
 WORKDIR /usr/src/WHOA-FAQ-Answer-Project
 
 EXPOSE 5007
-ENTRYPOINT [ "python" ] 
-CMD [ "app.py" ] 
+# ENTRYPOINT [ "python" ] 
+# CMD [ "app.py" ] 
