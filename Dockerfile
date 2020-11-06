@@ -19,10 +19,10 @@ RUN rm -rf pylucene
 RUN pip install tokenizers==0.7 transformers==2.10.0 \
     torch==1.4.0 flask==1.1.2 pandas==1.1.1 \
     tensorflow==2.3.0 xlrd==1.2.0 \
-    spacy==2.3.2 spacy-wordnet==0.0.4 pysolr==3.9.0
+    spacy==2.3.2 spacy-wordnet==0.0.4
 RUN python -m nltk.downloader wordnet \
     && python -m nltk.downloader omw && python -m spacy download en
-RUN pip install sklearn
+RUN pip install sklearn pysolr==3.9.0
 
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 RUN git clone --branch SOLR\
