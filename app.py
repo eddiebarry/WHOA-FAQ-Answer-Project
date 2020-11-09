@@ -303,7 +303,8 @@ def index_json_array():
     ------
     Expects a api call with json data of the form : 
     {
-        version_hash : hash of user id and version id,
+        "project_id":A unique project id,
+        "version_id":A unique version id,
         question_array : [
             {
                 question : "ABC"
@@ -360,8 +361,10 @@ def index_json_array():
     if 'previous_versions' in request_json.keys():
         version_number = len(request_json['previous_versions']) + 1.0
         version_number = str(version_number)
+        previous_versions = request_json['previous_versions']
     else:
         version_number = "1.0"
+        previous_versions = []
 
     if type(project_id) != str:
         project_id = str(project_id)
@@ -379,7 +382,9 @@ def index_json_array():
     data_hash_id = hashlib.sha512(data_hash_string.encode())\
                         .hexdigest()
     
-    project_info = [data_hash_id, project_id, version_id, version_number]
+    project_info = [data_hash_id, project_id, version_id, \
+        version_number, previous_versions]
+
     
     UPDATE_ENGINE.add_questions(question_list, project_info)
 
@@ -387,7 +392,7 @@ def index_json_array():
         "project_id": project_id,
         "version_id": version_id,
         "status":"ok",
-        "estimated_time": len(question_list)
+        "estimated_time": len(question_list)*3
     }
 
     return jsonify(response)
