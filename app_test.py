@@ -9,174 +9,174 @@ import pdb
 # TODO : Use Pytest
 
 
-url = "http://52.209.188.140:5007"
-# url = "http://0.0.0.0:5007"
+# url = "http://52.209.188.140:5007"
+url = "http://0.0.0.0:5007"
 
-"""
-Batch Keyword Extract Test
+# """
+# Batch Keyword Extract Test
 
-example input
-{
-    "question_answer_list": [
-        {
-            "question": "My child is sick where can he get measles vaccine ?",
-            "answer": "Please go to khandala",
-            "id": "1"
-        },
-        {
-            "question": "My child is sick where can he get rubella vaccine ?",
-            "answer": "Please go to khandala",
-            "id": "2"
-        },
-        {
-            "question": "My child is sick where can he get polio vaccine ?",
-            "answer": "Please go to khandala",
-            "id": "3"
-        }
-    ]
-}
+# example input
+# {
+#     "question_answer_list": [
+#         {
+#             "question": "My child is sick where can he get measles vaccine ?",
+#             "answer": "Please go to khandala",
+#             "id": "1"
+#         },
+#         {
+#             "question": "My child is sick where can he get rubella vaccine ?",
+#             "answer": "Please go to khandala",
+#             "id": "2"
+#         },
+#         {
+#             "question": "My child is sick where can he get polio vaccine ?",
+#             "answer": "Please go to khandala",
+#             "id": "3"
+#         }
+#     ]
+# }
 
-example response
-{
-  "questions_keywords_list": [
-    {
-      "id": "1"
-      "keywords": {
-        "disease_1": [
-          "measles"
-        ], 
-        "disease_2": [
-          "measles"
-        ], 
-        "other_conditions_or_symptoms_etc": [
-          "sick", 
-          "child", 
-          "baby"
-        ], 
-        "subject_1_immunization": [
-          "vaccination", 
-          "i", 
-          "immunization"
-        ], 
-        "subject_2_vaccination_general": [
-          "vaccination", 
-          "travel"
-        ], 
-        "subject_person": [
-          "baby", 
-          "child"
-        ], 
-        "vaccine_1": [
-          "measles"
-        ], 
-        "vaccine_2": [
-          "measles"
-        ], 
-        "who_is_writing_this": [
-          "child"
-        ]
-      }
-    }, 
-    {
-      "id": "2",
-      "keywords": {
-        "disease_1": [
-          "rubella"
-        ], 
-        "disease_2": [
-          "rubella"
-        ], 
-        "other_conditions_or_symptoms_etc": [
-          "sick", 
-          "child", 
-          "baby"
-        ], 
-        "subject_1_immunization": [
-          "vaccination", 
-          "i", 
-          "immunization"
-        ], 
-        "subject_2_vaccination_general": [
-          "vaccination", 
-          "travel"
-        ], 
-        "subject_person": [
-          "baby", 
-          "child"
-        ], 
-        "vaccine_1": [
-          "rubella"
-        ], 
-        "vaccine_2": [
-          "rubella"
-        ], 
-        "who_is_writing_this": [
-          "child"
-        ]
-      }
-    }, 
-    {
-      "id": "3",
-      "keywords": {
-        "other_conditions_or_symptoms_etc": [
-          "sick", 
-          "child", 
-          "baby"
-        ], 
-        "subject_1_immunization": [
-          "vaccination", 
-          "i", 
-          "immunization"
-        ], 
-        "subject_2_vaccination_general": [
-          "vaccination", 
-          "travel"
-        ], 
-        "subject_person": [
-          "baby", 
-          "child"
-        ], 
-        "vaccine_1": [
-          "polio"
-        ], 
-        "vaccine_2": [
-          "polio"
-        ], 
-        "who_is_writing_this": [
-          "child"
-        ]
-      }
-    }
-  ]
-}
-"""
-qa_list = [
-    {
-        "question":"My child is sick where can he get measles vaccine ?",
-        "answer":"Please go to khandala",
-    },
-    {
-        "question":"My child is sick where can he get rubella vaccine ?",
-        "answer":"Please go to khandala",
-    },
-    {
-        "question":"My child is sick where can he get polio vaccine ?",
-        "answer":"Please go to khandala",
-    },
-]
+# example response
+# {
+#   "questions_keywords_list": [
+#     {
+#       "id": "1"
+#       "keywords": {
+#         "disease_1": [
+#           "measles"
+#         ], 
+#         "disease_2": [
+#           "measles"
+#         ], 
+#         "other_conditions_or_symptoms_etc": [
+#           "sick", 
+#           "child", 
+#           "baby"
+#         ], 
+#         "subject_1_immunization": [
+#           "vaccination", 
+#           "i", 
+#           "immunization"
+#         ], 
+#         "subject_2_vaccination_general": [
+#           "vaccination", 
+#           "travel"
+#         ], 
+#         "subject_person": [
+#           "baby", 
+#           "child"
+#         ], 
+#         "vaccine_1": [
+#           "measles"
+#         ], 
+#         "vaccine_2": [
+#           "measles"
+#         ], 
+#         "who_is_writing_this": [
+#           "child"
+#         ]
+#       }
+#     }, 
+#     {
+#       "id": "2",
+#       "keywords": {
+#         "disease_1": [
+#           "rubella"
+#         ], 
+#         "disease_2": [
+#           "rubella"
+#         ], 
+#         "other_conditions_or_symptoms_etc": [
+#           "sick", 
+#           "child", 
+#           "baby"
+#         ], 
+#         "subject_1_immunization": [
+#           "vaccination", 
+#           "i", 
+#           "immunization"
+#         ], 
+#         "subject_2_vaccination_general": [
+#           "vaccination", 
+#           "travel"
+#         ], 
+#         "subject_person": [
+#           "baby", 
+#           "child"
+#         ], 
+#         "vaccine_1": [
+#           "rubella"
+#         ], 
+#         "vaccine_2": [
+#           "rubella"
+#         ], 
+#         "who_is_writing_this": [
+#           "child"
+#         ]
+#       }
+#     }, 
+#     {
+#       "id": "3",
+#       "keywords": {
+#         "other_conditions_or_symptoms_etc": [
+#           "sick", 
+#           "child", 
+#           "baby"
+#         ], 
+#         "subject_1_immunization": [
+#           "vaccination", 
+#           "i", 
+#           "immunization"
+#         ], 
+#         "subject_2_vaccination_general": [
+#           "vaccination", 
+#           "travel"
+#         ], 
+#         "subject_person": [
+#           "baby", 
+#           "child"
+#         ], 
+#         "vaccine_1": [
+#           "polio"
+#         ], 
+#         "vaccine_2": [
+#           "polio"
+#         ], 
+#         "who_is_writing_this": [
+#           "child"
+#         ]
+#       }
+#     }
+#   ]
+# }
+# """
+# qa_list = [
+#     {
+#         "question":"My child is sick where can he get measles vaccine ?",
+#         "answer":"Please go to khandala",
+#     },
+#     {
+#         "question":"My child is sick where can he get rubella vaccine ?",
+#         "answer":"Please go to khandala",
+#     },
+#     {
+#         "question":"My child is sick where can he get polio vaccine ?",
+#         "answer":"Please go to khandala",
+#     },
+# ]
 
-for x in qa_list:
-    query_string = x['question']+x['answer']
-    qa_hash = hashlib.sha512(query_string.encode()).hexdigest()
-    x['id']=qa_hash
+# for x in qa_list:
+#     query_string = x['question']+x['answer']
+#     qa_hash = hashlib.sha512(query_string.encode()).hexdigest()
+#     x['id']=qa_hash
 
-batch_response_test = {
-    "question_answer_list" : qa_list
-}
+# batch_response_test = {
+#     "question_answer_list" : qa_list
+# }
 
-base_url = url  + "/api/v2/batch_keyword_extract"
-r = requests.post(base_url, data=json.dumps(batch_response_test))
-print(r.text)
+# base_url = url  + "/api/v2/batch_keyword_extract"
+# r = requests.post(base_url, data=json.dumps(batch_response_test))
+# print(r.text)
 
 
 """
@@ -492,35 +492,35 @@ print(r.text)
 print(len(questions), "is the number of questions added")
 pdb.set_trace()
 
-"""
-QUESTION ASKER TIMING TEST
-"""
+# """
+# QUESTION ASKER TIMING TEST
+# """
 
-base_url= url + "/api/v2/qna"
+# base_url= url + "/api/v2/qna"
 
-data_ = [
-    {
-        "query":"My child was vaccinated recently with MMR for school", 
-        "user_id":"-1"
-    }
-    ,
-    {
-        "query":"what restrictions are there for immuno compromised people visiting ?",
-        "user_id":"2d07dcffc217bf2864ba64fc8b60fdaa41d0b08f74fb522582f1031e77cb2a4fc3b5b0b98392efc0dce2b96f9be453c07373bfecea25964379c422e4f9e89877"
-    }
-]
+# data_ = [
+#     {
+#         "query":"My child was vaccinated recently with MMR for school", 
+#         "user_id":"-1"
+#     }
+#     ,
+#     {
+#         "query":"what restrictions are there for immuno compromised people visiting ?",
+#         "user_id":"2d07dcffc217bf2864ba64fc8b60fdaa41d0b08f74fb522582f1031e77cb2a4fc3b5b0b98392efc0dce2b96f9be453c07373bfecea25964379c422e4f9e89877"
+#     }
+# ]
 
-times = []
-for x in range(1):
-    for idx,x in enumerate(data_):
-        if idx==1:
-            start = timeit.default_timer()
-        r = requests.get(base_url, data=json.dumps(x))
-        if idx==1:
-            stop = timeit.default_timer()
-            times.append(stop-start)
-print(mean(times))
-print(r.text)
+# times = []
+# for x in range(1):
+#     for idx,x in enumerate(data_):
+#         if idx==1:
+#             start = timeit.default_timer()
+#         r = requests.get(base_url, data=json.dumps(x))
+#         if idx==1:
+#             stop = timeit.default_timer()
+#             times.append(stop-start)
+# print(mean(times))
+# print(r.text)
 
 # """
 # Reranking timer test
