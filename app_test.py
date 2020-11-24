@@ -179,318 +179,318 @@ url = "http://0.0.0.0:5007"
 # print(r.text)
 
 
-"""
-Batch QA index 
+# """
+# Batch QA index 
 
-example input
-{
-    "project_id":"1",
-    "version_id":"0.1",
-    "version_number":"0.1",
-    "question_list" : [
-        {
-            "question" : "where can i get a vaccine in khandala",
-            "answer" : "go to hospital",
-            "keywords" : [
-                {
-                    "category_1" : [
-                    "cat_1_key_1",
-                    "cat_1_key_2",
-                    ]
-                },
-                {
-                    "category_2" : [
-                    "cat_2_key_1",
-                    "cat_2_key_2",
-                    ]
-                }
-            ],
-            "id": "12345"
-        },
-        {
-            "question" : "where can i get a vaccine in lonavla",
-            "answer" : "go to hospital",
-            "keywords" : [
-                {
-                    "category_1" : [
-                    "cat_1_key_1",
-                    "cat_1_key_2",
-                    ]
-                },
-                {
-                    "category_2" : [
-                    "cat_2_key_1",
-                    "cat_2_key_2",
-                    ]
-                }
-            ],
-            "id": "23456"
-        },
-        # case where no keyword in a category
-        {
-            "question" : "where can i get a vaccine in san marino",
-            "answer" : "go to hospital",
-            "keywords" : [],
-            "id" : "34567"
-        }
-    ],
-    "keyword_directory" : [
-        {"category_1" : ["cat_1_keyword_1", "cat_1_keyword_2"]},
-        {"category_2" : ["cat_2_keyword_1", "cat_1_keyword_2"]}
-    ]
-}
+# example input
+# {
+#     "project_id":"1",
+#     "version_id":"0.1",
+#     "version_number":"0.1",
+#     "question_list" : [
+#         {
+#             "question" : "where can i get a vaccine in khandala",
+#             "answer" : "go to hospital",
+#             "keywords" : [
+#                 {
+#                     "category_1" : [
+#                     "cat_1_key_1",
+#                     "cat_1_key_2",
+#                     ]
+#                 },
+#                 {
+#                     "category_2" : [
+#                     "cat_2_key_1",
+#                     "cat_2_key_2",
+#                     ]
+#                 }
+#             ],
+#             "id": "12345"
+#         },
+#         {
+#             "question" : "where can i get a vaccine in lonavla",
+#             "answer" : "go to hospital",
+#             "keywords" : [
+#                 {
+#                     "category_1" : [
+#                     "cat_1_key_1",
+#                     "cat_1_key_2",
+#                     ]
+#                 },
+#                 {
+#                     "category_2" : [
+#                     "cat_2_key_1",
+#                     "cat_2_key_2",
+#                     ]
+#                 }
+#             ],
+#             "id": "23456"
+#         },
+#         # case where no keyword in a category
+#         {
+#             "question" : "where can i get a vaccine in san marino",
+#             "answer" : "go to hospital",
+#             "keywords" : [],
+#             "id" : "34567"
+#         }
+#     ],
+#     "keyword_directory" : [
+#         {"category_1" : ["cat_1_keyword_1", "cat_1_keyword_2"]},
+#         {"category_2" : ["cat_2_keyword_1", "cat_1_keyword_2"]}
+#     ]
+# }
 
-example output :
-{
-  "project_id": "1", 
-  "status": "ok", 
-  "version_id": "0.1"
-}
-"""
+# example output :
+# {
+#   "project_id": "1", 
+#   "status": "ok", 
+#   "version_id": "0.1"
+# }
+# """
 
-data = {
-    "project_id":999,
-    "version_id":1,
-    "question_list" : [
-        {
-            "question" : "where can i get a vaccine in khandala",
-            "answer" : "go to hospital",
-            "keywords" : [
-                {
-                    "category_1" : [
-                    "cat_1_key_1",
-                    "cat_1_key_2",
-                    ]
-                },
-                {
-                    "category_2" : [
-                    "cat_2_key_1",
-                    "cat_2_key_2",
-                    ]
-                }
-            ],
-            "id": "12345"
-        },
-        {
-            "question" : "where can i get a vaccine in lonavla",
-            "answer" : "go to hospital",
-            "keywords" : [
-                {
-                    "category_1" : [
-                    "cat_1_key_1",
-                    "cat_1_key_2",
-                    ]
-                },
-                {
-                    "category_2" : [
-                    "cat_2_key_1",
-                    "cat_2_key_2",
-                    ]
-                }
-            ],
-            "id": "23456"
-        },
-        # case where no keyword in a category
-        {
-            "question" : "where can i get a vaccine in san marino",
-            "answer" : "go to hospital",
-            "keywords" : [],
-            "id" : "34567"
-        }
-    ],
-    "keyword_directory" : [
-        {"category_1" : ["cat_1_keyword_1", "cat_1_keyword_2"]},
-        {"category_2" : ["cat_2_keyword_1", "cat_1_keyword_2"]}
-    ],
-    # "previous_versions" : [
-    #   1,
-    #   2,
-    #   3
-    # ] #- INT
-}
-base_url= url + "/api/v2/train_bot_json_array"
+# data = {
+#     "project_id":999,
+#     "version_id":1,
+#     "question_list" : [
+#         {
+#             "question" : "where can i get a vaccine in khandala",
+#             "answer" : "go to hospital",
+#             "keywords" : [
+#                 {
+#                     "category_1" : [
+#                     "cat_1_key_1",
+#                     "cat_1_key_2",
+#                     ]
+#                 },
+#                 {
+#                     "category_2" : [
+#                     "cat_2_key_1",
+#                     "cat_2_key_2",
+#                     ]
+#                 }
+#             ],
+#             "id": "12345"
+#         },
+#         {
+#             "question" : "where can i get a vaccine in lonavla",
+#             "answer" : "go to hospital",
+#             "keywords" : [
+#                 {
+#                     "category_1" : [
+#                     "cat_1_key_1",
+#                     "cat_1_key_2",
+#                     ]
+#                 },
+#                 {
+#                     "category_2" : [
+#                     "cat_2_key_1",
+#                     "cat_2_key_2",
+#                     ]
+#                 }
+#             ],
+#             "id": "23456"
+#         },
+#         # case where no keyword in a category
+#         {
+#             "question" : "where can i get a vaccine in san marino",
+#             "answer" : "go to hospital",
+#             "keywords" : [],
+#             "id" : "34567"
+#         }
+#     ],
+#     "keyword_directory" : [
+#         {"category_1" : ["cat_1_keyword_1", "cat_1_keyword_2"]},
+#         {"category_2" : ["cat_2_keyword_1", "cat_1_keyword_2"]}
+#     ],
+#     # "previous_versions" : [
+#     #   1,
+#     #   2,
+#     #   3
+#     # ] #- INT
+# }
+# base_url= url + "/api/v2/train_bot_json_array"
 
-r = requests.post(base_url, data=json.dumps(data))
-print(r.text)
-import pdb
+# r = requests.post(base_url, data=json.dumps(data))
+# print(r.text)
+# import pdb
+# # pdb.set_trace()
+
+# data = {
+#     "project_id":999,
+#     "version_id":2,
+#     "question_list" : [
+#         {
+#             "question" : "where can i get a vaccine in khandala eh ?",
+#             "answer" : "go to hospital",
+#             "keywords" : [
+#                 {
+#                     "category_1" : [
+#                     "cat_1_key_1",
+#                     "cat_1_key_2",
+#                     ]
+#                 },
+#                 {
+#                     "category_2" : [
+#                     "cat_2_key_1",
+#                     "cat_2_key_2",
+#                     ]
+#                 }
+#             ],
+#             "id": "123459"
+#         },
+#         {
+#             "question" : "where can i get a vaccine in lonavla eh ?",
+#             "answer" : "go to hospital",
+#             "keywords" : [
+#                 {
+#                     "category_1" : [
+#                     "cat_1_key_1",
+#                     "cat_1_key_2",
+#                     ]
+#                 },
+#                 {
+#                     "category_2" : [
+#                     "cat_2_key_1",
+#                     "cat_2_key_2",
+#                     ]
+#                 }
+#             ],
+#             "id": "234569"
+#         },
+#         # case where no keyword in a category
+#         {
+#             "question" : "where can i get a vaccine in san marino eh ?",
+#             "answer" : "go to hospital",
+#             "keywords" : [],
+#             "id" : "345679"
+#         }
+#     ],
+#     "keyword_directory" : [
+#         {"category_1" : ["cat_1_keyword_1", "cat_1_keyword_2"]},
+#         {"category_2" : ["cat_2_keyword_1", "cat_1_keyword_2"]}
+#     ],
+#     "previous_versions" : [
+#       1,
+#     ] #- INT
+# }
+# base_url= url + "/api/v2/train_bot_json_array"
+
+# r = requests.post(base_url, data=json.dumps(data))
+# print(r.text)
+
+
+# data = {
+#     "project_id":999,
+#     "version_id":3,
+#     "previous_versions" : [
+#       1,
+#       2
+#     ]
+# }
+# questions = []
+# # dir_ = "./tests/test_data/vsn_data"
+# dir_ = "./tests/intermediate_results/vsn_data_variations"
+# protected = [
+#         'question','answer','question_variation_0',
+#         'question_variation_1','question_variation_2', 'id'
+#     ]
+# for idx,x in enumerate(sorted(os.listdir(dir_))):
+#     if x.endswith(".json"):
+#         jsonpath = os.path.join(dir_,x)
+#         f = open(jsonpath,)
+#         jsonObj = json.load(f)
+#         jsonObj['id']=str(idx)
+#         f.close()
+#         keywords = []
+#         to_remove = []
+#         for x in jsonObj.keys():
+#             if x in protected:
+#                 continue
+#             if jsonObj[x] != "":
+#                 new_dict = {
+#                     x: [jsonObj[x]]
+#                 }
+#                 keywords.append(new_dict)
+#             to_remove.append(x)
+#         for x in to_remove:    
+#             jsonObj.pop(x,None)
+#         jsonObj['keywords']=keywords
+#         questions.append(jsonObj)
+
+# keyword_dir_path = "./tests/unique_keywords.json"
+# f = open(keyword_dir_path,)
+# keyword_directory = json.load(f)
+
+# data['question_list'] = questions
+
+# new_dir = []
+# for x in keyword_directory:
+#   new_dir.append({x:keyword_directory[x]})
+# data['keyword_directory'] = new_dir
+
+# base_url= url + "/api/v2/train_bot_json_array"
+
+# r = requests.post(base_url, data=json.dumps(data))
+# print(r.text)
+# print(len(questions), "is the number of questions added")
+
+
+# data = {
+#     "project_id":999,
+#     "version_id":4,
+#     "previous_versions" : [
+#       1,
+#       2,
+#       3
+#     ]
+# }
+# questions = []
+# # dir_ = "./tests/test_data/vsn_data"
+# dir_ = "./tests/intermediate_results/vsn_data_variations"
+# protected = [
+#         'question','answer','question_variation_0',
+#         'question_variation_1','question_variation_2', 'id'
+#     ]
+# for idx,x in enumerate(sorted(os.listdir(dir_))):
+#     if x.endswith(".json"):
+#         jsonpath = os.path.join(dir_,x)
+#         f = open(jsonpath,)
+#         jsonObj = json.load(f)
+#         jsonObj['id']=str(idx)
+#         f.close()
+#         keywords = []
+#         to_remove = []
+#         for x in jsonObj.keys():
+#             if x in protected:
+#                 continue
+#             if jsonObj[x] != "":
+#                 new_dict = {
+#                     x: [jsonObj[x]]
+#                 }
+#                 keywords.append(new_dict)
+#             to_remove.append(x)
+#         for x in to_remove:    
+#             jsonObj.pop(x,None)
+#         jsonObj['keywords']=keywords
+#         questions.append(jsonObj)
+
+# keyword_dir_path = "./tests/unique_keywords.json"
+# f = open(keyword_dir_path,)
+# keyword_directory = json.load(f)
+
+# data['question_list'] = questions
+
+# new_dir = []
+# for x in keyword_directory:
+#   new_dir.append({x:keyword_directory[x]})
+# data['keyword_directory'] = new_dir
+
+# base_url= url + "/api/v2/train_bot_json_array"
+
+# r = requests.post(base_url, data=json.dumps(data))
+# print(r.text)
+# print(len(questions), "is the number of questions added")
 # pdb.set_trace()
-
-data = {
-    "project_id":999,
-    "version_id":2,
-    "question_list" : [
-        {
-            "question" : "where can i get a vaccine in khandala eh ?",
-            "answer" : "go to hospital",
-            "keywords" : [
-                {
-                    "category_1" : [
-                    "cat_1_key_1",
-                    "cat_1_key_2",
-                    ]
-                },
-                {
-                    "category_2" : [
-                    "cat_2_key_1",
-                    "cat_2_key_2",
-                    ]
-                }
-            ],
-            "id": "123459"
-        },
-        {
-            "question" : "where can i get a vaccine in lonavla eh ?",
-            "answer" : "go to hospital",
-            "keywords" : [
-                {
-                    "category_1" : [
-                    "cat_1_key_1",
-                    "cat_1_key_2",
-                    ]
-                },
-                {
-                    "category_2" : [
-                    "cat_2_key_1",
-                    "cat_2_key_2",
-                    ]
-                }
-            ],
-            "id": "234569"
-        },
-        # case where no keyword in a category
-        {
-            "question" : "where can i get a vaccine in san marino eh ?",
-            "answer" : "go to hospital",
-            "keywords" : [],
-            "id" : "345679"
-        }
-    ],
-    "keyword_directory" : [
-        {"category_1" : ["cat_1_keyword_1", "cat_1_keyword_2"]},
-        {"category_2" : ["cat_2_keyword_1", "cat_1_keyword_2"]}
-    ],
-    "previous_versions" : [
-      1,
-    ] #- INT
-}
-base_url= url + "/api/v2/train_bot_json_array"
-
-r = requests.post(base_url, data=json.dumps(data))
-print(r.text)
-
-
-data = {
-    "project_id":999,
-    "version_id":3,
-    "previous_versions" : [
-      1,
-      2
-    ]
-}
-questions = []
-# dir_ = "./tests/test_data/vsn_data"
-dir_ = "./tests/intermediate_results/vsn_data_variations"
-protected = [
-        'question','answer','question_variation_0',
-        'question_variation_1','question_variation_2', 'id'
-    ]
-for idx,x in enumerate(sorted(os.listdir(dir_))):
-    if x.endswith(".json"):
-        jsonpath = os.path.join(dir_,x)
-        f = open(jsonpath,)
-        jsonObj = json.load(f)
-        jsonObj['id']=str(idx)
-        f.close()
-        keywords = []
-        to_remove = []
-        for x in jsonObj.keys():
-            if x in protected:
-                continue
-            if jsonObj[x] != "":
-                new_dict = {
-                    x: [jsonObj[x]]
-                }
-                keywords.append(new_dict)
-            to_remove.append(x)
-        for x in to_remove:    
-            jsonObj.pop(x,None)
-        jsonObj['keywords']=keywords
-        questions.append(jsonObj)
-
-keyword_dir_path = "./tests/unique_keywords.json"
-f = open(keyword_dir_path,)
-keyword_directory = json.load(f)
-
-data['question_list'] = questions
-
-new_dir = []
-for x in keyword_directory:
-  new_dir.append({x:keyword_directory[x]})
-data['keyword_directory'] = new_dir
-
-base_url= url + "/api/v2/train_bot_json_array"
-
-r = requests.post(base_url, data=json.dumps(data))
-print(r.text)
-print(len(questions), "is the number of questions added")
-
-
-data = {
-    "project_id":999,
-    "version_id":4,
-    "previous_versions" : [
-      1,
-      2,
-      3
-    ]
-}
-questions = []
-# dir_ = "./tests/test_data/vsn_data"
-dir_ = "./tests/intermediate_results/vsn_data_variations"
-protected = [
-        'question','answer','question_variation_0',
-        'question_variation_1','question_variation_2', 'id'
-    ]
-for idx,x in enumerate(sorted(os.listdir(dir_))):
-    if x.endswith(".json"):
-        jsonpath = os.path.join(dir_,x)
-        f = open(jsonpath,)
-        jsonObj = json.load(f)
-        jsonObj['id']=str(idx)
-        f.close()
-        keywords = []
-        to_remove = []
-        for x in jsonObj.keys():
-            if x in protected:
-                continue
-            if jsonObj[x] != "":
-                new_dict = {
-                    x: [jsonObj[x]]
-                }
-                keywords.append(new_dict)
-            to_remove.append(x)
-        for x in to_remove:    
-            jsonObj.pop(x,None)
-        jsonObj['keywords']=keywords
-        questions.append(jsonObj)
-
-keyword_dir_path = "./tests/unique_keywords.json"
-f = open(keyword_dir_path,)
-keyword_directory = json.load(f)
-
-data['question_list'] = questions
-
-new_dir = []
-for x in keyword_directory:
-  new_dir.append({x:keyword_directory[x]})
-data['keyword_directory'] = new_dir
-
-base_url= url + "/api/v2/train_bot_json_array"
-
-r = requests.post(base_url, data=json.dumps(data))
-print(r.text)
-print(len(questions), "is the number of questions added")
-pdb.set_trace()
 
 # """
 # QUESTION ASKER TIMING TEST
@@ -594,35 +594,45 @@ pdb.set_trace()
 # print("reranking service done")
 
 
-# """
-# QUESTION ASKER TIMING TEST
-# """
+"""
+QUESTION ASKER TIMING TEST
+"""
 
-# base_url= url + "/api/v2/qna"
+base_url= url + "/api/v2/qna"
 
-# data_ = [
-#     {
-#         "query":"My child was vaccinated recently with MMR for school", 
-#         "user_id":"-1"
-#     }
-#     ,
-#     {
-#         "query":"what restrictions are there for immuno compromised people visiting ?",
-#         "user_id":"2d07dcffc217bf2864ba64fc8b60fdaa41d0b08f74fb522582f1031e77cb2a4fc3b5b0b98392efc0dce2b96f9be453c07373bfecea25964379c422e4f9e89877"
-#     }
-# ]
+data_ = [
+    {
+        "query":"My child was vaccinated recently with MMR for school", 
+        "user_id":"-1"
+    }
+    ,
+    {
+        "query":"what restrictions are there for \n immuno compromised people visiting ?",
+        "user_id":"2d07dcffc217bf2864ba64fc8b60fdaa41d0b08f74fb522582f1031e77cb2a4fc3b5b0b98392efc0dce2b96f9be453c07373bfecea25964379c422e4f9e89877"
+    }
+    ,
+    {
+        "query":"none",
+        "user_id":"2d07dcffc217bf2864ba64fc8b60fdaa41d0b08f74fb522582f1031e77cb2a4fc3b5b0b98392efc0dce2b96f9be453c07373bfecea25964379c422e4f9e89877"
+    },
+     {
+        "query":"none",
+        "user_id":"2d07dcffc217bf2864ba64fc8b60fdaa41d0b08f74fb522582f1031e77cb2a4fc3b5b0b98392efc0dce2b96f9be453c07373bfecea25964379c422e4f9e89877"
+    }
+]
 
-# times = []
-# for x in range(10):
-#     for idx,x in enumerate(data_):
-#         if idx==1:
-#             start = timeit.default_timer()
-#         r = requests.get(base_url, data=json.dumps(x))
-#         if idx==1:
-#             stop = timeit.default_timer()
-#             times.append(stop-start)
-# print(mean(times))
-# print(r.text)
+times = []
+for x in range(1):
+    for idx,x in enumerate(data_):
+        if idx==1:
+            start = timeit.default_timer()
+        r = requests.get(base_url, data=json.dumps(x))
+        if idx==1:
+            stop = timeit.default_timer()
+            times.append(stop-start)
+        print(r.text)
+print(mean(times))
+        
 
 """
 Test Bot ID

@@ -62,7 +62,7 @@ def answer_question():
     # vm_env = lucene.getVMEnv()
     # vm_env.attachCurrentThread()
 
-    request_json = json.loads(request.data)
+    request_json = json.load(request.data)
     if 'query' not in request_json.keys():
         return jsonify({"message":"request does not contain query"})
     
@@ -240,7 +240,7 @@ def return_batch_keyword():
     global KEYWORD_EXTRACTOR
     global SEARCH_ENGINE
 
-    request_json = json.loads(request.data)
+    request_json = json.load(request.data)
     questions_keywords_list = []
 
     if 'question_answer_list' not in request_json.keys():
@@ -344,7 +344,7 @@ def index_json_array():
     """
     global UPDATE_ENGINE
 
-    request_json = json.loads(request.data)
+    request_json = json.load(request.data)
     requires = [
             'project_id', 'version_id', 'question_list',
             'keyword_directory'
@@ -399,7 +399,7 @@ def index_json_array():
 
 @app.route('/api/v2/get-bot-host')
 def link_to_bot():
-    request_json = json.loads(request.data)
+    request_json = json.load(request.data)
     requires = [
             'project_id', 'version_id',
         ]
