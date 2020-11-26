@@ -435,62 +435,62 @@ url = "http://0.0.0.0:5007"
 # print(len(questions), "is the number of questions added")
 
 
-# data = {
-#     "project_id":999,
-#     "version_id":4,
-#     "previous_versions" : [
-#       1,
-#       2,
-#       3
-#     ]
-# }
-# questions = []
-# # dir_ = "./tests/test_data/vsn_data"
-# dir_ = "./tests/intermediate_results/vsn_data_variations"
-# protected = [
-#         'question','answer','question_variation_0',
-#         'question_variation_1','question_variation_2', 'id'
-#     ]
-# for idx,x in enumerate(sorted(os.listdir(dir_))):
-#     if x.endswith(".json"):
-#         jsonpath = os.path.join(dir_,x)
-#         f = open(jsonpath,)
-#         jsonObj = json.load(f)
-#         jsonObj['id']=str(idx)
-#         f.close()
-#         keywords = []
-#         to_remove = []
-#         for x in jsonObj.keys():
-#             if x in protected:
-#                 continue
-#             if jsonObj[x] != "":
-#                 new_dict = {
-#                     x: [jsonObj[x]]
-#                 }
-#                 keywords.append(new_dict)
-#             to_remove.append(x)
-#         for x in to_remove:    
-#             jsonObj.pop(x,None)
-#         jsonObj['keywords']=keywords
-#         questions.append(jsonObj)
+data = {
+    "project_id":999,
+    "version_id":4,
+    "previous_versions" : [
+      1,
+      2,
+      3
+    ]
+}
+questions = []
+# dir_ = "./tests/test_data/vsn_data"
+dir_ = "./tests/intermediate_results/vsn_data_variations"
+protected = [
+        'question','answer','question_variation_0',
+        'question_variation_1','question_variation_2', 'id'
+    ]
+for idx,x in enumerate(sorted(os.listdir(dir_))):
+    if x.endswith(".json"):
+        jsonpath = os.path.join(dir_,x)
+        f = open(jsonpath,)
+        jsonObj = json.load(f)
+        jsonObj['id']=str(idx)
+        f.close()
+        keywords = []
+        to_remove = []
+        for x in jsonObj.keys():
+            if x in protected:
+                continue
+            if jsonObj[x] != "":
+                new_dict = {
+                    x: [jsonObj[x]]
+                }
+                keywords.append(new_dict)
+            to_remove.append(x)
+        for x in to_remove:    
+            jsonObj.pop(x,None)
+        jsonObj['keywords']=keywords
+        questions.append(jsonObj)
 
-# keyword_dir_path = "./tests/unique_keywords.json"
-# f = open(keyword_dir_path,)
-# keyword_directory = json.load(f)
+keyword_dir_path = "./tests/unique_keywords.json"
+f = open(keyword_dir_path,)
+keyword_directory = json.load(f)
 
-# data['question_list'] = questions
+data['question_list'] = questions
 
-# new_dir = []
-# for x in keyword_directory:
-#   new_dir.append({x:keyword_directory[x]})
-# data['keyword_directory'] = new_dir
+new_dir = []
+for x in keyword_directory:
+  new_dir.append({x:keyword_directory[x]})
+data['keyword_directory'] = new_dir
 
-# base_url= url + "/api/v2/train_bot_json_array"
+base_url= url + "/api/v2/train_bot_json_array"
 
-# r = requests.post(base_url, data=json.dumps(data))
-# print(r.text)
-# print(len(questions), "is the number of questions added")
-# pdb.set_trace()
+r = requests.post(base_url, data=json.dumps(data))
+print(r.text)
+print(len(questions), "is the number of questions added")
+pdb.set_trace()
 
 # """
 # QUESTION ASKER TIMING TEST
@@ -594,44 +594,44 @@ url = "http://0.0.0.0:5007"
 # print("reranking service done")
 
 
-"""
-QUESTION ASKER TIMING TEST
-"""
+# """
+# QUESTION ASKER TIMING TEST
+# """
 
-base_url= url + "/api/v2/qna"
+# base_url= url + "/api/v2/qna"
 
-data_ = [
-    {
-        "query":"My child was vaccinated recently with MMR for school", 
-        "user_id":"-1"
-    }
-    ,
-    {
-        "query":"what restrictions are there for \n immuno compromised people visiting ?",
-        "user_id":"2d07dcffc217bf2864ba64fc8b60fdaa41d0b08f74fb522582f1031e77cb2a4fc3b5b0b98392efc0dce2b96f9be453c07373bfecea25964379c422e4f9e89877"
-    }
-    ,
-    {
-        "query":"none",
-        "user_id":"2d07dcffc217bf2864ba64fc8b60fdaa41d0b08f74fb522582f1031e77cb2a4fc3b5b0b98392efc0dce2b96f9be453c07373bfecea25964379c422e4f9e89877"
-    },
-     {
-        "query":"none",
-        "user_id":"2d07dcffc217bf2864ba64fc8b60fdaa41d0b08f74fb522582f1031e77cb2a4fc3b5b0b98392efc0dce2b96f9be453c07373bfecea25964379c422e4f9e89877"
-    }
-]
+# data_ = [
+#     {
+#         "query":"My child was vaccinated recently with MMR for school", 
+#         "user_id":"-1"
+#     }
+#     ,
+#     {
+#         "query":"what restrictions are there for \n immuno compromised people visiting ?",
+#         "user_id":"2d07dcffc217bf2864ba64fc8b60fdaa41d0b08f74fb522582f1031e77cb2a4fc3b5b0b98392efc0dce2b96f9be453c07373bfecea25964379c422e4f9e89877"
+#     }
+#     ,
+#     {
+#         "query":"none",
+#         "user_id":"2d07dcffc217bf2864ba64fc8b60fdaa41d0b08f74fb522582f1031e77cb2a4fc3b5b0b98392efc0dce2b96f9be453c07373bfecea25964379c422e4f9e89877"
+#     },
+#      {
+#         "query":"none",
+#         "user_id":"2d07dcffc217bf2864ba64fc8b60fdaa41d0b08f74fb522582f1031e77cb2a4fc3b5b0b98392efc0dce2b96f9be453c07373bfecea25964379c422e4f9e89877"
+#     }
+# ]
 
-times = []
-for x in range(1):
-    for idx,x in enumerate(data_):
-        if idx==1:
-            start = timeit.default_timer()
-        r = requests.get(base_url, data=json.dumps(x))
-        if idx==1:
-            stop = timeit.default_timer()
-            times.append(stop-start)
-        print(r.text)
-print(mean(times))
+# times = []
+# for x in range(1):
+#     for idx,x in enumerate(data_):
+#         if idx==1:
+#             start = timeit.default_timer()
+#         r = requests.get(base_url, data=json.dumps(x))
+#         if idx==1:
+#             stop = timeit.default_timer()
+#             times.append(stop-start)
+#         print(r.text)
+# print(mean(times))
         
 
 """

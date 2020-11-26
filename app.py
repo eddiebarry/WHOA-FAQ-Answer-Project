@@ -62,6 +62,9 @@ def answer_question():
     # vm_env = lucene.getVMEnv()
     # vm_env.attachCurrentThread()
 
+    # import pdb
+    # pdb.set_trace()
+
     request_json = json.loads(request.data, strict=False)
     if 'query' not in request_json.keys():
         return jsonify({"message":"request does not contain query"})
@@ -126,6 +129,8 @@ def answer_question():
             query_string=ID_QUERY_DICT[unique_id], \
             query_field="question*", top_n=50)
         
+        resp_json["show_direct_answer"] = False
+
         what_to_say = {}
         for idx, doc in enumerate(hits[:5]):
             question_and_variation = doc[1].split(" ||| ")
@@ -135,6 +140,9 @@ def answer_question():
             
             score_title = "question_"+str(idx)+"_score"
             what_to_say[score_title] = doc[0]
+
+            if float(doc[0]) > -0.1:
+                resp_json["show_direct_answer"] = True
 
             answer_title = "question_"+str(idx)+"_answer"
             what_to_say[answer_title] = question_and_variation[-1]
@@ -147,6 +155,7 @@ def answer_question():
         what_to_say["synonyms"] = syn_str
         
         resp_json["what_to_say"] = what_to_say
+        
 
         # Reset unique id query to sentinel value
         ID_QUERY_DICT[unique_id] = "-1"
