@@ -1,4 +1,4 @@
-import sys, os, lucene, json, pdb
+import sys, os, lucene, json, pdb, requests
 import hashlib
 sys.path.append('WHO-FAQ-Keyword-Engine')
 sys.path.append('WHO-FAQ-Search-Engine')
@@ -133,6 +133,9 @@ def answer_question():
 
         what_to_say = {}
         for idx, doc in enumerate(hits[:5]):
+            if float(doc[0]) > -0.1:
+                resp_json["show_direct_answer"] = True
+            
             question_and_variation = doc[1].split(" ||| ")
             for var_idx, question_var in enumerate(question_and_variation[:3]):
                 title = "question_"+str(idx)+"_variation_"+str(var_idx)
@@ -141,11 +144,19 @@ def answer_question():
             score_title = "question_"+str(idx)+"_score"
             what_to_say[score_title] = doc[0]
 
-            if float(doc[0]) > -0.1:
-                resp_json["show_direct_answer"] = True
-
             answer_title = "question_"+str(idx)+"_answer"
-            what_to_say[answer_title] = question_and_variation[-1]
+            # if resp_json["show_direct_answer"]:
+                # send request
+            url = "http://18.203.115.216:5000"
+            base_url= url + "/api/v2/summariser"
+            data = {
+                "body":question_and_variation[-1],
+            }
+            r = requests.get(base_url, data=json.dumps(data))
+            data = r.json()
+            what_to_say[answer_title] = data['markdown_text']
+            # else:
+            #     what_to_say[answer_title] = question_and_variation[-1]
         
         # what_to_say += "The synonyms we extracted from the user question are :\n"
         syn_str = ""

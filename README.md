@@ -2,23 +2,23 @@
 
 ### To install
 ```
-docker build -t faq_project .
-docker run -p 5006:5006 --name faq_project_dev_hotfix -i -t faq_project
+docker build -t faq_project_output_format .
+docker run -p 5008:5008 --name faq_project_output_format -i -t faq_project_output_format
 exit()
 ```
 
 ### To restart
 ```
-docker stop faq_project_test
-docker rm faq_project_test
-docker build -t faq_project .
-docker run -p 5007:5007 --name faq_project_test -i -t faq_project
+docker stop faq_project_output_format
+docker rm faq_project_output_format
+docker build -t faq_project_output_format .
+docker run -p 5007:5007 --name faq_project_output_format -i -t faq_project_output_format
 ```
 
 ### To run
 ```
-docker start faq_project_dev
-docker exec -it faq_project_dev /bin/bash
+docker start faq_project_output_format
+docker exec -it faq_project_output_format /bin/bash
 ```
 
 ### Function for updating all submodules int master
