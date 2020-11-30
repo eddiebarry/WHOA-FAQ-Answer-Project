@@ -59,13 +59,7 @@ def answer_question():
     global ID_QUERY_DICT
     global KEYWORD_EXTRACTOR
     global QUESTION_ASKER
-    # global QUERY_GEN
     global SEARCH_ENGINE
-    # vm_env = lucene.getVMEnv()
-    # vm_env.attachCurrentThread()
-
-    # import pdb
-    # pdb.set_trace()
 
     request_json = json.loads(request.data, strict=False)
     if 'query' not in request_json.keys():
@@ -81,6 +75,8 @@ def answer_question():
 
     if 'user_id' not in request_json.keys():
         return jsonify({"message":"request does not contain user id"})
+
+    print(request_json['user_id'][:10])
     
     if request_json['user_id'] == "-1":
         unique_id = hashlib.sha512(query_string.encode()).hexdigest()
@@ -90,6 +86,8 @@ def answer_question():
         unique_id = request_json['user_id']
         # Add entire conversation to search engine
         ID_QUERY_DICT[unique_id] += query_string.lower() + " " 
+    
+    print(unique_id[:10])
 
     # Extract keywords on the basis of the user input
     boosting_tokens = KEYWORD_EXTRACTOR.parse_regex_query(\
@@ -135,9 +133,6 @@ def answer_question():
 
         what_to_say = {}
         for idx, doc in enumerate(hits[:5]):
-            # if float(doc[0]) > -0.1:
-                
-            
             question_and_variation = doc[1].split(" ||| ")
             for var_idx, question_var in enumerate(question_and_variation[:3]):
                 title = "question_"+str(idx)+"_variation_"+str(var_idx)
@@ -174,9 +169,9 @@ def answer_question():
         resp_json["what_to_say"] = what_to_say
         
 
-        # Reset unique id query to sentinel value
+        # # Reset unique id query to sentinel value
         ID_QUERY_DICT[unique_id] = "-1"
-        ID_KEYWORD_DICT[unique_id] = defaultdict(list)
+        # ID_KEYWORD_DICT[unique_id] = defaultdict(list)
     
         # Logging
         original_stdout = sys.stdout 

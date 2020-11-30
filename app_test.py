@@ -9,8 +9,8 @@ import pdb
 # TODO : Use Pytest
 
 
-url = "http://52.209.188.140:5008"
-# url = "http://0.0.0.0:5008"
+# url = "http://52.209.188.140:5008"
+url = "http://0.0.0.0:5008"
 
 # """
 # Batch Keyword Extract Test
