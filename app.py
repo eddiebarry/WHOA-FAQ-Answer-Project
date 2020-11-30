@@ -147,11 +147,11 @@ def answer_question():
             what_to_say[score_title] = doc[0]
 
             answer_title = "question_"+str(idx)+"_answer"
-            
-            if app.config['sim'].distance(question_and_variation[0],ID_QUERY_DICT[unique_id])<0.2:
+            sim_score = app.config['sim'].distance(question_and_variation[0],ID_QUERY_DICT[unique_id])
+            if sim_score<0.25:
                 resp_json["show_direct_answer"] = True
                 # send request
-                print("similar enough")
+                print("similar enough",sim_score)
                 url = "http://18.203.115.216:5000"
                 base_url= url + "/api/v2/summariser"
                 data = {
@@ -161,7 +161,7 @@ def answer_question():
                 data = r.json()
                 what_to_say[answer_title] = data['markdown_text']
             else:
-                print("not similar")
+                print("not similar",sim_score)
                 what_to_say[answer_title] = question_and_variation[-1]
         
         # what_to_say += "The synonyms we extracted from the user question are :\n"
