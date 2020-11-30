@@ -135,8 +135,8 @@ def answer_question():
 
         what_to_say = {}
         for idx, doc in enumerate(hits[:5]):
-            if float(doc[0]) > -0.1:
-                resp_json["show_direct_answer"] = True
+            # if float(doc[0]) > -0.1:
+                
             
             question_and_variation = doc[1].split(" ||| ")
             for var_idx, question_var in enumerate(question_and_variation[:3]):
@@ -149,6 +149,7 @@ def answer_question():
             answer_title = "question_"+str(idx)+"_answer"
             
             if app.config['sim'].distance(question_and_variation[0],ID_QUERY_DICT[unique_id])<0.2:
+                resp_json["show_direct_answer"] = True
                 # send request
                 print("similar enough")
                 url = "http://18.203.115.216:5000"
