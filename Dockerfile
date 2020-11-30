@@ -22,7 +22,7 @@ RUN pip install tokenizers==0.7 transformers==2.10.0 \
     spacy==2.3.2 spacy-wordnet==0.0.4
 RUN python -m nltk.downloader wordnet \
     && python -m nltk.downloader omw && python -m spacy download en
-RUN pip install sklearn pysolr==3.9.0
+RUN pip install sklearn pysolr==3.9.0 strsim
 
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 RUN git clone --branch Output_format_change\

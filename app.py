@@ -1,4 +1,5 @@
 import sys, os, lucene, json, pdb, requests
+from similarity.ngram import NGram
 import hashlib
 sys.path.append('WHO-FAQ-Keyword-Engine')
 sys.path.append('WHO-FAQ-Search-Engine')
@@ -30,6 +31,7 @@ from category_question_manager import CategoryQuestionManager
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
+app.config['sim'] = NGram(2)
 # app.config['JSON_AS_ASCII'] = False
 # lucene.initVM(vmargs=['-Djava.awt.headless=true'])
 
@@ -145,18 +147,21 @@ def answer_question():
             what_to_say[score_title] = doc[0]
 
             answer_title = "question_"+str(idx)+"_answer"
-            # if resp_json["show_direct_answer"]:
+            
+            if app.config['sim'].distance(question_and_variation[0],ID_QUERY_DICT[unique_id]):
                 # send request
-            url = "http://18.203.115.216:5000"
-            base_url= url + "/api/v2/summariser"
-            data = {
-                "body":question_and_variation[-1],
-            }
-            r = requests.get(base_url, data=json.dumps(data))
-            data = r.json()
-            what_to_say[answer_title] = data['markdown_text']
-            # else:
-            #     what_to_say[answer_title] = question_and_variation[-1]
+                print("similar enough")
+                url = "http://18.203.115.216:5000"
+                base_url= url + "/api/v2/summariser"
+                data = {
+                    "body":question_and_variation[-1],
+                }
+                r = requests.get(base_url, data=json.dumps(data))
+                data = r.json()
+                what_to_say[answer_title] = data['markdown_text']
+            else:
+                print("not similar")
+                what_to_say[answer_title] = question_and_variation[-1]
         
         # what_to_say += "The synonyms we extracted from the user question are :\n"
         syn_str = ""
