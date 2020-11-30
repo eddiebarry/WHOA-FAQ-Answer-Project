@@ -148,7 +148,7 @@ def answer_question():
 
             answer_title = "question_"+str(idx)+"_answer"
             
-            if app.config['sim'].distance(question_and_variation[0],ID_QUERY_DICT[unique_id]):
+            if app.config['sim'].distance(question_and_variation[0],ID_QUERY_DICT[unique_id])<0.2:
                 # send request
                 print("similar enough")
                 url = "http://18.203.115.216:5000"
