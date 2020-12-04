@@ -27,6 +27,7 @@ from update_engine import UpdateEngine
 from keyword_engine_manager import KeywordEngineManager
 from qa_keyword_manager import  QAKeywordManager
 from category_question_manager import CategoryQuestionManager
+from data.helpers import populate_1500_questions
 
 
 app = flask.Flask(__name__)
@@ -45,10 +46,16 @@ def answer_question():
 
     Inputs
     ------
-    Expects a api call of the form : ""
+    Expects a api call of the form : 
+    {
+            query : String,
+            user_id : String
+    }
     
-    Query : String
-        The string from which we need to extract keywords
+    query : String
+        The string from which we need to extract keywords and use for QA
+    user_id : String
+        A unique identifier assigned by the system
 
     Outputs
     -------
@@ -76,8 +83,7 @@ def answer_question():
     if 'user_id' not in request_json.keys():
         return jsonify({"message":"request does not contain user id"})
 
-    print(request_json['user_id'][:10])
-    
+    # print(request_json['user_id'][:10])
     if request_json['user_id'] == "-1":
         unique_id = hashlib.sha512(query_string.encode()).hexdigest()
         # If question has already been answered allow new question to be asked
@@ -86,8 +92,7 @@ def answer_question():
         unique_id = request_json['user_id']
         # Add entire conversation to search engine
         ID_QUERY_DICT[unique_id] += query_string.lower() + " " 
-    
-    print(unique_id[:10])
+    # print(unique_id[:10])
 
     # Extract keywords on the basis of the user input
     boosting_tokens = KEYWORD_EXTRACTOR.parse_regex_query(\
@@ -165,9 +170,7 @@ def answer_question():
             if syn != "":
                 syn_str += syn+" ,"
         what_to_say["synonyms"] = syn_str
-        
         resp_json["what_to_say"] = what_to_say
-        
 
         # # Reset unique id query to sentinel value
         ID_QUERY_DICT[unique_id] = "-1"
@@ -434,6 +437,11 @@ def link_to_bot():
         "bot_id": 'bot_test'
     }
     return jsonify(response)
+
+@app.before_first_request
+def init_data():
+    print("calling init function")
+    populate_1500_questions()
 
 @app.route('/')
 def hello_world():

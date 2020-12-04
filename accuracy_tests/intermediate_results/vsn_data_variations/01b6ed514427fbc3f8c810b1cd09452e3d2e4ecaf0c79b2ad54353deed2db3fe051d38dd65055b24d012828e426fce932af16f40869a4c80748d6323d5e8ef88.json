@@ -1,0 +1,16 @@
+{
+    "answer": "Flu vaccine can be purchased at most pharmacies and travel clinics.\nImmunization Nurse\n",
+    "disease_1": "-",
+    "disease_2": "-",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "For non-MSP private patients (visitor Visa), where can they go to get their flu shot?\n",
+    "question_variation_0": "flu shot flu shot",
+    "question_variation_1": "flu shot flu shots flu shot vaccine vaccines flu shot",
+    "question_variation_2": "flu shot shot flu shot",
+    "subject_1_immunization": "Generic",
+    "subject_2_vaccination_general": "Vaccine Cost",
+    "subject_person": "Unknown ",
+    "vaccine_1": "Influenza (Flu)",
+    "vaccine_2": "",
+    "who_is_writing_this": "unknown"
+}

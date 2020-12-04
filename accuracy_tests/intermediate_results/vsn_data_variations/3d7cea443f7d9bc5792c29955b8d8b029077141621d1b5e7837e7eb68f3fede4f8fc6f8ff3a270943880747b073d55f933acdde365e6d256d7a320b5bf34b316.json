@@ -1,0 +1,16 @@
+{
+    "answer": "The BC Centre for Disease Control publishes information about immunization coverage including influenza vaccine (flu shot). They have reports on:\n\n\t\tInfluenza immunization coverage among residential care facility staff\n\n\t\tInfluenza immunization coverage among residential care facility residents. In 2017/18 influenza vaccination coverage, 86% (25,749/29,838) of residents of residential care facilities in BC were vaccinated against influenza\nImmunization Nurse",
+    "disease_1": "-",
+    "disease_2": "-",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "My mother is a resident in a long-term care facility. Approximately what percentage of residents in long-term care facilities in BC are getting flu shots?\n",
+    "question_variation_0": "percentage of residents in long term care facilities in bc getting flu shots",
+    "question_variation_1": "what percentage of residents in long term care facilities are getting flu shots?",
+    "question_variation_2": "resident flu shots in long term care",
+    "subject_1_immunization": "vaccination",
+    "subject_2_vaccination_general": "Generic",
+    "subject_person": "Grandparent",
+    "vaccine_1": "Influenza (Flu)",
+    "vaccine_2": "",
+    "who_is_writing_this": "adult"
+}

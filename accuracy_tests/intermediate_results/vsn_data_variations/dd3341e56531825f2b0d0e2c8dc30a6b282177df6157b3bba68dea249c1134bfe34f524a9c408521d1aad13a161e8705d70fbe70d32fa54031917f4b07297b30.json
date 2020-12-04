@@ -1,0 +1,16 @@
+{
+    "answer": "The MMR and Varicella vaccines are both live injectable vaccines. If two live injectable vaccines are given too close together, the immune response to the second vaccine may be affected by the first vaccine.\u00a0 To minimize this possibility, two or more live injectable vaccines should be administered concurrently or separated by an interval of at least four weeks. If two or more live injectable vaccines are not given on the same day or separated by an interval of at least four weeks (as appears to be the case in the scenario you described), the vaccine that was given second should be repeated four weeks after it was given.\u00a0\n",
+    "disease_1": "",
+    "disease_2": "",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "My child was given MMR & Varicella at 12mths & they were given 11 days apart (Varicella first). I was told because of this, the MMR is considered invalid and need extra dose. Why?",
+    "question_variation_0": "when does mrm become invalid",
+    "question_variation_1": "is varicella considered infadible",
+    "question_variation_2": "why does mmr need extra dose",
+    "subject_1_immunization": "Immunization Required",
+    "subject_2_vaccination_general": "Protection",
+    "subject_person": "Child",
+    "vaccine_1": "(MMR) Measles / Mumps / Rubella",
+    "vaccine_2": "Varicella (Chickenpox)",
+    "who_is_writing_this": "Parent"
+}

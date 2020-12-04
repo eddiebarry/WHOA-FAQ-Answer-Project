@@ -1,0 +1,16 @@
+{
+    "answer": "When a vaccine dose is \"invalid,\" it usually means that protection from the vaccine cannot be guaranteed and that the dose needs to be repeated.\u00a0 Please speak with a public health nurse at your local health unit to find out why the dose is invalid and if you need to get the vaccine again. You can find the contact information for your local health unit here.\u00a0\nImmunization Nurse\n",
+    "disease_1": "-",
+    "disease_2": "Pertussis",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "Immunization record says invalid for the status of pertussis vaccine, what does this mean?\n",
+    "question_variation_0": "status status status vaccine status status  status status pertussis vaccine",
+    "question_variation_1": "status status status vaccine status pertussis vaccine status vaccine status",
+    "question_variation_2": "status immunity status status status for status of status pertussis vaccine",
+    "subject_1_immunization": "Immunization Record",
+    "subject_2_vaccination_general": "Vaccination",
+    "subject_person": "Unknown ",
+    "vaccine_1": "-",
+    "vaccine_2": "",
+    "who_is_writing_this": "unknown"
+}

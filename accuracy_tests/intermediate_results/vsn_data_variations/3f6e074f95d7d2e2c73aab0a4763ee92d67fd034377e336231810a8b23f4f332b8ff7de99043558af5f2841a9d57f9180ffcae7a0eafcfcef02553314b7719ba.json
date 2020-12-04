@@ -1,0 +1,16 @@
+{
+    "answer": "We assume you are referring to an appointment booking system at your local health unit. ImmunizeBC is separate from the health units, and you will need to contact your local health unit for this information. You can find the contact information for your local health unit here.\u00a0\nImmunization Nurse\n",
+    "disease_1": "-",
+    "disease_2": "-",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "When will appointment booking system will open?\n",
+    "question_variation_0": "booking booking booking appointment appointment booking system open? appointment booking",
+    "question_variation_1": "booking appointment appointment booking system open",
+    "question_variation_2": "booking booking appointment booking booking open appointment booking booking system open? appointment booking booking open open",
+    "subject_1_immunization": "Generic",
+    "subject_2_vaccination_general": "Generic",
+    "subject_person": "Unknown ",
+    "vaccine_1": "-",
+    "vaccine_2": "",
+    "who_is_writing_this": "unknown"
+}
