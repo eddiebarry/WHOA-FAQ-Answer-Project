@@ -2,23 +2,23 @@
 
 ### To install
 ```
-docker build -t faq_project_output_format .
-docker run -p 5008:5008 --name faq_project_output_format -i -t faq_project_output_format
+docker build -t faq_project_output_format_new_flow .
+docker run -p 5009:5009 --name faq_project_output_format_new_flow -i -t faq_project_output_format_new_flow
 exit()
 ```
 
 ### To restart
 ```
-docker stop faq_project_output_format
-docker rm faq_project_output_format
-docker build -t faq_project_output_format .
-docker run -p 5007:5007 --name faq_project_output_format -i -t faq_project_output_format
+docker stop faq_project_output_format_new_flow
+docker rm faq_project_output_format_new_flow
+docker build -t faq_project_output_format_new_flow .
+docker run -p 5009:5009 --name faq_project_output_format_new_flow -i -t faq_project_output_format_new_flow
 ```
 
 ### To run
 ```
-docker start faq_project_output_format
-docker exec -it faq_project_output_format /bin/bash
+docker start faq_project_output_format_new_flow
+docker exec -it faq_project_output_format /bin/bash_new_flow
 ```
 
 ### Function for updating all submodules int master
