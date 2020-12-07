@@ -150,6 +150,8 @@ def answer_question():
             sim_score = app.config['sim'].distance(question_and_variation[0],ID_QUERY_DICT[unique_id])
             if sim_score<0.25:
                 resp_json["show_direct_answer"] = True
+                resp_json["ask_more_question"]=False
+                ID_QUERY_DICT[unique_id] = "-1"
                 # send request
                 print("similar enough",sim_score)
                 url = "http://18.203.115.216:5000"
@@ -164,9 +166,10 @@ def answer_question():
                 print("not similar",sim_score)
                 what_to_say[answer_title] = question_and_variation[-1]
 
-        if not resp_json["show_direct_answer"]:
+        if not resp_json["show_direct_answer"] and resp_json["ask_more_question"]:
             should_search, resp_json = QUESTION_ASKER.process(\
                     unique_id, new_boosting_dict,ID_QUERY_DICT[unique_id])
+            
             return jsonify(resp_json)
         
         # what_to_say += "The synonyms we extracted from the user question are :\n"
