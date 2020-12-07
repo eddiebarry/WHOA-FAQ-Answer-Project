@@ -388,8 +388,8 @@ url = "http://0.0.0.0:5008"
 #     ]
 # }
 # questions = []
-# # dir_ = "./tests/test_data/vsn_data"
-# dir_ = "./tests/intermediate_results/vsn_data_variations"
+# # dir_ = "./accuracy_tests/test_data/vsn_data"
+# dir_ = "./accuracy_tests/intermediate_results/vsn_data_variations"
 # protected = [
 #         'question','answer','question_variation_0',
 #         'question_variation_1','question_variation_2', 'id'
@@ -417,7 +417,7 @@ url = "http://0.0.0.0:5008"
 #         jsonObj['keywords']=keywords
 #         questions.append(jsonObj)
 
-# keyword_dir_path = "./tests/unique_keywords.json"
+# keyword_dir_path = "./accuracy_tests/unique_keywords.json"
 # f = open(keyword_dir_path,)
 # keyword_directory = json.load(f)
 
@@ -445,8 +445,8 @@ data = {
     ]
 }
 questions = []
-# dir_ = "./tests/test_data/vsn_data"
-dir_ = "./tests/intermediate_results/vsn_data_variations"
+# dir_ = "./accuracy_tests/test_data/vsn_data"
+dir_ = "./accuracy_tests/intermediate_results/vsn_data_variations"
 protected = [
         'question','answer','question_variation_0',
         'question_variation_1','question_variation_2', 'id'
@@ -474,7 +474,7 @@ for idx,x in enumerate(sorted(os.listdir(dir_))):
         jsonObj['keywords']=keywords
         questions.append(jsonObj)
 
-keyword_dir_path = "./tests/unique_keywords.json"
+keyword_dir_path = "./accuracy_tests/unique_keywords.json"
 f = open(keyword_dir_path,)
 keyword_directory = json.load(f)
 
@@ -528,7 +528,7 @@ pdb.set_trace()
 # base_url="http://18.203.115.216:5007/api/v1/reranking"
 
 # gpu_times_dict = {}
-# dir_ = "./tests/intermediate_results"
+# dir_ = "./accuracy_tests/intermediate_results"
 # for x in sorted(os.listdir(dir_)):
 #     title = os.path.join(dir_ , x)
 #     if not(title.endswith(".p")):

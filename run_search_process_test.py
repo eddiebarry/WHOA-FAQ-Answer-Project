@@ -17,14 +17,14 @@ lucene.initVM(vmargs=['-Djava.awt.headless=true'])
 # Index generator
 Index = IndexFiles("./VaccineIndex.Index",StandardAnalyzer())
 Index.indexFolder(\
-    "./tests/intermediate_results/vsn_data_variations")
+    "./accuracy_tests/intermediate_results/vsn_data_variations")
 
 indexDir = Index.getIndexDir()
 
 QueryGenTest = QueryGenerator(StandardAnalyzer())
 
 # Keyword Extractor
-jsonpath = "./tests/unique_keywords.json"
+jsonpath = "./accuracy_tests/unique_keywords.json"
 f = open(jsonpath,)
 jsonObj = json.load(f)
 keyword_extractor = KeywordExtract(jsonObj)

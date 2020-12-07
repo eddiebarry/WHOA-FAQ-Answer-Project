@@ -22,7 +22,7 @@ RUN pip install tokenizers==0.7 transformers==2.10.0 \
     spacy==2.3.2 spacy-wordnet==0.0.4
 RUN python -m nltk.downloader wordnet \
     && python -m nltk.downloader omw && python -m spacy download en
-RUN pip install sklearn pysolr==3.9.0 strsim
+RUN pip install sklearn pysolr==3.9.0 strsim gunicorn
 
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 RUN git clone --branch Output_format_change\
@@ -36,5 +36,6 @@ RUN chmod +x ./gdown.pl \
 WORKDIR /usr/src/WHOA-FAQ-Answer-Project
 
 EXPOSE 5008
+#gunicorn --bind 0.0.0.0:5008 wsgi:app --timeout 600
 # ENTRYPOINT [ "python" ] 
 # CMD [ "app.py" ] 

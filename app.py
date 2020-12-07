@@ -31,7 +31,7 @@ from data.helpers import populate_1500_questions
 
 
 app = flask.Flask(__name__)
-app.config["DEBUG"] = True
+app.config["DEBUG"] = False
 app.config['sim'] = NGram(2)
 # app.config['JSON_AS_ASCII'] = False
 # lucene.initVM(vmargs=['-Djava.awt.headless=true'])
@@ -441,7 +441,53 @@ def link_to_bot():
 @app.before_first_request
 def init_data():
     print("calling init function")
-    populate_1500_questions()
+    #TODO : change to flask variable
+    global UPDATE_ENGINE
+    global KEYWORD_EXTRACTOR
+
+    request_json = populate_1500_questions()
+    requires = [
+            'project_id', 'version_id', 'question_list',
+            'keyword_directory'
+        ]
+    for x in requires:
+        if x not in request_json.keys():
+            return jsonify({"message":"given request does not have a "+x })
+
+    # Adding the files to the array
+    question_list = request_json['question_list']
+    project_id = request_json['project_id']
+    version_id = request_json['version_id']
+
+    if 'previous_versions' in request_json.keys():
+        version_number = len(request_json['previous_versions']) + 1.0
+        version_number = str(version_number)
+        previous_versions = request_json['previous_versions']
+    else:
+        version_number = "1.0"
+        previous_versions = []
+
+    if type(project_id) != str:
+        project_id = str(project_id)
+    if type(version_id) != str:
+        version_id = str(version_id)
+    if type(version_number) != str:
+        version_number = str(version_number)
+    
+    # TODO : check question list format
+    keyword_dir = request_json['keyword_directory']
+    KEYWORD_EXTRACTOR.config = keyword_dir
+    KEYWORD_EXTRACTOR.dict = KEYWORD_EXTRACTOR.parse_config(keyword_dir)
+
+    data_hash_string = project_id + version_id
+    data_hash_id = hashlib.sha512(data_hash_string.encode())\
+                        .hexdigest()
+    
+    project_info = [data_hash_id, project_id, version_id, \
+        version_number, previous_versions]
+
+    
+    UPDATE_ENGINE.add_questions(question_list, project_info)
 
 @app.route('/')
 def hello_world():
@@ -467,7 +513,7 @@ if __name__ == '__main__':
     )
     
     extractor_json_path = \
-        "./tests/unique_keywords.json"
+        "./accuracy_tests/unique_keywords.json"
     f = open(extractor_json_path,)
     jsonObj = json.load(f)
     KEYWORD_EXTRACTOR = KeywordExtract(jsonObj)
@@ -475,7 +521,7 @@ if __name__ == '__main__':
     ID_KEYWORD_DICT = defaultdict(dict)
     ID_QUERY_DICT = defaultdict(str)
 
-    qa_config_path = "./tests/question_asker_config.json"
+    qa_config_path = "./accuracy_tests/question_asker_config.json"
     use_question_predicter_config = [
             False, #Use question predictor
             "./WHO-FAQ-Dialog-Manager/qna/models.txt", #models path
