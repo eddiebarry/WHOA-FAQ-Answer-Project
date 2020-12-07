@@ -18,7 +18,7 @@ def populate_1500_questions(project_id=999, version_id=0, \
     data = {
         "project_id":project_id,
         "version_id":version_id,
-        "previous_versions" : previous_versions
+        # "previous_versions" : previous_versions
     }
     questions = []
     dir_ = "./accuracy_tests/intermediate_results/vsn_data_variations"
