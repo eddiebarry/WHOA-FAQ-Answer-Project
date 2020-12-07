@@ -438,7 +438,7 @@ def link_to_bot():
     }
     return jsonify(response)
 
-# @app.before_first_request
+@app.before_first_request
 def init_data():
     print("calling init function")
     #TODO : change to flask variable
@@ -485,7 +485,6 @@ def init_data():
     
     project_info = [data_hash_id, project_id, version_id, \
         version_number, previous_versions]
-
     
     UPDATE_ENGINE.add_questions(question_list, project_info)
 
