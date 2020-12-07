@@ -123,7 +123,7 @@ def answer_question():
     
     query = None
     # If no more questions need to be asked, isolate the search results and return
-    if should_search:
+    if should_search or True:
         query, synonyms = SEARCH_ENGINE.build_query(ID_QUERY_DICT[unique_id], \
             ID_KEYWORD_DICT[unique_id], "OR_QUERY", field="question",\
             boost_val=2.0)
@@ -163,6 +163,11 @@ def answer_question():
             else:
                 print("not similar",sim_score)
                 what_to_say[answer_title] = question_and_variation[-1]
+
+        if not resp_json["show_direct_answer"]:
+            should_search, resp_json = QUESTION_ASKER.process(\
+                    unique_id, new_boosting_dict,ID_QUERY_DICT[unique_id])
+            return jsonify(resp_json)
         
         # what_to_say += "The synonyms we extracted from the user question are :\n"
         syn_str = ""
@@ -542,4 +547,4 @@ if __name__ == '__main__':
         category_question_manager=category_question_manager
     )
 
-    app.run(host='0.0.0.0', port = 5008)
+    app.run(host='0.0.0.0', port = 5009)
