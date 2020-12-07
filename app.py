@@ -438,7 +438,7 @@ def link_to_bot():
     }
     return jsonify(response)
 
-@app.before_first_request
+# @app.before_first_request
 def init_data():
     print("calling init function")
     #TODO : change to flask variable
