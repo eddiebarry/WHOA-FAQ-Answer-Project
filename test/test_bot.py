@@ -21,15 +21,15 @@ conversations = [
         ("No","Would you like to ask another question"),
         ("No","I hope i was helpful"),
     ],
-    # [
-    #     ("Hi", "how can i help you today"),
-    #     ("Ask Vaccine Questions","please type your query"),
-    #     ("I need help","What vaccine are you talking about"),
-    #     ("please help me","Is there any additional information you could help us with"),
-    #     ("I am lost","would you like to continue talking about the same question"),
-    #     ("No","Would you like to ask another question"),
-    #     ("No","I hope i was helpful"),
-    # ],
+    [
+        ("Hi", "how can i help you today"),
+        ("Ask Vaccine Questions","please type your query"),
+        ("I need help","What vaccine are you talking about"),
+        ("please help me","Is there any additional information you could help us with"),
+        ("I am lost","would you like to continue talking about the same question"),
+        ("No","Would you like to ask another question"),
+        ("No","I hope i was helpful"),
+    ],
 ]
 
 def test_conversation():
@@ -60,11 +60,5 @@ def test_conversation():
                 
                 test = reply_text.lower()
 
-                # print(fixed_reply)
-                # print()
-                # print(test)
-                # print('*'*80)
                 for x in fixed_reply.lower().split(" "):
                     assert x in test, reply_text + '*'*80 + x
-
-# test_conversation()

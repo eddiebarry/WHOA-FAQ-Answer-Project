@@ -40,8 +40,6 @@ def test_collection_creation():
         version_id = "test1"
     )
 
-# test_collection_creation()
-
 '''
 Create a search query
 '''
@@ -64,8 +62,6 @@ def test_query_generation():
     assert search_query == temp, (" query is "+ search_query)
 
     return search_query
-
-# test_query_generation()
 
 '''
 Search with query and confirm documents are present
@@ -96,5 +92,3 @@ def test_delete_collection():
                 {"action":"DELETE","name":"qa_test_test1"})
 
     assert x.status_code == 200
-
-# test_delete_collection()
