@@ -1,3 +1,4 @@
+#TODO : FIX imports to follow pep8 sorted order
 import sys, os, lucene, json, pdb, requests
 from similarity.ngram import NGram
 import hashlib
@@ -14,7 +15,7 @@ from threading import Thread
 
 from keyword_extractor import KeywordExtract
 from solr_search import SolrSearchEngine
-from rerank.config import RE_RANK_ENDPOINT
+from rerank.rerank_config import RE_RANK_ENDPOINT
 from variation_generation.variation_generator import VariationGenerator
 from query_generator import QueryGenerator
 from index import IndexFiles
@@ -117,13 +118,15 @@ def answer_question():
     ID_KEYWORD_DICT[unique_id] = new_boosting_dict
 
     # Identify wether more questions need to be asked or not
-    # TODO : Ask question only once
+    # # TODO : Ask question only once
     should_search, resp_json = QUESTION_ASKER.process(\
         unique_id, new_boosting_dict,ID_QUERY_DICT[unique_id])
-    
-    query = None
-    # If no more questions need to be asked, isolate the search results and return
-    if should_search or True:
+
+    resp_json["show_direct_answer"] = False
+
+    if should_search or resp_json["first_question"]:
+        print("searching index")
+        query = None
         query, synonyms = SEARCH_ENGINE.build_query(ID_QUERY_DICT[unique_id], \
             ID_KEYWORD_DICT[unique_id], "OR_QUERY", field="question",\
             boost_val=2.0)
@@ -133,8 +136,6 @@ def answer_question():
             version_id=UPDATE_ENGINE.qa_keyword_manager.latest_version_id,\
             query_string=ID_QUERY_DICT[unique_id], \
             query_field="question*", top_n=50)
-        
-        resp_json["show_direct_answer"] = False
 
         what_to_say = {}
         for idx, doc in enumerate(hits[:5]):
@@ -151,7 +152,7 @@ def answer_question():
             if sim_score<0.25:
                 resp_json["show_direct_answer"] = True
                 resp_json["ask_more_question"]=False
-                ID_QUERY_DICT[unique_id] = "-1"
+                
                 # send request
                 print("similar enough",sim_score)
                 url = "http://18.203.115.216:5000"
@@ -166,12 +167,7 @@ def answer_question():
                 print("not similar",sim_score)
                 what_to_say[answer_title] = question_and_variation[-1]
 
-        if not resp_json["show_direct_answer"] and resp_json["ask_more_question"]:
-            should_search, resp_json = QUESTION_ASKER.process(\
-                    unique_id, new_boosting_dict,ID_QUERY_DICT[unique_id])
-            
-            return jsonify(resp_json)
-        
+    if resp_json["show_direct_answer"] or not resp_json["ask_more_question"]:
         # what_to_say += "The synonyms we extracted from the user question are :\n"
         syn_str = ""
         for syn in synonyms:
@@ -180,13 +176,9 @@ def answer_question():
         what_to_say["synonyms"] = syn_str
         resp_json["what_to_say"] = what_to_say
 
-        # # Reset unique id query to sentinel value
-        ID_QUERY_DICT[unique_id] = "-1"
-        # ID_KEYWORD_DICT[unique_id] = defaultdict(list)
-    
         # Logging
         original_stdout = sys.stdout 
-        with open('log.txt', 'a') as f:
+        with open('./logs/log.txt', 'a') as f:
             sys.stdout = f # Change the standard output to the file we created.
             print('$'*80)
             print("unique id", unique_id)
@@ -195,6 +187,10 @@ def answer_question():
             print("The results of the search are ", hits)
             print('$'*80)
             sys.stdout = original_stdout
+
+        # # Reset unique id query to sentinel value
+        ID_QUERY_DICT[unique_id] = "-1"
+        # ID_KEYWORD_DICT[unique_id] = defaultdict(list)
 
     return jsonify(resp_json)
 
@@ -310,7 +306,7 @@ def return_batch_keyword():
         questions_keywords_list.append(temp_keyword_dict)    
         # Logging
         original_stdout = sys.stdout 
-        with open('keyword_log.txt', 'a') as f:
+        with open('./logs/keyword_log.txt', 'a') as f:
             sys.stdout = f # Change the standard output to the file we created.
             print('$'*80)
             print("The user query is ", query_string)

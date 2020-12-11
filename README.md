@@ -18,7 +18,7 @@ docker run -p 5009:5009 --name faq_project_output_format_new_flow -i -t faq_proj
 ### To run
 ```
 docker start faq_project_output_format_new_flow
-docker exec -it faq_project_output_format /bin/bash_new_flow
+docker exec -it faq_project_output_format /bin/bash
 ```
 
 ### Function for updating all submodules int master
