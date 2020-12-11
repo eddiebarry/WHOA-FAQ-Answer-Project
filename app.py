@@ -18,7 +18,7 @@ from solr_search import SolrSearchEngine
 from rerank.rerank_config import RE_RANK_ENDPOINT
 from variation_generation.variation_generator import VariationGenerator
 from query_generator import QueryGenerator
-from index import IndexFiles
+# from index import IndexFiles
 from org.apache.lucene.analysis.standard import StandardAnalyzer
 
 from qna.common import preprocess, tokenize, porter_stemmer_instance
@@ -426,7 +426,7 @@ def index_json_array():
 
     return jsonify(response)
 
-@app.route('/api/v2/get-bot-host')
+@app.route('/api/v2/get-bot-host', methods=['GET'])
 def link_to_bot():
     request_json = json.loads(request.data, strict=False)
     requires = [
@@ -499,7 +499,7 @@ def hello_world():
 
 if __name__ == '__main__':
     SEARCH_ENGINE = SolrSearchEngine(
-        rerank_endpoint=RE_RANK_ENDPOINT,
+        rerank_endpoint=RE_RANK_ENDPOINT+"/api/v1/reranking",
         variation_generator_config=[
             VariationGenerator(\
             path="./WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights/model.ckpt-1004000",
