@@ -25,3 +25,5 @@ Major refactorings :
 Features :
 	Adding dynamic QAsking
 	Adding Conversation support
+
+FIX IMPORTS

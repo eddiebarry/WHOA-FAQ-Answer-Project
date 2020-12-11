@@ -1,4 +1,6 @@
-import sys, os, lucene, json
+#TODO : FIX imports to follow pep8 sorted order
+import sys, os, lucene, json, pdb, requests
+from similarity.ngram import NGram
 import hashlib
 sys.path.append('WHO-FAQ-Keyword-Engine')
 sys.path.append('WHO-FAQ-Search-Engine')
@@ -12,11 +14,11 @@ from collections import defaultdict
 from threading import Thread
 
 from keyword_extractor import KeywordExtract
-from search import SearchEngine
-from rerank.config import RE_RANK_ENDPOINT
+from solr_search import SolrSearchEngine
+from rerank.rerank_config import RE_RANK_ENDPOINT
 from variation_generation.variation_generator import VariationGenerator
 from query_generator import QueryGenerator
-from index import IndexFiles
+# from index import IndexFiles
 from org.apache.lucene.analysis.standard import StandardAnalyzer
 
 from qna.common import preprocess, tokenize, porter_stemmer_instance
@@ -26,12 +28,14 @@ from update_engine import UpdateEngine
 from keyword_engine_manager import KeywordEngineManager
 from qa_keyword_manager import  QAKeywordManager
 from category_question_manager import CategoryQuestionManager
+from data.helpers import populate_1500_questions
 
 
 app = flask.Flask(__name__)
-app.config["DEBUG"] = True
+app.config["DEBUG"] = False
+app.config['sim'] = NGram(2)
 # app.config['JSON_AS_ASCII'] = False
-lucene.initVM(vmargs=['-Djava.awt.headless=true'])
+# lucene.initVM(vmargs=['-Djava.awt.headless=true'])
 
 
 # TODO : Document
@@ -43,10 +47,16 @@ def answer_question():
 
     Inputs
     ------
-    Expects a api call of the form : ""
+    Expects a api call of the form : 
+    {
+            query : String,
+            user_id : String
+    }
     
-    Query : String
-        The string from which we need to extract keywords
+    query : String
+        The string from which we need to extract keywords and use for QA
+    user_id : String
+        A unique identifier assigned by the system
 
     Outputs
     -------
@@ -57,12 +67,9 @@ def answer_question():
     global ID_QUERY_DICT
     global KEYWORD_EXTRACTOR
     global QUESTION_ASKER
-    global QUERY_GEN
     global SEARCH_ENGINE
-    vm_env = lucene.getVMEnv()
-    vm_env.attachCurrentThread()
 
-    request_json = json.loads(request.data)
+    request_json = json.loads(request.data, strict=False)
     if 'query' not in request_json.keys():
         return jsonify({"message":"request does not contain query"})
     
@@ -71,11 +78,13 @@ def answer_question():
         .replace("?","")\
         .replace("-","")\
         .replace("not relevant","")\
-        .replace("none","")
+        .replace("none","")\
+        .replace("\n"," ")
 
     if 'user_id' not in request_json.keys():
         return jsonify({"message":"request does not contain user id"})
-    
+
+    # print(request_json['user_id'][:10])
     if request_json['user_id'] == "-1":
         unique_id = hashlib.sha512(query_string.encode()).hexdigest()
         # If question has already been answered allow new question to be asked
@@ -83,7 +92,8 @@ def answer_question():
     else:
         unique_id = request_json['user_id']
         # Add entire conversation to search engine
-        ID_QUERY_DICT[unique_id] += query_string.lower() + " "    
+        ID_QUERY_DICT[unique_id] += query_string.lower() + " " 
+    # print(unique_id[:10])
 
     # Extract keywords on the basis of the user input
     boosting_tokens = KEYWORD_EXTRACTOR.parse_regex_query(\
@@ -108,20 +118,25 @@ def answer_question():
     ID_KEYWORD_DICT[unique_id] = new_boosting_dict
 
     # Identify wether more questions need to be asked or not
-    # TODO : Ask question only once
+    # # TODO : Ask question only once
     should_search, resp_json = QUESTION_ASKER.process(\
         unique_id, new_boosting_dict,ID_QUERY_DICT[unique_id])
-    
-    query = None
-    # If no more questions need to be asked, isolate the search results and return
-    if should_search:
-        query, synonyms = QUERY_GEN.build_query(ID_QUERY_DICT[unique_id], \
+
+    resp_json["show_direct_answer"] = False
+
+    if should_search or resp_json["first_question"]:
+        print("searching index")
+        query = None
+        query, synonyms = SEARCH_ENGINE.build_query(ID_QUERY_DICT[unique_id], \
             ID_KEYWORD_DICT[unique_id], "OR_QUERY", field="question",\
             boost_val=2.0)
-        hits = SEARCH_ENGINE.search(query, \
+            
+        hits = SEARCH_ENGINE.search(query, 
+            project_id=UPDATE_ENGINE.qa_keyword_manager.latest_project_id,
+            version_id=UPDATE_ENGINE.qa_keyword_manager.latest_version_id,\
             query_string=ID_QUERY_DICT[unique_id], \
             query_field="question*", top_n=50)
-        
+
         what_to_say = {}
         for idx, doc in enumerate(hits[:5]):
             question_and_variation = doc[1].split(" ||| ")
@@ -133,24 +148,37 @@ def answer_question():
             what_to_say[score_title] = doc[0]
 
             answer_title = "question_"+str(idx)+"_answer"
-            what_to_say[answer_title] = question_and_variation[-1]
-        
+            sim_score = app.config['sim'].distance(question_and_variation[0],ID_QUERY_DICT[unique_id])
+            if sim_score<0.25:
+                resp_json["show_direct_answer"] = True
+                resp_json["ask_more_question"]=False
+                
+                # send request
+                print("similar enough",sim_score)
+                url = "http://18.203.115.216:5000"
+                base_url= url + "/api/v2/summariser"
+                data = {
+                    "body":question_and_variation[-1],
+                }
+                r = requests.get(base_url, data=json.dumps(data))
+                data = r.json()
+                what_to_say[answer_title] = data['markdown_text']
+            else:
+                print("not similar",sim_score)
+                what_to_say[answer_title] = question_and_variation[-1]
+
+    if resp_json["show_direct_answer"] or not resp_json["ask_more_question"]:
         # what_to_say += "The synonyms we extracted from the user question are :\n"
         syn_str = ""
         for syn in synonyms:
             if syn != "":
                 syn_str += syn+" ,"
         what_to_say["synonyms"] = syn_str
-        
         resp_json["what_to_say"] = what_to_say
 
-        # Reset unique id query to sentinel value
-        ID_QUERY_DICT[unique_id] = "-1"
-        ID_KEYWORD_DICT[unique_id] = defaultdict(list)
-    
         # Logging
         original_stdout = sys.stdout 
-        with open('log.txt', 'a') as f:
+        with open('./logs/log.txt', 'a') as f:
             sys.stdout = f # Change the standard output to the file we created.
             print('$'*80)
             print("unique id", unique_id)
@@ -159,6 +187,10 @@ def answer_question():
             print("The results of the search are ", hits)
             print('$'*80)
             sys.stdout = original_stdout
+
+        # # Reset unique id query to sentinel value
+        ID_QUERY_DICT[unique_id] = "-1"
+        # ID_KEYWORD_DICT[unique_id] = defaultdict(list)
 
     return jsonify(resp_json)
 
@@ -235,9 +267,9 @@ def return_batch_keyword():
             
     """
     global KEYWORD_EXTRACTOR
-    global QUERY_GEN
+    global SEARCH_ENGINE
 
-    request_json = json.loads(request.data)
+    request_json = json.loads(request.data, strict=False)
     questions_keywords_list = []
 
     if 'question_answer_list' not in request_json.keys():
@@ -257,7 +289,7 @@ def return_batch_keyword():
             + " " + qa_pair['answer'].replace("?","")
 
         # Get synonyms present in the query string
-        synonyms = QUERY_GEN.synonym_expander.return_synonyms(query_string)
+        synonyms = SEARCH_ENGINE.synonym_expander.return_synonyms(query_string)
         synonyms = [word.strip('"') for word in synonyms]
 
         query_string = query_string +" " + " ".join(x for x in synonyms)
@@ -274,7 +306,7 @@ def return_batch_keyword():
         questions_keywords_list.append(temp_keyword_dict)    
         # Logging
         original_stdout = sys.stdout 
-        with open('keyword_log.txt', 'a') as f:
+        with open('./logs/keyword_log.txt', 'a') as f:
             sys.stdout = f # Change the standard output to the file we created.
             print('$'*80)
             print("The user query is ", query_string)
@@ -300,7 +332,8 @@ def index_json_array():
     ------
     Expects a api call with json data of the form : 
     {
-        version_hash : hash of user id and version id,
+        "project_id":A unique project id,
+        "version_id":A unique version id,
         question_array : [
             {
                 question : "ABC"
@@ -340,7 +373,7 @@ def index_json_array():
     """
     global UPDATE_ENGINE
 
-    request_json = json.loads(request.data)
+    request_json = json.loads(request.data, strict=False)
     requires = [
             'project_id', 'version_id', 'question_list',
             'keyword_directory'
@@ -357,8 +390,10 @@ def index_json_array():
     if 'previous_versions' in request_json.keys():
         version_number = len(request_json['previous_versions']) + 1.0
         version_number = str(version_number)
+        previous_versions = request_json['previous_versions']
     else:
         version_number = "1.0"
+        previous_versions = []
 
     if type(project_id) != str:
         project_id = str(project_id)
@@ -369,27 +404,31 @@ def index_json_array():
     
     # TODO : check question list format
     keyword_dir = request_json['keyword_directory']
+    KEYWORD_EXTRACTOR.config = keyword_dir
+    KEYWORD_EXTRACTOR.dict = KEYWORD_EXTRACTOR.parse_config(keyword_dir)
 
     data_hash_string = project_id + version_id
     data_hash_id = hashlib.sha512(data_hash_string.encode())\
                         .hexdigest()
     
-    project_info = [data_hash_id, project_id, version_id, version_number]
+    project_info = [data_hash_id, project_id, version_id, \
+        version_number, previous_versions]
+
     
     UPDATE_ENGINE.add_questions(question_list, project_info)
 
     response = {
         "project_id": project_id,
         "version_id": version_id,
-        "version_number": version_number,
         "status":"ok",
+        "estimated_time": len(question_list)*3
     }
 
     return jsonify(response)
 
-@app.route('/api/v2/get-bot-host')
+@app.route('/api/v2/get-bot-host', methods=['GET'])
 def link_to_bot():
-    request_json = json.loads(request.data)
+    request_json = json.loads(request.data, strict=False)
     requires = [
             'project_id', 'version_id',
         ]
@@ -398,44 +437,86 @@ def link_to_bot():
             return jsonify({"message":"given request does not have a "+x })
 
     response = {
-        "host_id": 'http://52.209.188.140:3000',
+        "host_id": 'https://new-botpress-botpress-openshift.apps.who.lxp.academy.who.int',
         "bot_id": 'bot_test'
     }
     return jsonify(response)
 
+@app.before_first_request
+def init_data():
+    print("calling init function")
+    #TODO : change to flask variable
+    global UPDATE_ENGINE
+    global KEYWORD_EXTRACTOR
+
+    request_json = populate_1500_questions()
+    requires = [
+            'project_id', 'version_id', 'question_list',
+            'keyword_directory'
+        ]
+    for x in requires:
+        if x not in request_json.keys():
+            return jsonify({"message":"given request does not have a "+x })
+
+    # Adding the files to the array
+    question_list = request_json['question_list']
+    project_id = request_json['project_id']
+    version_id = request_json['version_id']
+
+    if 'previous_versions' in request_json.keys():
+        version_number = len(request_json['previous_versions']) + 1.0
+        version_number = str(version_number)
+        previous_versions = request_json['previous_versions']
+    else:
+        version_number = "1.0"
+        previous_versions = []
+
+    if type(project_id) != str:
+        project_id = str(project_id)
+    if type(version_id) != str:
+        version_id = str(version_id)
+    if type(version_number) != str:
+        version_number = str(version_number)
+    
+    # TODO : check question list format
+    keyword_dir = request_json['keyword_directory']
+    KEYWORD_EXTRACTOR.config = keyword_dir
+    KEYWORD_EXTRACTOR.dict = KEYWORD_EXTRACTOR.parse_config(keyword_dir)
+
+    data_hash_string = project_id + version_id
+    data_hash_id = hashlib.sha512(data_hash_string.encode())\
+                        .hexdigest()
+    
+    project_info = [data_hash_id, project_id, version_id, \
+        version_number, previous_versions]
+    
+    UPDATE_ENGINE.add_questions(question_list, project_info)
+
 @app.route('/')
 def hello_world():
-    return 'Hello, World! The service is up for serving qna to the bot:)'
+    return 'Hello, World! The service is up for serving qna to the bot :-)'
         
 
 if __name__ == '__main__':
-    INDEX = IndexFiles("./VaccineIndex.Index",StandardAnalyzer(),\
-         variation_generator_config=[
-            True,                   #should_expand_queries
+    SEARCH_ENGINE = SolrSearchEngine(
+        rerank_endpoint=RE_RANK_ENDPOINT+"/api/v1/reranking",
+        variation_generator_config=[
             VariationGenerator(\
             path="./WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights/model.ckpt-1004000",
-            max_length=20),   #variation_generator
+            max_length=5),   #variation_generator
+            # None,
             ["question"] #fields_to_expand
-        ])
-    # INDEX.indexFolder("./data/")
-    INDEX.indexFolder("./tests/intermediate_results/vsn_data_variations")
-
-    QUERY_GEN = QueryGenerator(StandardAnalyzer(),\
+        ],
         synonym_config=[
             True, #use_wordnet
             True, #use_syblist
-            "./WHO-FAQ-Search-Engine/synonym_expansion/synlist.txt" #synlist path
-        ], debug=True)
-    
-    indexDir = INDEX.getIndexDir()
-    SEARCH_ENGINE = SearchEngine(
-        indexDir, 
-        rerank_endpoint=RE_RANK_ENDPOINT,
+            "./WHO-FAQ-Search-Engine/synonym_expansion/syn_test.txt" #synlist path
+        ],
         debug=True
     )
     
     extractor_json_path = \
-        "./tests/unique_keywords.json"
+        "./accuracy_tests/unique_keywords.json"
     f = open(extractor_json_path,)
     jsonObj = json.load(f)
     KEYWORD_EXTRACTOR = KeywordExtract(jsonObj)
@@ -443,7 +524,7 @@ if __name__ == '__main__':
     ID_KEYWORD_DICT = defaultdict(dict)
     ID_QUERY_DICT = defaultdict(str)
 
-    qa_config_path = "./tests/question_asker_config.json"
+    qa_config_path = "./accuracy_tests/question_asker_config.json"
     use_question_predicter_config = [
             False, #Use question predictor
             "./WHO-FAQ-Dialog-Manager/qna/models.txt", #models path
@@ -456,7 +537,7 @@ if __name__ == '__main__':
     # Setting up the update engine
     qa_keyword_manager = QAKeywordManager(
         search_engine=SEARCH_ENGINE,
-        index = INDEX)
+    )
     keyword_engine_manager = KeywordEngineManager()
     category_question_manager = CategoryQuestionManager()
     UPDATE_ENGINE = UpdateEngine(
@@ -465,4 +546,4 @@ if __name__ == '__main__':
         category_question_manager=category_question_manager
     )
 
-    app.run(host='0.0.0.0', port = 5007)
+    app.run(host='0.0.0.0', port = 5009)

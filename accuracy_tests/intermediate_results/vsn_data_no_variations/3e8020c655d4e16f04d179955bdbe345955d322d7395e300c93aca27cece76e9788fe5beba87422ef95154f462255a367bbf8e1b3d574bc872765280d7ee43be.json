@@ -1,0 +1,13 @@
+{
+    "answer": "Find a health unit where you can receive a tetanus containing vaccine here.\u00a0 Please note: If you are bitten or scratched by an animal that may have rabies, or seems sick and behaves strangely, it is crucial to begin preventative treatment for rabies as soon as possible. You can call 8-1-1 to speak with a registered nurse to help you decide whether you should seek medical care.\nImmunization Nurse",
+    "disease_1": "Tetanus",
+    "disease_2": "Rabies",
+    "other_conditions_or_symptoms_etc": "Bitten by a dog",
+    "question": "I h ave been bitten by a dog - where should I get a tetanus shot? I am in Vancouver\n",
+    "subject_1_immunization": "Immunization Schedule",
+    "subject_2_vaccination_general": "Vaccination",
+    "subject_person": "Unknown ",
+    "vaccine_1": "Tetanus",
+    "vaccine_2": "Rabies",
+    "who_is_writing_this": "Unknown "
+}

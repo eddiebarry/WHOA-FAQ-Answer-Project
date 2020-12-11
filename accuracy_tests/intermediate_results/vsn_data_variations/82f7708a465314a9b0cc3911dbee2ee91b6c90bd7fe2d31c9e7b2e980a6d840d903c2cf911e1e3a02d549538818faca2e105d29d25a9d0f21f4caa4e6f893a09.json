@@ -1,0 +1,16 @@
+{
+    "answer": "Please contact your local public health unit and ask to speak with a public health nurse. They will be able to do a thorough assessment. We do not have enough information to answer your question. You can find the contact information for your local health unit here.\nImmunization Nurse\n",
+    "disease_1": "Allergy",
+    "disease_2": "Pneumococcal (Pneumonia)",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "If I have had an allergic reaction to one vaccine (angiodema and wheezing after pneumonia vaccine) is it safe to get the flu vaccine?\n",
+    "question_variation_0": "flu vaccine flu vaccine",
+    "question_variation_1": "flu vaccine vaccine is safe after pneumonia vaccine",
+    "question_variation_2": "when coughing after pneumonia vaccine after flu shot flu vaccine vaccine flu vaccination flu vaccine pneumonia flu flu vaccine",
+    "subject_1_immunization": "Vaccination",
+    "subject_2_vaccination_general": "Vaccination",
+    "subject_person": "Unknown ",
+    "vaccine_1": "Pneumococcal (Pneumonia)",
+    "vaccine_2": "wheezing",
+    "who_is_writing_this": "unknown"
+}

@@ -1,0 +1,16 @@
+{
+    "answer": "We recommend that you contact your immunization provider to discuss what vaccines are recommended at this time. You should have a copy of your immunization records when you do so. For tips on locating immunization records check here.\nImmunization Nurse\n",
+    "disease_1": "Measles",
+    "disease_2": "Varicella (Chickenpox)",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "I'm 61 and my 2 adult children are 30 and 28. We never had the chickenpox or measles but did receive 2 booster shots about 40 years ago. Should we get another booster shot now?",
+    "question_variation_0": "how often should booster shots be taken",
+    "question_variation_1": "should booster shots be missed when booster shots are missed",
+    "question_variation_2": "can i get another booster shot when i've never had chickenpox or measles",
+    "subject_1_immunization": "Generic",
+    "subject_2_vaccination_general": "Booster",
+    "subject_person": "adult",
+    "vaccine_1": "Measles",
+    "vaccine_2": "",
+    "who_is_writing_this": "adult"
+}
