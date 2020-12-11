@@ -92,3 +92,8 @@ Keyword Directory for keyword engine
 QA+Keyword pairs for Bot search engine
 Questions per category
 ```
+
+### To test
+```
+pytest ./test
+```
