@@ -1,5 +1,5 @@
 #TODO : FIX imports to follow pep8 sorted order
-import sys, os, lucene, json, pdb, requests
+import sys, os, json, pdb, requests
 from similarity.ngram import NGram
 import hashlib
 sys.path.append('WHO-FAQ-Keyword-Engine')
