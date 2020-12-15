@@ -139,3 +139,4 @@ cython_debug/
 WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights/model.ckpt-1004000.meta
 WHO-FAQ-Rerank-Engine
 WHO-FAQ-Update-Engine/__pycache__
+WHO-FAQ-Search-Engine/experiments/CORPUS

@@ -2,7 +2,6 @@ ARG VERSION=3.7
 FROM python:$VERSION
 
 WORKDIR /usr/src
-RUN rm -rf pylucene
 RUN pip install tokenizers==0.7 transformers==2.10.0 \
     torch==1.4.0 flask==1.1.2 pandas==1.1.1 \
     tensorflow==2.3.0 xlrd==1.2.0 \
