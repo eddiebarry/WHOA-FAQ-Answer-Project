@@ -17,9 +17,10 @@ from keyword_extractor import KeywordExtract
 from solr_search import SolrSearchEngine
 from rerank.rerank_config import RE_RANK_ENDPOINT
 from variation_generation.variation_generator import VariationGenerator
-from query_generator import QueryGenerator
+
+# from query_generator import QueryGenerator
 # from index import IndexFiles
-from org.apache.lucene.analysis.standard import StandardAnalyzer
+# from org.apache.lucene.analysis.standard import StandardAnalyzer
 
 from qna.common import preprocess, tokenize, porter_stemmer_instance
 from qna.question_asker import QuestionAsker
