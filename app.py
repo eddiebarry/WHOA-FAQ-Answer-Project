@@ -149,6 +149,8 @@ def answer_question():
             what_to_say[score_title] = doc[0]
 
             answer_title = "question_"+str(idx)+"_answer"
+            import pdb
+            pdb.set_trace()
             sim_score = app.config['sim'].distance(question_and_variation[0],ID_QUERY_DICT[unique_id])
             if sim_score<0.25:
                 resp_json["show_direct_answer"] = True
