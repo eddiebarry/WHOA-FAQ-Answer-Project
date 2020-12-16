@@ -495,7 +495,6 @@ def hello_world():
         
 
 if __name__ == '__main__':
-    print("nothing loaded")
     SEARCH_ENGINE = SolrSearchEngine(
         rerank_endpoint=RE_RANK_ENDPOINT+"/api/v1/reranking",
         variation_generator_config=[
@@ -513,14 +512,12 @@ if __name__ == '__main__':
         debug=True
     )
     
-    print("search engine loaded")
     extractor_json_path = \
         "./accuracy_tests/unique_keywords.json"
     f = open(extractor_json_path,)
     jsonObj = json.load(f)
     KEYWORD_EXTRACTOR = KeywordExtract(jsonObj)
-    print("extractor loaded")
-
+    
     ID_KEYWORD_DICT = defaultdict(dict)
     ID_QUERY_DICT = defaultdict(str)
 
@@ -533,7 +530,6 @@ if __name__ == '__main__':
     QUESTION_ASKER = QuestionAsker(qa_config_path, show_options=True, \
         qa_keyword_path = extractor_json_path,
         use_question_predicter_config=use_question_predicter_config)
-    print("question asker loaded")
 
     # Setting up the update engine
     qa_keyword_manager = QAKeywordManager(
@@ -546,6 +542,5 @@ if __name__ == '__main__':
         qa_keyword_manager=qa_keyword_manager,
         category_question_manager=category_question_manager
     )
-    print("update engine loaded")
 
     app.run(host='0.0.0.0', port = 5009)
