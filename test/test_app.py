@@ -146,6 +146,7 @@ def test_qa_indexing():
         "project_id": 999,
         "version_id": 3,
         "previous_versions": [
+            0,
             1,
             2
         ],
