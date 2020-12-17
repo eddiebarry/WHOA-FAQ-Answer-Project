@@ -1,0 +1,17 @@
+{
+    "answer": "For all individuals born after January 1, 1970, two doses of measles-containing vaccine are recommended. If your mom's record shows that you had one dose of measles and rubella (age 2) and mumps (age 10), the second dose of\u00a0Measles, Mumps, Rubella (MMR) Vaccine\u00a0would be recommended. Go here for more information about the MMR vaccine and where to get the vaccine.\nImmunization Nurse",
+    "answer_formatted": "\n## For all individuals born after January 1, 1970, two doses of measles-containing vaccine are recommended.\n\nIf your mom's record shows that you had one dose of measles and rubella (age 2) and mumps (age 10), the second dose of\u00a0Measles, Mumps, Rubella (MMR) Vaccine\u00a0would be recommended.\nGo here for more information about the MMR vaccine and where to get the vaccine.\nImmunization Nurse",
+    "disease_1": "rubella",
+    "disease_2": "rubella",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "I'm wondering if I need a measles shot. My mom's records show I had a 'red and German' measles shot at age 2, and mumps at age 10 (as well as other shots). Is that sufficient?",
+    "question_variation_0": "when was shot measles shot and mumps",
+    "question_variation_1": "does the measles shot include the shot for mumps?",
+    "question_variation_2": "how old can you get a measles shot in your mother",
+    "subject_1_immunization": "Immunization Record",
+    "subject_2_vaccination_general": "Generic",
+    "subject_person": "Unknown ",
+    "vaccine_1": "",
+    "vaccine_2": "",
+    "who_is_writing_this": ""
+}

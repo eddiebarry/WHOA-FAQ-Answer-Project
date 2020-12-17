@@ -1,0 +1,17 @@
+{
+    "answer": "Each flu clinic site handles appointments or drop ins differently. We recommend that you check our Flu Clinic Finder to find a clinic near you. Waits for clinics will vary from site to site.\nImmunization Nurse\n",
+    "answer_formatted": "\n## Each flu clinic site handles appointments or drop ins differently.\n\n\n## We recommend that you check our Flu Clinic Finder to find a clinic near you.\n\nWaits for clinics will vary from site to site.\nImmunization Nurse",
+    "disease_1": "-",
+    "disease_2": "-",
+    "other_conditions_or_symptoms_etc": "appt.",
+    "question": "Hi, Do i need an appt. for the flu vaccine. I am 67. Is there a long wait to get his vaccine?",
+    "question_variation_0": "do you need an appt for flu vaccine",
+    "question_variation_1": "do you need an appt for flu vaccine",
+    "question_variation_2": "does flu vaccine need an appt",
+    "subject_1_immunization": "Vaccination",
+    "subject_2_vaccination_general": "Vaccination",
+    "subject_person": "Unknown ",
+    "vaccine_1": "Influenza (Flu)",
+    "vaccine_2": "",
+    "who_is_writing_this": "elderly"
+}

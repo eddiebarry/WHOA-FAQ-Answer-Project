@@ -1,0 +1,17 @@
+{
+    "answer": "The BC and AB vaccine schedules are different and the BC schedule is here. Bring the AB vaccine records with you to any vaccine appointment, so the health care provider can determine which vaccines your child needs to be up-to-date in BC.\nContact your local health unit to make a vaccine appointment.\u00a0Our health unit finder is here.\nImmunization Nurse\n",
+    "answer_formatted": "\n## The BC and AB vaccine schedules are different and the BC schedule is here.\n\nBring the AB vaccine records with you to any vaccine appointment, so the health care provider can determine which vaccines your child needs to be up-to-date in BC.\nContact your local health unit to make a vaccine appointment.\n\n## Our health unit finder is here.\n\nImmunization Nurse",
+    "disease_1": "Diphtheria",
+    "disease_2": "Measles",
+    "other_conditions_or_symptoms_etc": "Kinder Shot",
+    "question": "we moved from AB so my kid needs to get the kindershot here. I would like to ask you update all the records of vaccines. I have all records. where do i send it ??\n",
+    "question_variation_0": "how many vaccine records are in my records",
+    "question_variation_1": "can your child be updated on vaccine records",
+    "question_variation_2": "where to update vaccine information",
+    "subject_1_immunization": "Immunization Record",
+    "subject_2_vaccination_general": "Vaccination",
+    "subject_person": "Child",
+    "vaccine_1": "(DTap) Diphtheria / Tetanus / Pertussis",
+    "vaccine_2": "(MMR) Measles / Mumps / Rubella",
+    "who_is_writing_this": "Parent"
+}

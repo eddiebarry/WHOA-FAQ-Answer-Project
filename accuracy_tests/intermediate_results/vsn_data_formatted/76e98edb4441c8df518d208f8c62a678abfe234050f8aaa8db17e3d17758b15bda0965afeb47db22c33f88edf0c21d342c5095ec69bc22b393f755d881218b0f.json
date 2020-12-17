@@ -1,0 +1,17 @@
+{
+    "answer": "Please contact your local health unit. You can find the contact information here.\n-Immunization Nurse\n",
+    "answer_formatted": "\n## Please contact your local health unit.\n\nYou can find the contact information here.\n-Immunization Nurse",
+    "disease_1": "",
+    "disease_2": "",
+    "other_conditions_or_symptoms_etc": "private clinic",
+    "question": "I would like information on setting up a private clinic for flu shots at our location.\n",
+    "question_variation_0": "where in us will flu shots be at clinic",
+    "question_variation_1": "where can flu shots be arranged at",
+    "question_variation_2": "private clinic for flu shots",
+    "subject_1_immunization": "",
+    "subject_2_vaccination_general": "Vaccination",
+    "subject_person": "",
+    "vaccine_1": "(Flu) Influenza",
+    "vaccine_2": "",
+    "who_is_writing_this": "Unknown "
+}

@@ -1,0 +1,17 @@
+{
+    "answer": "You can contact your local health unit and provide the information to them. You can find the number here.\nImmunization Nurse\n",
+    "answer_formatted": "\n## You can contact your local health unit and provide the information to them.\n\nYou can find the number here.\nImmunization Nurse",
+    "disease_1": "-",
+    "disease_2": "-",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "You are missing a record for my daughter - as I checked the online tool. Rather than wait to be contacted... where can I provide this information now to correct this ? thank you\n",
+    "question_variation_0": "why do i have a missive for my daughter",
+    "question_variation_1": "who is my daughter",
+    "question_variation_2": "where can i provide this record for my daughter",
+    "subject_1_immunization": "Immunization Record",
+    "subject_2_vaccination_general": "Generic",
+    "subject_person": "Child",
+    "vaccine_1": "General vaccine safety information",
+    "vaccine_2": "",
+    "who_is_writing_this": "unknown"
+}

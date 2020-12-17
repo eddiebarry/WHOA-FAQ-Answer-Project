@@ -1,0 +1,17 @@
+{
+    "answer": "ImmunizeBC does not have that information. If you have visited Vancouver Coastal Travel Clinic in the past, we recommend you call them directly to find out.\nImmunization Nurse\n",
+    "answer_formatted": "\n## ImmunizeBC does not have that information.\n\n\n## If you have visited Vancouver Coastal Travel Clinic in the past, we recommend you call them directly to find out.\n\nImmunization Nurse",
+    "disease_1": "-",
+    "disease_2": "-",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "Hello: given increasing spam I would like to know whether this txt is genuine: Dear Patient, this is a reminder to fill out 1 qnaire. - https://quick.inputhealth.com/ca_j6zog_u6 Regards, VCH Travel Clinic Staff (reply STOP to unsubscribe)",
+    "question_variation_0": "who is the patient for the reminder to fill out 1 qnaire",
+    "question_variation_1": "is this txt genuine? qnaire",
+    "question_variation_2": "is this txt genuine",
+    "subject_1_immunization": "Generic",
+    "subject_2_vaccination_general": "Travel",
+    "subject_person": "Unknown ",
+    "vaccine_1": "-",
+    "vaccine_2": "",
+    "who_is_writing_this": "unknown"
+}

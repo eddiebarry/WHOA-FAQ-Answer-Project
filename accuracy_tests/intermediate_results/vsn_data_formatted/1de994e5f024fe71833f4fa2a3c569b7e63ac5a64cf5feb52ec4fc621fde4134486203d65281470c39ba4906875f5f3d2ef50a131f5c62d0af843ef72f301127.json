@@ -1,0 +1,17 @@
+{
+    "answer": "We recommend that call your local health unit and ask to speak to a Public Health Nurse who can assess your situation. You can find the number for your local health unit here.\nImmunization Nurse\n",
+    "answer_formatted": "\n## We recommend that call your local health unit and ask to speak to a Public Health Nurse who can assess your situation.\n\n\n## You can find the number for your local health unit here.\n\nImmunization Nurse",
+    "disease_1": "Flu (Influenza)",
+    "disease_2": "",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "Unfortunately I have the flu. How long do I have to wait before getting the flu shot?\n",
+    "question_variation_0": "how long do flu shots shot last",
+    "question_variation_1": "how long before flu shot to get flu shot",
+    "question_variation_2": "how long before getting flu shot shot",
+    "subject_1_immunization": "Immunization Safety",
+    "subject_2_vaccination_general": "Vaccination",
+    "subject_person": "",
+    "vaccine_1": "(Flu) Influenza",
+    "vaccine_2": "",
+    "who_is_writing_this": "Unknown "
+}

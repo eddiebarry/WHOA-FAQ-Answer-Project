@@ -1,0 +1,17 @@
+{
+    "answer": "A parent/guardian can delegate authority to another person to give consent for his or her child's immunization. A note must be provided which includes the following information:\n\u00a0\u00a0\u00a0 name of parent/guardian and his or her relationship to the child\n\t\u00a0\u00a0\u00a0 name and birth date of child\n\t\u00a0\u00a0\u00a0 name of person given authority to consent\n\t\u00a0\u00a0\u00a0 date and signature of parent/guardian who has given their authority to the other individual\nThe parent/guardian may wish to be available for a phone call from the immunization provider should they wish to confirm the documented consent.\nImmunization Nurse\n",
+    "answer_formatted": "\n## A parent/guardian can delegate authority to another person to give consent for his or her child's immunization.\n\nA note must be provided which includes the following information:\n## name of parent/guardian and his or her relationship to the child\n\t\u00a0\u00a0\u00a0 name and birth date of child\n\t\u00a0\u00a0\u00a0 name of person given authority to consent\n\t\u00a0\u00a0\u00a0 date and signature of parent/guardian who has given their authority to the other individual\nThe parent/guardian may wish to be available for a phone call from the immunization provider should they wish to confirm the documented consent.\n\nImmunization Nurse",
+    "disease_1": "-",
+    "disease_2": "(MMR) Measles / Mumps / Rubella",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "Can a grandparent take a child to a HU for vaccinations with the parents written approval? My grandson is overdue for his MMR and lives in Vancouver BC! I am a GP too. Thanks\n",
+    "question_variation_0": "can a grandparent take a child to a HU for shots with parents written approval in Vancouver, BC?",
+    "question_variation_1": "can a grandparent take a child to the HU for vaccinations with the parents written approval?",
+    "question_variation_2": "can grandparents take a child to the HU for vaccines",
+    "subject_1_immunization": "Vaccination",
+    "subject_2_vaccination_general": "Generic",
+    "subject_person": "Child",
+    "vaccine_1": "-",
+    "vaccine_2": "",
+    "who_is_writing_this": "grandparent"
+}

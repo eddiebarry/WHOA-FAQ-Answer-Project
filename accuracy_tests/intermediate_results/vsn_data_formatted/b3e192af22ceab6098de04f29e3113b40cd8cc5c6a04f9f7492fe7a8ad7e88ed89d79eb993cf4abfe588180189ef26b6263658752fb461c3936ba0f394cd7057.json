@@ -1,0 +1,17 @@
+{
+    "answer": "We don't have that information at ImmunizeBC. If a person was immunized at school, the health centre/pubic health unit in the city or town they attended school in should have a record of their immunizations. The contact information for public health units in BC can be found here. More information on locating immunization records can be found here.\nImmunization Nurse\n",
+    "answer_formatted": "\n## We don't have that information at ImmunizeBC.\n\nIf a person was immunized at school, the health centre/pubic health unit in the city or town they attended school in should have a record of their immunizations.\n\n## The contact information for public health units in BC can be found here.\n\nMore information on locating immunization records can be found here.\nImmunization Nurse",
+    "disease_1": "Hepatitis",
+    "disease_2": "",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "Hello, please confirm that my daughter has received the Hep B vaccination in Grade 6. Thank you.",
+    "question_variation_0": "hep  vaccination Grade 6 grade 6 grade 6 child  vaccination grade 6",
+    "question_variation_1": "hep  vaccination for  Grade 6",
+    "question_variation_2": "hep  vaccine grade 6 vaccination  grade 6",
+    "subject_1_immunization": "Immunization Record",
+    "subject_2_vaccination_general": "Vaccination",
+    "subject_person": "Adolescent",
+    "vaccine_1": "Hepatitis B",
+    "vaccine_2": "",
+    "who_is_writing_this": "Parent"
+}

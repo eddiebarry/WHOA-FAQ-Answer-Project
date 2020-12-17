@@ -1,0 +1,17 @@
+{
+    "answer": "We recommend that you contact your health care provider who can advise you based on your personal health history.\nImmunization Nurse\n",
+    "answer_formatted": "\n## We recommend that you contact your health care provider who can advise you based on your personal health history.\n\nImmunization Nurse",
+    "disease_1": "Tuberculosis (TB)",
+    "disease_2": "(MMR) Measles / Mumps / Rubella",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "I done tb skin test and it is positive, now my question can I still take mmrv,flu,dtap,hepatitis A,B vaccine or no? I know this latent tb need medication ,yes I will undergo treatment but how about my vaccination do I need to proceed or wait until latent tb treatment finished?\n",
+    "question_variation_0": "can latent tb be used for mmrv vaccine",
+    "question_variation_1": "can i take mmrv after latent tb",
+    "question_variation_2": "can i still take a tb vaccination",
+    "subject_1_immunization": "Vaccination",
+    "subject_2_vaccination_general": "Vaccination",
+    "subject_person": "Unknown ",
+    "vaccine_1": "(MMR) Measles / Mumps / Rubella",
+    "vaccine_2": "",
+    "who_is_writing_this": "unknown"
+}

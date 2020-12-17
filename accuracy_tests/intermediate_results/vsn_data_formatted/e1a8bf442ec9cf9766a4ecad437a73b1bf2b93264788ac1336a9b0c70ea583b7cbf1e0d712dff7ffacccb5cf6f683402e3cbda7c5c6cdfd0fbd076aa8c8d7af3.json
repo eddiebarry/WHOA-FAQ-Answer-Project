@@ -1,0 +1,17 @@
+{
+    "answer": "You can check with your community health centre for your immunization records if you were immunized at the health centre or in school. You will find the number here. Ask to speak to a Public Health Nurse who can help you determine what publically funded (free) vaccines you may be eligible for. You can get publicly funded vaccines from your community health centre, most pharmacies, and some doctors' offices. You can purchase non-publicly funded vaccines at most pharmacies and travel clinics. Services vary throughout B.C. For more information regarding locating immunization records, check here.\nImmunization Nurse\n",
+    "answer_formatted": "\n## You can check with your community health centre for your immunization records if you were immunized at the health centre or in school.\n\nYou will find the number here.\nAsk to speak to a Public Health Nurse who can help you determine what publically funded (free) vaccines you may be eligible for.\nYou can get publicly funded vaccines from your community health centre, most pharmacies, and some doctors' offices.\nYou can purchase non-publicly funded vaccines at most pharmacies and travel clinics.\n\n## Services vary throughout B.\nC.\n For more information regarding locating immunization records, check here.\n\nImmunization Nurse",
+    "disease_1": "Measles",
+    "disease_2": "Hepatitis",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "Hello , I am applying for a job that requires I have MMR ,Tdap and Hep B series immunizations. I am unsure as to whether or not I am up to date on these. Where can I go to get these shots? Thank you.\n",
+    "question_variation_0": "where to get mrs series shots",
+    "question_variation_1": "where to get immunization shots for hemr",
+    "question_variation_2": "where can I get hep b series immunization",
+    "subject_1_immunization": "Immunization Schedule",
+    "subject_2_vaccination_general": "Vaccination",
+    "subject_person": "Adult",
+    "vaccine_1": "(MMR) Measles / Mumps / Rubella",
+    "vaccine_2": "(DTap) Diphtheria / Tetanus / Pertussis",
+    "who_is_writing_this": "Adult"
+}

@@ -1,0 +1,17 @@
+{
+    "answer": "Many pharmacies and all travel clinics provide adult vaccines. Due to the current incidence of pertussis activity in BC, an adult dose of the Tdap vaccine is not provided for free to adults who were immunized in childhood.\u00a0 Those not eligible for the free vaccine can purchase the vaccine at most pharmacies and travel clinics.\u00a0 A dose of the Tdap vaccine is however provided for free to adults who have never been immunized against pertussis, or whose immunization history is unknown (adults lacking adequate documentation of immunization are considered unimmunized). Those eligible for the free vaccine can get vaccinated at their local public health unit or pharmacy.\u00a0 Some family doctors also provide immunizations.\nImmunization Nurse\n",
+    "answer_formatted": "\n## Many pharmacies and all travel clinics provide adult vaccines.\n\nDue to the current incidence of pertussis activity in BC, an adult dose of the Tdap vaccine is not provided for free to adults who were immunized in childhood.\nThose not eligible for the free vaccine can purchase the vaccine at most pharmacies and travel clinics.\nA dose of the Tdap vaccine is however provided for free to adults who have never been immunized against pertussis, or whose immunization history is unknown (adults lacking adequate documentation of immunization are considered unimmunized).\n\n## Those eligible for the free vaccine can get vaccinated at their local public health unit or pharmacy.\n\nSome family doctors also provide immunizations.\n\n## Immunization Nurse\n",
+    "disease_1": "-",
+    "disease_2": "(DTap) Diphtheria / Tetanus / Pertussis",
+    "other_conditions_or_symptoms_etc": "appointment",
+    "question": "As an adult, how and where can I get an appointment for a vaccination? The BC health unit said they dont as did two pharmacies I tried. Specifically the Tdap booster.\n",
+    "question_variation_0": "can i see appointment for vaccinations",
+    "question_variation_1": "can you get an appointment for vaccination",
+    "question_variation_2": "how can i get an appointment for a vaccine?",
+    "subject_1_immunization": "Vaccination",
+    "subject_2_vaccination_general": "Booster",
+    "subject_person": "Unknown ",
+    "vaccine_1": "-",
+    "vaccine_2": "",
+    "who_is_writing_this": "adult"
+}

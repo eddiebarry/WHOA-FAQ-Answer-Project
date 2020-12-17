@@ -1,0 +1,17 @@
+{
+    "answer": "ImmunizeBC does not have the personal immunization records of BC residents. Tips for locating immunization records are here.\nImmunization Nurse\n",
+    "answer_formatted": "\n## ImmunizeBC does not have the personal immunization records of BC residents.\n\nTips for locating immunization records are here.\nImmunization Nurse",
+    "disease_1": "Human papillomavirus (HPV)",
+    "disease_2": "",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "Hi there, I would like to know if I had already take the HPV vaccine from before. Is there anyway you can find my history in the record?\n",
+    "question_variation_0": "can you find history of hpv vaccines you received from before",
+    "question_variation_1": "who was vaccinated prior to hpv vaccine",
+    "question_variation_2": "how long after i took hpv vaccination can you find vaccine history",
+    "subject_1_immunization": "Immunization Record",
+    "subject_2_vaccination_general": "Vaccination",
+    "subject_person": "Unknown ",
+    "vaccine_1": "Human papillomavirus (HPV)",
+    "vaccine_2": "",
+    "who_is_writing_this": "Unknown "
+}

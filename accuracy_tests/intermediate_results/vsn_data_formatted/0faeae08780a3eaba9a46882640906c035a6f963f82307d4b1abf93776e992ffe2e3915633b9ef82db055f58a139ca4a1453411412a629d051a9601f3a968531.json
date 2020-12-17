@@ -1,0 +1,17 @@
+{
+    "answer": "No. Getting the Tdap vaccine at the same time as a TB skin test will not affect the results of the skin test.\nImmunization Nurse\n",
+    "answer_formatted": "\n## No.\n\n\n## Getting the Tdap vaccine at the same time as a TB skin test will not affect the results of the skin test.\n\nImmunization Nurse",
+    "disease_1": "Tuberculosis (TB)",
+    "disease_2": "(DTap) Diphtheria / Tetanus / Pertussis",
+    "other_conditions_or_symptoms_etc": "results",
+    "question": "i recently got a TDaP booster and Tb skin test at the same time. Will the vaccines affect the results for the skin test?\n",
+    "question_variation_0": "does tdap affect results for skin test",
+    "question_variation_1": "does vaccination affect testing on skin test",
+    "question_variation_2": "will vaccines affect skin test results",
+    "subject_1_immunization": "Vaccination",
+    "subject_2_vaccination_general": "Vaccination",
+    "subject_person": "Unknown ",
+    "vaccine_1": "-",
+    "vaccine_2": "",
+    "who_is_writing_this": "unknown"
+}

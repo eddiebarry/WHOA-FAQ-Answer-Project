@@ -1,0 +1,17 @@
+{
+    "answer": "ImmunizeBC is an online immunization information resource for the public and does not provide health care services. HealthLinkBC has nurses available anytime by calling 8-1-1, and they will help you get the information you need to manage your health concerns or those of your family.\nIn the event of a medical emergency, call 9-1-1, or your local emergency number.\nImmunization Nurse",
+    "answer_formatted": "\n## ImmunizeBC is an online immunization information resource for the public and does not provide health care services.\n\nHealthLinkBC has nurses available anytime by calling 8-1-1, and they will help you get the information you need to manage your health concerns or those of your family.\nIn the event of a medical emergency, call 9-1-1, or your local emergency number.\nImmunization Nurse",
+    "disease_1": "Pneumococcal (Pneumonia)",
+    "disease_2": "Pneumococcal (Pneumonia)",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "Can someone who's sick come here on an emergency basis? Possibly with pneumonia or should that person go to Vernon hospital?\n",
+    "question_variation_0": "can pneumonia come here on an emergency basis",
+    "question_variation_1": "can someone sick come here on an emergency basis?",
+    "question_variation_2": "can a sick person with pneumonia go to vernon hospital",
+    "subject_1_immunization": "Generic",
+    "subject_2_vaccination_general": "Generic",
+    "subject_person": "Child",
+    "vaccine_1": "",
+    "vaccine_2": "",
+    "who_is_writing_this": "unknown"
+}

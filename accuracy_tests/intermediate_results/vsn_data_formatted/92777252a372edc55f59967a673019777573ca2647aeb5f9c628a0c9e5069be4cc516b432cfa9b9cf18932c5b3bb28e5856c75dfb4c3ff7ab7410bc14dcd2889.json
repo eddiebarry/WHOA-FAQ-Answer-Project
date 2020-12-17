@@ -1,0 +1,17 @@
+{
+    "answer": "Immunizations received outside Canada can be considered valid (meaning they would not need to be repeated) if there is written documentation (an immunization record) that shows the vaccine types, dates given, and age at time of immunization, etc. are comparable with B.C.'s recommendations. A public health nurse at your local health unit can review your child's record and let you know if any of the vaccines need to be repeated. You can find the contact information for your local health unit here.\u00a0\nImmunization Nurse\n",
+    "answer_formatted": "\n## Immunizations received outside Canada can be considered valid (meaning they would not need to be repeated) if there is written documentation (an immunization record) that shows the vaccine types, dates given, and age at time of immunization, etc.\n\nare comparable with B.\nC.\n's recommendations.\n\n## A public health nurse at your local health unit can review your child's record and let you know if any of the vaccines need to be repeated.\n\nYou can find the contact information for your local health unit here.\nImmunization Nurse",
+    "disease_1": "Tetanus",
+    "disease_2": "Pneumococcal (Pneumonia)",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "My son took the first doses of Diphtheria, Tetanus, Pertussis, Hepatitis B, Polio, and Haemophilus influenzae type b (DTaP-HB-IPV-Hib) Vaccine, Rotavirus Vaccine, and Pneumococcal Conjugate (PCV 13) Vaccine in Jordan. Can he continue the second doses or will he need to restart the immunizations?",
+    "question_variation_0": "what vaccines do i need to restart immunizations",
+    "question_variation_1": "do you repeat immunization",
+    "question_variation_2": "what vaccinations are required for rotavirus vaccine ppc vaccine",
+    "subject_1_immunization": "Vaccination",
+    "subject_2_vaccination_general": "travel",
+    "subject_person": "Child",
+    "vaccine_1": "Tetanus",
+    "vaccine_2": "",
+    "who_is_writing_this": "parent"
+}

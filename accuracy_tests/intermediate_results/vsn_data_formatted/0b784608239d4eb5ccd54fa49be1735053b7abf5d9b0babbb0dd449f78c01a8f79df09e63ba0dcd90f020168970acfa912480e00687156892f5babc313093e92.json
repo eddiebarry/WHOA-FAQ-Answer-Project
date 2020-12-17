@@ -1,0 +1,17 @@
+{
+    "answer": "The nurses at ImmunizeBC provide general information about immunization. We do not have information about epigenetic concerns about vaccines. To our knowledge, there have been no changes in recent years to vaccine dosages or protocols in Canada as a result of adverse events following immunization (AEFIs).\nImmunization Nurse\n",
+    "answer_formatted": "\n## The nurses at ImmunizeBC provide general information about immunization.\n\nWe do not have information about epigenetic concerns about vaccines.\nTo our knowledge, there have been no changes in recent years to vaccine dosages or protocols in Canada as a result of adverse events following immunization (AEFIs).\nImmunization Nurse",
+    "disease_1": "-",
+    "disease_2": "-",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "Has adversomics affected dosage or protocols in the last few years? Are there epigenetic concerns about vaccinations?\n",
+    "question_variation_0": "epigenetic concerns vaccine vaccination",
+    "question_variation_1": "epigenetic concerns vaccination",
+    "question_variation_2": "are epigenetic concerns vaccinations vaccines?",
+    "subject_1_immunization": "Vaccination",
+    "subject_2_vaccination_general": "Generic",
+    "subject_person": "Unknown ",
+    "vaccine_1": "-",
+    "vaccine_2": "",
+    "who_is_writing_this": "unknown"
+}

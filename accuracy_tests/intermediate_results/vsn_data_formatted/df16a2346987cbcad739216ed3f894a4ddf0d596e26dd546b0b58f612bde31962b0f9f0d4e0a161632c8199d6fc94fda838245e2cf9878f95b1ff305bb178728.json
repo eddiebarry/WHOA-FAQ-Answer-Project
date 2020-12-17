@@ -1,0 +1,17 @@
+{
+    "answer": "Please call the Kelowna Health Unit to find out what services and clinics they provide. You will find their number here.\nImmunization Nurse\n",
+    "answer_formatted": "\n## Please call the Kelowna Health Unit to find out what services and clinics they provide.\n\nYou will find their number here.\nImmunization Nurse",
+    "disease_1": "Tetanus",
+    "disease_2": "",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "can I get tetanus booster at the Kelowna clinic - I am 67",
+    "question_variation_0": "how old am i 69",
+    "question_variation_1": "how old i am 67",
+    "question_variation_2": "how old am i 67",
+    "subject_1_immunization": "Immunization Required",
+    "subject_2_vaccination_general": "Booster",
+    "subject_person": "Elderly",
+    "vaccine_1": "Tetanus",
+    "vaccine_2": "",
+    "who_is_writing_this": "Elderly"
+}

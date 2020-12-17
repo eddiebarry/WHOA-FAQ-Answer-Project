@@ -1,0 +1,17 @@
+{
+    "answer": "A flu vaccine is needed every year for two reasons. First, your immunity declines over time, so a yearly vaccine is needed for optimal protection. Second, because flu viruses are constantly changing, the formulation of the flu vaccine is reviewed each year and sometimes updated to keep up with changing flu viruses. For the best protection, everyone 6 months and older should get vaccinated every year.\nOne dose of the pneumococcal polysaccharide vaccine is routinely recommended for adults 65 years of age and older. However, a 2nd dose (offered 5 years after the initial dose) is recommended for people with certain medical conditions. We recommend that you speak with your health care provider to find out if you need a 2nd dose of the vaccine and to find out if there are any other vaccines you need.\nYou can find more information on adult immunizations here.\nIf you have more questions, please speak with your immunization provider.\nImmunization Nurse",
+    "answer_formatted": "\n## A flu vaccine is needed every year for two reasons.\n\n\n## First, your immunity declines over time, so a yearly vaccine is needed for optimal protection.\n\nSecond, because flu viruses are constantly changing, the formulation of the flu vaccine is reviewed each year and sometimes updated to keep up with changing flu viruses.\nFor the best protection, everyone 6 months and older should get vaccinated every year.\nOne dose of the pneumococcal polysaccharide vaccine is routinely recommended for adults 65 years of age and older.\n\n## However, a 2nd dose (offered 5 years after the initial dose) is recommended for people with certain medical conditions.\n\nWe recommend that you speak with your health care provider to find out if you need a 2nd dose of the vaccine and to find out if there are any other vaccines you need.\nYou can find more information on adult immunizations here.\nIf you have more questions, please speak with your immunization provider.\n\n## Immunization Nurse\n",
+    "disease_1": "Influenza (Flu)",
+    "disease_2": "",
+    "other_conditions_or_symptoms_etc": "Vaxigrip",
+    "question": "Last time i got a vaccine for flu(vaxigrip) and pneumococal was march 01, 2013. Am I scheduled for another vaccine?",
+    "question_variation_0": "can I get another vaccine for pneumonia pneumonia",
+    "question_variation_1": "when is the last vaccine vaccine for pneumococal?",
+    "question_variation_2": "what is the last vaccine i received",
+    "subject_1_immunization": "Immunization Required",
+    "subject_2_vaccination_general": "Vaccination",
+    "subject_person": "Adult",
+    "vaccine_1": "Influenza (Flu)",
+    "vaccine_2": "",
+    "who_is_writing_this": "Adult"
+}

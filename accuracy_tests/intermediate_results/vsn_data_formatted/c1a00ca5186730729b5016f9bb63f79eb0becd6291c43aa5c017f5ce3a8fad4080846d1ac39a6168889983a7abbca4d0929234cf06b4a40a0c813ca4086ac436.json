@@ -1,0 +1,17 @@
+{
+    "answer": "In BC, the routine schedule for the Measles, Mumps, Rubella (MMR) Vaccine is 12 months and 4-6 years of age. MMR vaccine given at 10 months of age is not counted as part of the routine schedule. Contact your local health unit to schedule dose one of MMR vaccine for your child. Use the health unit finder.\u00a0\nImmunization Nurse",
+    "answer_formatted": "\n## In BC, the routine schedule for the Measles, Mumps, Rubella (MMR) Vaccine is 12 months and 4-6 years of age.\n\nMMR vaccine given at 10 months of age is not counted as part of the routine schedule.\nContact your local health unit to schedule dose one of MMR vaccine for your child.\n\n## Use the health unit finder.\n\nImmunization Nurse",
+    "disease_1": "Measles",
+    "disease_2": "Measles",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "Hello, my child received the measles vaccination at ten months. She is now 2 years and 1 month. Do you think it's too early to give her a booster?",
+    "question_variation_0": "do you think it's too early to give a booster",
+    "question_variation_1": "when is it too early for a booster vaccination",
+    "question_variation_2": "when can we give a booster for measles",
+    "subject_1_immunization": "Vaccination",
+    "subject_2_vaccination_general": "Booster",
+    "subject_person": "Child",
+    "vaccine_1": "Measles",
+    "vaccine_2": "",
+    "who_is_writing_this": "parent"
+}

@@ -1,0 +1,17 @@
+{
+    "answer": "In general, there is no need to delay getting immunized because of a cold or other mild illness.\u00a0 However, severe acute illness may be a reason to defer immunization. The risks and benefits of vaccinating a child who is more sick need to be carefully assessed. We recommend you speak with your health care provider. Or, you can contact your local health unit and ask to speak to a public health nurse. You will find the number here.\nImmunization Nurse\n",
+    "answer_formatted": "\n## In general, there is no need to delay getting immunized because of a cold or other mild illness.\n\nHowever, severe acute illness may be a reason to defer immunization.\n\n## The risks and benefits of vaccinating a child who is more sick need to be carefully assessed.\n\nWe recommend you speak with your health care provider.\n\n## Or, you can contact your local health unit and ask to speak to a public health nurse.\n\nYou will find the number here.\nImmunization Nurse",
+    "disease_1": "Pneumococcal (Pneumonia)",
+    "disease_2": "Pneumococcal (Pneumonia)",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "My girl is currently having pneumonia which is having antibiotics right now for third day. Originally booked Mmr2 to be done this week, do I need to reschedule?",
+    "question_variation_0": "reschedule mrpmr2",
+    "question_variation_1": "can antibiotics be rescheduled",
+    "question_variation_2": "can a girl get pneumonia with antibiotics",
+    "subject_1_immunization": "Immunization Schedule",
+    "subject_2_vaccination_general": "Generic",
+    "subject_person": "child",
+    "vaccine_1": "Pneumococcal (Pneumonia)",
+    "vaccine_2": "",
+    "who_is_writing_this": "parent"
+}

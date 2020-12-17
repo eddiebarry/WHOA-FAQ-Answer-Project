@@ -1,0 +1,17 @@
+{
+    "answer": "Vaccines are not classified as vegetarian or vegan. Vaccines do not contain human or animal cells, tissue or blood. The Canadian Immunization Guide provides a list of all approved vaccines in Canada and their ingredients.\u00a0\n\n\t\tThe meningococcal quadrivalent vaccine protects against four types of meningococcal bacteria, types A, C, Y and W and the\u00a0vaccine is provided free to children in Grade 9 in BC.\n\n\t\tTetanus, Diphtheria, Pertussis (Tdap) vaccine is offered to all students in Grade 9 in BC.\n\n\t\tThese two vaccines do not contain human or animal cells, tissue or blood.\nImmunization Nurse",
+    "answer_formatted": "\n## Vaccines are not classified as vegetarian or vegan.\n\nVaccines do not contain human or animal cells, tissue or blood.\nThe Canadian Immunization Guide provides a list of all approved vaccines in Canada and their ingredients.\nThe meningococcal quadrivalent vaccine protects against four types of meningococcal bacteria, types A, C, Y and W and the\u00a0vaccine is provided free to children in Grade 9 in BC.\n\n## Tetanus, Diphtheria, Pertussis (Tdap) vaccine is offered to all students in Grade 9 in BC.\n\n\n## These two vaccines do not contain human or animal cells, tissue or blood.\n\nImmunization Nurse",
+    "disease_1": "Meningitis",
+    "disease_2": "Diphtheria",
+    "other_conditions_or_symptoms_etc": "Vegetarian/Vegan",
+    "question": "My 14 year old son is now vegetarian and will not accept or use products where animals have been harmed or killed . He is due for MENC4 and TDP. Are these vegetarian/vegan?",
+    "question_variation_0": "vegetarians can vegans have meat",
+    "question_variation_1": "are vegetarians vegetarians?",
+    "question_variation_2": "are vegetarians vegetarians",
+    "subject_1_immunization": "Vaccination",
+    "subject_2_vaccination_general": "Vaccine Ingredients",
+    "subject_person": "Adolescent",
+    "vaccine_1": "(DTap) Diphtheria / Tetanus / Pertussis",
+    "vaccine_2": "Meningococcal (Meningitis)",
+    "who_is_writing_this": "Parent"
+}

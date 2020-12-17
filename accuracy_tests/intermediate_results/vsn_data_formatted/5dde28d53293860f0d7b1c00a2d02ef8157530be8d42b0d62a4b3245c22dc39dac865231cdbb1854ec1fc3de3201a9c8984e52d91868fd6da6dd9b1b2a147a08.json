@@ -1,0 +1,17 @@
+{
+    "answer": "Health units in B.C. maintain an electronic registry of childhood immunizations provided by Public Health (public health nurses). If your child was immunized at a doctor's office, at a pharmacy, or in a First Nations community, their record may not be in the Public Health registry. You can contact your local public health unit for a print out of vaccines provided there. You will find the number here. You can find tips for finding immunization records here.\nImmunization Nurse\n",
+    "answer_formatted": "\n## Health units in B.\nC.\n maintain an electronic registry of childhood immunizations provided by Public Health (public health nurses).\n\nIf your child was immunized at a doctor's office, at a pharmacy, or in a First Nations community, their record may not be in the Public Health registry.\nYou can contact your local public health unit for a print out of vaccines provided there.\nYou will find the number here.\nYou can find tips for finding immunization records here.\nImmunization Nurse",
+    "disease_1": "-",
+    "disease_2": "-",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "Can you get a print out of all your child's vaccines from your local health unit?\n",
+    "question_variation_0": "printout of vaccine printout",
+    "question_variation_1": "where can i get a printout of vaccines",
+    "question_variation_2": "what kind of vaccine do i need to get printout",
+    "subject_1_immunization": "Vaccination",
+    "subject_2_vaccination_general": "Vaccination",
+    "subject_person": "Child",
+    "vaccine_1": "-",
+    "vaccine_2": "",
+    "who_is_writing_this": "parent"
+}

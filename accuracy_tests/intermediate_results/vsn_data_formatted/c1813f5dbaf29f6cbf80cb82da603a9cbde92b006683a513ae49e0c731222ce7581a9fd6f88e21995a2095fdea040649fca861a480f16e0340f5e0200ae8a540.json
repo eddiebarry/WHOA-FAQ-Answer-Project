@@ -1,0 +1,17 @@
+{
+    "answer": "Contact your local health unit and ask about tuberculosis (TB) screening in your area. Use the health unit finder. Tell the health unit that you need a chest x-ray, not a TB skin test. A health care professional needs to complete a TB screening form and refer you for the chest x-ray.\nImmunization Nurse\n",
+    "answer_formatted": "\n## Contact your local health unit and ask about tuberculosis (TB) screening in your area.\n\nUse the health unit finder.\nTell the health unit that you need a chest x-ray, not a TB skin test.\n\n## A health care professional needs to complete a TB screening form and refer you for the chest x-ray.\n\nImmunization Nurse",
+    "disease_1": "Tuberculosis (TB)",
+    "disease_2": "Tuberculosis (TB, BCG)",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "I've always tested positive from TB skin test due to BCG vaccination. I had a CXR 4 yrs ago, but Workplace Health wants new TB testing. Is it possible to request a CXR directly?",
+    "question_variation_0": "does workplace health need blood test for TB",
+    "question_variation_1": "who needs new TB testing",
+    "question_variation_2": "what lab test would be needed for TB test",
+    "subject_1_immunization": "Vaccination",
+    "subject_2_vaccination_general": "Generic",
+    "subject_person": "Unknown ",
+    "vaccine_1": "Tuberculosis (TB, BCG)",
+    "vaccine_2": "",
+    "who_is_writing_this": "unknown"
+}

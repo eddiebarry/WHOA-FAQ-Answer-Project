@@ -1,0 +1,17 @@
+{
+    "answer": "Contact the local health unit and tell them you need to complete a rabies vaccines series for an animal bite during travel. Use the health unit finder. Provide any immunization records or documentation about the animal bite and treatment to the health unit.\nImmunization Nurse\n",
+    "answer_formatted": "\n## Contact the local health unit and tell them you need to complete a rabies vaccines series for an animal bite during travel.\n\n\n## Use the health unit finder.\n\nProvide any immunization records or documentation about the animal bite and treatment to the health unit.\nImmunization Nurse",
+    "disease_1": "Rabies",
+    "disease_2": "Rabies",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "I had a monkey bite in Bali, had 2 rabies shots there, but need to have one more now at home, where do I get the third shot ?",
+    "question_variation_0": "where do i get the shots at home for rabies",
+    "question_variation_1": "where do i get my rabies shots",
+    "question_variation_2": "can monkey bites cause monkey bites",
+    "subject_1_immunization": "Generic",
+    "subject_2_vaccination_general": "Generic",
+    "subject_person": "Unknown ",
+    "vaccine_1": "Rabies",
+    "vaccine_2": "",
+    "who_is_writing_this": "unknown"
+}

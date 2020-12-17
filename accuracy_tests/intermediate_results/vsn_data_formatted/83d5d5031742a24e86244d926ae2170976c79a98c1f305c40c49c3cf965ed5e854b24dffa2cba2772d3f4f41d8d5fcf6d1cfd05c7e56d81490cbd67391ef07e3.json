@@ -1,0 +1,17 @@
+{
+    "answer": "The schedule for adults in BC that were not vaccinated in childhood is here. Adults can receive publicly funded (free) vaccines from health units, most pharmacies and some doctors' offices. Use the health unit finder here. Tell the immunizing health care professional about any vaccine-preventable diseases you had in childhood (e.g.) measles, mumps, chickenpox, rubella etc.\u00a0\nImmunization Nurse\n",
+    "answer_formatted": "\n## The schedule for adults in BC that were not vaccinated in childhood is here.\n\nAdults can receive publicly funded (free) vaccines from health units, most pharmacies and some doctors' offices.\nUse the health unit finder here.\n\n## Tell the immunizing health care professional about any vaccine-preventable diseases you had in childhood (e.\ng.\n) measles, mumps, chickenpox, rubella etc.\n\nImmunization Nurse",
+    "disease_1": "Tetanus",
+    "disease_2": "Tetanus",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "I was born in 1962 and was never vaccinated. At twelve my doctor gave me a Tetanus Shot because of a bad cut. Do I need to be vaccinated for everything? I had the Measles at eight.",
+    "question_variation_0": "do I need to be vaccinated for everything",
+    "question_variation_1": "vaccinated for everything",
+    "question_variation_2": "how old should a child be vaccinated",
+    "subject_1_immunization": "Vaccination",
+    "subject_2_vaccination_general": "Generic",
+    "subject_person": "Unknown ",
+    "vaccine_1": "Tetanus",
+    "vaccine_2": "",
+    "who_is_writing_this": "adult"
+}

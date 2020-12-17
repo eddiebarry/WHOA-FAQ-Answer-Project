@@ -1,0 +1,17 @@
+{
+    "answer": "ImmunizeBC answers questions about immunization. ImmunizeBC does not have information on face masks to protect an unimmunized person from inhaling measles droplets and/or face masks to prevent a sick person from expelling measles droplets.\u00a0\nImmunization Nurse\n",
+    "answer_formatted": "\n## ImmunizeBC answers questions about immunization.\n\n\n## ImmunizeBC does not have information on face masks to protect an unimmunized person from inhaling measles droplets and/or face masks to prevent a sick person from expelling measles droplets.\n\nImmunization Nurse",
+    "disease_1": "Measles",
+    "disease_2": "Measles",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "Would a face mask from a health centre help to prevent someone from catching and transmitting measles if they can't/won't get vaccinated?\n",
+    "question_variation_0": "what prevents transmitting measles",
+    "question_variation_1": "will a face mask prevent measles",
+    "question_variation_2": "what prevents measles if you don't get vaccinated",
+    "subject_1_immunization": "Vaccination",
+    "subject_2_vaccination_general": "safety",
+    "subject_person": "Unknown ",
+    "vaccine_1": "Measles",
+    "vaccine_2": "",
+    "who_is_writing_this": "unknown"
+}

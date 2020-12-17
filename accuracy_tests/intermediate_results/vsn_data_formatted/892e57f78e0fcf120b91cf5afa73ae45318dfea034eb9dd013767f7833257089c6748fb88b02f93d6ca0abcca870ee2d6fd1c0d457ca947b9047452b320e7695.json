@@ -1,0 +1,17 @@
+{
+    "answer": "You can request a record of your child's immunizations from your local health unit. \u00a0\nSome vaccines are routinely recommended for all young adults (including a tetanus/diphtheria booster every 10 years, a Tdap booster, and a yearly influenza vaccine). Other vaccines may be recommended depending on age, job, lifestyle, health conditions, travel plans, and vaccines received in the past. A public health nurse can review your child's record and tell you if they are up to date on their routine vaccines, if other vaccines are recommended, and when booster doses are needed. You can find the contact information for your local health unit here.\u00a0 You can find more information on vaccines recommended for adults here. \u00a0\nImmunization Nurse",
+    "answer_formatted": "\n## You can request a record of your child's immunizations from your local health unit.\n\nSome vaccines are routinely recommended for all young adults (including a tetanus/diphtheria booster every 10 years, a Tdap booster, and a yearly influenza vaccine).\nOther vaccines may be recommended depending on age, job, lifestyle, health conditions, travel plans, and vaccines received in the past.\n\n## A public health nurse can review your child's record and tell you if they are up to date on their routine vaccines, if other vaccines are recommended, and when booster doses are needed.\n\nYou can find the contact information for your local health unit here.\nYou can find more information on vaccines recommended for adults here.\n\n## Immunization Nurse\n",
+    "disease_1": "-",
+    "disease_2": "-",
+    "other_conditions_or_symptoms_etc": "booster",
+    "question": "Hi How can I get a record of my child's immunizations that they received through the public school system. After high school , when and what do they need booster vaccinations of?\n",
+    "question_variation_0": "how can I get a record of immunizations that my child received through the public school system through the school system",
+    "question_variation_1": "when and when do children need booster rabies vaccines",
+    "question_variation_2": "what do booster vaccines need",
+    "subject_1_immunization": "Immunization Record",
+    "subject_2_vaccination_general": "School",
+    "subject_person": "child",
+    "vaccine_1": "",
+    "vaccine_2": "",
+    "who_is_writing_this": "parent"
+}

@@ -1,0 +1,17 @@
+{
+    "answer": "Please speak with the health care provider that gave the dose of pneumococcal conjugate vaccine to your child or contact your local health unit. Find your health unit here.\nThe pneumococcal conjugate vaccine (PCV-13 in BC) is an inactivated vaccine. Inactivated vaccine almost always require multiple doses to generate lasting immunity. The first dose primes the immune system and a lasting protective immune response generally develops after one or more subsequent doses. In BC, the number of doses of PCV-13 that a child receives varies based on their age and any medical conditions.\nImmunization Nurse",
+    "answer_formatted": "\n## Please speak with the health care provider that gave the dose of pneumococcal conjugate vaccine to your child or contact your local health unit.\n\nFind your health unit here.\nThe pneumococcal conjugate vaccine (PCV-13 in BC) is an inactivated vaccine.\nInactivated vaccine almost always require multiple doses to generate lasting immunity.\nThe first dose primes the immune system and a lasting protective immune response generally develops after one or more subsequent doses.\n\n## In BC, the number of doses of PCV-13 that a child receives varies based on their age and any medical conditions.\n\n\n## Immunization Nurse\n",
+    "disease_1": "Pneumococcal (Pneumonia)",
+    "disease_2": "",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "Hi there, if a child had an extra dose of pneumococcal by accident, is it harmful, ok, or good? please get back to me. Thanks.\n",
+    "question_variation_0": "is pneumococcal harmful",
+    "question_variation_1": "does children get pneumonia",
+    "question_variation_2": "are pneumococcal extra doses harmful",
+    "subject_1_immunization": "Immunization Safety",
+    "subject_2_vaccination_general": "Safety",
+    "subject_person": "Child",
+    "vaccine_1": "Pneumococcal (Pneumonia)",
+    "vaccine_2": "",
+    "who_is_writing_this": "Unknown "
+}

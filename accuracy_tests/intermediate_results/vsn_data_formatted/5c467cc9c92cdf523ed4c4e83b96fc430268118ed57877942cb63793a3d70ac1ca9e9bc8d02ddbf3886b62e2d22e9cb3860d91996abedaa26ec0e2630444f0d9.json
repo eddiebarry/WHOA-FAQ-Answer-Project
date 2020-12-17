@@ -1,0 +1,17 @@
+{
+    "answer": "Contact your local health unit to ask them to enter your child's immunization records into the\u00a0 BC public health registry. Find your health unit here. Provide a copy of your child's immunizaton records from the province you used to live in. They can make a copy of the records and then enter it into their charting system.\nImmunization Nurse\n",
+    "answer_formatted": "\n## Contact your local health unit to ask them to enter your child's immunization records into the\u00a0 BC public health registry.\n\nFind your health unit here.\n\n## Provide a copy of your child's immunizaton records from the province you used to live in.\n\nThey can make a copy of the records and then enter it into their charting system.\nImmunization Nurse",
+    "disease_1": "-",
+    "disease_2": "-",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "If my child was immunized in another province, how do I get that recorded in B.C.?\n",
+    "question_variation_0": "where c immunised in another province how is the recorded immunized in another province",
+    "question_variation_1": "immunised in bc record recorded in b.c b.c.",
+    "question_variation_2": "when record immunised in another province",
+    "subject_1_immunization": "Immunization Record",
+    "subject_2_vaccination_general": "Generic",
+    "subject_person": "Child",
+    "vaccine_1": "-",
+    "vaccine_2": "",
+    "who_is_writing_this": "unknown"
+}

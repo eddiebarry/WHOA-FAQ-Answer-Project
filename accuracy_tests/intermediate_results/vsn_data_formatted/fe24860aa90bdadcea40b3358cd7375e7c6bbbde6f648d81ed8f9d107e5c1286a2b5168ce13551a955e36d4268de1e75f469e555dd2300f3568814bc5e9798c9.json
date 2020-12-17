@@ -1,0 +1,17 @@
+{
+    "answer": "In BC, the hepatitis A vaccine is publicly funded (free) for Indigenous people 6 months to 18 years of age and others. Read about who is eligible for the hepatitis A vaccine here. ImmunizeBC does not provide travel vaccine or reimbursement advice. Please contact your health insurance provider\u00a0for information about reimbursement for travel vaccines.\u00a0\nImmunization Nurse",
+    "answer_formatted": "\n## In BC, the hepatitis A vaccine is publicly funded (free) for Indigenous people 6 months to 18 years of age and others.\n\nRead about who is eligible for the hepatitis A vaccine here.\nImmunizeBC does not provide travel vaccine or reimbursement advice.\nPlease contact your health insurance provider\u00a0for information about reimbursement for travel vaccines.\nImmunization Nurse",
+    "disease_1": "Hepatitis",
+    "disease_2": "Typhoid",
+    "other_conditions_or_symptoms_etc": "Indigenous status ",
+    "question": "I paid for some vaccines that I thought would be covered because of my indigenous status. I paid for Hepatitis A and Typhoid, as well as the appointment fee, but had other friends that did not have to pay. The vaccines were not available on Haida Gwaii so I had to travel to Vancouver to receive.\n",
+    "question_variation_0": "are vaccines provided on Haida Gwaii",
+    "question_variation_1": "vaccines that are not available on haida gwaii",
+    "question_variation_2": "did the appointment fee cover vaccination fees",
+    "subject_1_immunization": "Immunization",
+    "subject_2_vaccination_general": "Vaccine Cost",
+    "subject_person": "Adult",
+    "vaccine_1": "Hepatitis A",
+    "vaccine_2": "Typhoid",
+    "who_is_writing_this": "Adult"
+}

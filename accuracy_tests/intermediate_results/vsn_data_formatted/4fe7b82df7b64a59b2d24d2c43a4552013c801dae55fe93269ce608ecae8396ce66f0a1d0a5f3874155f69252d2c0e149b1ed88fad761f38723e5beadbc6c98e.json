@@ -1,0 +1,17 @@
+{
+    "answer": "If your child is school-aged, you should have received a letter regarding vaccination status reporting. Please follow the instructions in the letter. If you didn't receive a letter or have questions,\u00a0 contact your local health unit for instructions on how to submit your child's record. You can find the phone number for your health unit here.\nImmunization Nurse\n",
+    "answer_formatted": "\n## If your child is school-aged, you should have received a letter regarding vaccination status reporting.\n\n\n## Please follow the instructions in the letter.\n\nIf you didn't receive a letter or have questions,\u00a0 contact your local health unit for instructions on how to submit your child's record.\nYou can find the phone number for your health unit here.\nImmunization Nurse",
+    "disease_1": "-",
+    "disease_2": "-",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "How to give to the Health Unit record about my child's immunization\n",
+    "question_variation_0": "immunizations immunizations for immunization",
+    "question_variation_1": "immunization immunization immunization record",
+    "question_variation_2": "immunization",
+    "subject_1_immunization": "Immunization Record",
+    "subject_2_vaccination_general": "Generic",
+    "subject_person": "Child",
+    "vaccine_1": "-",
+    "vaccine_2": "",
+    "who_is_writing_this": "parent"
+}

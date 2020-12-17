@@ -1,0 +1,17 @@
+{
+    "answer": "Please contact a local health unit and ask to speak to a Public Health Nurse who can review your immunization history to see if you qualify for publicly funded (free) vaccine. If not, you may purchase MMR vaccine from a pharmacy or travel clinic. You can find the number for your local health unit here.\nImmunization Nurse\n",
+    "answer_formatted": "\n## Please contact a local health unit and ask to speak to a Public Health Nurse who can review your immunization history to see if you qualify for publicly funded (free) vaccine.\n\n\n## If not, you may purchase MMR vaccine from a pharmacy or travel clinic.\n\nYou can find the number for your local health unit here.\nImmunization Nurse",
+    "disease_1": "-",
+    "disease_2": "(MMR) Measles / Mumps / Rubella",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "Hello, I am not a current resident of BC, and have an out-of-province health card. Can I still get the free MMR vaccine? MMR vaccines are free in my province too.\n",
+    "question_variation_0": "is the cmr vaccine free in bc",
+    "question_variation_1": "is mmr vaccine free in bc",
+    "question_variation_2": "can i still get mmr vaccine in bc",
+    "subject_1_immunization": "Immunization Record",
+    "subject_2_vaccination_general": "Vaccine Cost",
+    "subject_person": "Unknown ",
+    "vaccine_1": "-",
+    "vaccine_2": "",
+    "who_is_writing_this": "unknown"
+}

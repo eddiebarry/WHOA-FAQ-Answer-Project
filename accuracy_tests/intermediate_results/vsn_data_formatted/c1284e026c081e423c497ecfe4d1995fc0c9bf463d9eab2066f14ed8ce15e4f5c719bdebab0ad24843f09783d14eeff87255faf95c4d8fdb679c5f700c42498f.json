@@ -1,0 +1,17 @@
+{
+    "answer": "The need for Tetanus-diphtheria (Td) vaccine or Tetanus Immune Globulin (TIg) after an injury is determined by a healthcare provider. The healthcare provider will assess the type of wound and your immunization history to determine your plan of care. If Td is needed, you don't need to wait before getting the vaccine. Speak with your healthcare provider.\u00a0\nImmunization Nurse\n",
+    "answer_formatted": "\n## The need for Tetanus-diphtheria (Td) vaccine or Tetanus Immune Globulin (TIg) after an injury is determined by a healthcare provider.\n\nThe healthcare provider will assess the type of wound and your immunization history to determine your plan of care.\nIf Td is needed, you don't need to wait before getting the vaccine.\nSpeak with your healthcare provider.\nImmunization Nurse",
+    "disease_1": "Tetanus",
+    "disease_2": "Diphtheria",
+    "other_conditions_or_symptoms_etc": "injury ",
+    "question": "how many hours are recommended after injury to get a Td\n",
+    "question_variation_0": "how many hours are recommended after injury to get a Tdd.",
+    "question_variation_1": "hours are recommended after injury",
+    "question_variation_2": "injury to get a tdddtdds",
+    "subject_1_immunization": "Immunization Required",
+    "subject_2_vaccination_general": "Vaccine safety",
+    "subject_person": "Unknown ",
+    "vaccine_1": "Diphtheria",
+    "vaccine_2": "Tetanus",
+    "who_is_writing_this": "Unknown "
+}

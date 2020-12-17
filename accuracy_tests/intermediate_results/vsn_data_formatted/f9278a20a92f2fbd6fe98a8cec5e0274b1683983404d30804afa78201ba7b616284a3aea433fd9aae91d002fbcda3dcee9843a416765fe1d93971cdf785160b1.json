@@ -1,0 +1,17 @@
+{
+    "answer": "No. Not all tetanus-containing vaccines protect against pertussis. \u00a0\nThe vaccine routinely given to adults every 10 years to boost protection against tetanus is the Td vaccine. This vaccine provides protection against tetanus and diphtheria but not pertussis.\u00a0\nThe Tdap vaccine provides protection against tetanus, diphtheria and pertussis. A booster dose of this vaccine is recommended for adults who were immunized against pertussis in childhood but is not provided for free in BC. It is however provided free for adults who have never been immunized against pertussis or whose immunization history is unknown.\u00a0\nThe clinic where you were immunized may have a record of your immunization and may be able to tell you which vaccine you received.\u00a0\n- Immunization Nurse",
+    "answer_formatted": "\n## No.\n\nNot all tetanus-containing vaccines protect against pertussis.\n\n## The vaccine routinely given to adults every 10 years to boost protection against tetanus is the Td vaccine.\n\nThis vaccine provides protection against tetanus and diphtheria but not pertussis.\n\n## The Tdap vaccine provides protection against tetanus, diphtheria and pertussis.\n\nA booster dose of this vaccine is recommended for adults who were immunized against pertussis in childhood but is not provided for free in BC.\nIt is however provided free for adults who have never been immunized against pertussis or whose immunization history is unknown.\nThe clinic where you were immunized may have a record of your immunization and may be able to tell you which vaccine you received.\n- Immunization Nurse",
+    "disease_1": "",
+    "disease_2": "",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "I have been told to get a Pertussis vaccination. I had a Tetanus shot in May 2013. Would that shot have automatically had pertussis with it? I am 65 years old.",
+    "question_variation_0": "do you get pertussis vaccination when you have tetanus shot",
+    "question_variation_1": "can you be given pertussis shot",
+    "question_variation_2": "do you need a pertussis shot if you have a tetanus shot",
+    "subject_1_immunization": "Vaccination",
+    "subject_2_vaccination_general": "",
+    "subject_person": "",
+    "vaccine_1": "Pertussis",
+    "vaccine_2": "Tetanus",
+    "who_is_writing_this": "Elderly"
+}

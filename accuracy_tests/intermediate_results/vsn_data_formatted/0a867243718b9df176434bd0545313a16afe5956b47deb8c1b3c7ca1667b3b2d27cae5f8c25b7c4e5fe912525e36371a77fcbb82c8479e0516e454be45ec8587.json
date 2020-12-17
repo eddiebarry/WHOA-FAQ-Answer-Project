@@ -1,0 +1,17 @@
+{
+    "answer": "ImmunizeBC does not have access to immunization records. \u00a0You will need to contact the clinic that has your child's record for information on how you can obtain a copy of it.\u00a0\nYou can find more information on obtaining immunization records here.\u00a0\n- Immunization Nurse\n",
+    "answer_formatted": "\n## ImmunizeBC does not have access to immunization records.\n\nYou will need to contact the clinic that has your child's record for information on how you can obtain a copy of it.\nYou can find more information on obtaining immunization records here.\n- Immunization Nurse",
+    "disease_1": "",
+    "disease_2": "",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "Hello, Is it possible to obtain a copy of immunization records for my child without coming into the clinic where they were administered?\u00a0\n",
+    "question_variation_0": "how to obtain copies of immunization records in hospital",
+    "question_variation_1": "do vaccine records need to be signed before a child comes into clinic for immunization",
+    "question_variation_2": "iwi records without entering clinic are being kept",
+    "subject_1_immunization": "Immunization Record",
+    "subject_2_vaccination_general": "",
+    "subject_person": "Child",
+    "vaccine_1": "",
+    "vaccine_2": "",
+    "who_is_writing_this": "Parent"
+}

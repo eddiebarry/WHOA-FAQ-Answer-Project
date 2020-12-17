@@ -1,0 +1,17 @@
+{
+    "answer": "The nurses at ImmunizeBC only provide general immunization information and cannot provide medical advice. Please speak with your health care provider or call HealthLinkBC at 8-1-1 about your injury.\u00a0\nIn general, a Td (tetanus and diphtheria) vaccine booster is recommended every 10 years and is provided for free in B.C. The vaccine may also be given to people with serious cuts or deep wounds if their last tetanus vaccine was given more than 5 years ago. If you have a serious cut or wound, including punctures, bites, burns or scrapes, it is recommended that you see your health care provider immediately for treatment. This is especially important if the wound is dirty.\u00a0\nImmunization Nurse",
+    "answer_formatted": "\n## The nurses at ImmunizeBC only provide general immunization information and cannot provide medical advice.\n\nPlease speak with your health care provider or call HealthLinkBC at 8-1-1 about your injury.\n\n## In general, a Td (tetanus and diphtheria) vaccine booster is recommended every 10 years and is provided for free in B.\nC.\n The vaccine may also be given to people with serious cuts or deep wounds if their last tetanus vaccine was given more than 5 years ago.\n\nIf you have a serious cut or wound, including punctures, bites, burns or scrapes, it is recommended that you see your health care provider immediately for treatment.\nThis is especially important if the wound is dirty.\nImmunization Nurse",
+    "disease_1": "Tetanus",
+    "disease_2": "Tetanus",
+    "other_conditions_or_symptoms_etc": "",
+    "question": "Do I need a tetanus booster (longer than 10 years since rec. vaccine) after being scratched slightly (surface scratch) from rusty nail. If so, do I need one immediately?",
+    "question_variation_0": "how long should tetanus shot be given",
+    "question_variation_1": "tetanus booster how long after vaccinated",
+    "question_variation_2": "does tetanus shot have to be done",
+    "subject_1_immunization": "Vaccination",
+    "subject_2_vaccination_general": "booster",
+    "subject_person": "Unknown ",
+    "vaccine_1": "Tetanus",
+    "vaccine_2": "",
+    "who_is_writing_this": "unknown"
+}
