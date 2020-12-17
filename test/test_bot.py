@@ -15,21 +15,23 @@ urls = [
 conversations = [
     [
         ("Hi", "how can i help you today"),
-        ("Ask Vaccine Questions","please type your query"),
+        ("Ask Vaccine Questions","please type your vaccination related question"),
         ("Do I need to pay for the hepatitis B vaccine?",
         "The hepatitis B vaccine is recommended and provided free to all children in BC as part of their routine childhood immunizations"),
         ("No","Would you like to ask another question"),
         ("No","I hope i was helpful"),
     ],
-    # [
-    #     ("Hi", "how can i help you today"),
-    #     ("Ask Vaccine Questions","please type your query"),
-    #     ("I need help","What vaccine are you talking about"),
-    #     ("please help me","Is there any additional information you could help us with"),
-    #     ("I am lost","would you like to continue talking about the same question"),
-    #     ("No","Would you like to ask another question"),
-    #     ("No","I hope i was helpful"),
-    # ],
+    [
+        ("Hi", "how can i help you today"),
+        ("Ask Vaccine Questions","please type your vaccination related question"),
+        ("I need help","What topic is this most"),
+        ("please help me", "What vaccine are you"),
+        ("I am lost","For whom is this question"),
+        ("save me !!!","Is there any additional information you"),
+        ("none","Hi, I need to get a copy of my child record of immunization I hope the response answers your questions"),
+        ("No","Would you like to ask another question"),
+        ("No","I hope i was helpful"),
+    ],
 ]
 
 def test_conversation():
@@ -47,7 +49,7 @@ def test_conversation():
 
                 r = requests.post(converse_api_url, data=data)
                 data = r.json()
-                
+
                 reply_text = ""
                 for snippets in data["responses"]:
                     if snippets["type"]=="text":
@@ -60,11 +62,7 @@ def test_conversation():
                 
                 test = reply_text.lower()
 
-                # print(fixed_reply)
-                # print()
-                # print(test)
-                # print('*'*80)
                 for x in fixed_reply.lower().split(" "):
                     assert x in test, reply_text + '*'*80 + x
 
-# test_conversation()
+test_conversation()
