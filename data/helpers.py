@@ -25,7 +25,8 @@ def populate_1500_questions(project_id=999, version_id=0, \
     dir_=dir_
     protected = [
             'question','answer','question_variation_0',
-            'question_variation_1','question_variation_2', 'id'
+            'question_variation_1','question_variation_2', 'id',
+            'answer_formatted'
         ]
     for idx,x in enumerate(sorted(os.listdir(dir_))):
         if x.endswith(".json"):
@@ -113,4 +114,4 @@ def create_formatted_answers():
             json.dump(new_json_obj, json_file,\
                 indent = 4, sort_keys=True)
 
-create_formatted_answers()
+# create_formatted_answers()

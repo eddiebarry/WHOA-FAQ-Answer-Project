@@ -142,7 +142,9 @@ Batch QA index
 """
 
 def test_qa_indexing():
-    qa_index_data = populate_1500_questions()
+    qa_index_data = populate_1500_questions(\
+        dir_ = "./accuracy_tests/intermediate_results/vsn_data_formatted")
+
 
     response_data = {
         "estimated_time": 4377,
@@ -156,6 +158,7 @@ def test_qa_indexing():
         r = requests.post(base_url,
             data=json.dumps(qa_index_data))
         data = r.json()
+        # pdb.set_trace()
         assert data == response_data, \
             ("Test QA index failed for " + url)
 

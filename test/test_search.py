@@ -35,7 +35,7 @@ SearchEngineTest = SolrSearchEngine(
 Create a collection + Add documents
 '''
 def test_collection_creation():
-    SearchEngineTest.indexFolder("./accuracy_tests/intermediate_results/vsn_data_variations",
+    SearchEngineTest.indexFolder("./accuracy_tests/intermediate_results/vsn_data_formatted",
         project_id = "test",
         version_id = "test1"
     )

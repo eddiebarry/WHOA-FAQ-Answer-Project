@@ -449,8 +449,8 @@ def add_formatting(question_list):
                 questions["answer_formatted"] = data['markdown_text']
             except:
                 questions["answer_formatted"] = questions["answer"]
-                print("failed")
-    return questions
+                print("failed in init")
+    return question_list
 
 @app.before_first_request
 def init_data():
