@@ -83,7 +83,7 @@ def answer_question():
 
     # print(request_json['user_id'][:10])
     if request_json['user_id'] == "-1":
-        unique_id = hashlib.sha512(query_string.encode()+str(random.randint(0, 100000000))).hexdigest()
+        unique_id = hashlib.sha512((query_string + str(random.randint(0, 100000000))).encode()).hexdigest()
         # If question has already been answered allow new question to be asked
         ID_QUERY_DICT[unique_id] = query_string + " "
     else:
