@@ -150,20 +150,10 @@ def answer_question():
             if sim_score<0.25:
                 resp_json["show_direct_answer"] = True
                 resp_json["ask_more_question"]=False
-                
-                # send request
-                print("similar enough",sim_score)
-                url = "http://18.203.115.216:5000"
-                base_url= url + "/api/v2/summariser"
-                data = {
-                    "body":question_and_variation[-1],
-                }
-                r = requests.get(base_url, data=json.dumps(data))
-                data = r.json()
-                what_to_say[answer_title] = data['markdown_text']
+                what_to_say[answer_title] = question_and_variation[-1]
             else:
                 print("not similar",sim_score)
-                what_to_say[answer_title] = question_and_variation[-1]
+                what_to_say[answer_title] = question_and_variation[-2]
 
     if resp_json["show_direct_answer"] or not resp_json["ask_more_question"]:
         # what_to_say += "The synonyms we extracted from the user question are :\n"
@@ -399,6 +389,8 @@ def index_json_array():
         version_id = str(version_id)
     if type(version_number) != str:
         version_number = str(version_number)
+
+    question_list = add_formatting(question_list)
     
     # TODO : check question list format
     keyword_dir = request_json['keyword_directory']
@@ -440,6 +432,26 @@ def link_to_bot():
     }
     return jsonify(response)
 
+def add_formatting(question_list):
+    # iterate over questions in question list
+    # format if necessary
+    for questions in question_list:
+        if "answer_formatted" not in questions.keys() \
+            and "answer" in questions.keys():
+            try:
+                url = "http://18.203.115.216:5000"
+                base_url= url + "/api/v2/summariser"
+                data = {
+                    "body":questions["answer"],
+                }
+                r = requests.get(base_url, data=json.dumps(data))
+                data = r.json()
+                questions["answer_formatted"] = data['markdown_text']
+            except:
+                questions["answer_formatted"] = questions["answer"]
+                print("failed")
+    return questions
+
 @app.before_first_request
 def init_data():
     print("calling init function")
@@ -447,7 +459,7 @@ def init_data():
     global UPDATE_ENGINE
     global KEYWORD_EXTRACTOR
 
-    request_json = populate_1500_questions()
+    request_json = populate_1500_questions(dir_ = "./accuracy_tests/intermediate_results/vsn_data_formatted")
     requires = [
             'project_id', 'version_id', 'question_list',
             'keyword_directory'
@@ -475,6 +487,10 @@ def init_data():
         version_id = str(version_id)
     if type(version_number) != str:
         version_number = str(version_number)
+
+    # iterate over questions in question list
+    # format if necessary
+    question_list = add_formatting(question_list)
     
     # TODO : check question list format
     keyword_dir = request_json['keyword_directory']
@@ -492,7 +508,7 @@ def init_data():
 
 @app.route('/')
 def hello_world():
-    return 'Hello, World! The service is up for serving qna to the bot :-)'
+    return 'Hello, World! The service is up for serving qna to the bot :-('
         
 
 if __name__ == '__main__':
@@ -510,7 +526,8 @@ if __name__ == '__main__':
             True, #use_syblist
             "./WHO-FAQ-Search-Engine/synonym_expansion/syn_test.txt" #synlist path
         ],
-        debug=True
+        debug=True,
+        use_markdown=True
     )
     
     extractor_json_path = \

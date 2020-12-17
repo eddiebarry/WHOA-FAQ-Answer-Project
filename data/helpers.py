@@ -12,6 +12,7 @@ def populate_1500_questions(project_id=999, version_id=0, \
     previous_versions=[], \
     # url="http://52.209.188.140:5008", \
     #local=False
+    dir_ = "./accuracy_tests/intermediate_results/vsn_data_variations", \
     ):
     # if local:
     #     url = "http://0.0.0.0:5008"
@@ -21,7 +22,7 @@ def populate_1500_questions(project_id=999, version_id=0, \
         # "previous_versions" : previous_versions
     }
     questions = []
-    dir_ = "./accuracy_tests/intermediate_results/vsn_data_variations"
+    dir_=dir_
     protected = [
             'question','answer','question_variation_0',
             'question_variation_1','question_variation_2', 'id'
@@ -66,3 +67,50 @@ def populate_1500_questions(project_id=999, version_id=0, \
     print(len(questions), "is the number of questions added")
 
     return data
+
+def create_formatted_answers():
+    questions = []
+    dir_ = "./accuracy_tests/intermediate_results/vsn_data_variations"
+    protected = [
+            'question','answer','question_variation_0',
+            'question_variation_1','question_variation_2', 'id', 'name'
+        ]
+    for idx,x in enumerate(sorted(os.listdir(dir_))):
+        if x.endswith(".json"):
+            jsonpath = os.path.join(dir_,x)
+            f = open(jsonpath,)
+            jsonObj = json.load(f)
+            jsonObj['name']=x
+            f.close()
+            questions.append(jsonObj)
+
+    question_list = questions
+
+    for questions in question_list:
+        if "answer_formatted" not in questions.keys() \
+            and "answer" in questions.keys():
+            try:
+                url = "http://18.203.115.216:5000"
+                base_url= url + "/api/v2/summariser"
+                data = {
+                    "body":questions["answer"],
+                }
+                r = requests.get(base_url, data=json.dumps(data))
+                data = r.json()
+                questions["answer_formatted"] = data['markdown_text']
+            except:
+                questions["answer_formatted"] = questions["answer"]
+                print("failed")
+
+    print(len(question_list))
+
+    path = "./accuracy_tests/intermediate_results/vsn_data_formatted/"
+    for new_json_obj in question_list:
+        json_file_name=path+new_json_obj['name']
+        new_json_obj.pop('name',None)
+        print("writing", json_file_name)
+        with open(json_file_name , 'w') as json_file:
+            json.dump(new_json_obj, json_file,\
+                indent = 4, sort_keys=True)
+
+create_formatted_answers()
