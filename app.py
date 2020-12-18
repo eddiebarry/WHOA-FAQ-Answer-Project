@@ -432,8 +432,8 @@ def link_to_bot():
             return jsonify({"message":"given request does not have a "+x })
 
     response = {
-        "host_id": 'https://new-botpress-botpress-openshift.apps.who.lxp.academy.who.int',
-        "bot_id": 'bot_test'
+        "host_id": os.getenv('BOTPRESS_ENDPOINT'),
+        "bot_id": os.getenv('BOT_ID')
     }
     return jsonify(response)
 
