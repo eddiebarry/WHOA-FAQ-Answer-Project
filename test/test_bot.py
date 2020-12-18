@@ -14,7 +14,17 @@ urls = [
 
 conversations = [
     [
-        ("Hi", "how can i help you today"),
+        ("Hi","may i know your name"),
+        ("emma", "emma nice to meet you how can i help you today"),
+        ("Ask Vaccine Questions","please type your vaccination related question"),
+        ("Do I need to pay for the hepatitis B vaccine?",
+        "The hepatitis B vaccine is recommended and provided free to all children in BC as part of their routine childhood immunizations"),
+        ("No","Would you like to ask another question"),
+        ("No","I hope i was helpful"),
+    ],
+    [
+        ("Hi","may i know your name"),
+        ("No", "we will not use your name how can i help you today"),
         ("Ask Vaccine Questions","please type your vaccination related question"),
         ("Do I need to pay for the hepatitis B vaccine?",
         "The hepatitis B vaccine is recommended and provided free to all children in BC as part of their routine childhood immunizations"),
@@ -23,6 +33,19 @@ conversations = [
     ],
     [
         ("Hi", "how can i help you today"),
+        ("No you may not", "we will not use your name how can i help you today"),
+        ("Ask Vaccine Questions","please type your vaccination related question"),
+        ("I need help","What topic is this most"),
+        ("please help me", "What vaccine are you"),
+        ("I am lost","For whom is this question"),
+        ("save me !!!","Is there any additional information you"),
+        ("none","Hi, I need to get a copy of my child record of immunization I hope the response answers your questions"),
+        ("No","Would you like to ask another question"),
+        ("No","I hope i was helpful"),
+    ],
+    [
+        ("Hi", "how can i help you today"),
+        ("emma", "emma nice to meet you how can i help you today"),
         ("Ask Vaccine Questions","please type your vaccination related question"),
         ("I need help","What topic is this most"),
         ("please help me", "What vaccine are you"),
