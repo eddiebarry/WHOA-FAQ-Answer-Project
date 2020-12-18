@@ -81,13 +81,18 @@ def answer_question():
     if 'user_id' not in request_json.keys():
         return jsonify({"message":"request does not contain user id"})
 
+    first_user_entry = False
     # print(request_json['user_id'][:10])
     if request_json['user_id'] == "-1":
         unique_id = hashlib.sha512((query_string + str(random.randint(0, 100000000))).encode()).hexdigest()
         # If question has already been answered allow new question to be asked
         ID_QUERY_DICT[unique_id] = query_string + " "
+        first_user_entry = True
     else:
         unique_id = request_json['user_id']
+        if ID_QUERY_DICT[unique_id] == '-1':
+            first_user_entry = True
+            ID_QUERY_DICT[unique_id] = ""
         # Add entire conversation to search engine
         ID_QUERY_DICT[unique_id] += query_string.lower() + " " 
     # print(unique_id[:10])
@@ -117,12 +122,12 @@ def answer_question():
     # Identify wether more questions need to be asked or not
     # # TODO : Ask question only once
     should_search, resp_json = QUESTION_ASKER.process(\
-        unique_id, new_boosting_dict,ID_QUERY_DICT[unique_id])
+        unique_id, new_boosting_dict, ID_QUERY_DICT[unique_id])
 
     resp_json["show_direct_answer"] = False
 
     pdb.set_trace()
-    if should_search or resp_json["first_question"]:
+    if should_search or resp_json["first_question"] or first_user_entry:
         print("searching index")
         query = None
         query, synonyms = SEARCH_ENGINE.build_query(ID_QUERY_DICT[unique_id], \
