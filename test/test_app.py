@@ -173,7 +173,7 @@ def test_bot_host():
     }
     test_bot_response = {
         "host_id": 'https://new-botpress-botpress-openshift.apps.who.lxp.academy.who.int',
-        "bot_id": 'bot_test'
+        "bot_id": os.getenv('BOT_ID')
     }
     for url in urls:
         base_url = url  + "/api/v2/get-bot-host"
