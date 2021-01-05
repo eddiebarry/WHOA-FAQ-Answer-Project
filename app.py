@@ -134,7 +134,8 @@ def answer_question():
     first_user_entry = False
     # print(request_json['user_id'][:10])
     if request_json['user_id'] == "-1":
-        unique_id = hashlib.sha512((query_string + str(random.randint(0, 100000000))).encode()).hexdigest()
+        unique_id = hashlib.sha512(
+            (query_string + str(random.randint(0, 100000000))).encode()).hexdigest()
         # If question has already been answered allow new question to be asked
         app.config['ID_QUERY_DICT'][unique_id] = query_string + " "
         first_user_entry = True
@@ -164,7 +165,8 @@ def answer_question():
 
         # Add all the tokens present in past queries
         if key in app.config['ID_KEYWORD_DICT'][unique_id].keys():
-            new_boosting_dict[key].extend(app.config['ID_KEYWORD_DICT'][unique_id][key])
+            new_boosting_dict[key].extend(
+                app.config['ID_KEYWORD_DICT'][unique_id][key])
 
     # Store the newly created keyword dictionary in global memory
     app.config['ID_KEYWORD_DICT'][unique_id] = new_boosting_dict
@@ -179,9 +181,10 @@ def answer_question():
     if should_search or resp_json["first_question"] or first_user_entry:
         print("searching index")
         query = None
-        query, synonyms = app.config['SEARCH_ENGINE'].build_query(app.config['ID_QUERY_DICT'][unique_id], \
-            app.config['ID_KEYWORD_DICT'][unique_id], "OR_QUERY", field="question",\
-            boost_val=2.0)
+        query, synonyms = app.config['SEARCH_ENGINE'].build_query(
+            app.config['ID_QUERY_DICT'][unique_id], \
+            app.config['ID_KEYWORD_DICT'][unique_id], \
+            "OR_QUERY", field="question", boost_val=2.0)
             
         hits = app.config['SEARCH_ENGINE'].search(query, 
             project_id=UPDATE_ENGINE.qa_keyword_manager.latest_project_id,
@@ -221,16 +224,16 @@ def answer_question():
         resp_json["what_to_say"] = what_to_say
 
         # Logging
-        # original_stdout = sys.stdout 
-        # with open('./logs/log.txt', 'a') as f:
-        #     sys.stdout = f # Change the standard output to the file we created.
-        #     print('$'*80)
-        #     print("unique id", unique_id)
-        #     print("The user question is ", app.config['ID_QUERY_DICT'][unique_id])
-        #     print("The generated lucene query is ", query)
-        #     print("The results of the search are ", hits)
-        #     print('$'*80)
-        #     sys.stdout = original_stdout
+        original_stdout = sys.stdout 
+        with open('./logs/log.txt', 'a') as f:
+            sys.stdout = f # Change the standard output to the file we created.
+            print('$'*80)
+            print("unique id", unique_id)
+            print("The user question is ", app.config['ID_QUERY_DICT'][unique_id])
+            print("The generated lucene query is ", query)
+            print("The results of the search are ", hits)
+            print('$'*80)
+            sys.stdout = original_stdout
 
         # # Reset unique id query to sentinel value
         app.config['ID_QUERY_DICT'][unique_id] = "-1"
@@ -565,56 +568,3 @@ def init_data():
 @app.route('/')
 def hello_world():
     return 'Hello, World! The service is up for serving qna to the bot :-('
-        
-
-if __name__ == '__main__':
-    SEARCH_ENGINE = SolrSearchEngine(
-        rerank_endpoint=RE_RANK_ENDPOINT+"/api/v1/reranking",
-        variation_generator_config=[
-            VariationGenerator(\
-            path="./WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights/model.ckpt-1004000",
-            max_length=5),   #variation_generator
-            # None,
-            ["question"] #fields_to_expand
-        ],
-        synonym_config=[
-            True, #use_wordnet
-            True, #use_syblist
-            "./WHO-FAQ-Search-Engine/synonym_expansion/syn_test.txt" #synlist path
-        ],
-        debug=True,
-        use_markdown=True
-    )
-    
-    extractor_json_path = \
-        "./accuracy_tests/unique_keywords.json"
-    f = open(extractor_json_path,)
-    jsonObj = json.load(f)
-    KEYWORD_EXTRACTOR = KeywordExtract(jsonObj)
-    
-    ID_KEYWORD_DICT = defaultdict(dict)
-    ID_QUERY_DICT = defaultdict(str)
-
-    qa_config_path = "./accuracy_tests/question_asker_config.json"
-    use_question_predicter_config = [
-            False, #Use question predictor
-            "./WHO-FAQ-Dialog-Manager/qna/models.txt", #models path
-            "./WHO-FAQ-Dialog-Manager/qna/vectoriser.txt" #tokeniser path
-        ]
-    QUESTION_ASKER = QuestionAsker(qa_config_path, show_options=True, \
-        qa_keyword_path = extractor_json_path,
-        use_question_predicter_config=use_question_predicter_config)
-
-    # Setting up the update engine
-    qa_keyword_manager = QAKeywordManager(
-        search_engine=SEARCH_ENGINE,
-    )
-    keyword_engine_manager = KeywordEngineManager()
-    category_question_manager = CategoryQuestionManager()
-    UPDATE_ENGINE = UpdateEngine(
-        keyword_engine_manager=keyword_engine_manager,
-        qa_keyword_manager=qa_keyword_manager,
-        category_question_manager=category_question_manager
-    )
-
-    app.run(host='0.0.0.0', port = 5009)
