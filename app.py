@@ -203,6 +203,7 @@ def answer_question():
             sim_score = app.config['sim'].distance(question_and_variation[0],app.config['ID_QUERY_DICT'][unique_id])
             
             if sim_score<0.25:
+                print("similar enough")
                 resp_json["show_direct_answer"] = True
                 resp_json["ask_more_question"]=False
                 what_to_say[answer_title] = question_and_variation[-1]
@@ -220,16 +221,16 @@ def answer_question():
         resp_json["what_to_say"] = what_to_say
 
         # Logging
-        original_stdout = sys.stdout 
-        with open('./logs/log.txt', 'a') as f:
-            sys.stdout = f # Change the standard output to the file we created.
-            print('$'*80)
-            print("unique id", unique_id)
-            print("The user question is ", app.config['ID_QUERY_DICT'][unique_id])
-            print("The generated lucene query is ", query)
-            print("The results of the search are ", hits)
-            print('$'*80)
-            sys.stdout = original_stdout
+        # original_stdout = sys.stdout 
+        # with open('./logs/log.txt', 'a') as f:
+        #     sys.stdout = f # Change the standard output to the file we created.
+        #     print('$'*80)
+        #     print("unique id", unique_id)
+        #     print("The user question is ", app.config['ID_QUERY_DICT'][unique_id])
+        #     print("The generated lucene query is ", query)
+        #     print("The results of the search are ", hits)
+        #     print('$'*80)
+        #     sys.stdout = original_stdout
 
         # # Reset unique id query to sentinel value
         app.config['ID_QUERY_DICT'][unique_id] = "-1"
