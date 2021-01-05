@@ -23,6 +23,7 @@ RUN chmod +x ./gdown.pl \
 
 WORKDIR /usr/src/WHOA-FAQ-Answer-Project
 EXPOSE 5009
+
 #gunicorn --bind 0.0.0.0:5008 wsgi:app --timeout 600
 # ENTRYPOINT [ "python" ] 
 # CMD [ "app.py" ] 
