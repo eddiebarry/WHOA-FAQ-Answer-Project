@@ -86,12 +86,8 @@ app.config['ID_QUERY_DICT']=ID_QUERY_DICT
 app.config['KEYWORD_EXTRACTOR']=KEYWORD_EXTRACTOR
 app.config['QUESTION_ASKER']=QUESTION_ASKER
 app.config['SEARCH_ENGINE']=SEARCH_ENGINE
-# app.config['JSON_AS_ASCII'] = False
-# lucene.initVM(vmargs=['-Djava.awt.headless=true'])
 
 
-# TODO : Document
-# TODO : Make this function stateless
 @app.route('/api/v2/qna', methods=['GET'])
 def answer_question():
     """
