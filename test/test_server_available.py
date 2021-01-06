@@ -9,6 +9,7 @@ urls = [
     os.getenv("RE_RANK_ENDPOINT"),
     os.getenv("SOLR_ENDPOINT"),
     os.getenv("BOTPRESS_ENDPOINT"),
+    os.getenv("BOTPRESS_STAGING_ENDPOINT"),
     os.getenv("LOCAL_URL"),
     os.getenv("REMOTE_URL"),
 ]   

@@ -162,7 +162,6 @@ def test_qa_indexing():
         assert data == response_data, \
             ("Test QA index failed for " + url)
 
-
 """
 Bot host test
 """
@@ -172,7 +171,7 @@ def test_bot_host():
         "version_id":1,
     }
     test_bot_response = {
-        "host_id": 'https://new-botpress-botpress-openshift.apps.who.lxp.academy.who.int',
+        "host_id": os.getenv('BOTPRESS_ENDPOINT'),
         "bot_id": os.getenv('BOT_ID')
     }
     for url in urls:
@@ -184,35 +183,68 @@ def test_bot_host():
         assert data == test_bot_response, \
             "test bot link failed for " + url
 
-# # """
-# # QUESTION ASKER TIMING TEST
-# # """
+"""
+Basic conversation test
+"""
 
-# # base_url= url + "/api/v2/qna"
+# def test_conversation():
+#     for url in urls:
+#         base_url= url + "/api/v2/qna"
+#         data = [
+#             [
+#                 ("I need help","What topic is this most"),
+#                 ("please help me", "What vaccine are you"),
+#                 ("I am lost","For whom is this question"),
+#                 ("save me !!!","Is there any additional information you"),
+#                 ("none","Hi, I need to get a copy of my child record of immunization I hope the response answers your questions"),
+#                 ("No","Would you like to ask another question"),
+#                 ("No","I hope i was helpful"),
+#             ],
+#         ]
+#         for snippet in data:
+#             idx = 0
+#             user_id = -1
+#             for prompt, response in snippet:
+#                 request = {
+#                     "query":prompt,
+#                     "user_id":user_id
+#                 }   
+#                 r = requests.get(base_url, data=json.dumps(request))
+#                 data = r.json()
+#                 print(data)
+#                 pdb.set_trace()
 
-# # data_ = [
-# #     {
-# #         "query":"My child was vaccinated recently with MMR for school", 
-# #         "user_id":"-1"
-# #     }
-# #     ,
-# #     {
-# #         "query":"what restrictions are there for immuno compromised people visiting ?",
-# #         "user_id":"2d07dcffc217bf2864ba64fc8b60fdaa41d0b08f74fb522582f1031e77cb2a4fc3b5b0b98392efc0dce2b96f9be453c07373bfecea25964379c422e4f9e89877"
-# #     }
-# # ]
+# test_conversation()
+        
+# """
+# QUESTION ASKER TIMING TEST
+# """
 
-# # times = []
-# # for x in range(1):
-# #     for idx,x in enumerate(data_):
-# #         if idx==1:
-# #             start = timeit.default_timer()
-# #         r = requests.get(base_url, data=json.dumps(x))
-# #         if idx==1:
-# #             stop = timeit.default_timer()
-# #             times.append(stop-start)
-# # print(mean(times))
-# # print(r.text)
+# base_url= url + "/api/v2/qna"
+
+# data_ = [
+#     {
+#         "query":"My child was vaccinated recently with MMR for school", 
+#         "user_id":"-1"
+#     }
+#     ,
+#     {
+#         "query":"what restrictions are there for immuno compromised people visiting ?",
+#         "user_id":"2d07dcffc217bf2864ba64fc8b60fdaa41d0b08f74fb522582f1031e77cb2a4fc3b5b0b98392efc0dce2b96f9be453c07373bfecea25964379c422e4f9e89877"
+#     }
+# ]
+
+# times = []
+# for x in range(1):
+#     for idx,x in enumerate(data_):
+#         if idx==1:
+#             start = timeit.default_timer()
+#         r = requests.get(base_url, data=json.dumps(x))
+#         if idx==1:
+#             stop = timeit.default_timer()
+#             times.append(stop-start)
+# print(mean(times))
+# print(r.text)
 
 # # """
 # # Reranking timer test

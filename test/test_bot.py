@@ -3,11 +3,32 @@ from dotenv import load_dotenv
 load_dotenv()
 
 urls = [
-    # os.getenv("BOTPRESS_ENDPOINT"),
+    os.getenv("BOTPRESS_ENDPOINT"),
     os.getenv("BOTPRESS_STAGING_ENDPOINT"),
 ]
 
 conversations = [
+    [
+        ("Hi","may i know your name"),
+        ("no", "we will not use your name how can i help you today"),
+        ("Ask Vaccine Questions","please type your vaccination related question"),
+        ("Do I need to pay for the hepatitis B vaccine?",
+        "The hepatitis B vaccine is recommended and provided free to all children in BC as part of their routine childhood immunizations"),
+        ("No","Would you like to ask another question"),
+        ("No","I hope i was helpful"),
+    ],
+    [
+        ("Hi", "may i know your name"),
+        ("no", "we will not use your name how can i help you today"),
+        ("Ask Vaccine Questions","please type your vaccination related question"),
+        ("I need help","What topic is this most"),
+        ("please help me", "What vaccine are you"),
+        ("I am lost","For whom is this question"),
+        ("save me !!!","Is there any additional information you"),
+        ("none","Hi, I need to get a copy of my child record of immunization I hope the response answers your questions"),
+        ("No","Would you like to ask another question"),
+        ("No","I hope i was helpful"),
+    ],
     [
         ("Hi","may i know your name"),
         ("emma", "emma nice to meet you how can i help you today"),
@@ -17,27 +38,6 @@ conversations = [
         ("No","Would you like to ask another question"),
         ("No","I hope i was helpful"),
     ],
-    # [
-    #     ("Hi","may i know your name"),
-    #     ("No", "we will not use your name how can i help you today"),
-    #     ("Ask Vaccine Questions","please type your vaccination related question"),
-    #     ("Do I need to pay for the hepatitis B vaccine?",
-    #     "The hepatitis B vaccine is recommended and provided free to all children in BC as part of their routine childhood immunizations"),
-    #     ("No","Would you like to ask another question"),
-    #     ("No","I hope i was helpful"),
-    # ],
-    # [
-    #     ("Hi", "how can i help you today"),
-    #     ("No", "we will not use your name how can i help you today"),
-    #     ("Ask Vaccine Questions","please type your vaccination related question"),
-    #     ("I need help","What topic is this most"),
-    #     ("please help me", "What vaccine are you"),
-    #     ("I am lost","For whom is this question"),
-    #     ("save me !!!","Is there any additional information you"),
-    #     ("none","Hi, I need to get a copy of my child record of immunization I hope the response answers your questions"),
-    #     ("No","Would you like to ask another question"),
-    #     ("No","I hope i was helpful"),
-    # ],
     [
         ("Hi", "may i know your name"),
         ("emma", "emma nice to meet you how can i help you today"),
@@ -54,12 +54,15 @@ conversations = [
 
 def test_conversation():
     for url in urls:
-        user_id = random.randint(0, 100000000)
-        converse_api_url = url + "/api/v1/bots/" + \
-            os.getenv("BOT_ID") + "/converse/" + str(user_id)
+        print("testing ", url)
         
         for text in conversations:
             replies = []
+            
+            user_id = random.randint(0, 100000000)
+            converse_api_url = url + "/api/v1/bots/" + \
+                os.getenv("BOT_ID") + "/converse/" + str(user_id)
+
             for text_snippet, fixed_reply in text:
                 data = {
                     "type": "text",
@@ -83,5 +86,7 @@ def test_conversation():
 
                 for x in fixed_reply.lower().split(" "):
                     assert x in test, reply_text + '*'*80 + x
+            #     print("good")
+            # print("$DONE")
 
 # test_conversation()
