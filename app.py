@@ -116,76 +116,64 @@ def answer_question():
     if 'query' not in request_json.keys():
         return jsonify({"message":"request does not contain query"})
     
-    # If first time being sent, calculate a unique id
-    query_string = request_json['query'].lower()\
-        .replace("?","")\
-        .replace("-","")\
-        .replace("not relevant","")\
-        .replace("none","")\
-        .replace("\n"," ")
-
     if 'user_id' not in request_json.keys():
         return jsonify({"message":"request does not contain user id"})
+    
+    query_string = sanitize_query(request_json['query'])
 
-    first_user_entry = False
-    # print(request_json['user_id'][:10])
+    # If first time being sent, calculate a unique id
     if request_json['user_id'] == "-1":
         unique_id = hashlib.sha512(
-            (query_string + str(random.randint(0, 100000000))).encode()).hexdigest()
-        # If question has already been answered allow new question to be asked
-        app.config['ID_QUERY_DICT'][unique_id] = query_string + " "
-        first_user_entry = True
+            (
+                query_string + str(random.randint(0, 100000000))
+            )\
+            .encode())\
+            .hexdigest()
     else:
         unique_id = request_json['user_id']
         if app.config['ID_QUERY_DICT'][unique_id] == '-1':
-            first_user_entry = True
             app.config['ID_QUERY_DICT'][unique_id] = ""
-        # Add entire conversation to search engine
-        app.config['ID_QUERY_DICT'][unique_id] += query_string.lower() + " " 
-    # print(unique_id[:10])
 
-    # Extract keywords on the basis of the user input
-    boosting_tokens = app.config['KEYWORD_EXTRACTOR'].parse_regex_query(\
+    app.config['ID_QUERY_DICT'][unique_id] += query_string + " "
+    
+
+    # Extract keywords on the basis of the user input and combine
+    boosting_tokens = app.config['KEYWORD_EXTRACTOR'].parse_regex_query(
         query_string.lower())
+
+    all_token_keys = set(boosting_tokens.keys())\
+        .union(app.config['ID_KEYWORD_DICT'][unique_id].keys())
     
-    # Make a set of all fields which have had keywords detected
-    all_token_keys = set(boosting_tokens.keys()).\
-        union(app.config['ID_KEYWORD_DICT'][unique_id].keys())
-    
-    # Create a combined dictinary of old keywords and new keywords
-    new_boosting_dict = defaultdict(list)
+    # Combine new keywords
     for key in all_token_keys:
         # Add all the tokens present in the current query
         if key in boosting_tokens.keys():
-            new_boosting_dict[key].extend(boosting_tokens[key])
-
-        # Add all the tokens present in past queries
-        if key in app.config['ID_KEYWORD_DICT'][unique_id].keys():
-            new_boosting_dict[key].extend(
-                app.config['ID_KEYWORD_DICT'][unique_id][key])
-
-    # Store the newly created keyword dictionary in global memory
-    app.config['ID_KEYWORD_DICT'][unique_id] = new_boosting_dict
+            app.config['ID_KEYWORD_DICT'][unique_id][key]\
+                .extend(boosting_tokens[key])
 
     # Identify wether more questions need to be asked or not
-    # # TODO : Ask question only once
-    should_search, resp_json = app.config['QUESTION_ASKER'].process(\
-        unique_id, new_boosting_dict, app.config['ID_QUERY_DICT'][unique_id])
+    should_search, resp_json = app.config['QUESTION_ASKER'].process(
+        unique_id, 
+        app.config['ID_KEYWORD_DICT'][unique_id], 
+        app.config['ID_QUERY_DICT'][unique_id])
 
     resp_json["show_direct_answer"] = False
+    
+    if "trigger_search" in request_json.keys():
+        should_search = request_json["trigger_search"]
 
-    if should_search or resp_json["first_question"] or first_user_entry:
+    if should_search:
         print("searching index")
         query = None
         query, synonyms = app.config['SEARCH_ENGINE'].build_query(
-            app.config['ID_QUERY_DICT'][unique_id], \
-            app.config['ID_KEYWORD_DICT'][unique_id], \
+            app.config['ID_QUERY_DICT'][unique_id],
+            app.config['ID_KEYWORD_DICT'][unique_id],
             "OR_QUERY", field="question", boost_val=2.0)
             
         hits = app.config['SEARCH_ENGINE'].search(query, 
             project_id=UPDATE_ENGINE.qa_keyword_manager.latest_project_id,
-            version_id=UPDATE_ENGINE.qa_keyword_manager.latest_version_id,\
-            query_string=app.config['ID_QUERY_DICT'][unique_id], \
+            version_id=UPDATE_ENGINE.qa_keyword_manager.latest_version_id,
+            query_string=app.config['ID_QUERY_DICT'][unique_id],
             query_field="question*", top_n=50)
 
         what_to_say = {}
@@ -231,11 +219,18 @@ def answer_question():
             print('$'*80)
             sys.stdout = original_stdout
 
-        # # Reset unique id query to sentinel value
+        # Reset unique id query to sentinel value
         app.config['ID_QUERY_DICT'][unique_id] = "-1"
-        # ID_KEYWORD_DICT[unique_id] = defaultdict(list)
 
     return jsonify(resp_json)
+
+def sanitize_query(string):
+    return string.lower()\
+        .replace("?","")\
+        .replace("-","")\
+        .replace("not relevant","")\
+        .replace("none","")\
+        .replace("\n"," ")
 
 @app.route('/api/v2/batch_keyword_extract', methods=['POST'])
 def return_batch_keyword():

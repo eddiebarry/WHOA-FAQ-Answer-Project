@@ -17,7 +17,7 @@ load_dotenv()
 SearchEngineTest = SolrSearchEngine(
     rerank_endpoint=RE_RANK_ENDPOINT+"/api/v1/reranking",
     variation_generator_config=[
-        VariationGenerator(\
+        VariationGenerator(
         path="./WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights/model.ckpt-1004000",
         max_length=5),   #variation_generator
         # None,
@@ -53,9 +53,9 @@ def test_query_generation():
 
     query_string = "A recent study showed men with 5+ partners who perform unprotected oral sex have a higher risk of HPV-induced oral cancers"
 
-    search_query, _ = SearchEngineTest.build_query(\
-            query_string, \
-            boosting_tokens,\
+    search_query, _ = SearchEngineTest.build_query(
+            query_string, 
+            boosting_tokens,
             "OR_QUERY",
             field="question"
         )
