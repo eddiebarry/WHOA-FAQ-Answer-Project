@@ -97,3 +97,11 @@ Questions per category
 ```
 pytest ./test
 ```
+
+### Create a buildconfig
+
+```
+build_name=orchestrator-container
+cat Dockerfile | oc new-build --name $build_name --dockerfile='-'
+oc start-build bc/$build_name  --follow
+```
