@@ -148,8 +148,11 @@ def answer_question():
     for key in all_token_keys:
         # Add all the tokens present in the current query
         if key in boosting_tokens.keys():
-            app.config['ID_KEYWORD_DICT'][unique_id][key]\
-                .extend(boosting_tokens[key])
+            if key in app.config['ID_KEYWORD_DICT'][unique_id]:
+                app.config['ID_KEYWORD_DICT'][unique_id][key]\
+                    .extend(boosting_tokens[key])
+            else:
+                app.config['ID_KEYWORD_DICT'][unique_id][key] = boosting_tokens[key]
 
     # Identify wether more questions need to be asked or not
     should_search, resp_json = app.config['QUESTION_ASKER'].process(
@@ -176,27 +179,39 @@ def answer_question():
             query_string=app.config['ID_QUERY_DICT'][unique_id],
             query_field="question*", top_n=50)
 
-        what_to_say = {}
-        for idx, doc in enumerate(hits[:5]):
-            question_and_variation = doc[1].split(" ||| ")
-            for var_idx, question_var in enumerate(question_and_variation[:3]):
-                title = "question_"+str(idx)+"_variation_"+str(var_idx)
-                what_to_say[title] = question_var
-            
-            score_title = "question_"+str(idx)+"_score"
-            what_to_say[score_title] = doc[0]
-
-            answer_title = "question_"+str(idx)+"_answer"
-            sim_score = app.config['sim'].distance(question_and_variation[0],app.config['ID_QUERY_DICT'][unique_id])
-            
-            if sim_score<0.25:
-                print("similar enough")
-                resp_json["show_direct_answer"] = True
+        if hits == "Not present":
+            print("Not present")
+            if not "trigger_search" in request_json.keys():
+                resp_json["show_direct_answer"]=True 
                 resp_json["ask_more_question"]=False
-                what_to_say[answer_title] = question_and_variation[-1]
-            else:
-                print("not similar",sim_score)
-                what_to_say[answer_title] = question_and_variation[-2]
+            
+                what_to_say = {}
+                what_to_say["question_0_answer"]=\
+                    "##We currently do not have information about your query. We will update our bot with this information soon"
+                what_to_say["question_0_variation_0"]=\
+                    "We will include this info in the upcoming releases"
+        else:
+            what_to_say = {}
+            for idx, doc in enumerate(hits[:5]):
+                question_and_variation = doc[1].split(" ||| ")
+                for var_idx, question_var in enumerate(question_and_variation[:3]):
+                    title = "question_"+str(idx)+"_variation_"+str(var_idx)
+                    what_to_say[title] = question_var
+                
+                score_title = "question_"+str(idx)+"_score"
+                what_to_say[score_title] = doc[0]
+
+                answer_title = "question_"+str(idx)+"_answer"
+                sim_score = app.config['sim'].distance(question_and_variation[0],app.config['ID_QUERY_DICT'][unique_id])
+                
+                if sim_score<0.25:
+                    print("similar enough")
+                    resp_json["show_direct_answer"] = True
+                    resp_json["ask_more_question"]=False
+                    what_to_say[answer_title] = question_and_variation[-1]
+                else:
+                    print("not similar",sim_score)
+                    what_to_say[answer_title] = question_and_variation[-2]
 
     if resp_json["show_direct_answer"] or not resp_json["ask_more_question"]:
         # what_to_say += "The synonyms we extracted from the user question are :\n"
@@ -209,15 +224,15 @@ def answer_question():
 
         # Logging
         original_stdout = sys.stdout 
-        with open('./logs/log.txt', 'a') as f:
-            sys.stdout = f # Change the standard output to the file we created.
-            print('$'*80)
-            print("unique id", unique_id)
-            print("The user question is ", app.config['ID_QUERY_DICT'][unique_id])
-            print("The generated lucene query is ", query)
-            print("The results of the search are ", hits)
-            print('$'*80)
-            sys.stdout = original_stdout
+        # with open('./logs/log.txt', 'a') as f:
+        #     sys.stdout = f # Change the standard output to the file we created.
+        #     print('$'*80)
+        #     print("unique id", unique_id)
+        #     print("The user question is ", app.config['ID_QUERY_DICT'][unique_id])
+        #     print("The generated lucene query is ", query)
+        #     print("The results of the search are ", hits)
+        #     print('$'*80)
+        #     sys.stdout = original_stdout
 
         # Reset unique id query to sentinel value
         app.config['ID_QUERY_DICT'][unique_id] = "-1"
@@ -343,14 +358,14 @@ def return_batch_keyword():
 
         questions_keywords_list.append(temp_keyword_dict)    
         # Logging
-        original_stdout = sys.stdout 
-        with open('./logs/keyword_log.txt', 'a') as f:
-            sys.stdout = f # Change the standard output to the file we created.
-            print('$'*80)
-            print("The user query is ", query_string)
-            print("The extracted tokens are ", boosting_tokens)
-            print('$'*80)
-            sys.stdout = original_stdout
+        # original_stdout = sys.stdout 
+        # with open('./logs/keyword_log.txt', 'a') as f:
+        #     sys.stdout = f # Change the standard output to the file we created.
+        #     print('$'*80)
+        #     print("The user query is ", query_string)
+        #     print("The extracted tokens are ", boosting_tokens)
+        #     print('$'*80)
+        #     sys.stdout = original_stdout
 
     response = {
         "questions_keywords_list":questions_keywords_list
