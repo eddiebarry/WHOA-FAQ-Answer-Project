@@ -148,7 +148,7 @@ def answer_question():
     for key in all_token_keys:
         # Add all the tokens present in the current query
         if key in boosting_tokens.keys():
-            if key in app.config['ID_KEYWORD_DICT'][unique_id]:
+            if key in app.config['ID_KEYWORD_DICT'][unique_id].keys():
                 app.config['ID_KEYWORD_DICT'][unique_id][key]\
                     .extend(boosting_tokens[key])
             else:
