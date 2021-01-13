@@ -136,11 +136,13 @@ def answer_question():
 
     app.config['ID_QUERY_DICT'][unique_id] += query_string + " "
     
-    print(app.config['SEARCH_ENGINE'].synonym_expander.expand_sentence(query_string.lower()))
+    # pdb.set_trace()
 
     # Extract keywords on the basis of the user input and combine
     boosting_tokens = app.config['KEYWORD_EXTRACTOR'].parse_regex_query(
-            app.config['SEARCH_ENGINE'].synonym_expander.expand_sentence(query_string.lower())
+            app.config['SEARCH_ENGINE'].synonym_expander.expand_sentence(
+                query_string.lower()
+            )
         )
 
     all_token_keys = set(boosting_tokens.keys())\
@@ -160,7 +162,8 @@ def answer_question():
     should_search, resp_json = app.config['QUESTION_ASKER'].process(
         unique_id, 
         app.config['ID_KEYWORD_DICT'][unique_id], 
-        app.config['ID_QUERY_DICT'][unique_id])
+        app.config['ID_QUERY_DICT'][unique_id].lower()
+    )
 
     resp_json["show_direct_answer"] = False
     
