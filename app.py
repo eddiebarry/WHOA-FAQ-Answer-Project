@@ -136,10 +136,12 @@ def answer_question():
 
     app.config['ID_QUERY_DICT'][unique_id] += query_string + " "
     
+    print(app.config['SEARCH_ENGINE'].synonym_expander.expand_sentence(query_string.lower()))
 
     # Extract keywords on the basis of the user input and combine
     boosting_tokens = app.config['KEYWORD_EXTRACTOR'].parse_regex_query(
-        query_string.lower())
+            app.config['SEARCH_ENGINE'].synonym_expander.expand_sentence(query_string.lower())
+        )
 
     all_token_keys = set(boosting_tokens.keys())\
         .union(app.config['ID_KEYWORD_DICT'][unique_id].keys())
