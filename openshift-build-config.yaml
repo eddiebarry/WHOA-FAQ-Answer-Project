@@ -1,0 +1,99 @@
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: orchestrator-build
+  namespace: project-interakt-staging
+  selfLink: >-
+    /apis/build.openshift.io/v1/namespaces/project-interakt-staging/buildconfigs/orchestrator-build
+  uid: 46d60d4f-e8d2-48f4-97de-eaeed6663dbe
+  resourceVersion: '87610984'
+  creationTimestamp: '2021-01-12T05:36:25Z'
+  labels:
+    build: orchestrator-build
+  annotations:
+    openshift.io/generated-by: OpenShiftNewBuild
+spec:
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'orchestrator-build:latest'
+  resources: {}
+  successfulBuildsHistoryLimit: 5
+  failedBuildsHistoryLimit: 5
+  strategy:
+    type: Docker
+    dockerStrategy:
+      from:
+        kind: ImageStreamTag
+        namespace: project-interakt-staging
+        name: 'python:3.7'
+      env:
+        - name: NLTK_DATA
+          value: /root
+  postCommit: {}
+  source:
+    type: Dockerfile
+    dockerfile: >-
+      FROM python:3.7
+
+      WORKDIR /usr/src
+
+      RUN pip install tokenizers==0.7 transformers==2.10.0 \
+          torch==1.5.0 flask==1.1.2 pandas==1.1.1 \
+          tensorflow==2.3.0 xlrd==1.2.0 numpy==1.18\
+          spacy==2.3.2 spacy-wordnet==0.0.4 \
+          sklearn==0.0 pysolr==3.9.0 strsim==0.0.3 gunicorn==20.0.4 pytest python-dotenv==0.15.0 --no-cache-dir
+
+      RUN python -m nltk.downloader wordnet -d /root\
+          && python -m nltk.downloader omw -d /root && python -m spacy download en\
+          && python -m nltk.downloader punkt -d /root && python -m nltk.downloader stopwords -d /root
+
+
+      ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
+
+
+      RUN git clone --branch Dialogflow_improvements\
+          --recursive https://github.com/eddiebarry/WHOA-FAQ-Answer-Project.git
+
+      WORKDIR
+      /usr/src/WHOA-FAQ-Answer-Project/WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights
+
+      RUN  wget -O query_expansion_weights.zip
+      https://s3-eu-west-1.amazonaws.com/model.weights.project.interakt/query_expansion_weights.zip
+      \
+          && unzip query_expansion_weights.zip \
+          && rm query_expansion_weights.zip
+
+      WORKDIR /usr/src/WHOA-FAQ-Answer-Project
+
+      RUN chown 1000680000 -R /root
+
+      RUN chmod 777 -R /root
+
+      # RUN python
+      /usr/src/WHOA-FAQ-Answer-Project/WHO-FAQ-Search-Engine/variation_generation/__init__.py
+
+      EXPOSE 5009
+
+
+      ENTRYPOINT [ "gunicorn", "--bind", "0.0.0.0:5009", "wsgi:app",
+      "--timeout", "600"]
+
+
+      # gunicorn --bind 0.0.0.0:5009 wsgi:app --timeout 600
+  triggers:
+    - type: GitHub
+      github:
+        secret: CGpuRhs-PTT0ROuzoM8N
+    - type: Generic
+      generic:
+        secret: xLdowopSYlG3xiXHabot
+    - type: ConfigChange
+    - type: ImageChange
+      imageChange:
+        lastTriggeredImageID: >-
+          python@sha256:cad2e47ce9f5266844285184b799fbae7634d3a469e4effbcadf1ae0aa6ece87
+  runPolicy: Serial
+status:
+  lastVersion: 13

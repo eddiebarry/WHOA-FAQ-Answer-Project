@@ -187,7 +187,7 @@ def answer_question():
             
                 what_to_say = {}
                 what_to_say["question_0_answer"]=\
-                    "##We currently do not have information about your query. We will update our bot with this information soon"
+                    "We currently do not have information about your query. We will update our bot with this information soon"
                 what_to_say["question_0_variation_0"]=\
                     "We will include this info in the upcoming releases"
         else:
