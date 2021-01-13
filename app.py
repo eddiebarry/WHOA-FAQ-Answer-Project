@@ -165,6 +165,7 @@ def answer_question():
     if "trigger_search" in request_json.keys():
         should_search = request_json["trigger_search"]
 
+    what_to_say = {}
     if should_search:
         print("searching index")
         query = None
@@ -185,13 +186,11 @@ def answer_question():
                 resp_json["show_direct_answer"]=True 
                 resp_json["ask_more_question"]=False
             
-                what_to_say = {}
                 what_to_say["question_0_answer"]=\
                     "We currently do not have information about your query. We will update our bot with this information soon"
                 what_to_say["question_0_variation_0"]=\
                     "We will include this info in the upcoming releases"
         else:
-            what_to_say = {}
             for idx, doc in enumerate(hits[:5]):
                 question_and_variation = doc[1].split(" ||| ")
                 for var_idx, question_var in enumerate(question_and_variation[:3]):
