@@ -4,7 +4,7 @@ load_dotenv()
 
 urls = [
     os.getenv("BOTPRESS_ENDPOINT"),
-    os.getenv("BOTPRESS_STAGING_ENDPOINT"),
+    # os.getenv("BOTPRESS_STAGING_ENDPOINT"),
 ]
 
 conversations = [
@@ -47,6 +47,18 @@ conversations = [
         ("I am lost","For whom is this question"),
         ("save me !!!","Is there any additional information you"),
         ("none","Hi, I need to get a copy of my child record of immunization I hope the response answers your questions"),
+        ("No","Would you like to ask another question"),
+        ("No","I hope i was helpful"),
+    ],
+    [
+        ("Hi", "may i know your name"),
+        ("emma", "emma nice to meet you how can i help you today"),
+        ("Ask Vaccine Questions","please type your vaccination related question"),
+        ("I need directions to lisbon","What topic is this most related to ?"),
+        ("none", "What vaccine are you talking about ?"),
+        ("none","For whom is this question"),
+        ("none","Is there any additional information you"),
+        ("none","We currently do not have information about your query. We will update our bot"),
         ("No","Would you like to ask another question"),
         ("No","I hope i was helpful"),
     ],
