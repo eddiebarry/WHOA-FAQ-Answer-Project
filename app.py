@@ -204,7 +204,7 @@ def answer_question():
                 answer_title = "question_"+str(idx)+"_answer"
                 sim_score = app.config['sim'].distance(question_and_variation[0],app.config['ID_QUERY_DICT'][unique_id])
                 
-                if sim_score<0.25:
+                if sim_score<0.35:
                     print("similar enough")
                     resp_json["show_direct_answer"] = True
                     resp_json["ask_more_question"]=False
