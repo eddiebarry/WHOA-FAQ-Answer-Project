@@ -62,6 +62,31 @@ conversations = [
         ("No","Would you like to ask another question"),
         ("No","I hope i was helpful"),
     ],
+    # Testing the name functionality
+    [
+        ("Hi", "may i know your name"),
+        ("i am bernardo", "Okay bernardo nice to meet you"),
+    ],
+    [
+        ("Hi", "may i know your name"),
+        ("i am called bernardo", "Okay bernardo nice to meet you"),
+    ],
+    [
+        ("Hi", "may i know your name"),
+        ("my name is bernardo", "Okay bernardo nice to meet you"),
+    ],
+    [
+        ("Hi", "may i know your name"),
+        ("Hi, my name is bernardo", "Okay bernardo nice to meet you"),
+    ],
+    [
+        ("Hi", "may i know your name"),
+        ("hi my name is bernardo", "Okay bernardo nice to meet you"),
+    ],
+    [
+        ("Hi", "may i know your name"),
+        ("bernardo", "Okay bernardo nice to meet you"),
+    ],
 ]
 
 def test_conversation():
