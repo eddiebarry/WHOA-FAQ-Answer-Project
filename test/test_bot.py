@@ -50,6 +50,7 @@ conversations = [
         ("No","Would you like to ask another question"),
         ("No","I hope i was helpful"),
     ],
+    # Testing of no idea about this functionality
     [
         ("Hi", "may i know your name"),
         ("emma", "emma nice to meet you how can i help you today"),
