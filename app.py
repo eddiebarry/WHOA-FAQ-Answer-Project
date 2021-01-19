@@ -113,6 +113,8 @@ def answer_question():
     """
 
     request_json = json.loads(request.data, strict=False)
+
+    # pdb.set_trace()
     if 'query' not in request_json.keys():
         return jsonify({"message":"request does not contain query"})
     
