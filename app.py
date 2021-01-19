@@ -48,15 +48,13 @@ SEARCH_ENGINE = SolrSearchEngine(
 )
 
 extractor_json_path = \
-    "./accuracy_tests/unique_keywords.json"
-f = open(extractor_json_path,)
-jsonObj = json.load(f)
-KEYWORD_EXTRACTOR = KeywordExtract(jsonObj)
+    "./accuracy_tests/unique_keywords"
+KEYWORD_EXTRACTOR = KeywordExtract(extractor_json_path)
 
 ID_KEYWORD_DICT = defaultdict(dict)
 ID_QUERY_DICT = defaultdict(str)
 
-qa_config_path = "./accuracy_tests/question_asker_config.json"
+qa_config_path = "./accuracy_tests/question_asker_config"
 use_question_predicter_config = [
         False, #Use question predictor
         "./WHO-FAQ-Dialog-Manager/qna/models.txt", #models path
@@ -98,13 +96,16 @@ def answer_question():
     Expects a api call of the form : 
     {
             query : String,
-            user_id : String
+            user_id : String,
+            project_id : String
     }
     
     query : String
         The string from which we need to extract keywords and use for QA
     user_id : String
         A unique identifier assigned by the system
+    project_id : String
+        A unique identifier of the project of interest
 
     Outputs
     -------
@@ -120,6 +121,9 @@ def answer_question():
     
     if 'user_id' not in request_json.keys():
         return jsonify({"message":"request does not contain user id"})
+
+    if 'project_id' not in request_json.keys():
+        return jsonify({"message":"request does not contain project id"})
     
     query_string = sanitize_query(request_json['query'])
 
@@ -144,7 +148,8 @@ def answer_question():
     boosting_tokens = app.config['KEYWORD_EXTRACTOR'].parse_regex_query(
             app.config['SEARCH_ENGINE'].synonym_expander.expand_sentence(
                 query_string.lower()
-            )
+            ),
+            project_id=project_id
         )
 
     all_token_keys = set(boosting_tokens.keys())\
@@ -164,7 +169,8 @@ def answer_question():
     should_search, resp_json = app.config['QUESTION_ASKER'].process(
         unique_id, 
         app.config['ID_KEYWORD_DICT'][unique_id], 
-        app.config['ID_QUERY_DICT'][unique_id].lower()
+        user_input=app.config['ID_QUERY_DICT'][unique_id].lower(),
+        project_id=project_id
     )
 
     resp_json["show_direct_answer"] = False
@@ -182,7 +188,7 @@ def answer_question():
             "OR_QUERY", field="question", boost_val=2.0)
             
         hits = app.config['SEARCH_ENGINE'].search(query, 
-            project_id=UPDATE_ENGINE.qa_keyword_manager.latest_project_id,
+            project_id=project_id, #UPDATE_ENGINE.qa_keyword_manager.latest_project_id,
             version_id=UPDATE_ENGINE.qa_keyword_manager.latest_version_id,
             query_string=app.config['ID_QUERY_DICT'][unique_id],
             query_field="question*", top_n=50)
@@ -579,4 +585,4 @@ def init_data():
 
 @app.route('/')
 def hello_world():
-    return 'Hello, World! The service is up for serving qna to the bot :-('
+    return 'Hello, World! The service is up for serving qna to the bot :-)'
