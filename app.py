@@ -63,7 +63,7 @@ use_question_predicter_config = [
         "./WHO-FAQ-Dialog-Manager/qna/vectoriser.txt" #tokeniser path
     ]
 QUESTION_ASKER = QuestionAsker(
-    qa_config_path=qa_config_path,
+    config_path=qa_config_path,
     show_options=True,
     qa_keyword_path=extractor_json_path,
     use_question_predicter_config=use_question_predicter_config
