@@ -49,7 +49,9 @@ SEARCH_ENGINE = SolrSearchEngine(
 
 extractor_json_path = \
     "./accuracy_tests/unique_keywords"
-KEYWORD_EXTRACTOR = KeywordExtract(extractor_json_path)
+KEYWORD_EXTRACTOR = KeywordExtract(
+    config_path=extractor_json_path
+)
 
 ID_KEYWORD_DICT = defaultdict(dict)
 ID_QUERY_DICT = defaultdict(str)
@@ -60,9 +62,12 @@ use_question_predicter_config = [
         "./WHO-FAQ-Dialog-Manager/qna/models.txt", #models path
         "./WHO-FAQ-Dialog-Manager/qna/vectoriser.txt" #tokeniser path
     ]
-QUESTION_ASKER = QuestionAsker(qa_config_path, show_options=True, \
-    qa_keyword_path = extractor_json_path,
-    use_question_predicter_config=use_question_predicter_config)
+QUESTION_ASKER = QuestionAsker(
+    qa_config_path=qa_config_path,
+    show_options=True,
+    qa_keyword_path=extractor_json_path,
+    use_question_predicter_config=use_question_predicter_config
+)
 
 # Setting up the update engine
 qa_keyword_manager = QAKeywordManager(
@@ -96,8 +101,9 @@ def answer_question():
     Expects a api call of the form : 
     {
             query : String,
-            user_id : String
-            project_id : String (Optional)
+            user_id : String,
+            project_id : String (Optional),
+            version_id : String (Optional)
     }
     
     query : String
@@ -123,7 +129,16 @@ def answer_question():
         return jsonify({"message":"request does not contain user id"})
 
     if 'project_id' not in request_json.keys():
-        return jsonify({"message":"request does not contain project id"})
+        project_id = None  # TODO: make it mandatory:
+        # return jsonify({"message":"request does not contain project id"})
+    else:
+        project_id = request_json['project_id']
+
+    if 'version_id' not in request_json.keys():
+        version_id = None # TODO: make it mandatory:
+        # return jsonify({"message":"request does not contain version id"})
+    else:
+        version_id = request_json['version_id']
     
     query_string = sanitize_query(request_json['query'])
 
@@ -146,10 +161,11 @@ def answer_question():
 
     # Extract keywords on the basis of the user input and combine
     boosting_tokens = app.config['KEYWORD_EXTRACTOR'].parse_regex_query(
-            app.config['SEARCH_ENGINE'].synonym_expander.expand_sentence(
+            query=app.config['SEARCH_ENGINE'].synonym_expander.expand_sentence(
                 query_string.lower()
             ),
-            project_id=project_id
+            project_id=project_id,
+            version_id=version_id
         )
 
     all_token_keys = set(boosting_tokens.keys())\
@@ -167,10 +183,11 @@ def answer_question():
 
     # Identify wether more questions need to be asked or not
     should_search, resp_json = app.config['QUESTION_ASKER'].process(
-        unique_id, 
-        app.config['ID_KEYWORD_DICT'][unique_id], 
+        user_id=unique_id, 
+        keywords=app.config['ID_KEYWORD_DICT'][unique_id], 
         user_input=app.config['ID_QUERY_DICT'][unique_id].lower(),
-        project_id=project_id
+        project_id=project_id,
+        version_id=version_id
     )
 
     resp_json["show_direct_answer"] = False
@@ -187,11 +204,16 @@ def answer_question():
             app.config['ID_KEYWORD_DICT'][unique_id],
             "OR_QUERY", field="question", boost_val=2.0)
             
-        hits = app.config['SEARCH_ENGINE'].search(query, 
-            project_id=project_id, #UPDATE_ENGINE.qa_keyword_manager.latest_project_id,
-            version_id=UPDATE_ENGINE.qa_keyword_manager.latest_version_id,
+        hits = app.config['SEARCH_ENGINE'].search(
+            query=query, 
+            project_id=(project_id if (project_id != None) else \
+                UPDATE_ENGINE.qa_keyword_manager.latest_project_id), # TODO: make project_id mandatory, never == None
+            version_id=(version_id if (version_id != None) else \
+                UPDATE_ENGINE.qa_keyword_manager.latest_version_id), # TODO: make version_id mandatory, never == None
             query_string=app.config['ID_QUERY_DICT'][unique_id],
-            query_field="question*", top_n=50)
+            query_field="question*",
+            top_n=50
+        )
 
         if hits == "Not present":
             print("Not present")
