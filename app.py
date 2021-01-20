@@ -370,6 +370,18 @@ def return_batch_keyword():
         
         if 'answer' not in qa_pair.keys():
             return jsonify({"message":"a qa pair does not have an answer"})
+
+    if 'project_id' not in request_json.keys():
+        project_id = None  # TODO: make it mandatory:
+        # return jsonify({"message":"request does not contain project id"})
+    else:
+        project_id = request_json['project_id']
+
+    if 'version_id' not in request_json.keys():
+        version_id = None # TODO: make it mandatory:
+        # return jsonify({"message":"request does not contain version id"})
+    else:
+        version_id = request_json['version_id']
         
         # If first time being sent, calculate a unique id
         query_string = qa_pair['question'].replace("?","") \
@@ -382,7 +394,11 @@ def return_batch_keyword():
         query_string = query_string +" " + " ".join(x for x in synonyms)
 
         # Extract keywords on the basis of the user input
-        boosting_tokens = app.config['KEYWORD_EXTRACTOR'].parse_regex_query(query_string)
+        boosting_tokens = app.config['KEYWORD_EXTRACTOR'].parse_regex_query(
+            query=query_string,
+            project_id=project_id,
+            version_id=version_id
+        )
 
         if 'id' not in qa_pair.keys():
             return jsonify({"message":"a qa pair does not have an id"})
@@ -493,8 +509,11 @@ def index_json_array():
     
     # TODO : check question list format
     keyword_dir = request_json['keyword_directory']
-    app.config['KEYWORD_EXTRACTOR'].config = keyword_dir
-    app.config['KEYWORD_EXTRACTOR'].dict = app.config['KEYWORD_EXTRACTOR'].parse_config(keyword_dir)
+    app.config['KEYWORD_EXTRACTOR'].parse_config(
+        config=keyword_dir,
+        project_id=project_id,
+        version_id=version_id
+    )
 
     data_hash_string = project_id + version_id
     data_hash_id = hashlib.sha512(data_hash_string.encode())\
@@ -593,8 +612,11 @@ def init_data():
     
     # TODO : check question list format
     keyword_dir = request_json['keyword_directory']
-    app.config['KEYWORD_EXTRACTOR'].config = keyword_dir
-    app.config['KEYWORD_EXTRACTOR'].dict = app.config['KEYWORD_EXTRACTOR'].parse_config(keyword_dir)
+    app.config['KEYWORD_EXTRACTOR'].parse_config(
+        config=keyword_dir,
+        project_id=project_id,
+        version_id=version_id
+    )
 
     data_hash_string = project_id + version_id
     data_hash_id = hashlib.sha512(data_hash_string.encode())\
