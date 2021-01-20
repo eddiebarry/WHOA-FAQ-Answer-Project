@@ -99,6 +99,7 @@ def answer_question():
     {
             query : String,
             user_id : String
+            project_id : String (Optional)
     }
     
     query : String

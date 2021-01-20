@@ -35,85 +35,110 @@ def test_batch_keyword_extract():
         ]
     }
     batch_keyword_response ={
-    "questions_keywords_list": [
-        {
-            "id": "1",
-            "keywords": {
-                "disease_1": [
-                    "measles"
-                ],
-                "disease_2": [
-                    "measles"
-                ],
-                "other_conditions_or_symptoms_etc": [
-                    "sick",
-                    "child",
-                    "baby"
-                ],
-                "subject_2_vaccination_general": [
-                    "travel"
-                ],
-                "subject_person": [
-                    "baby",
-                    "child"
-                ],
-                "vaccine_1": [
-                    "measles"
-                ],
-                "vaccine_2": [
-                    "measles"
-                ],
-                "who_is_writing_this": [
-                    "child"
-                ]
-            }
-        },
-        {
-            "id": "2",
-            "keywords": {
-                "disease_1": [
-                    "rubella"
-                ],
-                "disease_2": [
-                    "rubella"
-                ],
-                "other_conditions_or_symptoms_etc": [
-                    "sick",
-                    "child",
-                    "baby"
-                ],
-                "subject_2_vaccination_general": [
-                    "travel"
-                ],
-                "subject_person": [
-                    "baby",
-                    "child"
-                ],
-                "vaccine_1": [
-                    "rubella"
-                ],
-                "vaccine_2": [
-                    "rubella"
-                ],
-                "who_is_writing_this": [
-                    "child"
-                ]
-            }
-        },
-        {
-            "id": "3",
-            "keywords": {
+        "questions_keywords_list": [
+            {
+                "id": "1",
+                "keywords": {
+                    "disease_1": [
+                        "measles"
+                    ],
+                    "disease_2": [
+                        "measles"
+                    ],
                     "other_conditions_or_symptoms_etc": [
                         "sick",
                         "child",
                         "baby"
                     ],
+                    "subject_1_immunization": [
+                        "vaccination",
+                        "immunization"
+                    ],
                     "subject_2_vaccination_general": [
+                        "vaccination",
                         "travel"
                     ],
                     "subject_person": [
                         "baby",
-                        "child"
+                        "child",
+                        "daughter",
+                        "son"
+                    ],
+                    "vaccine_1": [
+                        "measles"
+                    ],
+                    "vaccine_2": [
+                        "measles"
+                    ],
+                    "who_is_writing_this": [
+                        "child",
+                        "son",
+                        "daughter"
+                    ]
+                }
+            },
+            {
+                "id": "2",
+                "keywords": {
+                    "disease_1": [
+                        "rubella"
+                    ],
+                    "disease_2": [
+                        "rubella"
+                    ],
+                    "other_conditions_or_symptoms_etc": [
+                        "sick",
+                        "child",
+                        "baby"
+                    ],
+                    "subject_1_immunization": [
+                        "vaccination",
+                        "immunization"
+                    ],
+                    "subject_2_vaccination_general": [
+                        "vaccination",
+                        "travel"
+                    ],
+                    "subject_person": [
+                        "baby",
+                        "child",
+                        "daughter",
+                        "son"
+                    ],
+                    "vaccine_1": [
+                        "rubella"
+                    ],
+                    "vaccine_2": [
+                        "rubella"
+                    ],
+                    "who_is_writing_this": [
+                        "child",
+                        "son",
+                        "daughter"
+                    ]
+                }
+            },
+            {
+                "id": "3",
+                "keywords": {
+                    "other_conditions_or_symptoms_etc": [
+                        "sick",
+                        "child",
+                        "baby"
+                    ],
+                    "subject_1_immunization": [
+                        "vaccination",
+                        "immunization"
+                    ],
+                    "subject_2_vaccination_general": [
+                        "vaccination",
+                        "travel"
+                    ],
+                    "subject_person": [
+                        "baby",
+                        "child",
+                        "daughter",
+                        "son"
                     ],
                     "vaccine_1": [
                         "polio"
@@ -122,7 +147,9 @@ def test_batch_keyword_extract():
                         "polio"
                     ],
                     "who_is_writing_this": [
-                        "child"
+                        "child",
+                        "son",
+                        "daughter"
                     ]
                 }
             }
@@ -134,6 +161,7 @@ def test_batch_keyword_extract():
         r = requests.post(base_url,
             data=json.dumps(batch_keyword_input))
         data = r.json()
+                
         assert data == batch_keyword_response, \
             "Keyword extract failed for " + url
 
