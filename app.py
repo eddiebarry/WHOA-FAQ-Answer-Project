@@ -96,8 +96,8 @@ def answer_question():
     Expects a api call of the form : 
     {
             query : String,
-            user_id : String,
-            project_id : String
+            user_id : String
+            project_id : String (Optional)
     }
     
     query : String

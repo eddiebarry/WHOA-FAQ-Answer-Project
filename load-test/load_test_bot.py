@@ -1,11 +1,7 @@
 import time
 from locust import HttpUser, task, between
 import requests, pdb, os, json, random
-from dotenv import load_dotenv
-load_dotenv()
 
-
-url = os.getenv("BOTPRESS_ENDPOINT"),
     
 conversations = [
     [

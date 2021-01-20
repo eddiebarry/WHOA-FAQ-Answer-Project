@@ -3,18 +3,7 @@ from locust import HttpUser, TaskSet, task, between, events
 
 
 import sys, os, json, requests, hashlib, re
-import pysolr
 import pdb
-
-sys.path.append('WHO-FAQ-Search-Engine')
-
-from solr_search import SolrSearchEngine
-from rerank.rerank_config import RE_RANK_ENDPOINT
-from variation_generation.variation_generator import VariationGenerator
-
-# Importing constants
-from dotenv import load_dotenv
-load_dotenv()
 
 
 inp = [
@@ -46,16 +35,3 @@ class SearchEngineUser(HttpUser):
         else:
             x['user_id']=past_id
             resp = self.client.get('/api/v2/qna', data=json.dumps(x)).json()
-
-
-
-# for x in inp:
-#     if x['user_id'] == '-1':
-#         pdb.set_trace()
-#         resp = requests.get('http://orchestrator-route-project-interakt-staging.apps.prod.lxp.academy.who.int/api/v2/qna',x)
-#         past_id = resp['user_id']
-#     else:
-#         x['user_id']=past_id
-#         resp = self.client.get('http://orchestrator-route-project-interakt-staging.apps.prod.lxp.academy.who.int/api/v2/qna', data=x).json()
-
-#     print(resp)
