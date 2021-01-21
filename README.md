@@ -105,3 +105,13 @@ build_name=orchestrator-container
 cat Dockerfile | oc new-build --name $build_name --dockerfile='-'
 oc start-build bc/$build_name  --follow
 ```
+
+
+### Build botpresss bot
+```
+docker pull quay.io/whoacademy/botpress-qna-bot
+docker run -p 3000:3000 -it --name botpress_project quay.io/whoacademy/botpress-qna-bot /bin/bash
+<!-- make changes to bot -->
+docker commit botpress_project quay.io/whoacademy/image_repo_name
+docker push quay.io/whoacademy/image_repo_name
+```
