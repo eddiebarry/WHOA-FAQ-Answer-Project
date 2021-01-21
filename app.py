@@ -362,15 +362,6 @@ def return_batch_keyword():
     if 'question_answer_list' not in request_json.keys():
         return jsonify({"message":"request does not contain a question answer list"})
 
-    for qa_pair in request_json['question_answer_list']:
-        temp_keyword_dict = {}
-
-        if 'question' not in qa_pair.keys():
-            return jsonify({"message":"a qa pair does not have a question"})
-        
-        if 'answer' not in qa_pair.keys():
-            return jsonify({"message":"a qa pair does not have an answer"})
-
     if 'project_id' not in request_json.keys():
         project_id = None  # TODO: make it mandatory:
         # return jsonify({"message":"request does not contain project id"})
@@ -382,6 +373,15 @@ def return_batch_keyword():
         # return jsonify({"message":"request does not contain version id"})
     else:
         version_id = request_json['version_id']
+
+    for qa_pair in request_json['question_answer_list']:
+        temp_keyword_dict = {}
+
+        if 'question' not in qa_pair.keys():
+            return jsonify({"message":"a qa pair does not have a question"})
+        
+        if 'answer' not in qa_pair.keys():
+            return jsonify({"message":"a qa pair does not have an answer"})
         
         # If first time being sent, calculate a unique id
         query_string = qa_pair['question'].replace("?","") \
