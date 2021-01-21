@@ -2,7 +2,8 @@ import time
 from locust import HttpUser, task, between
 import requests, pdb, os, json, random
 
-    
+# host=https://botpress-chitchat-project-interakt-staging.apps.prod.lxp.academy.who.int
+
 conversations = [
     [
         ("Hi","may i know your name"),

@@ -5,6 +5,7 @@ from locust import HttpUser, TaskSet, task, between, events
 import sys, os, json, requests, hashlib, re
 import pdb
 
+# host=http://orchestrator-route-project-interakt-staging.apps.prod.lxp.academy.who.int
 
 inp = [
     {'query': 'can my daughter get immunised if she has a cold ?', 'user_id': '-1', 'trigger_search': True},
@@ -25,7 +26,7 @@ class SearchEngineUser(HttpUser):
 
     @task
     def index(self):
-        # host = http://orchestrator-route-project-interakt-staging.apps.prod.lxp.academy.who.int
+        
         past_id = '-1'
         x = inp_gen.__next__()
         if x['user_id'] == '-1':
