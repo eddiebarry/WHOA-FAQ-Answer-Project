@@ -29,6 +29,10 @@ from data.helpers import populate_1500_questions
 
 
 # SETUP
+
+DEFAULT_PROJECT_ID = '999'
+DEFAULT_VERSION_ID = '0'
+
 SEARCH_ENGINE = SolrSearchEngine(
     rerank_endpoint=RE_RANK_ENDPOINT+"/api/v1/reranking",
     variation_generator_config=[
@@ -48,7 +52,7 @@ SEARCH_ENGINE = SolrSearchEngine(
 )
 
 extractor_json_path = \
-    "./accuracy_tests/unique_keywords"
+    "./data/unique_keywords"
 KEYWORD_EXTRACTOR = KeywordExtract(
     config_path=extractor_json_path
 )
@@ -56,7 +60,7 @@ KEYWORD_EXTRACTOR = KeywordExtract(
 ID_KEYWORD_DICT = defaultdict(dict)
 ID_QUERY_DICT = defaultdict(str)
 
-qa_config_path = "./accuracy_tests/question_asker_config"
+qa_config_path = "./data/question_asker_config"
 use_question_predicter_config = [
         False, #Use question predictor
         "./WHO-FAQ-Dialog-Manager/qna/models.txt", #models path
@@ -129,13 +133,13 @@ def answer_question():
         return jsonify({"message":"request does not contain user id"})
 
     if 'project_id' not in request_json.keys():
-        project_id = None  # TODO: make it mandatory:
+        project_id = DEFAULT_PROJECT_ID  # TODO: make it mandatory:
         # return jsonify({"message":"request does not contain project id"})
     else:
         project_id = request_json['project_id']
 
     if 'version_id' not in request_json.keys():
-        version_id = None # TODO: make it mandatory:
+        version_id = DEFAULT_VERSION_ID # TODO: make it mandatory:
         # return jsonify({"message":"request does not contain version id"})
     else:
         version_id = request_json['version_id']
@@ -206,10 +210,8 @@ def answer_question():
             
         hits = app.config['SEARCH_ENGINE'].search(
             query=query, 
-            project_id=(project_id if (project_id != None) else \
-                UPDATE_ENGINE.qa_keyword_manager.latest_project_id), # TODO: make project_id mandatory, never == None
-            version_id=(version_id if (version_id != None) else \
-                UPDATE_ENGINE.qa_keyword_manager.latest_version_id), # TODO: make version_id mandatory, never == None
+            project_id=project_id,
+            version_id=version_id,
             query_string=app.config['ID_QUERY_DICT'][unique_id],
             query_field="question*",
             top_n=50
@@ -363,13 +365,13 @@ def return_batch_keyword():
         return jsonify({"message":"request does not contain a question answer list"})
 
     if 'project_id' not in request_json.keys():
-        project_id = None  # TODO: make it mandatory:
+        project_id = DEFAULT_PROJECT_ID  # TODO: make it mandatory:
         # return jsonify({"message":"request does not contain project id"})
     else:
         project_id = request_json['project_id']
 
     if 'version_id' not in request_json.keys():
-        version_id = None # TODO: make it mandatory:
+        version_id = DEFAULT_VERSION_ID # TODO: make it mandatory:
         # return jsonify({"message":"request does not contain version id"})
     else:
         version_id = request_json['version_id']
