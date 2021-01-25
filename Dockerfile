@@ -16,7 +16,7 @@ RUN python -m nltk.downloader wordnet -d /root\
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 
 
-RUN git clone --branch Dialogflow_improvements\
+RUN git clone --branch feature/redis\
     --recursive https://github.com/eddiebarry/WHOA-FAQ-Answer-Project.git
 
 WORKDIR
