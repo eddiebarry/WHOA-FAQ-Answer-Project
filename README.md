@@ -115,3 +115,11 @@ docker run -p 3000:3000 -it --name botpress_project quay.io/whoacademy/botpress-
 docker commit botpress_project quay.io/whoacademy/image_repo_name
 docker push quay.io/whoacademy/image_repo_name
 ```
+
+### Setup redis server
+#make sure you have base image available
+oc create -f https://raw.githubusercontent.com/mjudeikis/redis-openshift/master/openshift/is-base.yaml -n openshift
+#create all components
+oc create -f https://raw.githubusercontent.com/mjudeikis/redis-openshift/master/list.yaml
+#start build and watch 
+oc start-build redis-build
