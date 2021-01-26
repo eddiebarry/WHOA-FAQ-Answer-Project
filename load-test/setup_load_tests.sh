@@ -30,7 +30,7 @@ for filename in ./*.py; do
     sed -i '' "s/${oldname}/${onlynameslave}/g" $newnameslave
     
     oldname='LOCUST_SERVICE_HOST'
-    hostAppend="_service_host"
+    hostAppend="_PORT_8089_TCP_ADDR"
     newHost="$onlynamemaster$hostAppend"
     newHost=${newHost/'-'/'_'}
     newHost=${newHost/'-'/'_'}
