@@ -33,7 +33,7 @@ if __name__ == '__main__':
     search_engine = SearchEngine(indexDir)
 
     extractor_json_path = \
-        "../WHO-FAQ-Keyword-Engine/keyword_config/curated_keywords_1500.json"
+        "../data/unique_keywords/999_0_unique_keywords.json"
     f = open(extractor_json_path,)
     jsonObj = json.load(f)
     keyword_extractor= KeywordExtract(jsonObj)
