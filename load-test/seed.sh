@@ -8,8 +8,8 @@ if [[ -z "$1" && -z "$2" && -z "$3" && -z "$4" ]]
 then
   read -p 'File to run: ' testFile
   read -p 'Host to attack: ' hostName
-  read -p 'File to run: ' dcmastername
-  read -p 'Host to attack: ' dcslavename
+  read -p 'Name of master service: ' dcmastername
+  read -p 'Host to worker service: ' dcslavename
 else
   testFile=$1
   hostName=$2
