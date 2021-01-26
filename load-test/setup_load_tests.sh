@@ -1,47 +1,65 @@
 #!/bin/bash
-for filename in ./*.py; do
+for fileName in ./*.py; do
     # extract host
-    temphost=$(grep '# host' $filename)
-    temphost=${temphost/'# host='/''}
-    onlyname=${filename/'.py'/''}
-    onlyname=${onlyname:2}
-    onlyname=${onlyname/'_'/'-'}
-    onlyname=${onlyname/'_'/'-'}
-    echo $onlyname
+    tempHost=$(grep '# host' $fileName)
+    tempHost=${tempHost/'# host='/''}
+    onlyName=${fileName/'.py'/''}
+    onlyName=${onlyName:2}
+    onlyName=${onlyName/'_'/'-'}
+    onlyName=${onlyName/'_'/'-'}
+    echo $onlyName
 
     # create copies of master deployment
-    tempfilename='master-deployment-_.yaml'
-    newname=${tempfilename/'_'/$onlyname}
-    cp ./master-deployment.yaml $newname
-    # echo $onlyname
+    tempfileName='master-deployment-_.yaml'
+    newName=${tempfileName/'_'/$onlyName}
+    cp ./master-deployment.yaml $newName
+    # echo $onlyName
     master="-master"
     slave="-slave"
-    onlynamemaster="$onlyname$master"
-    onlynameslave="$onlyname$slave"
-    oldname='service_name'
-    sed -i '' "s/${oldname}/${onlynamemaster}/g" $newname
-
+    onlyNamemaster="$onlyName$master"
+    onlyNameslave="$onlyName$slave"
+    oldName='service_name'
+    sed -i '' "s/${oldName}/${onlyNamemaster}/g" $newName
+    
+    oldName='script-file'
+    scriptName="$oldName-$onlyName"
+    sed -i '' "s/${oldName}/${scriptName}/g" $newName
+    
+    oldName='host-url'
+    hostUrlName="$oldName-$onlyName"
+    sed -i '' "s/${oldName}/${hostUrlName}/g" $newName
 
     # create copies of slave deployment
-    tempfilename='slave-deployment-_.yaml'
-    newnameslave=${tempfilename/'_'/$onlyname}
-    cp ./slave-deployment.yaml $newnameslave
-    oldname='service_name'
-    sed -i '' "s/${oldname}/${onlynameslave}/g" $newnameslave
-    
-    oldname='LOCUST_SERVICE_HOST'
-    hostAppend="_service_host"
-    newHost="$onlynamemaster$hostAppend"
+    tempfileName='slave-deployment-_.yaml'
+    newNameSlave=${tempfileName/'_'/$onlyName}
+    cp ./slave-deployment.yaml $newNameSlave
+    oldName='service_name'
+    sed -i '' "s/${oldName}/${onlyNameslave}/g" $newNameSlave
+
+    oldName='LOCUST_SERVICE_HOST'
+    hostAppend="_PORT_8089_TCP_ADDR"
+    newHost="$onlyNamemaster$hostAppend"
     newHost=${newHost/'-'/'_'}
     newHost=${newHost/'-'/'_'}
     newHost=${newHost/'-'/'_'}
     newHost=`echo "${newHost}" | tr '[a-z]' '[A-Z]'`
-    sed -i '' "s/${oldname}/${newHost}/g" $newnameslave
+    sed -i '' "s/${oldName}/${newHost}/g" $newNameSlave
     
-    oc process -f $newname | oc create -f -
-    oc process -f $newnameslave | oc create -f -
-    sh ./seed.sh $filename $temphost $onlynamemaster $onlynameslave
+    oldName='script-file'
+    scriptName="$oldName-$onlyName"
+    sed -i '' "s/${oldName}/${scriptName}/g" $newNameSlave
+    
+    oldName='host-url'
+    sed -i '' "s/${oldName}/${hostUrlName}/g" $newNameSlave
+    
+    # first create config variables
+    sh ./seed.sh $fileName $tempHost $onlyNamemaster $onlyNameslave $scriptName $hostUrlName
+    
+    # create deployments which consume the configs
+    oc process -f $newName | oc create -f -
+    oc process -f $newNameSlave | oc create -f -
+    
 
     # cleanup
-    rm $newname $newnameslave
+    rm $newName $newNameSlave
 done

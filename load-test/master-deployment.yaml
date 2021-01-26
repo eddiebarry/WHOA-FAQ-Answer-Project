@@ -54,8 +54,8 @@ objects:
           - name: service_name
             image: ${LOCUST_IMAGE}
             env:
-              - name: CONFIG_HASH
-                value: TO_BE_CHANGED
+              # - name: CONFIG_HASH
+              #   value: TO_BE_CHANGED
               - name: ATTACKED_HOST
                 valueFrom:
                   configMapKeyRef:
