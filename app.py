@@ -39,7 +39,7 @@ SEARCH_ENGINE = SolrSearchEngine(
         ["question"] #fields_to_expand
     ],
     synonym_config=[
-        True, #use_wordnet
+        False, #use_wordnet
         True, #use_syblist
         "./WHO-FAQ-Search-Engine/synonym_expansion/syn_test.txt" #synlist path
     ],
