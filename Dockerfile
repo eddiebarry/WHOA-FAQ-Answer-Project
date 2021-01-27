@@ -36,7 +36,7 @@ RUN chmod 777 -R /root
 EXPOSE 5009
 
 
-ENTRYPOINT [ "gunicorn", "--bind", "0.0.0.0:5009", "wsgi:app", "--timeout", "600"]
+ENTRYPOINT [ "gunicorn", "--bind", "0.0.0.0:5009", "wsgi:app", "--timeout", "600", '--workers=9']
 
 
 # gunicorn --bind 0.0.0.0:5009 wsgi:app --timeout 600
