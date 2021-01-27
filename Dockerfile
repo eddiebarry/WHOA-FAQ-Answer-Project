@@ -16,15 +16,12 @@ RUN python -m nltk.downloader wordnet -d /root\
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 
 
-RUN git clone --branch feature/redis\
+RUN git clone --branch feature/performance-profiling\
     --recursive https://github.com/eddiebarry/WHOA-FAQ-Answer-Project.git
 
-WORKDIR
-/usr/src/WHOA-FAQ-Answer-Project/WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights
+WORKDIR /usr/src/WHOA-FAQ-Answer-Project/WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights
 
-RUN  wget -O query_expansion_weights.zip
-https://s3-eu-west-1.amazonaws.com/model.weights.project.interakt/query_expansion_weights.zip
-\
+RUN  wget -O query_expansion_weights.zip https://s3-eu-west-1.amazonaws.com/model.weights.project.interakt/query_expansion_weights.zip \
     && unzip query_expansion_weights.zip \
     && rm query_expansion_weights.zip
 
@@ -39,8 +36,7 @@ RUN chmod 777 -R /root
 EXPOSE 5009
 
 
-ENTRYPOINT [ "gunicorn", "--bind", "0.0.0.0:5009", "wsgi:app",
-"--timeout", "600"]
+ENTRYPOINT [ "gunicorn", "--bind", "0.0.0.0:5009", "wsgi:app", "--timeout", "600"]
 
 
 # gunicorn --bind 0.0.0.0:5009 wsgi:app --timeout 600
