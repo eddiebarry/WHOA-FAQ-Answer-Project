@@ -175,7 +175,7 @@ def answer_question():
 
     what_to_say = {}
     if should_search:
-        print("searching index")
+        # print("searching index")
         query = None
         query, synonyms = app.config['SEARCH_ENGINE'].build_query(
             app.config['ID_QUERY_DICT'][unique_id],
@@ -189,7 +189,7 @@ def answer_question():
             query_field="question*", top_n=50)
 
         if hits == "Not present":
-            print("Not present")
+            # print("Not present")
             if not "trigger_search" in request_json.keys():
                 resp_json["show_direct_answer"]=True 
                 resp_json["ask_more_question"]=False
@@ -212,12 +212,12 @@ def answer_question():
                 sim_score = app.config['sim'].distance(question_and_variation[0],app.config['ID_QUERY_DICT'][unique_id])
                 
                 if sim_score<0.35:
-                    print("similar enough")
+                    # print("similar enough")
                     resp_json["show_direct_answer"] = True
                     resp_json["ask_more_question"]=False
                     what_to_say[answer_title] = question_and_variation[-1]
                 else:
-                    print("not similar",sim_score)
+                    # print("not similar",sim_score)
                     what_to_say[answer_title] = question_and_variation[-2]
 
     if resp_json["show_direct_answer"] or not resp_json["ask_more_question"]:
@@ -526,7 +526,7 @@ def add_formatting(question_list):
 
 @app.before_first_request
 def init_data():
-    print("calling init function")
+    # print("calling init function")
     #TODO : change to flask variable
     # global UPDATE_ENGINE
     # global KEYWORD_EXTRACTOR
