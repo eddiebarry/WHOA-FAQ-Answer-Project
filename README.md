@@ -3,7 +3,7 @@
 ### To install
 ```
 docker build -t faq_project_output_format_new_flow .
-docker run -p 5009:5009 --name faq_project_output_format_new_flow -i -t faq_project_output_format_new_flow
+docker run -e NLTK_DATA=/root -p 5009:5009 --name faq_project_output_format_new_flow -it faq_project_output_format_new_flow /bin/bash
 exit()
 ```
 
