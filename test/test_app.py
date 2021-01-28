@@ -155,7 +155,6 @@ def test_batch_keyword_extract():
             }
         ]
     }
-
     for url in urls:
         base_url = url  + "/api/v2/batch_keyword_extract"
         r = requests.post(base_url,
