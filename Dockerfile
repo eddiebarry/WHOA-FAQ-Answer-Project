@@ -40,3 +40,4 @@ ENTRYPOINT [ "gunicorn", "--bind", "0.0.0.0:5009", "wsgi:app", "--timeout", "600
 
 
 # gunicorn --bind 0.0.0.0:5009 wsgi:app --timeout 600
+# gunicorn server:app -k gevent --worker-connections 1000
