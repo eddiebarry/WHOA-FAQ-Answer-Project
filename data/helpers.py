@@ -51,7 +51,11 @@ def populate_1500_questions(project_id=999, version_id=0, \
             jsonObj['keywords']=keywords
             questions.append(jsonObj)
 
-    keyword_dir_path = "./accuracy_tests/unique_keywords.json"
+    keyword_dir_path = "./data/unique_keywords/"\
+        +str(project_id)\
+        +'_'+str(version_id)\
+        +"_unique_keywords.json"
+
     f = open(keyword_dir_path,)
     keyword_directory = json.load(f)
 
