@@ -8,7 +8,7 @@ load_dotenv()
 
 urls = [
     os.getenv("LOCAL_URL"),
-    os.getenv("REMOTE_URL"),
+    # os.getenv("REMOTE_URL"),
 ]
 
 """
