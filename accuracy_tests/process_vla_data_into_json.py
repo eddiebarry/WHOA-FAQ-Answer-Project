@@ -54,6 +54,32 @@ for x in os.listdir("./test_data/vla_data"):
                     json.dump(new_obj, json_file,\
                         indent = 4, sort_keys=True)
 
+            # create formatted data
+            for question in questions[key]:
+                new_obj = {}
+                question_statement = question[0]['value']
+
+                new_obj['question']=question_statement
+                new_obj['question_variation_0']=question_statement
+                new_obj['question_variation_1']=question_statement
+                new_obj['question_variation_2']=question_statement
+                new_obj['answer']=answer_dict[pk]
+                new_obj['answer_formatted']=answer_dict[pk]
+                new_obj['type']=key
+
+                json_file_name = hashlib.sha512(
+                        new_obj['question'].encode()
+                    ).hexdigest()
+
+                json_file_name = os.path.join(
+                        "./intermediate_results/vla_data_formatted",
+                        json_file_name+'.json'
+                    )
+                print("writing", json_file_name)
+                with open(json_file_name , 'w') as json_file:
+                    json.dump(new_obj, json_file,\
+                        indent = 4, sort_keys=True)
+
             
 
 # pdb.set_trace()

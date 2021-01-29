@@ -32,12 +32,13 @@ if __name__ == "__main__":
     newIndexStore = "./intermediate_results/vla_data_variations/"
     variation_generation_model_weights = "../WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights/model.ckpt-1004000"
     variation_generator = VariationGenerator(\
-        path=variation_generation_model_weights)
+        path=variation_generation_model_weights,
+        max_length=20)
 
     fields_to_expand = ["question"]
 
     for filename in sorted(os.listdir(indexDir)):
-        print(filename)
+        # print(filename)
         if not filename.endswith('.json'):
             continue
 
