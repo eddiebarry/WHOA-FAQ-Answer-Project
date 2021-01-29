@@ -40,4 +40,5 @@ ENTRYPOINT [ "gunicorn", "--bind", "0.0.0.0:5009", "wsgi:app", "--timeout", "600
 
 
 # gunicorn --bind 0.0.0.0:5009 wsgi:app --timeout 600 --workers=9
-# gunicorn --bind 0.0.0.0:5009 wsgi:app --timeout 100 --workers=9
+# local test
+# gunicorn --bind 0.0.0.0:5009 wsgi:app --timeout 100 
