@@ -1,0 +1,18 @@
+[
+    {
+        "pk": 0,
+        "text": "Please navigate to \"My Learning\" on the left sidebar to access this content."
+    },
+    {
+        "pk": 1,
+        "text": "Click on \"Discover courses\" on the top of the Dashboard to search for learning content."
+    },
+    {
+        "pk": 2,
+        "text": "Please click on your name on top of the left sidebar to edit your profile."
+    },
+    {
+        "pk": 3,
+        "text": "Your calendar will be available in the next release of the LXP."
+    }
+]
