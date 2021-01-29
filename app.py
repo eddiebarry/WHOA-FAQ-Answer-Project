@@ -572,63 +572,6 @@ def add_formatting(question_list):
                 print("failed in init")
     return question_list
 
-@app.before_first_request
-def init_data():
-    # print("calling init function")
-    #TODO : change to flask variable
-    # global UPDATE_ENGINE
-    # global KEYWORD_EXTRACTOR
-
-    request_json = populate_1500_questions(dir_ = "./accuracy_tests/intermediate_results/vsn_data_formatted")
-    requires = [
-            'project_id', 'version_id', 'question_list',
-            'keyword_directory'
-        ]
-    for x in requires:
-        if x not in request_json.keys():
-            return jsonify({"message":"given request does not have a "+x })
-
-    # Adding the files to the array
-    question_list = request_json['question_list']
-    project_id = request_json['project_id']
-    version_id = request_json['version_id']
-
-    if 'previous_versions' in request_json.keys():
-        version_number = len(request_json['previous_versions']) + 1.0
-        version_number = str(version_number)
-        previous_versions = request_json['previous_versions']
-    else:
-        version_number = "1.0"
-        previous_versions = []
-
-    if type(project_id) != str:
-        project_id = str(project_id)
-    if type(version_id) != str:
-        version_id = str(version_id)
-    if type(version_number) != str:
-        version_number = str(version_number)
-
-    # iterate over questions in question list
-    # format if necessary
-    question_list = add_formatting(question_list)
-    
-    # TODO : check question list format
-    keyword_dir = request_json['keyword_directory']
-    app.config['KEYWORD_EXTRACTOR'].parse_config(
-        config=keyword_dir,
-        project_id=project_id,
-        version_id=version_id
-    )
-
-    data_hash_string = project_id + version_id
-    data_hash_id = hashlib.sha512(data_hash_string.encode())\
-                        .hexdigest()
-    
-    project_info = [data_hash_id, project_id, version_id, \
-        version_number, previous_versions]
-    
-    UPDATE_ENGINE.add_questions(question_list, project_info)
-
 @app.route('/')
 def hello_world():
     return 'Hello, World! The service is up for serving qna to the bot :-)'
