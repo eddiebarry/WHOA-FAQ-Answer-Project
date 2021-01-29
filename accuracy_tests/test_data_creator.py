@@ -28,8 +28,8 @@ def get_json_obj_with_variations(jsonObj, \
     return new_json_obj
 
 if __name__ == "__main__":
-    indexDir = "./test_data/vsn_data"
-    newIndexStore = "./intermediate_results/vsn_data_variations/"
+    indexDir = "./intermediate_results/vla_data_no_variations/"
+    newIndexStore = "./intermediate_results/vla_data_variations/"
     variation_generation_model_weights = "../WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights/model.ckpt-1004000"
     variation_generator = VariationGenerator(\
         path=variation_generation_model_weights)
@@ -37,6 +37,7 @@ if __name__ == "__main__":
     fields_to_expand = ["question"]
 
     for filename in sorted(os.listdir(indexDir)):
+        print(filename)
         if not filename.endswith('.json'):
             continue
 

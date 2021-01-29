@@ -47,7 +47,7 @@ for x in os.listdir("./test_data/vla_data"):
 
                 json_file_name = os.path.join(
                         "./intermediate_results/vla_data_no_variations",
-                        json_file_name
+                        json_file_name+'.json'
                     )
                 print("writing", json_file_name)
                 with open(json_file_name , 'w') as json_file:
