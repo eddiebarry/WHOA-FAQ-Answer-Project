@@ -236,6 +236,31 @@ def test_qna():
                 if x['query']=='She is 6 years old':
                     assert resp['what_to_say']['question_0_variation_0']=='Is it possible to only get the measles vaccine without the mumps, rubella and varicella portion for a 6 year old? He has had very bad reactions to other vaccines.'
 
+
+"""
+Basic conversation test
+"""
+def test_advanced_qna():
+    inp = [
+        {'query': 'Could i check my calendar?', 'project_id':'1', 'version_id':'0', 'user_id': '-1', 'trigger_search': True},
+        {'query': 'agenda', 'project_id':'1', 'version_id':'0', 'user_id': '768930bf736e05cc1c5609a91d9a7bff33493011c2576b7696a4ff4b676b079968d369178ea55c52c9c2f23ff87ed10ba0923c5fb63583d76aa605d826c2306b'},
+        {'query': 'none', 'project_id':'1', 'version_id':'0', 'user_id': '768930bf736e05cc1c5609a91d9a7bff33493011c2576b7696a4ff4b676b079968d369178ea55c52c9c2f23ff87ed10ba0923c5fb63583d76aa605d826c2306b'},
+    ]
+    for url in urls:
+        past_id = '-1'
+        for x in inp:
+            base_url = url  + '/api/v2/qna'
+            if x['user_id'] == '-1':
+                resp = requests.get(base_url, data=json.dumps(x)).json()
+                past_id = resp['user_id']
+            else:
+                x['user_id']=past_id
+                resp = requests.get(base_url, data=json.dumps(x)).json()
+                if x['query']=='none':
+                    assert resp['what_to_say']['question_0_variation_0']=='Is it possible to check my agenda?'
+
+# test_advanced_qna()
+
 # def test_conversation():
 #     for url in urls:
 #         base_url= url + "/api/v2/qna"
