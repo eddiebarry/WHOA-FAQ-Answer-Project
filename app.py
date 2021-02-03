@@ -283,7 +283,7 @@ def answer_question():
         sys.stdout = f # Change the standard output to the file we created.
         print(unique_id," - ", "time : ", datetime.now().strftime("%H:%M:%S"),)
         print(unique_id," - ", "The user first said : ", request_json['first_text'])
-        print(unique_id," - ", "The bot said this turn : ", request_json['query'])
+        print(unique_id," - ", "The user said this turn : ", request_json['query'])
         print(unique_id," - ", resp_json)
         sys.stdout = original_stdout
 
