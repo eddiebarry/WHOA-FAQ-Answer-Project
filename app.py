@@ -1,5 +1,6 @@
 #TODO : FIX imports to follow pep8 sorted order
 import sys, os, json, pdb, requests, random
+from datetime import datetime
 from similarity.ngram import NGram
 import hashlib
 sys.path.append('WHO-FAQ-Keyword-Engine')
@@ -131,6 +132,9 @@ def answer_question():
     
     if 'user_id' not in request_json.keys():
         return jsonify({"message":"request does not contain user id"})
+    
+    if 'first_text' not in request_json.keys():
+        return jsonify({"message":"request does not contain first text"})
 
     if 'project_id' not in request_json.keys():
         project_id = DEFAULT_PROJECT_ID  # TODO: make it mandatory:
@@ -258,8 +262,8 @@ def answer_question():
         what_to_say["synonyms"] = syn_str
         resp_json["what_to_say"] = what_to_say
 
-        # Logging
-        original_stdout = sys.stdout 
+        # # Logging
+        # original_stdout = sys.stdout 
         # with open('./logs/log.txt', 'a') as f:
         #     sys.stdout = f # Change the standard output to the file we created.
         #     print('$'*80)
@@ -272,6 +276,19 @@ def answer_question():
 
         # Reset unique id query to sentinel value
         app.config['ID_QUERY_DICT'][unique_id] = "-1"
+
+    # Logging
+    original_stdout = sys.stdout 
+    with open('./logs/log.txt', 'a') as f:
+        sys.stdout = f # Change the standard output to the file we created.
+        print('$'*80)
+        print("time : ", datetime.now().strftime("%H:%M:%S"))
+        print("unique id : ", unique_id)
+        print("The user first said : ", request_json['first_text'])
+        print("The user said this turn : ", request_json['query'])
+        print('='*80, resp_json)
+        print('$'*80)
+        sys.stdout = original_stdout
 
     return jsonify(resp_json)
 
