@@ -35,12 +35,14 @@ questions = {
     0:"what can you do ?",
     1:"how can you help me ?",
     2:"what are your features ?",
+    3:"Help me ?",
 }
 
 answer_dict = {
-    0:" I can help you with info regarding : \nHow to navigate through the course section\n How to edit your profile details\nInformation about your upcoming events",
-    1:" I can help you with info regarding : \nHow to navigate through the course section\n How to edit your profile details\nInformation about your upcoming events",
-    2:" I can help you with info regarding : \nHow to navigate through the course section\n How to edit your profile details\nInformation about your upcoming events",
+    0:" I can help you with info regarding : \nHow to navigate through the course section\n How to edit your profile details\nInformation about your upcoming events\n For example say : Where can i find courses ?, How can i search the syllabus ?, Show me where to see my assignments\n",
+    1:" I can help you with info regarding : \nHow to navigate through the course section\n How to edit your profile details\nInformation about your upcoming events\n For example say : Where can i find courses ?, How can i search the syllabus ?, Show me where to see my assignments\n",
+    2:" I can help you with info regarding : \nHow to navigate through the course section\n How to edit your profile details\nInformation about your upcoming events\n For example say : Where can i find courses ?, How can i search the syllabus ?, Show me where to see my assignments\n",
+    3:" I can help you with info regarding : \nHow to navigate through the course section\n How to edit your profile details\nInformation about your upcoming events\n For example say : Where can i find courses ?, How can i search the syllabus ?, Show me where to see my assignments\n",
 }
             
 for key in questions.keys():
