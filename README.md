@@ -123,3 +123,16 @@ oc create -f https://raw.githubusercontent.com/mjudeikis/redis-openshift/master/
 oc create -f https://raw.githubusercontent.com/mjudeikis/redis-openshift/master/list.yaml
 #start build and watch 
 oc start-build redis-build
+
+
+### copy logs from remote
+
+#### first login and move logs to disk
+```
+ssh -i gpu_instance_key.pem.txt ubuntu@ec2-52-16-246-42.eu-west-1.compute.amazonaws.com
+docker cp 4561dd7937b7:/usr/src/WHOA-FAQ-Answer-Project/logs/log.txt ./bot_log.txt
+```
+#### copy to local
+```
+scp -i gpu_instance_key.pem.txt ubuntu@ec2-52-16-246-42.eu-west-1.compute.amazonaws.com:/home/ubuntu/bot_log.txt ./temp.txt
+```
