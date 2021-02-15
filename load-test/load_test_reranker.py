@@ -20,5 +20,8 @@ class SearchEngineUser(HttpUser):
     def index(self):
         
         x = random.choice(rerank_data)
-        response = self.client.get("/api/v1/reranking", json=json.dumps(x))
+        response = self.client.get("/api/v1/reranking-cache", json=json.dumps(x))
+        if response.status_code == 500 or response.status_code == 429:
+            # check in actual
+            response = self.client.get("/api/v1/reranking", json=json.dumps(x))
         scoreDocs = response.json()['scoreDocs']
