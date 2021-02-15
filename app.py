@@ -58,8 +58,8 @@ KEYWORD_EXTRACTOR = KeywordExtract(
     config_path=extractor_json_path
 )
 
-ID_KEYWORD_DICT = defaultdict(dict)
-ID_QUERY_DICT = defaultdict(str)
+# ID_KEYWORD_DICT = defaultdict(dict)
+# ID_QUERY_DICT = defaultdict(str)
 
 qa_config_path = "./data/question_asker_config"
 use_question_predicter_config = [
@@ -87,10 +87,11 @@ UPDATE_ENGINE = UpdateEngine(
 )
 
 app = flask.Flask(__name__)
+app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'redis', 'CACHE_REDIS_URL': 'redis://localhost:6379'})
 app.config["DEBUG"] = False
 app.config['sim'] = NGram(2)
-app.config['ID_KEYWORD_DICT']=ID_KEYWORD_DICT
-app.config['ID_QUERY_DICT']=ID_QUERY_DICT
+# app.config['ID_KEYWORD_DICT']=ID_KEYWORD_DICT
+# app.config['ID_QUERY_DICT']=ID_QUERY_DICT
 app.config['KEYWORD_EXTRACTOR']=KEYWORD_EXTRACTOR
 app.config['QUESTION_ASKER']=QUESTION_ASKER
 app.config['SEARCH_ENGINE']=SEARCH_ENGINE
@@ -150,6 +151,12 @@ def answer_question():
     
     query_string = sanitize_query(request_json['query'])
 
+    id_query_key = unique_id+"_query_key"
+    id_keywrd_key = unique_id+"_keywrd_key"
+
+    query = app.config['cache'].get(id_query_key)
+    keywrd_dict = app.config['cache'].get(id_keywrd_key)
+
     # If first time being sent, calculate a unique id
     if request_json['user_id'] == "-1":
         unique_id = hashlib.sha512(
@@ -158,12 +165,23 @@ def answer_question():
             )\
             .encode())\
             .hexdigest()
+        app.config['cache'].set(id_query_key,"")
+        keywrd_dict = {}
+        app.config['cache'].set(id_keywrd_key,keywrd_dict)
     else:
         unique_id = request_json['user_id']
-        if app.config['ID_QUERY_DICT'][unique_id] == '-1':
-            app.config['ID_QUERY_DICT'][unique_id] = ""
+        if query == '-1':
+            query = ""
+            app.config['cache'].set(id_query_key,query)
 
-    app.config['ID_QUERY_DICT'][unique_id] += query_string + " "
+    query = query + query_string + " "
+    app.config['cache'].set(
+            id_query_key,
+            query
+        )
+    # app.config['ID_QUERY_DICT'][unique_id] += query_string + " "
+
+
     
     # pdb.set_trace()
 
@@ -176,24 +194,25 @@ def answer_question():
             version_id=version_id
         )
 
-    all_token_keys = set(boosting_tokens.keys())\
-        .union(app.config['ID_KEYWORD_DICT'][unique_id].keys())
-    
     # Combine new keywords
+    
+    all_token_keys = set(boosting_tokens.keys())\
+        .union(keywrd_dict.keys())
     for key in all_token_keys:
         # Add all the tokens present in the current query
         if key in boosting_tokens.keys():
-            if key in app.config['ID_KEYWORD_DICT'][unique_id].keys():
-                app.config['ID_KEYWORD_DICT'][unique_id][key]\
+            if key in keywrd_dict.keys():
+                keywrd_dict[key]\
                     .extend(boosting_tokens[key])
             else:
-                app.config['ID_KEYWORD_DICT'][unique_id][key] = boosting_tokens[key]
+                keywrd_dict[key] = boosting_tokens[key]
+    app.config['cache'].set(id_keywrd_key,keywrd_dict)
 
     # Identify wether more questions need to be asked or not
     should_search, resp_json = app.config['QUESTION_ASKER'].process(
         user_id=unique_id, 
-        keywords=app.config['ID_KEYWORD_DICT'][unique_id], 
-        user_input=app.config['ID_QUERY_DICT'][unique_id].lower(),
+        keywords=keywrd_dict, 
+        user_input=query.lower(),
         project_id=project_id,
         version_id=version_id
     )
@@ -208,15 +227,15 @@ def answer_question():
         # print("searching index")
         query = None
         query, synonyms = app.config['SEARCH_ENGINE'].build_query(
-            app.config['ID_QUERY_DICT'][unique_id],
-            app.config['ID_KEYWORD_DICT'][unique_id],
+            keywrd_dict,
+            query,
             "OR_QUERY", field="question", boost_val=2.0)
             
         hits = app.config['SEARCH_ENGINE'].search(
             query=query, 
             project_id=project_id,
             version_id=version_id,
-            query_string=app.config['ID_QUERY_DICT'][unique_id],
+            query_string=query,
             query_field="question*",
             top_n=50
         )
@@ -242,7 +261,7 @@ def answer_question():
                 what_to_say[score_title] = doc[0]
 
                 answer_title = "question_"+str(idx)+"_answer"
-                sim_score = app.config['sim'].distance(question_and_variation[0],app.config['ID_QUERY_DICT'][unique_id])
+                sim_score = app.config['sim'].distance(question_and_variation[0],query)
                 
                 if sim_score<0.35:
                     # print("similar enough")
@@ -275,7 +294,8 @@ def answer_question():
         #     sys.stdout = original_stdout
 
         # Reset unique id query to sentinel value
-        app.config['ID_QUERY_DICT'][unique_id] = "-1"
+        query = "-1"
+        app.config['cache'].set(id_query_key,query)
 
     # Logging
     original_stdout = sys.stdout 

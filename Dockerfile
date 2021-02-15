@@ -16,7 +16,7 @@ RUN python -m nltk.downloader wordnet -d /root\
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 
 
-RUN git clone --branch feature/performance-profiling\
+RUN git clone --branch vla-data-import\
     --recursive https://github.com/eddiebarry/WHOA-FAQ-Answer-Project.git
 
 WORKDIR /usr/src/WHOA-FAQ-Answer-Project/WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights
