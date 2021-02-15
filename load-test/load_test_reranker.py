@@ -20,14 +20,13 @@ class SearchEngineUser(HttpUser):
     def index(self):
         
         x = random.choice(rerank_data)
-        response = self.client.get("/api/v1/reranking-cache", json=json.dumps(x))
-        if response.status_code == 210 or response.status_code == 429:
-            response.success()
-            # check in actual
-            response1 = self.client.get("/api/v1/reranking", json=json.dumps(x))
-            if response1.status_code == 429:
-                response1.success()
-            else:
-                scoreDocs = response.json()['scoreDocs']
-        else:
+        with self.client.get("/api/v1/reranking-cache", json=json.dumps(x), catch_response=True) as response:
+            if response.status_code == 210 or response.status_code == 429:
+                response.success()
+                # check in actual
+                with self.client.get("/api/v1/reranking", json=json.dumps(x), catch_response=True) as response1:
+                    if response1.status_code == 429:
+                        response1.success()
+                        response = response1
+
             scoreDocs = response.json()['scoreDocs']
