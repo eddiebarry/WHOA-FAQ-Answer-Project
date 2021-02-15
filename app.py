@@ -171,6 +171,7 @@ def answer_question():
     else:
         unique_id = request_json['user_id']
         id_query_key = unique_id+"_query_key"
+        id_keywrd_key = unique_id+"_keywrd_key"
         if query == '-1':
             query = ""
             app.config['cache'].set(id_query_key,query)
