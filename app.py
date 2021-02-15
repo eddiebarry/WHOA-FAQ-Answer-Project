@@ -89,6 +89,7 @@ UPDATE_ENGINE = UpdateEngine(
 
 app = flask.Flask(__name__)
 app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'redis', 'CACHE_REDIS_URL': 'redis://localhost:6379'})
+# app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'simple'})
 app.config["DEBUG"] = False
 app.config['sim'] = NGram(2)
 # app.config['ID_KEYWORD_DICT']=ID_KEYWORD_DICT
@@ -186,11 +187,6 @@ def answer_question():
             id_query_key,
             query
         )
-    # app.config['ID_QUERY_DICT'][unique_id] += query_string + " "
-
-
-    
-    # pdb.set_trace()
 
     # Extract keywords on the basis of the user input and combine
     boosting_tokens = app.config['KEYWORD_EXTRACTOR'].parse_regex_query(
@@ -232,8 +228,8 @@ def answer_question():
     what_to_say = {}
     if should_search:
         # print("searching index")
-        query = None
-        query, synonyms = app.config['SEARCH_ENGINE'].build_query(
+        search_query = None
+        search_query, synonyms = app.config['SEARCH_ENGINE'].build_query(
             boosting_tokens=keywrd_dict,
             query_string=query,
             query_type="OR_QUERY", 
@@ -241,7 +237,7 @@ def answer_question():
             boost_val=2.0)
             
         hits = app.config['SEARCH_ENGINE'].search(
-            query=query, 
+            query=search_query, 
             project_id=project_id,
             version_id=version_id,
             query_string=query,
