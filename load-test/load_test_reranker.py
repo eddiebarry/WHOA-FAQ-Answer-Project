@@ -21,7 +21,13 @@ class SearchEngineUser(HttpUser):
         
         x = random.choice(rerank_data)
         response = self.client.get("/api/v1/reranking-cache", json=json.dumps(x))
-        if response.status_code == 500 or response.status_code == 429:
+        if response.status_code == 210 or response.status_code == 429:
+            response.success()
             # check in actual
-            response = self.client.get("/api/v1/reranking", json=json.dumps(x))
-        scoreDocs = response.json()['scoreDocs']
+            response1 = self.client.get("/api/v1/reranking", json=json.dumps(x))
+            if response1.status_code == 429:
+                response1.success()
+            else:
+                scoreDocs = response.json()['scoreDocs']
+        else:
+            scoreDocs = response.json()['scoreDocs']
