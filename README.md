@@ -136,3 +136,8 @@ docker cp 4561dd7937b7:/usr/src/WHOA-FAQ-Answer-Project/logs/log.txt ./bot_log.t
 ```
 scp -i gpu_instance_key.pem.txt ubuntu@ec2-52-16-246-42.eu-west-1.compute.amazonaws.com:/home/ubuntu/bot_log.txt ./temp.txt
 ```
+
+### asynch
+```
+gunicorn --worker-class gevent   --workers 2   --bind 0.0.0.0:5009   service:app --worker-connections 1000
+```
