@@ -234,8 +234,8 @@ def answer_question():
         # print("searching index")
         query = None
         query, synonyms = app.config['SEARCH_ENGINE'].build_query(
-            keywrd_dict,
-            query,
+            boosting_tokens=keywrd_dict,
+            query_string=query,
             "OR_QUERY", field="question", boost_val=2.0)
             
         hits = app.config['SEARCH_ENGINE'].search(
