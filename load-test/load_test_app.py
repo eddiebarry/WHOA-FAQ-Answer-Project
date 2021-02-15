@@ -8,10 +8,10 @@ import pdb
 # host=http://orchestrator-route-project-interakt-staging.apps.prod.lxp.academy.who.int
 
 inp = [
-    {'query': 'can my daughter get immunised if she has a cold ?', 'project_id':'999', 'version_id':'0', 'user_id': '-1', 'trigger_search': True},
-    {'query': 'booster', 'project_id':'999', 'version_id':'0', 'user_id': '768930bf736e05cc1c5609a91d9a7bff33493011c2576b7696a4ff4b676b079968d369178ea55c52c9c2f23ff87ed10ba0923c5fb63583d76aa605d826c2306b'},
-    {'query': 'rubella', 'project_id':'999', 'version_id':'0', 'user_id': '768930bf736e05cc1c5609a91d9a7bff33493011c2576b7696a4ff4b676b079968d369178ea55c52c9c2f23ff87ed10ba0923c5fb63583d76aa605d826c2306b'},
-    {'query': 'She is 6 years old', 'project_id':'999', 'version_id':'0', 'user_id': '768930bf736e05cc1c5609a91d9a7bff33493011c2576b7696a4ff4b676b079968d369178ea55c52c9c2f23ff87ed10ba0923c5fb63583d76aa605d826c2306b'}
+    {'query': 'can my daughter get immunised if she has a cold ?', 'project_id':'999', 'version_id':'0', 'user_id': '-1', 'trigger_search': True, 'first_text':"Hi"},
+    {'query': 'booster', 'project_id':'999', 'version_id':'0', 'user_id': '768930bf736e05cc1c5609a91d9a7bff33493011c2576b7696a4ff4b676b079968d369178ea55c52c9c2f23ff87ed10ba0923c5fb63583d76aa605d826c2306b', 'first_text':"Hi"},
+    {'query': 'rubella', 'project_id':'999', 'version_id':'0', 'user_id': '768930bf736e05cc1c5609a91d9a7bff33493011c2576b7696a4ff4b676b079968d369178ea55c52c9c2f23ff87ed10ba0923c5fb63583d76aa605d826c2306b', 'first_text':"Hi"},
+    {'query': 'She is 6 years old', 'project_id':'999', 'version_id':'0', 'user_id': '768930bf736e05cc1c5609a91d9a7bff33493011c2576b7696a4ff4b676b079968d369178ea55c52c9c2f23ff87ed10ba0923c5fb63583d76aa605d826c2306b', 'first_text':"Hi"}
 ]
 
 class SearchEngineUser(HttpUser):

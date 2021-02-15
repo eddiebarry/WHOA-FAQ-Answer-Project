@@ -11,228 +11,228 @@ urls = [
     # os.getenv("REMOTE_URL"),
 ]
 
-"""
-Batch Keyword Extract Test
-"""
-def test_batch_keyword_extract():
-    batch_keyword_input = {
-        "question_answer_list": [
-            {
-                "question": "My child is sick where can he get measles vaccine ?",
-                "answer": "Please go to khandala",
-                "id": "1"
-            },
-            {
-                "question": "My child is sick where can he get rubella vaccine ?",
-                "answer": "Please go to khandala",
-                "id": "2"
-            },
-            {
-                "question": "My child is sick where can he get polio vaccine ?",
-                "answer": "Please go to khandala",
-                "id": "3"
-            }
-        ]
-    }
-    batch_keyword_response ={
-        "questions_keywords_list": [
-            {
-                "id": "1",
-                "keywords": {
-                    "disease_1": [
-                        "measles"
-                    ],
-                    "disease_2": [
-                        "measles"
-                    ],
-                    "other_conditions_or_symptoms_etc": [
-                        "sick",
-                        "child",
-                        "baby"
-                    ],
-                    "subject_1_immunization": [
-                        "vaccination",
-                        "immunization"
-                    ],
-                    "subject_2_vaccination_general": [
-                        "vaccination",
-                        "travel"
-                    ],
-                    "subject_person": [
-                        "baby",
-                        "child",
-                        "daughter",
-                        "son"
-                    ],
-                    "vaccine_1": [
-                        "measles"
-                    ],
-                    "vaccine_2": [
-                        "measles"
-                    ],
-                    "who_is_writing_this": [
-                        "child",
-                        "son",
-                        "daughter"
-                    ]
-                }
-            },
-            {
-                "id": "2",
-                "keywords": {
-                    "disease_1": [
-                        "rubella"
-                    ],
-                    "disease_2": [
-                        "rubella"
-                    ],
-                    "other_conditions_or_symptoms_etc": [
-                        "sick",
-                        "child",
-                        "baby"
-                    ],
-                    "subject_1_immunization": [
-                        "vaccination",
-                        "immunization"
-                    ],
-                    "subject_2_vaccination_general": [
-                        "vaccination",
-                        "travel"
-                    ],
-                    "subject_person": [
-                        "baby",
-                        "child",
-                        "daughter",
-                        "son"
-                    ],
-                    "vaccine_1": [
-                        "rubella"
-                    ],
-                    "vaccine_2": [
-                        "rubella"
-                    ],
-                    "who_is_writing_this": [
-                        "child",
-                        "son",
-                        "daughter"
-                    ]
-                }
-            },
-            {
-                "id": "3",
-                "keywords": {
-                    "other_conditions_or_symptoms_etc": [
-                        "sick",
-                        "child",
-                        "baby"
-                    ],
-                    "subject_1_immunization": [
-                        "vaccination",
-                        "immunization"
-                    ],
-                    "subject_2_vaccination_general": [
-                        "vaccination",
-                        "travel"
-                    ],
-                    "subject_person": [
-                        "baby",
-                        "child",
-                        "daughter",
-                        "son"
-                    ],
-                    "vaccine_1": [
-                        "polio"
-                    ],
-                    "vaccine_2": [
-                        "polio"
-                    ],
-                    "who_is_writing_this": [
-                        "child",
-                        "son",
-                        "daughter"
-                    ]
-                }
-            }
-        ]
-    }
-    for url in urls:
-        base_url = url  + "/api/v2/batch_keyword_extract"
-        r = requests.post(base_url,
-            data=json.dumps(batch_keyword_input))
-        data = r.json()
+# """
+# Batch Keyword Extract Test
+# """
+# def test_batch_keyword_extract():
+#     batch_keyword_input = {
+#         "question_answer_list": [
+#             {
+#                 "question": "My child is sick where can he get measles vaccine ?",
+#                 "answer": "Please go to khandala",
+#                 "id": "1"
+#             },
+#             {
+#                 "question": "My child is sick where can he get rubella vaccine ?",
+#                 "answer": "Please go to khandala",
+#                 "id": "2"
+#             },
+#             {
+#                 "question": "My child is sick where can he get polio vaccine ?",
+#                 "answer": "Please go to khandala",
+#                 "id": "3"
+#             }
+#         ]
+#     }
+#     batch_keyword_response ={
+#         "questions_keywords_list": [
+#             {
+#                 "id": "1",
+#                 "keywords": {
+#                     "disease_1": [
+#                         "measles"
+#                     ],
+#                     "disease_2": [
+#                         "measles"
+#                     ],
+#                     "other_conditions_or_symptoms_etc": [
+#                         "sick",
+#                         "child",
+#                         "baby"
+#                     ],
+#                     "subject_1_immunization": [
+#                         "vaccination",
+#                         "immunization"
+#                     ],
+#                     "subject_2_vaccination_general": [
+#                         "vaccination",
+#                         "travel"
+#                     ],
+#                     "subject_person": [
+#                         "baby",
+#                         "child",
+#                         "daughter",
+#                         "son"
+#                     ],
+#                     "vaccine_1": [
+#                         "measles"
+#                     ],
+#                     "vaccine_2": [
+#                         "measles"
+#                     ],
+#                     "who_is_writing_this": [
+#                         "child",
+#                         "son",
+#                         "daughter"
+#                     ]
+#                 }
+#             },
+#             {
+#                 "id": "2",
+#                 "keywords": {
+#                     "disease_1": [
+#                         "rubella"
+#                     ],
+#                     "disease_2": [
+#                         "rubella"
+#                     ],
+#                     "other_conditions_or_symptoms_etc": [
+#                         "sick",
+#                         "child",
+#                         "baby"
+#                     ],
+#                     "subject_1_immunization": [
+#                         "vaccination",
+#                         "immunization"
+#                     ],
+#                     "subject_2_vaccination_general": [
+#                         "vaccination",
+#                         "travel"
+#                     ],
+#                     "subject_person": [
+#                         "baby",
+#                         "child",
+#                         "daughter",
+#                         "son"
+#                     ],
+#                     "vaccine_1": [
+#                         "rubella"
+#                     ],
+#                     "vaccine_2": [
+#                         "rubella"
+#                     ],
+#                     "who_is_writing_this": [
+#                         "child",
+#                         "son",
+#                         "daughter"
+#                     ]
+#                 }
+#             },
+#             {
+#                 "id": "3",
+#                 "keywords": {
+#                     "other_conditions_or_symptoms_etc": [
+#                         "sick",
+#                         "child",
+#                         "baby"
+#                     ],
+#                     "subject_1_immunization": [
+#                         "vaccination",
+#                         "immunization"
+#                     ],
+#                     "subject_2_vaccination_general": [
+#                         "vaccination",
+#                         "travel"
+#                     ],
+#                     "subject_person": [
+#                         "baby",
+#                         "child",
+#                         "daughter",
+#                         "son"
+#                     ],
+#                     "vaccine_1": [
+#                         "polio"
+#                     ],
+#                     "vaccine_2": [
+#                         "polio"
+#                     ],
+#                     "who_is_writing_this": [
+#                         "child",
+#                         "son",
+#                         "daughter"
+#                     ]
+#                 }
+#             }
+#         ]
+#     }
+#     for url in urls:
+#         base_url = url  + "/api/v2/batch_keyword_extract"
+#         r = requests.post(base_url,
+#             data=json.dumps(batch_keyword_input))
+#         data = r.json()
                 
-        assert data == batch_keyword_response, \
-            "Keyword extract failed for " + url
+#         assert data == batch_keyword_response, \
+#             "Keyword extract failed for " + url
 
-"""
-Batch QA index 
-"""
+# """
+# Batch QA index 
+# """
 
-def test_qa_indexing():
-    qa_index_data = populate_1500_questions(\
-        dir_ = "./accuracy_tests/intermediate_results/vsn_data_formatted")
+# def test_qa_indexing():
+#     qa_index_data = populate_1500_questions(\
+#         dir_ = "./accuracy_tests/intermediate_results/vsn_data_formatted")
 
 
-    response_data = {
-        "estimated_time": 4377,
-        "project_id": "999",
-        "status": "ok",
-        "version_id": "0"
-    }
+#     response_data = {
+#         "estimated_time": 4377,
+#         "project_id": "999",
+#         "status": "ok",
+#         "version_id": "0"
+#     }
 
-    for url in urls:
-        base_url = url  + "/api/v2/train_bot_json_array"
-        r = requests.post(base_url,
-            data=json.dumps(qa_index_data))
-        data = r.json()
-        # pdb.set_trace()
-        assert data == response_data, \
-            ("Test QA index failed for " + url)
+#     for url in urls:
+#         base_url = url  + "/api/v2/train_bot_json_array"
+#         r = requests.post(base_url,
+#             data=json.dumps(qa_index_data))
+#         data = r.json()
+#         # pdb.set_trace()
+#         assert data == response_data, \
+#             ("Test QA index failed for " + url)
 
-"""
-Bot host test
-"""
-def test_bot_host():
-    test_bot_data = {
-        "project_id":1,
-        "version_id":1,
-    }
-    test_bot_response = {
-        "host_id": os.getenv('BOTPRESS_ENDPOINT'),
-        "bot_id": os.getenv('BOT_ID')
-    }
-    for url in urls:
-        base_url = url  + "/api/v2/get-bot-host"
-        r = requests.get(base_url,
-            data=json.dumps(test_bot_data))
-        data = r.json()
+# """
+# Bot host test
+# """
+# def test_bot_host():
+#     test_bot_data = {
+#         "project_id":1,
+#         "version_id":1,
+#     }
+#     test_bot_response = {
+#         "host_id": os.getenv('BOTPRESS_ENDPOINT'),
+#         "bot_id": os.getenv('BOT_ID')
+#     }
+#     for url in urls:
+#         base_url = url  + "/api/v2/get-bot-host"
+#         r = requests.get(base_url,
+#             data=json.dumps(test_bot_data))
+#         data = r.json()
 
-        assert data == test_bot_response, \
-            "test bot link failed for " + url
+#         assert data == test_bot_response, \
+#             "test bot link failed for " + url
 
 """
 Basic conversation test
 """
 def test_qna():
     inp = [
-        {'query': 'can my daughter get immunised if she has a cold ?', 'project_id':'999', 'version_id':'0', 'user_id': '-1', 'trigger_search': True},
-        {'query': 'booster', 'project_id':'999', 'version_id':'0', 'user_id': '768930bf736e05cc1c5609a91d9a7bff33493011c2576b7696a4ff4b676b079968d369178ea55c52c9c2f23ff87ed10ba0923c5fb63583d76aa605d826c2306b'},
-        {'query': 'rubella', 'project_id':'999', 'version_id':'0', 'user_id': '768930bf736e05cc1c5609a91d9a7bff33493011c2576b7696a4ff4b676b079968d369178ea55c52c9c2f23ff87ed10ba0923c5fb63583d76aa605d826c2306b'},
-        {'query': 'She is 6 years old', 'project_id':'999', 'version_id':'0', 'user_id': '768930bf736e05cc1c5609a91d9a7bff33493011c2576b7696a4ff4b676b079968d369178ea55c52c9c2f23ff87ed10ba0923c5fb63583d76aa605d826c2306b'}
+        {'query': 'can my daughter get immunised if she has a cold ?', 'project_id':'999', 'version_id':'0', 'user_id': '-1', 'trigger_search': True, 'first_text':"Hi"},
+        {'query': 'booster', 'project_id':'999', 'version_id':'0', 'user_id': '768930bf736e05cc1c5609a91d9a7bff33493011c2576b7696a4ff4b676b079968d369178ea55c52c9c2f23ff87ed10ba0923c5fb63583d76aa605d826c2306b', 'first_text':"Hi"},
+        {'query': 'rubella', 'project_id':'999', 'version_id':'0', 'user_id': '768930bf736e05cc1c5609a91d9a7bff33493011c2576b7696a4ff4b676b079968d369178ea55c52c9c2f23ff87ed10ba0923c5fb63583d76aa605d826c2306b', 'first_text':"Hi"},
+        {'query': 'She is 6 years old', 'project_id':'999', 'version_id':'0', 'user_id': '768930bf736e05cc1c5609a91d9a7bff33493011c2576b7696a4ff4b676b079968d369178ea55c52c9c2f23ff87ed10ba0923c5fb63583d76aa605d826c2306b', 'first_text':"Hi"}
     ]
     for url in urls:
         past_id = '-1'
         for x in inp:
             base_url = url  + '/api/v2/qna'
+            pdb.set_trace()
             if x['user_id'] == '-1':
-                # pdb.set_trace()
-
                 resp = requests.get(base_url, data=json.dumps(x)).json()
+                pdb.set_trace()
                 past_id = resp['user_id']
             else:
                 x['user_id']=past_id
                 resp = requests.get(base_url, data=json.dumps(x)).json()
-
+                pdb.set_trace()
                 if x['query']=='She is 6 years old':
                     assert resp['what_to_say']['question_0_variation_0']=='Is it possible to only get the measles vaccine without the mumps, rubella and varicella portion for a 6 year old? He has had very bad reactions to other vaccines.'
 
