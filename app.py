@@ -152,12 +152,6 @@ def answer_question():
     
     query_string = sanitize_query(request_json['query'])
 
-    id_query_key = unique_id+"_query_key"
-    id_keywrd_key = unique_id+"_keywrd_key"
-
-    query = app.config['cache'].get(id_query_key)
-    keywrd_dict = app.config['cache'].get(id_keywrd_key)
-
     # If first time being sent, calculate a unique id
     if request_json['user_id'] == "-1":
         unique_id = hashlib.sha512(
@@ -174,6 +168,12 @@ def answer_question():
         if query == '-1':
             query = ""
             app.config['cache'].set(id_query_key,query)
+
+    id_query_key = unique_id+"_query_key"
+    id_keywrd_key = unique_id+"_keywrd_key"
+
+    query = app.config['cache'].get(id_query_key)
+    keywrd_dict = app.config['cache'].get(id_keywrd_key)
 
     query = query + query_string + " "
     app.config['cache'].set(
