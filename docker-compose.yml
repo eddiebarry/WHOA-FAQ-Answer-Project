@@ -1,0 +1,9 @@
+services:
+  dev:
+    build: .
+    ports:
+      - "5000-5010:5000-5010"
+  cache:
+    image: redis
+    ports:
+      - "6379:6379"
