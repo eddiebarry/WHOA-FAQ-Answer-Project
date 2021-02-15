@@ -160,17 +160,23 @@ def answer_question():
             )\
             .encode())\
             .hexdigest()
-        app.config['cache'].set(id_query_key,"")
+        id_query_key = unique_id+"_query_key"
+        id_keywrd_key = unique_id+"_keywrd_key"
+
+        query = ""
+        app.config['cache'].set(id_query_key,query)
+        
         keywrd_dict = {}
         app.config['cache'].set(id_keywrd_key,keywrd_dict)
     else:
         unique_id = request_json['user_id']
+        id_query_key = unique_id+"_query_key"
         if query == '-1':
             query = ""
             app.config['cache'].set(id_query_key,query)
 
-    id_query_key = unique_id+"_query_key"
-    id_keywrd_key = unique_id+"_keywrd_key"
+    
+    
 
     query = app.config['cache'].get(id_query_key)
     keywrd_dict = app.config['cache'].get(id_keywrd_key)
