@@ -11,6 +11,7 @@ sys.path.append('WHO-FAQ-Dialog-Manager/qna')
 
 import flask
 from flask import request, jsonify
+from flask_caching import Cache
 from collections import defaultdict 
 from threading import Thread
 
