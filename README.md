@@ -74,7 +74,7 @@ git clone -b $branch_name \
 ```
 mkdir bot
 cd bot
-wget https://s3.amazonaws.com/botpress-binaries/botpress-v12_10_8-linux-x64.zip
+wget https://s3.amazonaws.com/botpress-binaries/botpress-v12_17_1-linux-x64.zip
 sudo apt install unzip
 unzip botpress-v12_10_8-linux-x64.zip
 ./bp
