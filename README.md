@@ -141,3 +141,8 @@ scp -i gpu_instance_key.pem.txt ubuntu@ec2-52-16-246-42.eu-west-1.compute.amazon
 ```
 gunicorn --worker-class gevent   --workers 2   --bind 0.0.0.0:5009   service:app --worker-connections 1000
 ```
+
+### lang server
+```
+docker run -d --name lang --net=host -p 3100:3100 -v botpress_data:/botpress/data botpress/server:v12_17_1 bash -c "./bp lang --langDir /botpress/data/embeddings"
+```

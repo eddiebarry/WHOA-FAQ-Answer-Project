@@ -6,7 +6,7 @@ RUN pip install tokenizers==0.7 transformers==2.10.0 \
     torch==1.5.0 flask==1.1.2 pandas==1.1.1 \
     tensorflow==2.3.0 xlrd==1.2.0 numpy==1.18 Flask-Caching==1.9.0 Flask-Limiter==1.4\
     spacy==2.3.2 spacy-wordnet==0.0.4 \
-    sklearn==0.0 pysolr==3.9.0 strsim==0.0.3 gunicorn==20.0.4 pytest python-dotenv==0.15.0 --no-cache-dir
+    sklearn==0.0 pysolr==3.9.0 strsim==0.0.3 gunicorn==20.0.4 pytest python-dotenv==0.15.0 redis gevent --no-cache-dir
 
 RUN python -m nltk.downloader wordnet -d /root\
     && python -m nltk.downloader omw -d /root && python -m spacy download en\
@@ -16,7 +16,7 @@ RUN python -m nltk.downloader wordnet -d /root\
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 
 
-RUN git clone --branch vla-data-import\
+RUN git clone --branch feature/performance-profiling\
     --recursive https://github.com/eddiebarry/WHOA-FAQ-Answer-Project.git
 
 WORKDIR /usr/src/WHOA-FAQ-Answer-Project/WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights
