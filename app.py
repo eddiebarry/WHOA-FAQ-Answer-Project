@@ -210,27 +210,27 @@ def answer_question():
                 keywrd_dict[key] = boosting_tokens[key]
     app.config['cache'].set(id_keywrd_key,keywrd_dict)
 
-    # question_asker_key = unique_id+"_qa_key"
-    # questions_to_ask = app.config['cache'].get(question_asker_key)
+    question_asker_key = unique_id+"_qa_key"
+    questions_to_ask = app.config['cache'].get(question_asker_key)
     
-    # if questions_to_ask is None:
-    #     questions_to_ask=copy.deepcopy(
-    #             app.config['QUESTION_ASKER'].config[project_id][version_id]["must"]
-    #         )
-    #     questions_to_ask.append("Catch All")
+    if questions_to_ask is None:
+        questions_to_ask=copy.deepcopy(
+                app.config['QUESTION_ASKER'].config[project_id][version_id]["must"]
+            )
+        questions_to_ask.append("Catch All")
     # else it exists
 
 
     # Identify wether more questions need to be asked or not
     should_search, resp_json, questions_to_ask = app.config['QUESTION_ASKER'].process(
-        # must=questions_to_ask,
+        must=questions_to_ask,
         user_id=unique_id, 
         keywords=keywrd_dict, 
         user_input=query.lower(),
         project_id=project_id,
         version_id=version_id
     )
-    # app.config['cache'].set(question_asker_key,questions_to_ask)
+    app.config['cache'].set(question_asker_key,questions_to_ask)
 
     resp_json["show_direct_answer"] = False
     
