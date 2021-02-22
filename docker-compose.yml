@@ -5,6 +5,11 @@ services:
         - 8080:8080
     cpuset: "14,15"
     restart: always
+  cache:
+    image: redis
+    ports:
+      - "6379:6379"
+    restart: always
   host:
     build: .
     ports:
@@ -13,7 +18,4 @@ services:
     restart: always
     depends_on:
       - reverseproxy  
-  cache:
-    image: redis
-    ports:
-      - "6379:6379"
+      - cache
