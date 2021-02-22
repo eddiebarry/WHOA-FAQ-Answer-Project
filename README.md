@@ -146,3 +146,7 @@ gunicorn --worker-class gevent --bind 0.0.0.0:5009   service:app --workers 17 --
 ```
 docker run -d --name lang --net=host -p 3100:3100 -v botpress_data:/botpress/data botpress/server:v12_17_1 bash -c "./bp lang --langDir /botpress/data/embeddings"
 ```
+
+### Docker setup
+docker build -t server_host .
+docker-compose up --build --force-recreate --no-deps
