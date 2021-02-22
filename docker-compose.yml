@@ -13,7 +13,7 @@ services:
     restart: always
     depends_on:
       - reverseproxy  
-  # cache:
-  #   image: redis
-  #   ports:
-  #     - "6379:6379"
+  cache:
+    image: redis
+    ports:
+      - "6379:6379"

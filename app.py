@@ -87,7 +87,7 @@ UPDATE_ENGINE = UpdateEngine(
 )
 
 app = flask.Flask(__name__)
-app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'redis', 'CACHE_REDIS_URL': 'redis://localhost:6379'})
+app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'redis', 'CACHE_REDIS_URL': 'redis://cache:6379'})
 app.config['cache'].clear()
 # app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'simple'})
 app.config["DEBUG"] = False
