@@ -632,7 +632,7 @@ def init_data():
     # global KEYWORD_EXTRACTOR
 
     request_json = populate_1500_questions(
-        dir_ = "./accuracy_tests/intermediate_results/emoji_data_formatted",
+        dir_ = "./accuracy_tests/intermediate_results/emoji_data_improved_formatted",
         project_id=2,
         version_id=0
         )
