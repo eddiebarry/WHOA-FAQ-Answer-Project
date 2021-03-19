@@ -117,6 +117,9 @@ docker push quay.io/whoacademy/image_repo_name
 ```
 
 ### Setup redis server
+docker run -p 6379:6379 --name my-firsredis -d redis
+
+### Setup redis in openshit
 #make sure you have base image available
 oc create -f https://raw.githubusercontent.com/mjudeikis/redis-openshift/master/openshift/is-base.yaml -n openshift
 #create all components
