@@ -87,8 +87,8 @@ UPDATE_ENGINE = UpdateEngine(
 )
 
 app = flask.Flask(__name__)
-app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'redis', 'CACHE_REDIS_URL': 'redis://cache:6379','CACHE_DEFAULT_TIMEOUT':3600})
-# app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'simple'})
+# app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'redis', 'CACHE_REDIS_URL': 'redis://cache:6379','CACHE_DEFAULT_TIMEOUT':3600})
+app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'simple'})
 app.config['cache'].clear()
 app.config["DEBUG"] = False
 app.config['sim'] = NGram(2)
@@ -624,7 +624,7 @@ def add_formatting(question_list):
                 print("failed in init")
     return question_list
 
-# @app.before_first_request
+@app.before_first_request
 def init_data():
     print("calling init function")
     #TODO : change to flask variable
@@ -632,8 +632,8 @@ def init_data():
     # global KEYWORD_EXTRACTOR
 
     request_json = populate_1500_questions(
-        dir_ = "./accuracy_tests/intermediate_results/emoji_data_improved_formatted",
-        project_id=2,
+        dir_ = "./accuracy_tests/intermediate_results/emoji_data_chitchat_combined",
+        project_id=3,
         version_id=0
         )
     requires = [
