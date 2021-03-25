@@ -26,6 +26,7 @@ for x in question:
         "question_variation_0": x,
         "question_variation_1": x,
         "question_variation_2": x,
+        "type": "chitchat"
     }
     json_name = hashlib.sha512(x.encode()).hexdigest()
 

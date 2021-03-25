@@ -1,0 +1,7 @@
+{
+    "must": [
+        "type"
+    ],
+    "type": "What topic is this most related to ?",
+    "Catch All": "Is there any additional information you could help us with ?"
+}
