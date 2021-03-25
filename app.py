@@ -624,7 +624,7 @@ def add_formatting(question_list):
                 print("failed in init")
     return question_list
 
-@app.before_first_request
+# @app.before_first_request
 def init_data():
     print("calling init function")
     #TODO : change to flask variable
