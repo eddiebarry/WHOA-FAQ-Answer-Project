@@ -19,6 +19,7 @@ final_dir = "/usr/src/WHOA-FAQ-Answer-Project/accuracy_tests/intermediate_result
 
 for x in question:
 
+
     obj = {
         "answer": question[x],
         "answer_formatted": question[x],
@@ -32,7 +33,10 @@ for x in question:
 
     json_file_name = os.path.join(final_dir,json_name+".json")
 
-    # os.remove(json_file_name)
+    if question[x] != question[x]:
+        os.remove(json_file_name)
+        continue
+    
 
     with open(json_file_name , 'w') as json_file:
         json.dump(obj, json_file, indent = 4, sort_keys=True)
