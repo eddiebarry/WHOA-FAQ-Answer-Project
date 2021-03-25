@@ -10,7 +10,7 @@ This file processes the data given by the vaccine team into json objects that
 we can add to the search index
 """
 
-f = open('/usr/src/WHOA-FAQ-Answer-Project/accuracy_tests/emoji_qna_combined.json','r')
+f = open('/usr/src/WHOA-FAQ-Answer-Project/accuracy_tests/emoji_data_qna.json','r')
 question = json.load(f)
 f.close()
 
@@ -32,7 +32,7 @@ for x in question:
 
     json_file_name = os.path.join(final_dir,json_name+".json")
 
-    os.remove(json_file_name)
+    # os.remove(json_file_name)
 
-    # with open(json_file_name , 'w') as json_file:
-    #     json.dump(obj, json_file, indent = 4, sort_keys=True)
+    with open(json_file_name , 'w') as json_file:
+        json.dump(obj, json_file, indent = 4, sort_keys=True)
