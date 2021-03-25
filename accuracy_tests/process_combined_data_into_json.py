@@ -27,9 +27,9 @@ for x in question:
         "question_variation_1": x,
         "question_variation_2": x,
     }
-    json_name = hashlib.sha512(question.encode()).hexdigest()
+    json_name = hashlib.sha512(x.encode()).hexdigest()
 
     json_file_name = os.path.join(final_dir,json_name+".json")
-    
+
     with open(json_file_name , 'w') as json_file:
         json.dump(obj, json_file, indent = 4, sort_keys=True)
