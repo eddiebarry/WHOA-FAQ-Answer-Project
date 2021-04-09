@@ -87,8 +87,8 @@ UPDATE_ENGINE = UpdateEngine(
 )
 
 app = flask.Flask(__name__)
-# app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'redis', 'CACHE_REDIS_URL': 'redis://cache:6379','CACHE_DEFAULT_TIMEOUT':3600})
-app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'simple'})
+app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'redis', 'CACHE_REDIS_URL': 'redis://cache:6379','CACHE_DEFAULT_TIMEOUT':3600})
+# app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'simple'})
 app.config['cache'].clear()
 app.config["DEBUG"] = False
 app.config['sim'] = NGram(2)
