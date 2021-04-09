@@ -135,6 +135,11 @@ oc start-build redis-build
 ssh -i gpu_instance_key.pem.txt ubuntu@ec2-52-16-246-42.eu-west-1.compute.amazonaws.com
 docker cp 4561dd7937b7:/usr/src/WHOA-FAQ-Answer-Project/logs/log.txt ./bot_log.txt
 ```
+
+
+
+
+
 #### copy to local
 ```
 scp -i gpu_instance_key.pem.txt ubuntu@ec2-52-16-246-42.eu-west-1.compute.amazonaws.com:/home/ubuntu/bot_log.txt ./temp.txt
@@ -150,6 +155,4 @@ gunicorn --worker-class gevent --bind 0.0.0.0:5009   service:app --workers 17 --
 docker run -d --name lang --net=host -p 3100:3100 -v botpress_data:/botpress/data botpress/server:v12_17_1 bash -c "./bp lang --langDir /botpress/data/embeddings"
 ```
 
-### Docker setup
-docker build -t server_host .
-docker-compose up --build --force-recreate --no-deps
+
