@@ -624,7 +624,7 @@ def add_formatting(question_list):
                 print("failed in init")
     return question_list
 
-@app.before_first_request
+# @app.before_first_request
 def init_data():
     print("calling init function")
     #TODO : change to flask variable
@@ -632,7 +632,7 @@ def init_data():
     # global KEYWORD_EXTRACTOR
 
     request_json = populate_1500_questions(
-        dir_ = "./accuracy_tests/intermediate_results/emoji_data_chitchat_combined",
+        dir_ = "./accuracy_tests/intermediate_results/custom_lxp_lms_data",
         project_id=3,
         version_id=0
         )
