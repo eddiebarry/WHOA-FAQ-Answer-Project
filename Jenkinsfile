@@ -98,7 +98,7 @@ pipeline {
             }
             steps {
                 script {
-                    env.VERSION = sh(returnStdout: true, script: "grep -oP \"(?<=version=')[^']*\" setup.py").trim()
+                    env.VERSION = sh(returnStdout: true, script: "grep -oP \"(?<=version: ).*\" ./chart/Chart.yaml").trim()
                     env.VERSIONED_APP_NAME = "${NAME}-${VERSION}"
                     env.PACKAGE = "${VERSIONED_APP_NAME}.tar.gz"
                     env.SECRET_KEY = 'gs7(p)fk=pf2(kbg*1wz$x+hnmw@y6%ij*x&pq4(^y8xjq$q#f' //TODO: get it from secret vault
@@ -116,14 +116,14 @@ pipeline {
                 // sh 'coverage report -m'
                 // sh 'coverage html -d cover'
 
-                echo '### Packaging App for Nexus ###'
+                // echo '### Packaging App for Nexus ###'
 
-                sh '''
-                    python -m pip install --upgrade pip
-                    pip install setuptools wheel
-                    python setup.py sdist
-                    curl -v -f -u ${NEXUS_CREDS} --upload-file dist/${PACKAGE} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${APP_NAME}/${PACKAGE}
-                '''
+                // sh '''
+                //     python -m pip install --upgrade pip
+                //     pip install setuptools wheel
+                //     python setup.py sdist
+                //     curl -v -f -u ${NEXUS_CREDS} --upload-file dist/${PACKAGE} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${APP_NAME}/${PACKAGE}
+                // '''
             }
             // // Disabling tests for now
             // // Post can be used both on individual stages and for the entire build.
