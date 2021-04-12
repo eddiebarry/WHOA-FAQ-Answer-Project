@@ -5,7 +5,7 @@ pipeline {
 
     environment {
         // GLobal Vars
-        NAME = "lxp-search"
+        NAME = "vla-orchestrator"
         PROJECT= "labs"
 
         // Config repo managed by ArgoCD details
