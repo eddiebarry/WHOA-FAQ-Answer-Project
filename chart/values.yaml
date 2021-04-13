@@ -4,7 +4,7 @@ build:
   build_tag: latest
   base_image: python-38:latest
   enabled: false
-  source_docker_file_path: ./niginx-botpress-orchestrator-setup/Dockerfile
+  source_docker_file_path: Dockerfile
 image_repository: quay.io
 image_name: vla
 image_namespace: whoacademy

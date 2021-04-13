@@ -161,14 +161,13 @@ pipeline {
                     curl -v -f -u ${NEXUS_CREDS} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${APP_NAME}/${PACKAGE} -o ${PACKAGE}
                     BUILD_ARGS=" --build-arg git_commit=${GIT_COMMIT} --build-arg git_url=${GIT_URL}  --build-arg build_url=${RUN_DISPLAY_URL} --build-arg build_tag=${BUILD_TAG}"
                     echo ${BUILD_ARGS}
-                    ls
-                    tree
                     oc delete bc ${APP_NAME} || rc=$?
+                    ls
+                    ls vla-orchestrator-1.0.0/
                     if [[ $TARGET_NAMESPACE == *"dev"* ]]; then
                         echo "🏗 Creating a sandbox build for inside the cluster 🏗"
-                        oc new-build --name=${APP_NAME} --strategy=docker --binary
                         oc new-build --binary --name=${APP_NAME} -l app=${APP_NAME} ${BUILD_ARGS} --strategy=docker || rc=$?
-                        oc start-build ${APP_NAME} --from-dir=${PACKAGE} ${BUILD_ARGS} --follow
+                        oc start-build ${APP_NAME} --from-archive=${PACKAGE} ${BUILD_ARGS} --follow
                         # used for internal sandbox build ....
                         oc tag ${OPENSHIFT_BUILD_NAMESPACE}/${APP_NAME}:latest ${TARGET_NAMESPACE}/${APP_NAME}:${VERSION}
                     else
@@ -178,6 +177,7 @@ pipeline {
                     fi
                 '''
             }
+
       }
 
   stage("Helm Package App (master)") {
