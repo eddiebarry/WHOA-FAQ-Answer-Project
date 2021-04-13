@@ -161,7 +161,8 @@ pipeline {
                     curl -v -f -u ${NEXUS_CREDS} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${APP_NAME}/${PACKAGE} -o ${PACKAGE}
                     BUILD_ARGS=" --build-arg git_commit=${GIT_COMMIT} --build-arg git_url=${GIT_URL}  --build-arg build_url=${RUN_DISPLAY_URL} --build-arg build_tag=${BUILD_TAG}"
                     echo ${BUILD_ARGS}
-                    echo ls
+                    ls
+                    tree
                     oc delete bc ${APP_NAME} || rc=$?
                     if [[ $TARGET_NAMESPACE == *"dev"* ]]; then
                         echo "🏗 Creating a sandbox build for inside the cluster 🏗"
