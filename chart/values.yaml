@@ -2,13 +2,13 @@ replicas: 1
 # build info not used atm
 build:
   build_tag: latest
-  base_image: python-38:latest
+  base_image: python:3.7
   enabled: false
   source_docker_file_path: Dockerfile
 image_repository: quay.io
 image_name: vla
 image_namespace: whoacademy
-image_tag: 1.0.0
+image_tag: 1.0.1
 
 # OCP route
 route: true
@@ -57,32 +57,32 @@ route: true
 #   enabled: true
 #   source_docker_file_path: ./WHO-FAQ-Rerank-Engine/Dockerfile
 
-botpress:
-  dcName: botpress-dc
-  routeName: botpress-route
-  serviceName: botpress-service
-  enabled: true
-  minReplicas: 1
-  maxReplicas: 2
-  target:
-    apiVersion: apps.openshift.io/v1
-    kind: DeploymentConfig
-  cpuTarget: 1000m
-  memTarget: 500Mi
+# botpress:
+#   dcName: botpress-dc
+#   routeName: botpress-route
+#   serviceName: botpress-service
+#   enabled: true
+#   minReplicas: 1
+#   maxReplicas: 2
+#   target:
+#     apiVersion: apps.openshift.io/v1
+#     kind: DeploymentConfig
+#   cpuTarget: 1000m
+#   memTarget: 500Mi
 
 
-reranker:
-  dcName: reranker-dc
-  routeName: reranker-route
-  serviceName: reranker-service
-  enabled: true
-  minReplicas: 1
-  maxReplicas: 2
-  target:
-    apiVersion: apps.openshift.io/v1
-    kind: DeploymentConfig
-  cpuTarget: 1000m
-  memTarget: 500Mi
+# reranker:
+#   dcName: reranker-dc
+#   routeName: reranker-route
+#   serviceName: reranker-service
+#   enabled: true
+#   minReplicas: 1
+#   maxReplicas: 2
+#   target:
+#     apiVersion: apps.openshift.io/v1
+#     kind: DeploymentConfig
+#   cpuTarget: 1000m
+#   memTarget: 500Mi
 
 # Horizontal Pod Autoscaler
 hpa:
