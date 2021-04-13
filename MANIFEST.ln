@@ -1,0 +1,7 @@
+recursive-include logs *.*
+recursive-include logs *.*
+recursive-include static *.*
+include *.py
+include .env
+include requirements.txt
+include Dockerfile
