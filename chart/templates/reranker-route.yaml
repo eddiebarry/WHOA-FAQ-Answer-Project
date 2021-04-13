@@ -1,25 +1,25 @@
-{{- if .Values.botpress.enabled }}
----
-apiVersion: route.openshift.io/v1
-kind: Route
-metadata:
-  name: {{ .Values.reranker.routeName }}
-  labels:
-    {{- include "vla.labels" . | nindent 4 }}
-spec:
-  port:
-    targetPort: 5009-tcp
-  to:
-    kind: Service
-    name: {{ .Values.reranker.serviceName }}
-    weight: 100
-  wildcardPolicy: None
-  tls:
-    insecureEdgeTerminationPolicy: Redirect
-    termination: edge
-status:
-  ingress:
-    - conditions:
-        - status: 'True'
-          type: Admitted
-{{ end }}
+# {{- if .Values.botpress.enabled }}
+# ---
+# apiVersion: route.openshift.io/v1
+# kind: Route
+# metadata:
+#   name: {{ .Values.reranker.routeName }}
+#   labels:
+#     {{- include "vla.labels" . | nindent 4 }}
+# spec:
+#   port:
+#     targetPort: 5009-tcp
+#   to:
+#     kind: Service
+#     name: {{ .Values.reranker.serviceName }}
+#     weight: 100
+#   wildcardPolicy: None
+#   tls:
+#     insecureEdgeTerminationPolicy: Redirect
+#     termination: edge
+# status:
+#   ingress:
+#     - conditions:
+#         - status: 'True'
+#           type: Admitted
+# {{ end }}

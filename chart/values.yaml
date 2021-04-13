@@ -2,7 +2,7 @@ replicas: 1
 # build info not used atm
 build:
   build_tag: latest
-  base_image: python-37:latest
+  base_image: python-38:latest
   enabled: false
   source_docker_file_path: ./niginx-botpress-orchestrator-setup/Dockerfile
 image_repository: quay.io
