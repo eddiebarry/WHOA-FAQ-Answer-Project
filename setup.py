@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-setup(name='lxp-search',
+setup(name='vla-orchestrator',
       version='1.0.0',
       packages=find_packages(),
       install_requires=[
