@@ -10,7 +10,7 @@ LABEL labs.build.url="${build_url}" \
       labs.git.tag="${git_commit}" \
       labs.git.url="${git_url}"
 
-# COPY . $HOME
+COPY . $HOME
 
 WORKDIR /usr/src
 
