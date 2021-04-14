@@ -30,7 +30,6 @@ h5py==2.10.0
 idna==2.10
 iniconfig==1.1.1
 itsdangerous==1.1.0
-JCC==3.7
 Jinja2==2.11.2
 joblib==0.16.0
 Keras-Preprocessing==1.1.2
