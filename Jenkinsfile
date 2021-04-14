@@ -102,7 +102,7 @@ pipeline {
                     env.VERSIONED_APP_NAME = "${NAME}-${VERSION}"
                     env.PACKAGE = "${VERSIONED_APP_NAME}.tar.gz"
                     env.SECRET_KEY = 'gs7(p)fk=pf2(kbg*1wz$x+hnmw@y6%ij*x&pq4(^y8xjq$q#f' //TODO: get it from secret vault
-                    env.NLTK_DATA = /root
+                    env.NLTK_DATA = '/root'
                     // env.TEST_DATABASE_SERVICE_HOST = "postgresql-postgresql.labs-ci-cd"
                     // env.TEST_DATABASE_SERVICE_PORT = "5432"
                 }
