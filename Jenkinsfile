@@ -189,26 +189,29 @@ pipeline {
             }
             steps {
                 sh 'printenv'
-                // sh '''
-                //     helm lint chart
-                // '''
-                // sh '''
-                //     # might be overkill...
-                //     yq w -i chart/Chart.yaml 'appVersion' ${VERSION}
-                //     yq w -i chart/Chart.yaml 'version' ${VERSION}
-                //     yq w -i chart/Chart.yaml 'name' ${APP_NAME}
-                //     # probs point to the image inside ocp cluster or perhaps an external repo?
-                //     yq w -i chart/values.yaml 'image_repository' ${IMAGE_REPOSITORY}
-                //     yq w -i chart/values.yaml 'image_name' ${APP_NAME}
-                //     yq w -i chart/values.yaml 'image_namespace' ${TARGET_NAMESPACE}
-                //     yq w -i chart/values.yaml 'image_tag' ${VERSION}
-                //     # latest built image
-                //     yq w -i chart/values.yaml 'app_tag' ${VERSION}
-                // '''
+                sh '''
+                    helm lint chart
+                '''
+                sh '''
+                    # might be overkill...
+                    yq w -i chart/Chart.yaml 'appVersion' ${VERSION}
+                    yq w -i chart/Chart.yaml 'version' ${VERSION}
+                    yq w -i chart/Chart.yaml 'name' ${APP_NAME}
+                    # probs point to the image inside ocp cluster or perhaps an external repo?
+                    yq w -i chart/values.yaml 'image_repository' ${IMAGE_REPOSITORY}
+                    yq w -i chart/values.yaml 'image_name' ${APP_NAME}
+                    yq w -i chart/values.yaml 'image_namespace' ${TARGET_NAMESPACE}
+                    yq w -i chart/values.yaml 'image_tag' ${VERSION}
+                    # latest built image
+                    yq w -i chart/values.yaml 'app_tag' ${VERSION}
+                '''
+                
                 sh '''
                     # package and release helm chart?
                     helm package chart/ --app-version ${VERSION} --version ${VERSION} --dependency-update
-                    curl -v -f -u ${NEXUS_CREDS} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_HELM}/ --upload-file ${APP_NAME}-${VERSION}.tgz
+                    # TODO FIX NAMING    
+                    curl -v -f -u ${NEXUS_CREDS} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_HELM}/ --upload-file /tmp/workspace/Answer-Project_feature_cicd-test/vla-1.0.1.tgz
+
                 '''
             }
         }
