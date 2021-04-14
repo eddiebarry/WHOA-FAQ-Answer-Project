@@ -108,7 +108,7 @@ pipeline {
                 sh 'printenv'
 
                 echo '### Install deps ###'
-                sh 'pip install -r requirements.txt'
+                // sh 'pip install -r requirements.txt'
 
                 // echo '### Running tests ###'
                 // sh 'python manage.py migrate --settings=interakt_backend.settings.test'
