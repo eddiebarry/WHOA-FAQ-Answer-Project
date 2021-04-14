@@ -9,6 +9,15 @@ recursive-include data *.*
 recursive-include logs *.*
 recursive-include nginx-botpress-host-setup *.*
 recursive-include nginx-orchestrator-setup *.*
+recursive-include nginx-orchestrator-setup *.*
+recursive-include openshift-config *.*
+recursive-include perf_profile *.*
+recursive-include test *.*
+recursive-include WHO-FAQ-Dialog-Manager *.*
+recursive-include WHO-FAQ-Keyword-Engine *.*
+recursive-include WHO-FAQ-Rerank-Engine *.*
+recursive-include WHO-FAQ-Search-Engine *.*
+recursive-include WHO-FAQ-Update-Engine *.*
 include *.py
 include .env
 include requirements.txt

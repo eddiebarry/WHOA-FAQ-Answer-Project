@@ -5,7 +5,7 @@ pipeline {
 
     environment {
         // GLobal Vars
-        NAME = "vla-orchestrator"
+        NAME = "orchestrator"
         PROJECT= "labs"
 
         // Config repo managed by ArgoCD details
@@ -105,25 +105,25 @@ pipeline {
                     // env.TEST_DATABASE_SERVICE_HOST = "postgresql-postgresql.labs-ci-cd"
                     // env.TEST_DATABASE_SERVICE_PORT = "5432"
                 }
-                // sh 'printenv'
+                sh 'printenv'
 
-                // echo '### Install deps ###'
-                // sh 'pip install -r requirements.txt'
+                echo '### Install deps ###'
+                sh 'pip install -r requirements.txt'
 
-                // // echo '### Running tests ###'
-                // // sh 'python manage.py migrate --settings=interakt_backend.settings.test'
-                // // sh 'coverage run manage.py test --settings=interakt_backend.settings.test'
-                // // sh 'coverage report -m'
-                // // sh 'coverage html -d cover'
+                // echo '### Running tests ###'
+                // sh 'python manage.py migrate --settings=interakt_backend.settings.test'
+                // sh 'coverage run manage.py test --settings=interakt_backend.settings.test'
+                // sh 'coverage report -m'
+                // sh 'coverage html -d cover'
 
-                // echo '### Packaging App for Nexus ###'
+                echo '### Packaging App for Nexus ###'
 
-                // sh '''
-                //     python -m pip install --upgrade pip
-                //     pip install setuptools wheel
-                //     python setup.py sdist
-                //     curl -v -f -u ${NEXUS_CREDS} --upload-file dist/${PACKAGE} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${APP_NAME}/${PACKAGE}
-                // '''
+                sh '''
+                    python -m pip install --upgrade pip
+                    pip install setuptools wheel
+                    python setup.py sdist
+                    curl -v -f -u ${NEXUS_CREDS} --upload-file dist/${PACKAGE} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${APP_NAME}/${PACKAGE}
+                '''
             }
             // // Disabling tests for now
             // // Post can be used both on individual stages and for the entire build.
@@ -155,30 +155,31 @@ pipeline {
             }
             steps {
                 sh 'printenv'
-                echo '### Get Binary from Nexus and shove it in a box ###'
-                // sh  '''
-                //     rm -rf ${PACKAGE}
-                //     curl -v -f -u ${NEXUS_CREDS} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${APP_NAME}/${PACKAGE} -o ${PACKAGE}
-                //     tar -xvf ${PACKAGE}
-                //     BUILD_ARGS=" --build-arg git_commit=${GIT_COMMIT} --build-arg git_url=${GIT_URL}  --build-arg build_url=${RUN_DISPLAY_URL} --build-arg build_tag=${BUILD_TAG}"
-                //     echo ${BUILD_ARGS}
-                //     oc delete bc ${APP_NAME} || rc=$?
-                //     ls
-                //     ls vla-orchestrator-1.0.0/
-                //     if [[ $TARGET_NAMESPACE == *"dev"* ]]; then
-                //         echo "🏗 Creating a sandbox build for inside the cluster 🏗"
-                //         oc new-build --binary --name=${APP_NAME} -l app=${APP_NAME} ${BUILD_ARGS} --strategy=docker || rc=$?
-                //         oc start-build ${APP_NAME} --from-dir=${VERSIONED_APP_NAME}/. ${BUILD_ARGS} --follow
-                //         # used for internal sandbox build ....
-                //         oc tag ${OPENSHIFT_BUILD_NAMESPACE}/${APP_NAME}:latest ${TARGET_NAMESPACE}/${APP_NAME}:${VERSION}
-                //     else
-                //         echo "🏗 Creating a potential build that could go all the way so pushing externally 🏗"
-                //         oc new-build --binary --name=${APP_NAME} -l app=${APP_NAME} ${BUILD_ARGS} --strategy=docker --push-secret=${QUAY_PUSH_SECRET} --to-docker --to="${IMAGE_REPOSITORY}/${TARGET_NAMESPACE}/${APP_NAME}:${VERSION}"
-                //         oc start-build ${APP_NAME} --from-archive=${PACKAGE} ${BUILD_ARGS} --follow
-                //     fi
-                // '''
-            }
 
+                echo '### Get Binary from Nexus and shove it in a box ###'
+                sh  '''
+                    rm -rf package-contents*
+                    curl -v -f -u ${NEXUS_CREDS} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${APP_NAME}/${PACKAGE} -o ${PACKAGE}
+                    tar -xvf ${PACKAGE}
+                    BUILD_ARGS=" --build-arg git_commit=${GIT_COMMIT} --build-arg git_url=${GIT_URL}  --build-arg build_url=${RUN_DISPLAY_URL} --build-arg build_tag=${BUILD_TAG}"
+                    echo ${BUILD_ARGS}
+                    # oc get bc ${APP_NAME} || rc=$?
+                    # dirty hack so i don't have to oc patch the bc for the new version when pushing to quay ...
+                    oc delete bc ${APP_NAME} || rc=$?
+                    echo "I am alive"
+                    if [[ $TARGET_NAMESPACE == *"dev"* ]]; then
+                        echo "🏗 Creating a sandbox build for inside the cluster 🏗"
+                        oc new-build --binary --name=${APP_NAME} -l app=${APP_NAME} ${BUILD_ARGS} --strategy=docker
+                        oc start-build ${APP_NAME} --from-dir=${VERSIONED_APP_NAME}/. ${BUILD_ARGS} --follow
+                        # used for internal sandbox build ....
+                        oc tag ${OPENSHIFT_BUILD_NAMESPACE}/${APP_NAME}:latest ${TARGET_NAMESPACE}/${APP_NAME}:${VERSION}
+                    else
+                        echo "🏗 Creating a potential build that could go all the way so pushing externally 🏗"
+                        oc new-build --binary --name=${APP_NAME} -l app=${APP_NAME} ${BUILD_ARGS} --strategy=docker --push-secret=${QUAY_PUSH_SECRET} --to-docker --to="${IMAGE_REPOSITORY}/${TARGET_NAMESPACE}/${APP_NAME}:${VERSION}"
+                        oc start-build ${APP_NAME} --from-dir=${VERSIONED_APP_NAME}/. ${BUILD_ARGS} --follow
+                    fi
+                '''
+            }
       }
 
   stage("Helm Package App (master)") {
@@ -192,26 +193,23 @@ pipeline {
                 sh '''
                     helm lint chart
                 '''
-                // sh '''
-                //     # might be overkill...
-                //     yq w -i chart/Chart.yaml 'appVersion' ${VERSION}
-                //     yq w -i chart/Chart.yaml 'version' ${VERSION}
-                //     yq w -i chart/Chart.yaml 'name' ${APP_NAME}
-                //     # probs point to the image inside ocp cluster or perhaps an external repo?
-                //     yq w -i chart/values.yaml 'image_repository' ${IMAGE_REPOSITORY}
-                //     yq w -i chart/values.yaml 'image_name' ${APP_NAME}
-                //     yq w -i chart/values.yaml 'image_namespace' ${TARGET_NAMESPACE}
-                //     yq w -i chart/values.yaml 'image_tag' ${VERSION}
-                //     # latest built image
-                //     yq w -i chart/values.yaml 'app_tag' ${VERSION}
-                // '''
-                
+                sh '''
+                    # might be overkill...
+                    yq w -i chart/Chart.yaml 'appVersion' ${VERSION}
+                    yq w -i chart/Chart.yaml 'version' ${VERSION}
+                    yq w -i chart/Chart.yaml 'name' ${APP_NAME}
+                    # probs point to the image inside ocp cluster or perhaps an external repo?
+                    yq w -i chart/values.yaml 'image_repository' ${IMAGE_REPOSITORY}
+                    yq w -i chart/values.yaml 'image_name' ${APP_NAME}
+                    yq w -i chart/values.yaml 'image_namespace' ${TARGET_NAMESPACE}
+                    yq w -i chart/values.yaml 'image_tag' ${VERSION}
+                    # latest built image
+                    yq w -i chart/values.yaml 'app_tag' ${VERSION}
+                '''
                 sh '''
                     # package and release helm chart?
                     helm package chart/ --app-version ${VERSION} --version ${VERSION} --dependency-update
-                    # TODO FIX NAMING    
-                    curl -v -f -u ${NEXUS_CREDS} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_HELM}/ --upload-file /tmp/workspace/Answer-Project_feature_cicd-test/vla-1.0.1.tgz
-
+                    curl -v -f -u ${NEXUS_CREDS} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_HELM}/ --upload-file ${APP_NAME}-${VERSION}.tgz
                 '''
             }
         }
