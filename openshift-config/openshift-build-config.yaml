@@ -31,6 +31,10 @@ spec:
     dockerfile: >-
       FROM python:3.7
 
+      RUN chown 1000680000 -R /root
+
+      RUN chmod 777 -R /root
+
       WORKDIR /usr/src
 
       RUN pip install tokenizers==0.7 transformers==2.10.0 \
