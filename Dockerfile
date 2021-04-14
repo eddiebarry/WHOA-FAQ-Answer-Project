@@ -11,20 +11,23 @@ LABEL labs.build.url="${build_url}" \
       labs.git.tag="${git_commit}" \
       labs.git.url="${git_url}"
 
+
+# RUN chown 1000680000 -R /root
 RUN chmod 777 -R /root
-RUN chown 1000680000 -R /root
 
 WORKDIR /usr/src
 
-RUN pip install tokenizers==0.7 transformers==2.10.0 \
-    torch==1.5.0 flask==1.1.2 pandas==1.1.1 \
-    tensorflow==2.3.0 xlrd==1.2.0 numpy==1.18 Flask-Caching==1.9.0 Flask-Limiter==1.4\
-    spacy==2.3.2 spacy-wordnet==0.0.4 \
-    sklearn==0.0 pysolr==3.9.0 strsim==0.0.3 gunicorn==20.0.4 pytest python-dotenv==0.15.0 redis gevent --no-cache-dir
+# RUN pip install tokenizers==0.7 transformers==2.10.0 \
+#     torch==1.5.0 flask==1.1.2 pandas==1.1.1 \
+#     tensorflow==2.3.0 xlrd==1.2.0 numpy==1.18 Flask-Caching==1.9.0 Flask-Limiter==1.4\
+#     spacy==2.3.2 spacy-wordnet==0.0.4 \
+#     sklearn==0.0 pysolr==3.9.0 strsim==0.0.3 gunicorn==20.0.4 pytest python-dotenv==0.15.0 redis gevent --no-cache-dir
 
-RUN python -m nltk.downloader wordnet -d /root\
-    && python -m nltk.downloader omw -d /root && python -m spacy download en\
-    && python -m nltk.downloader punkt -d /root && python -m nltk.downloader stopwords -d /root
+RUN pip install spacy==2.3.2 spacy-wordnet==0.0.4 nltk==3.3 --no-cache-dir
+
+RUN python -m nltk.downloader wordnet -d /usr/src\
+    && python -m nltk.downloader omw -d /usr/src && python -m spacy download en\
+    && python -m nltk.downloader punkt -d /usr/src && python -m nltk.downloader stopwords -d /usr/src
 
 
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
@@ -40,7 +43,7 @@ RUN  wget -O query_expansion_weights.zip https://s3-eu-west-1.amazonaws.com/mode
 
 WORKDIR /usr/src/WHOA-FAQ-Answer-Project
 
-RUN chown 1000680000 -R /root
+# RUN chown 1000680000 -R /root
 
 RUN chmod 777 -R /root
 
