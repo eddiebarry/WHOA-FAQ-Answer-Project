@@ -2,12 +2,18 @@ kind: BuildConfig
 apiVersion: build.openshift.io/v1
 metadata:
   name: orchestrator-build
+  namespace: project-interakt-staging
+  selfLink: >-
+    /apis/build.openshift.io/v1/namespaces/project-interakt-staging/buildconfigs/orchestrator-build
+  uid: 46d60d4f-e8d2-48f4-97de-eaeed6663dbe
+  resourceVersion: '87610984'
+  creationTimestamp: '2021-01-12T05:36:25Z'
   labels:
     build: orchestrator-build
   annotations:
     openshift.io/generated-by: OpenShiftNewBuild
 spec:
-  nodeSelector: 
+  nodeSelector: null
   output:
     to:
       kind: ImageStreamTag
@@ -31,10 +37,6 @@ spec:
     dockerfile: >-
       FROM python:3.7
 
-      RUN chown 1000680000 -R /root
-
-      RUN chmod 777 -R /root
-
       WORKDIR /usr/src
 
       RUN pip install tokenizers==0.7 transformers==2.10.0 \
@@ -51,7 +53,8 @@ spec:
       ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 
 
-      RUN git clone --recursive https://github.com/eddiebarry/WHOA-FAQ-Answer-Project.git
+      RUN git clone --branch Dialogflow_improvements\
+          --recursive https://github.com/eddiebarry/WHOA-FAQ-Answer-Project.git
 
       WORKDIR
       /usr/src/WHOA-FAQ-Answer-Project/WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights

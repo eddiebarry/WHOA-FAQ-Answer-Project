@@ -11,6 +11,9 @@ LABEL labs.build.url="${build_url}" \
       labs.git.tag="${git_commit}" \
       labs.git.url="${git_url}"
 
+RUN chmod 777 -R /root
+RUN chown 1000680000 -R /root
+
 WORKDIR /usr/src
 
 RUN pip install tokenizers==0.7 transformers==2.10.0 \
