@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-setup(name='vla-orchestrator',
+setup(name='orchestrator',
       version='1.0.1',
       packages=find_packages(),
       package_data={'': ['./nginx-orchestrator-setup/Dockerfile']},
