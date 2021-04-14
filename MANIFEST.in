@@ -1,6 +1,14 @@
-recursive-include logs *.*
+recursive-include data *.*
 recursive-include logs *.*
 recursive-include static *.*
+recursive-include accuracy_tests *.*
+recursive-include automation *.*
+recursive-include chart *.*
+recursive-include load-test *.*
+recursive-include data *.*
+recursive-include logs *.*
+recursive-include nginx-botpress-host-setup *.*
+recursive-include nginx-orchestrator-setup *.*
 include *.py
 include .env
 include requirements.txt

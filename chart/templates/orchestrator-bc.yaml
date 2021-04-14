@@ -7,7 +7,7 @@ metadata:
   annotations:
     openshift.io/generated-by: OpenShiftNewBuild
 spec:
-  nodeSelector: 
+  nodeSelector: null
   output:
     to:
       kind: ImageStreamTag
@@ -20,8 +20,8 @@ spec:
     dockerStrategy:
       from:
         kind: ImageStreamTag
-        namespace: project-interakt-staging
         name: 'python:3.7'
+        namespace: openshift
       env:
         - name: NLTK_DATA
           value: /root
@@ -47,7 +47,8 @@ spec:
       ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 
 
-      RUN git clone --recursive https://github.com/eddiebarry/WHOA-FAQ-Answer-Project.git
+      RUN git clone --branch Dialogflow_improvements\
+          --recursive https://github.com/eddiebarry/WHOA-FAQ-Answer-Project.git
 
       WORKDIR
       /usr/src/WHOA-FAQ-Answer-Project/WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights
@@ -75,18 +76,4 @@ spec:
 
 
       # gunicorn --bind 0.0.0.0:5009 wsgi:app --timeout 600
-  triggers:
-    - type: GitHub
-      github:
-        secret: CGpuRhs-PTT0ROuzoM8N
-    - type: Generic
-      generic:
-        secret: xLdowopSYlG3xiXHabot
-    - type: ConfigChange
-    - type: ImageChange
-      imageChange:
-        lastTriggeredImageID: >-
-          python@sha256:cad2e47ce9f5266844285184b799fbae7634d3a469e4effbcadf1ae0aa6ece87
   runPolicy: Serial
-status:
-  lastVersion: 13

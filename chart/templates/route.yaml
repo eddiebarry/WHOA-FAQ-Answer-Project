@@ -1,25 +1,25 @@
-{{- if .Values.route }}
----
-apiVersion: route.openshift.io/v1
-kind: Route
-metadata:
-  name: {{ include "vla.fullname" . }}
-  labels:
-    {{- include "vla.labels" . | nindent 4 }}
-spec:
-  port:
-    targetPort: 8080-tcp
-  to:
-    kind: Service
-    name: {{ include "vla.fullname" . }}
-    weight: 100
-  wildcardPolicy: None
-  tls:
-    insecureEdgeTerminationPolicy: Redirect
-    termination: edge
-status:
-  ingress:
-    - conditions:
-        - status: 'True'
-          type: Admitted
-{{ end }}
+# {{- if .Values.route }}
+# ---
+# apiVersion: route.openshift.io/v1
+# kind: Route
+# metadata:
+#   name: {{ include "vla.fullname" . }}
+#   labels:
+#     {{- include "vla.labels" . | nindent 4 }}
+# spec:
+#   port:
+#     targetPort: 8080-tcp
+#   to:
+#     kind: Service
+#     name: {{ include "vla.fullname" . }}
+#     weight: 100
+#   wildcardPolicy: None
+#   tls:
+#     insecureEdgeTerminationPolicy: Redirect
+#     termination: edge
+# status:
+#   ingress:
+#     - conditions:
+#         - status: 'True'
+#           type: Admitted
+# {{ end }}
