@@ -10,9 +10,9 @@ LABEL labs.build.url="${build_url}" \
       labs.git.tag="${git_commit}" \
       labs.git.url="${git_url}"
 
-# COPY . $HOME
+COPY . $HOME
 
-WORKDIR /usr/src
+WORKDIR $HOME
 
 RUN pip install tokenizers==0.7 transformers==2.10.0 \
     torch==1.5.0 flask==1.1.2 pandas==1.1.1 \
@@ -30,13 +30,13 @@ ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 
 RUN git clone --recursive https://github.com/eddiebarry/WHOA-FAQ-Answer-Project.git
 
-WORKDIR /usr/src/WHOA-FAQ-Answer-Project/WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights
+WORKDIR $HOME/WHOA-FAQ-Answer-Project/WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights
 
 RUN  wget -O query_expansion_weights.zip https://s3-eu-west-1.amazonaws.com/model.weights.project.interakt/query_expansion_weights.zip \
     && unzip query_expansion_weights.zip \
     && rm query_expansion_weights.zip
 
-WORKDIR /usr/src/WHOA-FAQ-Answer-Project
+WORKDIR $HOME/WHOA-FAQ-Answer-Project
 
 RUN chown 1000680000 -R /root
 
