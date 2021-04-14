@@ -33,7 +33,7 @@ pipeline {
     // The options directive is for configuration that applies to the whole job.
     options {
         buildDiscarder(logRotator(numToKeepStr: '50', artifactNumToKeepStr: '1'))
-        timeout(time: 15, unit: 'MINUTES')
+        timeout(time: 30, unit: 'MINUTES')
         ansiColor('xterm')
     }
 
