@@ -5,7 +5,7 @@ pipeline {
 
     environment {
         // GLobal Vars
-        NAME = "orchestrator-host-3"
+        NAME = "orchestrator-host-4"
         PROJECT= "labs"
 
         // Config repo managed by ArgoCD details
