@@ -56,7 +56,7 @@ WORKDIR /usr/src/WHOA-FAQ-Answer-Project
 
 # RUN python /usr/src/WHOA-FAQ-Answer-Project/WHO-FAQ-Search-Engine/variation_generation/__init__.py
 
-EXPOSE 5009
+EXPOSE 8080
 
 # Tuned for performance on 16 core system
 # change workers from 17 to 2*NUM_CPU + 1

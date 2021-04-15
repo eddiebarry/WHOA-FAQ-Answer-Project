@@ -5,7 +5,7 @@ pipeline {
 
     environment {
         // GLobal Vars
-        NAME = "faq-host"
+        NAME = "host"
         PROJECT= "labs"
 
         // Config repo managed by ArgoCD details
@@ -102,7 +102,7 @@ pipeline {
                     env.VERSIONED_APP_NAME = "${NAME}-${VERSION}"
                     env.PACKAGE = "${VERSIONED_APP_NAME}.tar.gz"
                     env.SECRET_KEY = 'gs7(p)fk=pf2(kbg*1wz$x+hnmw@y6%ij*x&pq4(^y8xjq$q#f' //TODO: get it from secret vault
-                    env.NLTK_DATA = '/root'
+                    // env.NLTK_DATA = '/root'
                     // env.TEST_DATABASE_SERVICE_HOST = "postgresql-postgresql.labs-ci-cd"
                     // env.TEST_DATABASE_SERVICE_PORT = "5432"
                 }
@@ -158,6 +158,8 @@ pipeline {
                 sh 'printenv'
 
                 echo '### Get Binary from Nexus and shove it in a box ###'
+
+                
                 sh  '''
                     rm -rf package-contents*
                     curl -v -f -u ${NEXUS_CREDS} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${APP_NAME}/${PACKAGE} -o ${PACKAGE}
