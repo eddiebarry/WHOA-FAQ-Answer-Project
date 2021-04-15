@@ -200,7 +200,7 @@ pipeline {
                 sh '''
                     # package and release helm chart?
                     helm package chart/ --app-version ${VERSION} --version ${VERSION} --dependency-update
-                    curl -v -f -u ${NEXUS_CREDS} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_HELM}/ --upload-file ${APP_NAME}-${VERSION}.tgz
+                    curl -v -f -u ${NEXUS_CREDS} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_HELM}/ --upload-file ${NAME}-${VERSION}.tgz
                 '''
             }
         }
@@ -226,7 +226,7 @@ pipeline {
                             helm uninstall ${APP_NAME} --namespace=${TARGET_NAMESPACE} || rc=$?
                             helm upgrade --install ${APP_NAME} \
                                 --namespace=${TARGET_NAMESPACE} \
-                                http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_HELM}/${APP_NAME}-${VERSION}.tgz
+                                http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_HELM}/${NAME}-${VERSION}.tgz
                         '''
                     }
                 }
