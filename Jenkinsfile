@@ -84,6 +84,8 @@ pipeline {
                             // ammend the name to create 'sandbox' deploys based on current branch
                             env.APP_NAME = "${GIT_BRANCH}-${NAME}".replace("/", "-").toLowerCase()
                             env.TARGET_NAMESPACE = "${PROJECT}-" + env.APP_ENV
+
+                            env.RERANKER_NAME = "${GIT_BRANCH}-${NAME}-reranker".replace("/", "-").toLowerCase()
                         }
                     }
                 }
@@ -102,20 +104,13 @@ pipeline {
                     env.VERSIONED_APP_NAME = "${NAME}-${VERSION}"
                     env.PACKAGE = "${VERSIONED_APP_NAME}.tar.gz"
                     env.SECRET_KEY = 'gs7(p)fk=pf2(kbg*1wz$x+hnmw@y6%ij*x&pq4(^y8xjq$q#f' //TODO: get it from secret vault
-                    // env.NLTK_DATA = '/root'
-                    // env.TEST_DATABASE_SERVICE_HOST = "postgresql-postgresql.labs-ci-cd"
-                    // env.TEST_DATABASE_SERVICE_PORT = "5432"
+
+                    env.RERANKER_VERSION = sh(returnStdout: true, script: "grep -oP \"(?<=version=')[^']*\" ./WHO-FAQ-Rerank-Engine/setup.py").trim()
+                    env.VERSIONED_RERANKER_NAME = "${NAME}-${VERSION}-reranker"
+                    env.PACKAGE = "${VERSIONED_RERANKER_NAME}.tar.gz"
+                    env.SECRET_KEY = 'gs7(p)fk=pf2(kbg*1wz$x+hnmw@y6%ij*x&pq4(^y8xjq$q#f' //TODO: get it from secret vault
                 }
                 sh 'printenv'
-
-                echo '### Install deps ###'
-                // sh 'pip install -r requirements.txt'
-
-                // echo '### Running tests ###'
-                // sh 'python manage.py migrate --settings=interakt_backend.settings.test'
-                // sh 'coverage run manage.py test --settings=interakt_backend.settings.test'
-                // sh 'coverage report -m'
-                // sh 'coverage html -d cover'
 
                 echo '### Packaging App for Nexus ###'
 

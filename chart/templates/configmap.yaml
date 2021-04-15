@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name:  '{{ include "faq-host.fullname" . }}-environment'
+  name:  '{{ include "host.fullname" . }}-environment'
 data:
   env: |-
     (function (window) {
