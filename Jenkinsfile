@@ -85,7 +85,7 @@ pipeline {
                             env.APP_NAME = "${GIT_BRANCH}-${NAME}".replace("/", "-").toLowerCase()
                             env.TARGET_NAMESPACE = "${PROJECT}-" + env.APP_ENV
 
-                            // env.RERANKER_NAME = "${GIT_BRANCH}-${NAME}-reranker".replace("/", "-").toLowerCase()
+                            env.RERANKER_APP_NAME = "${GIT_BRANCH}-${NAME}-reranker".replace("/", "-").toLowerCase()
                         }
                     }
                 }
@@ -105,10 +105,10 @@ pipeline {
                     env.PACKAGE = "${VERSIONED_APP_NAME}.tar.gz"
                     env.SECRET_KEY = 'gs7(p)fk=pf2(kbg*1wz$x+hnmw@y6%ij*x&pq4(^y8xjq$q#f' //TODO: get it from secret vault
 
-                    // env.RERANKER_VERSION = sh(returnStdout: true, script: "grep -oP \"(?<=version=')[^']*\" ./WHO-FAQ-Rerank-Engine/setup.py").trim()
-                    // env.VERSIONED_RERANKER_NAME = "${NAME}-${VERSION}-reranker"
-                    // env.PACKAGE = "${VERSIONED_RERANKER_NAME}.tar.gz"
-                    // env.SECRET_KEY = 'gs7(p)fk=pf2(kbg*1wz$x+hnmw@y6%ij*x&pq4(^y8xjq$q#f' //TODO: get it from secret vault
+                    env.RERANKER_VERSION = sh(returnStdout: true, script: "grep -oP \"(?<=version=')[^']*\" ./WHO-FAQ-Rerank-Engine/setup.py").trim()
+                    env.VERSIONED_RERANKER_NAME = "${NAME}-${VERSION}-reranker"
+                    env.RERANKER_PACKAGE = "${VERSIONED_RERANKER_NAME}.tar.gz"
+
                 }
                 sh 'printenv'
 
@@ -119,6 +119,14 @@ pipeline {
                     pip install setuptools wheel
                     python setup.py sdist
                     curl -v -f -u ${NEXUS_CREDS} --upload-file dist/${PACKAGE} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${APP_NAME}/${PACKAGE}
+                '''
+
+                sh '''
+                    cd WHO-FAQ-Rerank-Engine
+                    python -m pip install --upgrade pip
+                    pip install setuptools wheel
+                    python setup.py sdist
+                    curl -v -f -u ${NEXUS_CREDS} --upload-file dist/${RERANKER_PACKAGE} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${RERANKER_APP_NAME}/${RERANKER_PACKAGE}
                 '''
             }
             // // Disabling tests for now
@@ -161,8 +169,8 @@ pipeline {
                     tar -xvf ${PACKAGE}
                     BUILD_ARGS=" --build-arg git_commit=${GIT_COMMIT} --build-arg git_url=${GIT_URL}  --build-arg build_url=${RUN_DISPLAY_URL} --build-arg build_tag=${BUILD_TAG}"
                     echo ${BUILD_ARGS}
-                    ls
-                    ls ${PACKAGE}
+                    // ls
+                    // ls ${PACKAGE}
                     # oc get bc ${APP_NAME} || rc=$?
                     # dirty hack so i don't have to oc patch the bc for the new version when pushing to quay ...
                     oc delete bc ${APP_NAME} || rc=$?
@@ -179,6 +187,33 @@ pipeline {
                         echo "🏗 Creating a potential build that could go all the way so pushing externally 🏗"
                         oc new-build --binary --name=${APP_NAME} -l app=${APP_NAME} ${BUILD_ARGS} --strategy=docker --push-secret=${QUAY_PUSH_SECRET} --to-docker --to="${IMAGE_REPOSITORY}/${TARGET_NAMESPACE}/${APP_NAME}:${VERSION}"
                         oc start-build ${APP_NAME} --from-dir=${VERSIONED_APP_NAME}/. ${BUILD_ARGS} --follow
+                    fi
+                '''
+
+                 sh  '''
+                    rm -rf package-contents*
+                    curl -v -f -u ${NEXUS_CREDS} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${RERANKER_APP_NAME}/${RERANKER_PACKAGE} -o ${RERANKER_PACKAGE}
+                    tar -xvf ${PACKAGE}
+                    BUILD_ARGS=" --build-arg git_commit=${GIT_COMMIT} --build-arg git_url=${GIT_URL}  --build-arg build_url=${RUN_DISPLAY_URL} --build-arg build_tag=${BUILD_TAG}"
+                    echo ${BUILD_ARGS}
+                    // ls
+                    // ls ${PACKAGE}
+                    # oc get bc ${APP_NAME} || rc=$?
+                    # dirty hack so i don't have to oc patch the bc for the new version when pushing to quay ...
+                    oc delete bc ${RERANKER_APP_NAME} || rc=$?
+                    echo "I am alive"
+                    if [[ $TARGET_NAMESPACE == *"dev"* ]]; then
+                        echo "🏗 Creating a sandbox build for inside the cluster 🏗"
+
+                        oc new-build --binary --name=${RERANKER_APP_NAME} -l app=${RERANKER_APP_NAME} ${BUILD_ARGS}
+                        oc start-build ${RERANKER_APP_NAME} --from-dir=. ${BUILD_ARGS} --follow
+                        
+                        # used for internal sandbox build ....
+                        oc tag ${OPENSHIFT_BUILD_NAMESPACE}/${RERANKER_APP_NAME}:latest ${TARGET_NAMESPACE}/${RERANKER_APP_NAME}:${VERSION}
+                    else
+                        echo "🏗 Creating a potential build that could go all the way so pushing externally 🏗"
+                        oc new-build --binary --name=${RERANKER_APP_NAME} -l app=${RERANKER_APP_NAME} ${BUILD_ARGS} --strategy=docker --push-secret=${QUAY_PUSH_SECRET} --to-docker --to="${IMAGE_REPOSITORY}/${TARGET_NAMESPACE}/${RERANKER_APP_NAME}:${VERSION}"
+                        oc start-build ${RERANKER_APP_NAME} --from-dir=${VERSIONED_RERANKER_NAME}/. ${BUILD_ARGS} --follow
                     fi
                 '''
             }
