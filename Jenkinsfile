@@ -225,17 +225,17 @@ pipeline {
                 sh 'printenv'
                 sh '''
                     # might be overkill...
-                    yq w -i chart/Chart.yaml 'appVersion' ${VERSION}
-                    yq w -i chart/Chart.yaml 'version' ${VERSION}
-                    yq w -i chart/Chart.yaml 'name' ${APP_NAME} # APP= feature-123-learning-experience-platform
+                    yq e ".appVersion = env(VERSION)" -i chart/Chart.yaml
+                    yq e ".version = env(VERSION)" -i chart/Chart.yaml
+                    yq e ".name = env(APP_NAME)" -i chart/Chart.yaml # APP= feature-123-learning-experience-platform
                     
                     # probs point to the image inside ocp cluster or perhaps an external repo?
-                    yq w -i chart/values.yaml 'image_repository' ${IMAGE_REPOSITORY}
-                    yq w -i chart/values.yaml 'image_name' ${APP_NAME}
-                    yq w -i chart/values.yaml 'image_namespace' ${TARGET_NAMESPACE}
+                    yq e ".image_repository = env(IMAGE_REPOSITORY)" -i chart/values.yaml
+                    yq e ".image_name = env(APP_NAME)" -i chart/values.yaml
+                    yq e ".image_namespace = env(TARGET_NAMESPACE)" -i chart/values.yaml
                     
                     # latest built image
-                    yq w -i chart/values.yaml 'app_tag' ${VERSION}
+                    yq e ".app_tag = env(VERSION)" -i chart/values.yaml
                 '''
                 sh '''
                     # package and release helm chart?
