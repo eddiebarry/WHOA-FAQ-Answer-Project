@@ -3,7 +3,7 @@ replicas: 1
 build:
   build_tag: latest
   base_image: python:3.7
-  enabled: false
+  enabled: true
   source_docker_file_path: Dockerfile
 image_repository: quay.io
 image_name: host
