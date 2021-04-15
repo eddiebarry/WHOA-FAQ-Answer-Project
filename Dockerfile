@@ -15,6 +15,8 @@ LABEL labs.build.url="${build_url}" \
 # RUN chown 1000680000 -R /root
 RUN chmod 777 -R /root
 
+RUN id -u
+
 WORKDIR /usr/src
 
 # RUN pip install tokenizers==0.7 transformers==2.10.0 \
