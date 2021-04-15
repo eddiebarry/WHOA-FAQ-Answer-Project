@@ -7,7 +7,7 @@ build:
   source_docker_file_path: Dockerfile
 image_repository: quay.io
 image_name: host
-image_namespace: dev
+image_namespace: whoacademy
 image_tag: 1.0.7
 
 # OCP route

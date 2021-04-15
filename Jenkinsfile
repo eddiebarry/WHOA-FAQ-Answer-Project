@@ -224,9 +224,23 @@ pipeline {
             steps {
                 sh 'printenv'
                 sh '''
+                    # might be overkill...
+                    yq w -i chart/Chart.yaml 'appVersion' ${VERSION}
+                    yq w -i chart/Chart.yaml 'version' ${VERSION}
+                    yq w -i chart/Chart.yaml 'name' ${APP_NAME} # APP= feature-123-learning-experience-platform
+                    
+                    # probs point to the image inside ocp cluster or perhaps an external repo?
+                    yq w -i chart/values.yaml 'image_repository' ${IMAGE_REPOSITORY}
+                    yq w -i chart/values.yaml 'image_name' ${APP_NAME}
+                    yq w -i chart/values.yaml 'image_namespace' ${TARGET_NAMESPACE}
+                    
+                    # latest built image
+                    yq w -i chart/values.yaml 'app_tag' ${VERSION}
+                '''
+                sh '''
                     # package and release helm chart?
                     helm package chart/ --app-version ${VERSION} --version ${VERSION} --dependency-update
-                    curl -v -f -u ${NEXUS_CREDS} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_HELM}/ --upload-file ${NAME}-${VERSION}.tgz
+                    curl -v -f -u ${NEXUS_CREDS} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_HELM}/ --upload-file ${APP_NAME}-${VERSION}.tgz
                 '''
             }
         }
@@ -252,7 +266,7 @@ pipeline {
                             helm uninstall ${APP_NAME} --namespace=${TARGET_NAMESPACE} || rc=$?
                             helm upgrade --install ${APP_NAME} \
                                 --namespace=${TARGET_NAMESPACE} \
-                                http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_HELM}/${NAME}-${VERSION}.tgz
+                                http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_HELM}/${APP_NAME}-${VERSION}.tgz
                         '''
                     }
                 }
