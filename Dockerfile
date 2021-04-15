@@ -36,7 +36,7 @@ WORKDIR /usr/src
 # ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 
 
-RUN git clone --recursive https://github.com/eddiebarry/WHOA-FAQ-Answer-Project.git
+RUN git clone --recursive --branch feature/cicd-test https://github.com/eddiebarry/WHOA-FAQ-Answer-Project.git
 
 WORKDIR /usr/src/WHOA-FAQ-Answer-Project/
 
