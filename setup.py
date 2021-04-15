@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
-setup(name='orchestrator-host-4',
-      version='1.0.5',
+setup(name='faq-host',
+      version='1.0.6',
       packages=find_packages(),
     #   package_data={'': ['./nginx-orchestrator-setup/Dockerfile']},
     #   include_package_data = True,

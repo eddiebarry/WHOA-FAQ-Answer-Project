@@ -2,13 +2,13 @@ apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
   labels:
-    {{- include "lxp-search.labels" . | nindent 4 }}
-  name: {{ include "lxp-search.fullname" . }}
+    {{- include "faq-host.labels" . | nindent 4 }}
+  name: {{ include "faq-host.fullname" . }}
 spec:
   replicas: {{ .Values.replicas }}
   revisionHistoryLimit: 10
   selector:
-    {{- include "lxp-search.selectorLabels" . | nindent 4 }}
+    {{- include "faq-host.selectorLabels" . | nindent 4 }}
   strategy:
     activeDeadlineSeconds: 21600
     resources: {}
@@ -22,12 +22,12 @@ spec:
   template:
     metadata:
       labels:
-        {{- include "lxp-search.selectorLabels" . | nindent 8 }}
+        {{- include "faq-host.selectorLabels" . | nindent 8 }}
     spec:
       containers:
       - image: "{{ .Values.image_repository }}/{{ .Values.image_namespace | default .Release.Namespace }}/{{ .Values.image_name }}:{{ .Values.image_tag }}"
         imagePullPolicy: Always
-        name: {{ include "lxp-search.name" . }}
+        name: {{ include "faq-host.name" . }}
         ports:
         - containerPort: 8080
           protocol: TCP
@@ -36,13 +36,13 @@ spec:
         terminationMessagePolicy: File
         livenessProbe:
           httpGet:
-            path: /healthcheck/liveness
+            path: /
             port: 8080
           initialDelaySeconds: 10
           timeoutSeconds: 3
         readinessProbe:
           httpGet:
-            path: /healthcheck/readiness
+            path: /
             port: 8080
           initialDelaySeconds: 3
           timeoutSeconds: 3

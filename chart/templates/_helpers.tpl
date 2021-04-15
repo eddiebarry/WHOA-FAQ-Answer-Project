@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "lxp-search.name" -}}
+{{- define "faq-host.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "lxp-search.fullname" -}}
+{{- define "faq-host.fullname" -}}
 {{- if .Values.fullnameOverride -}}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "lxp-search.chart" -}}
+{{- define "faq-host.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
 Common labels
 */}}
-{{- define "lxp-search.labels" -}}
-helm.sh/chart: {{ include "lxp-search.chart" . }}
-{{ include "lxp-search.selectorLabels" . }}
+{{- define "faq-host.labels" -}}
+helm.sh/chart: {{ include "faq-host.chart" . }}
+{{ include "faq-host.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,10 +45,10 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "lxp-search.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "lxp-search.name" . }}
+{{- define "faq-host.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "faq-host.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
-deploymentconfig: {{ include "lxp-search.fullname" . }}
+deploymentconfig: {{ include "faq-host.fullname" . }}
 {{- end -}}
 
 {{/*

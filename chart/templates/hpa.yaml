@@ -2,12 +2,12 @@
 apiVersion: autoscaling/v2beta2 
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "lxp-search.fullname" . }}-hpa
+  name: {{ include "faq-host.fullname" . }}-hpa
 spec:
   scaleTargetRef:
     apiVersion: {{ .Values.hpa.target.apiVersion }}
     kind: {{ .Values.hpa.target.kind }}
-    name: {{ include "lxp-search.fullname" . }}
+    name: {{ include "faq-host.fullname" . }}
   minReplicas: {{ .Values.hpa.minReplicas }}
   maxReplicas: {{ .Values.hpa.maxReplicas }}
   metrics: 
