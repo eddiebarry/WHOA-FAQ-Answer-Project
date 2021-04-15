@@ -8,7 +8,7 @@ build:
 image_repository: quay.io
 image_name: vla
 image_namespace: whoacademy
-image_tag: 1.0.0
+image_tag: 1.0.4
 
 # OCP route
 route: true
