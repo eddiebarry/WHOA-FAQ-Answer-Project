@@ -3,10 +3,10 @@ replicas: 1
 build:
   build_tag: latest
   base_image: python:3.7
-  enabled: true
+  enabled: false
   source_docker_file_path: Dockerfile
 image_repository: quay.io
-image_name: host
+image_name: 
 image_namespace: whoacademy
 image_tag: 1.0.7
 
@@ -14,17 +14,17 @@ image_tag: 1.0.7
 route: true
 
 
-# #Django
-# #have to get this from vault etc. maybe
-# secret_key: gs7(p)fk=pf2(kbg*1wz$x+hnmw@y6%ij*x&pq4(^y8xjq$q#f
-# environment: dev
-# extra_env:
-#   - name: SUGGEST_KEYWORD_URL
-#     value: http://52.209.188.140:5007/api/v2/batch_keyword_extract
-#   - name: TRAIN_BOT_URL
-#     value: http://52.209.188.140:5007/api/v2/train_bot_json_array
-#   - name: TEST_BOT_URL
-#     value: http://52.209.188.140:5007/api/v2/get-bot-host
+#Django
+#have to get this from vault etc. maybe
+secret_key: gs7(p)fk=pf2(kbg*1wz$x+hnmw@y6%ij*x&pq4(^y8xjq$q#f
+environment: dev
+extra_env:
+  - name: SUGGEST_KEYWORD_URL
+    value: http://52.209.188.140:5007/api/v2/batch_keyword_extract
+  - name: TRAIN_BOT_URL
+    value: http://52.209.188.140:5007/api/v2/train_bot_json_array
+  - name: TEST_BOT_URL
+    value: http://52.209.188.140:5007/api/v2/get-bot-vla-orchestrator
 
 
 # postgresql:

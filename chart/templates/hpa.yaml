@@ -2,12 +2,12 @@
 apiVersion: autoscaling/v2beta2 
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "host.fullname" . }}-hpa
+  name: {{ include "vla-orchestrator.fullname" . }}-hpa
 spec:
   scaleTargetRef:
     apiVersion: {{ .Values.hpa.target.apiVersion }}
     kind: {{ .Values.hpa.target.kind }}
-    name: {{ include "host.fullname" . }}
+    name: {{ include "vla-orchestrator.fullname" . }}
   minReplicas: {{ .Values.hpa.minReplicas }}
   maxReplicas: {{ .Values.hpa.maxReplicas }}
   metrics: 

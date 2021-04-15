@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "host.name" -}}
+{{- define "vla-orchestrator.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "host.fullname" -}}
+{{- define "vla-orchestrator.fullname" -}}
 {{- if .Values.fullnameOverride -}}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "host.chart" -}}
+{{- define "vla-orchestrator.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
 Common labels
 */}}
-{{- define "host.labels" -}}
-helm.sh/chart: {{ include "host.chart" . }}
-{{ include "host.selectorLabels" . }}
+{{- define "vla-orchestrator.labels" -}}
+helm.sh/chart: {{ include "vla-orchestrator.chart" . }}
+{{ include "vla-orchestrator.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,10 +45,10 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "host.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "host.name" . }}
+{{- define "vla-orchestrator.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "vla-orchestrator.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
-deploymentconfig: {{ include "host.fullname" . }}
+deploymentconfig: {{ include "vla-orchestrator.fullname" . }}
 {{- end -}}
 
 {{/*
@@ -60,9 +60,9 @@ deploymentconfig: {{ include "host.fullname" . }}
 {{- end -}}
 
 {{/*
-  Determine the hostname to use for PostgreSQL/mySQL.
+  Determine the vla-orchestratorname to use for PostgreSQL/mySQL.
 */}}
-{{- define "postgresql.hostname" -}}
+{{- define "postgresql.vla-orchestratorname" -}}
 {{- if .Values.postgresql.enabled -}}
 {{- printf "%s-%s" "postgresql" .Chart.Name | trunc 63 | trimSuffix "-" -}}
 {{- else -}}

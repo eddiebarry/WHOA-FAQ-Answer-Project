@@ -3,15 +3,15 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: {{ include "host.fullname" . }}
+  name: {{ include "vla-orchestrator.fullname" . }}
   labels:
-    {{- include "host.labels" . | nindent 4 }}
+    {{- include "vla-orchestrator.labels" . | nindent 4 }}
 spec:
   port:
     targetPort: 8080-tcp
   to:
     kind: Service
-    name: {{ include "host.fullname" . }}
+    name: {{ include "vla-orchestrator.fullname" . }}
     weight: 100
   wildcardPolicy: None
   tls:
