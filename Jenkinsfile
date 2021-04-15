@@ -85,7 +85,7 @@ pipeline {
                             env.APP_NAME = "${GIT_BRANCH}-${NAME}".replace("/", "-").toLowerCase()
                             env.TARGET_NAMESPACE = "${PROJECT}-" + env.APP_ENV
 
-                            env.RERANKER_NAME = "${GIT_BRANCH}-${NAME}-reranker".replace("/", "-").toLowerCase()
+                            // env.RERANKER_NAME = "${GIT_BRANCH}-${NAME}-reranker".replace("/", "-").toLowerCase()
                         }
                     }
                 }
@@ -105,10 +105,10 @@ pipeline {
                     env.PACKAGE = "${VERSIONED_APP_NAME}.tar.gz"
                     env.SECRET_KEY = 'gs7(p)fk=pf2(kbg*1wz$x+hnmw@y6%ij*x&pq4(^y8xjq$q#f' //TODO: get it from secret vault
 
-                    env.RERANKER_VERSION = sh(returnStdout: true, script: "grep -oP \"(?<=version=')[^']*\" ./WHO-FAQ-Rerank-Engine/setup.py").trim()
-                    env.VERSIONED_RERANKER_NAME = "${NAME}-${VERSION}-reranker"
-                    env.PACKAGE = "${VERSIONED_RERANKER_NAME}.tar.gz"
-                    env.SECRET_KEY = 'gs7(p)fk=pf2(kbg*1wz$x+hnmw@y6%ij*x&pq4(^y8xjq$q#f' //TODO: get it from secret vault
+                    // env.RERANKER_VERSION = sh(returnStdout: true, script: "grep -oP \"(?<=version=')[^']*\" ./WHO-FAQ-Rerank-Engine/setup.py").trim()
+                    // env.VERSIONED_RERANKER_NAME = "${NAME}-${VERSION}-reranker"
+                    // env.PACKAGE = "${VERSIONED_RERANKER_NAME}.tar.gz"
+                    // env.SECRET_KEY = 'gs7(p)fk=pf2(kbg*1wz$x+hnmw@y6%ij*x&pq4(^y8xjq$q#f' //TODO: get it from secret vault
                 }
                 sh 'printenv'
 
