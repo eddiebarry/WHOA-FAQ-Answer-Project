@@ -5,7 +5,7 @@ pipeline {
 
     environment {
         // GLobal Vars
-        NAME = "vla-orchestrator"
+        NAME = "orchestrator"
         PROJECT= "labs"
 
         // Config repo managed by ArgoCD details
@@ -114,12 +114,12 @@ pipeline {
 
                 echo '### Packaging App for Nexus ###'
 
-                sh '''
-                    python -m pip install --upgrade pip
-                    pip install setuptools wheel
-                    python setup.py sdist
-                    curl -v -f -u ${NEXUS_CREDS} --upload-file dist/${PACKAGE} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${APP_NAME}/${PACKAGE}
-                '''
+                // sh '''
+                //     python -m pip install --upgrade pip
+                //     pip install setuptools wheel
+                //     python setup.py sdist
+                //     curl -v -f -u ${NEXUS_CREDS} --upload-file dist/${PACKAGE} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${APP_NAME}/${PACKAGE}
+                // '''
 
                 // sh '''
                 //     cd WHO-FAQ-Rerank-Engine
@@ -163,28 +163,28 @@ pipeline {
                 echo '### Get Binary from Nexus and shove it in a box ###'
 
                 
-                sh  '''
-                    rm -rf package-contents*
-                    curl -v -f -u ${NEXUS_CREDS} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${APP_NAME}/${PACKAGE} -o ${PACKAGE}
-                    tar -xvf ${PACKAGE}
-                    BUILD_ARGS=" --build-arg git_commit=${GIT_COMMIT} --build-arg git_url=${GIT_URL}  --build-arg build_url=${RUN_DISPLAY_URL} --build-arg build_tag=${BUILD_TAG}"
-                    echo ${BUILD_ARGS}
-                    oc delete bc ${APP_NAME} || rc=$?
-                    echo "I am alive"
-                    if [[ $TARGET_NAMESPACE == *"dev"* ]]; then
-                        echo "🏗 Creating a sandbox build for inside the cluster 🏗"
+                // sh  '''
+                //     rm -rf package-contents*
+                //     curl -v -f -u ${NEXUS_CREDS} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${APP_NAME}/${PACKAGE} -o ${PACKAGE}
+                //     tar -xvf ${PACKAGE}
+                //     BUILD_ARGS=" --build-arg git_commit=${GIT_COMMIT} --build-arg git_url=${GIT_URL}  --build-arg build_url=${RUN_DISPLAY_URL} --build-arg build_tag=${BUILD_TAG}"
+                //     echo ${BUILD_ARGS}
+                //     oc delete bc ${APP_NAME} || rc=$?
+                //     echo "I am alive"
+                //     if [[ $TARGET_NAMESPACE == *"dev"* ]]; then
+                //         echo "🏗 Creating a sandbox build for inside the cluster 🏗"
 
-                        oc new-build --binary --name=${APP_NAME} -l app=${APP_NAME} ${BUILD_ARGS}
-                        oc start-build ${APP_NAME} --from-dir=. ${BUILD_ARGS} --follow
+                //         oc new-build --binary --name=${APP_NAME} -l app=${APP_NAME} ${BUILD_ARGS}
+                //         oc start-build ${APP_NAME} --from-dir=. ${BUILD_ARGS} --follow
                         
-                        # used for internal sandbox build ....
-                        oc tag ${OPENSHIFT_BUILD_NAMESPACE}/${APP_NAME}:latest ${TARGET_NAMESPACE}/${APP_NAME}:${VERSION}
-                    else
-                        echo "🏗 Creating a potential build that could go all the way so pushing externally 🏗"
-                        oc new-build --binary --name=${APP_NAME} -l app=${APP_NAME} ${BUILD_ARGS} --strategy=docker --push-secret=${QUAY_PUSH_SECRET} --to-docker --to="${IMAGE_REPOSITORY}/${TARGET_NAMESPACE}/${APP_NAME}:${VERSION}"
-                        oc start-build ${APP_NAME} --from-dir=${VERSIONED_APP_NAME}/. ${BUILD_ARGS} --follow
-                    fi
-                '''
+                //         # used for internal sandbox build ....
+                //         oc tag ${OPENSHIFT_BUILD_NAMESPACE}/${APP_NAME}:latest ${TARGET_NAMESPACE}/${APP_NAME}:${VERSION}
+                //     else
+                //         echo "🏗 Creating a potential build that could go all the way so pushing externally 🏗"
+                //         oc new-build --binary --name=${APP_NAME} -l app=${APP_NAME} ${BUILD_ARGS} --strategy=docker --push-secret=${QUAY_PUSH_SECRET} --to-docker --to="${IMAGE_REPOSITORY}/${TARGET_NAMESPACE}/${APP_NAME}:${VERSION}"
+                //         oc start-build ${APP_NAME} --from-dir=${VERSIONED_APP_NAME}/. ${BUILD_ARGS} --follow
+                //     fi
+                // '''
 
                 //  sh  '''
                 //     rm -rf package-contents*
@@ -230,9 +230,9 @@ pipeline {
                     yq e ".name = env(APP_NAME)" -i chart/Chart.yaml # APP= feature-123-learning-experience-platform
                     
                     # probs point to the image inside ocp cluster or perhaps an external repo?
-                    yq e ".image_repository = env(IMAGE_REPOSITORY)" -i chart/values.yaml
-                    yq e ".image_name = env(APP_NAME)" -i chart/values.yaml
-                    yq e ".image_namespace = env(TARGET_NAMESPACE)" -i chart/values.yaml
+                    yq e ".orchestrator.image_repository = env(IMAGE_REPOSITORY)" -i chart/values.yaml
+                    yq e ".orchestrator.image_stream_name = env(APP_NAME)" -i chart/values.yaml
+                    yq e ".namespace = env(TARGET_NAMESPACE)" -i chart/values.yaml
                     
                     # latest built image
                     yq e ".app_tag = env(VERSION)" -i chart/values.yaml

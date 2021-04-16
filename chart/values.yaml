@@ -1,31 +1,43 @@
-replicas: 1
-# build info not used atm
-build:
-  build_tag: latest
-  base_image: python:3.7
-  enabled: false
-  source_docker_file_path: Dockerfile
-image_repository: quay.io
-image_name: 
-image_namespace: whoacademy
-image_tag: 1.0.7
+# replicas: 1
+# # build info not used atm
+# build:
+#   build_tag: latest
+#   base_image: python:3.7
+#   enabled: false
+#   source_docker_file_path: Dockerfile
+# image_repository: quay.io
+# image_name: 
+# image_namespace: whoacademy
+# image_tag: la
 
 # OCP route
 route: true
 
 
-#Django
-#have to get this from vault etc. maybe
-secret_key: gs7(p)fk=pf2(kbg*1wz$x+hnmw@y6%ij*x&pq4(^y8xjq$q#f
-environment: dev
-extra_env:
-  - name: SUGGEST_KEYWORD_URL
-    value: http://52.209.188.140:5007/api/v2/batch_keyword_extract
-  - name: TRAIN_BOT_URL
-    value: http://52.209.188.140:5007/api/v2/train_bot_json_array
-  - name: TEST_BOT_URL
-    value: http://52.209.188.140:5007/api/v2/get-bot-vla-orchestrator
+# #Django
+# #have to get this from vault etc. maybe
+# secret_key: gs7(p)fk=pf2(kbg*1wz$x+hnmw@y6%ij*x&pq4(^y8xjq$q#f
+# environment: dev
+# extra_env:
+#   - name: SUGGEST_KEYWORD_URL
+#     value: http://52.209.188.140:5007/api/v2/batch_keyword_extract
+#   - name: TRAIN_BOT_URL
+#     value: http://52.209.188.140:5007/api/v2/train_bot_json_array
+#   - name: TEST_BOT_URL
+#     value: http://52.209.188.140:5007/api/v2/get-bot-vla-orchestrator
 
+
+
+orchestrator:
+  name: orchestrator-build
+  build_tag: latest
+  image_stream_name: orchestrator-img-stream
+  image_repository: quay.io
+  # image_name: 
+  # image_namespace: whoacademy
+  image_tag: la
+
+namespace: vla-cicd-test 
 
 # postgresql:
 #   enabled: true
@@ -85,28 +97,28 @@ extra_env:
 #   memTarget: 500Mi
 
 # Horizontal Pod Autoscaler
-hpa:
-  enabled: false
-  target:
-    apiVersion: apps.openshift.io/v1
-    kind: DeploymentConfig
-  minReplicas: 1
-  maxReplicas: 2
-  cpuTarget: 1000m
-  memTarget: 500Mi
+# hpa:
+#   enabled: false
+#   target:
+#     apiVersion: apps.openshift.io/v1
+#     kind: DeploymentConfig
+#   minReplicas: 1
+#   maxReplicas: 2
+#   cpuTarget: 1000m
+#   memTarget: 500Mi
 
-redis:
-  enabled: true
-  memory_limit: 512Mi
-  is_namespace: openshift
-  redis_password: 'somepassword'
-  redis_version: "5"
-  volume_capacity: 1Gi
-  service:
-    port: 6379
+# redis:
+#   enabled: true
+#   memory_limit: 512Mi
+#   is_namespace: openshift
+#   redis_password: 'somepassword'
+#   redis_version: "5"
+#   volume_capacity: 1Gi
+#   service:
+#     port: 6379
 
-storage:
-  enabled: false
-  volume_capacity: 100Mi
-  storageClassName: azure-file-storage
-  mountPath: /opt/app-root/src/vla/media
+# storage:
+#   enabled: false
+#   volume_capacity: 100Mi
+#   storageClassName: azure-file-storage
+#   mountPath: /opt/app-root/src/vla/media
