@@ -262,7 +262,7 @@ pipeline {
                     }
                     steps {
                         // TODO - if SANDBOX, create release in rando ns
-                        sh 'printenv'
+                        // sh 'printenv'
                         sh '''
                             # might be overkill...
                             yq e ".appVersion = env(VERSION)" -i chart/Chart.yaml
