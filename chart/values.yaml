@@ -38,7 +38,7 @@ orchestrator:
   # image_namespace: whoacademy
   image_tag: latest
 
-namespace: labs-test
+namespace: labs-dev
 
 app_tag: latest
 

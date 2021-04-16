@@ -83,7 +83,7 @@ pipeline {
                             env.IMAGE_REPOSITORY = 'image-registry.openshift-image-registry.svc:5000'
                             // ammend the name to create 'sandbox' deploys based on current branch
                             env.APP_NAME = "${GIT_BRANCH}-${NAME}".replace("/", "-").toLowerCase()
-                            env.TARGET_NAMESPACE = "labs-test"
+                            env.TARGET_NAMESPACE = "labs-dev"
 
                             // env.RERANKER_APP_NAME = "${GIT_BRANCH}-${NAME}-reranker".replace("/", "-").toLowerCase()
                         }
