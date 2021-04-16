@@ -262,6 +262,22 @@ pipeline {
                     }
                     steps {
                         // TODO - if SANDBOX, create release in rando ns
+                        sh 'printenv'
+                        sh '''
+                            # might be overkill...
+                            yq e ".appVersion = env(VERSION)" -i chart/Chart.yaml
+                            yq e ".version = env(VERSION)" -i chart/Chart.yaml
+                            yq e ".name = env(APP_NAME)" -i chart/Chart.yaml # APP= feature-123-learning-experience-platform
+                            
+                            # probs point to the image inside ocp cluster or perhaps an external repo?
+                            yq e ".orchestrator.image_repository = env(IMAGE_REPOSITORY)" -i chart/values.yaml
+                            yq e ".orchestrator.image_stream_name = env(APP_NAME)" -i chart/values.yaml
+                            yq e ".namespace = env(TARGET_NAMESPACE)" -i chart/values.yaml
+                            
+                            # latest built image
+                            yq e ".app_tag = env(VERSION)" -i chart/values.yaml
+                        '''
+                        sh 'printenv'
                         sh '''
                             helm uninstall ${APP_NAME} --namespace=${TARGET_NAMESPACE} || rc=$?
                             helm upgrade --install ${APP_NAME} \

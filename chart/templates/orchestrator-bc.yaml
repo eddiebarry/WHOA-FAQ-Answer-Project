@@ -12,7 +12,7 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      name: '{{ .Values.orchestrator.image_stream_name }}:{{ .Values.build.build_tag | default "latest"}}'
+      name: '{{ .Values.orchestrator.image_stream_name }}:{{ .Values.orchestrator.build_tag | default "latest"}}'
   resources: {}
   successfulBuildsHistoryLimit: 5
   failedBuildsHistoryLimit: 5
