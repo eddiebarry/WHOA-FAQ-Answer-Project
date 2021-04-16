@@ -29,11 +29,11 @@ route: true
 
 
 orchestrator:
-  name: orchestrator-build
+  name: orchestrator-build-1.0
   build_tag: latest
-  image_stream_name: orchestrator-img-stream
+  image_stream_name: orchestrator-img-stream-1.0
   image_repository: quay.io
-  service_name: orchestrator-service
+  service_name: orchestrator-service-1.0
   # image_name: 
   # image_namespace: whoacademy
   image_tag: latest
