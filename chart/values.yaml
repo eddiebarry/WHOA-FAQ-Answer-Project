@@ -39,6 +39,8 @@ orchestrator:
 
 namespace: vla-cicd-test 
 
+app_tag: latest
+
 # postgresql:
 #   enabled: true
 #   accessmode: ReadWriteOnce

@@ -83,7 +83,7 @@ pipeline {
                             env.IMAGE_REPOSITORY = 'image-registry.openshift-image-registry.svc:5000'
                             // ammend the name to create 'sandbox' deploys based on current branch
                             env.APP_NAME = "${GIT_BRANCH}-${NAME}".replace("/", "-").toLowerCase()
-                            env.TARGET_NAMESPACE = "${PROJECT}-" + env.APP_ENV
+                            env.TARGET_NAMESPACE = "vla-cicd-test"
 
                             // env.RERANKER_APP_NAME = "${GIT_BRANCH}-${NAME}-reranker".replace("/", "-").toLowerCase()
                         }
@@ -92,61 +92,61 @@ pipeline {
             }
         }
 
-          stage("Build (Compile App)") {
-            agent {
-                node {
-                    label "jenkins-agent-python38"
-                }
-            }
-            steps {
-                script {
-                    env.VERSION = sh(returnStdout: true, script: "grep -oP \"(?<=version=')[^']*\" setup.py").trim()
-                    env.VERSIONED_APP_NAME = "${NAME}-${VERSION}"
-                    env.PACKAGE = "${VERSIONED_APP_NAME}.tar.gz"
-                    env.SECRET_KEY = 'gs7(p)fk=pf2(kbg*1wz$x+hnmw@y6%ij*x&pq4(^y8xjq$q#f' //TODO: get it from secret vault
+        //   stage("Build (Compile App)") {
+        //     agent {
+        //         node {
+        //             label "jenkins-agent-python38"
+        //         }
+        //     }
+        //     steps {
+        //         script {
+        //             env.VERSION = sh(returnStdout: true, script: "grep -oP \"(?<=version=')[^']*\" setup.py").trim()
+        //             env.VERSIONED_APP_NAME = "${NAME}-${VERSION}"
+        //             env.PACKAGE = "${VERSIONED_APP_NAME}.tar.gz"
+        //             env.SECRET_KEY = 'gs7(p)fk=pf2(kbg*1wz$x+hnmw@y6%ij*x&pq4(^y8xjq$q#f' //TODO: get it from secret vault
 
-                    // env.RERANKER_VERSION = sh(returnStdout: true, script: "grep -oP \"(?<=version=')[^']*\" ./WHO-FAQ-Rerank-Engine/setup.py").trim()
-                    // env.VERSIONED_RERANKER_NAME = "${NAME}-${VERSION}-reranker"
-                    // env.RERANKER_PACKAGE = "${VERSIONED_RERANKER_NAME}.tar.gz"
+        //             // env.RERANKER_VERSION = sh(returnStdout: true, script: "grep -oP \"(?<=version=')[^']*\" ./WHO-FAQ-Rerank-Engine/setup.py").trim()
+        //             // env.VERSIONED_RERANKER_NAME = "${NAME}-${VERSION}-reranker"
+        //             // env.RERANKER_PACKAGE = "${VERSIONED_RERANKER_NAME}.tar.gz"
 
-                }
-                sh 'printenv'
+        //         }
+        //         sh 'printenv'
 
-                // echo '### Packaging App for Nexus ###'
+        //         // echo '### Packaging App for Nexus ###'
 
-                // sh '''
-                //     python -m pip install --upgrade pip
-                //     pip install setuptools wheel
-                //     python setup.py sdist
-                //     curl -v -f -u ${NEXUS_CREDS} --upload-file dist/${PACKAGE} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${APP_NAME}/${PACKAGE}
-                // '''
+        //         // sh '''
+        //         //     python -m pip install --upgrade pip
+        //         //     pip install setuptools wheel
+        //         //     python setup.py sdist
+        //         //     curl -v -f -u ${NEXUS_CREDS} --upload-file dist/${PACKAGE} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${APP_NAME}/${PACKAGE}
+        //         // '''
 
-                // sh '''
-                //     cd WHO-FAQ-Rerank-Engine
-                //     python -m pip install --upgrade pip
-                //     pip install setuptools wheel
-                //     python setup.py sdist
-                //     curl -v -f -u ${NEXUS_CREDS} --upload-file dist/${RERANKER_PACKAGE} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${RERANKER_APP_NAME}/${RERANKER_PACKAGE}
-                // '''
-            }
-            // // Disabling tests for now
-            // // Post can be used both on individual stages and for the entire build.
-            // post {
-            //     always {
-            //         // archiveArtifacts "**"
-            //         junit 'xunittest.xml'
-            //         // publish html
-            //         publishHTML target: [
-            //             allowMissing: false,
-            //             alwaysLinkToLastBuild: false,
-            //             keepAll: true,
-            //             reportDir: 'cover',
-            //             reportFiles: 'index.html',
-            //             reportName: 'Django Code Coverage'
-            //         ]
-            //     }
-            // }
-        }
+        //         // sh '''
+        //         //     cd WHO-FAQ-Rerank-Engine
+        //         //     python -m pip install --upgrade pip
+        //         //     pip install setuptools wheel
+        //         //     python setup.py sdist
+        //         //     curl -v -f -u ${NEXUS_CREDS} --upload-file dist/${RERANKER_PACKAGE} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${RERANKER_APP_NAME}/${RERANKER_PACKAGE}
+        //         // '''
+        //     }
+        //     // // Disabling tests for now
+        //     // // Post can be used both on individual stages and for the entire build.
+        //     // post {
+        //     //     always {
+        //     //         // archiveArtifacts "**"
+        //     //         junit 'xunittest.xml'
+        //     //         // publish html
+        //     //         publishHTML target: [
+        //     //             allowMissing: false,
+        //     //             alwaysLinkToLastBuild: false,
+        //     //             keepAll: true,
+        //     //             reportDir: 'cover',
+        //     //             reportFiles: 'index.html',
+        //     //             reportName: 'Django Code Coverage'
+        //     //         ]
+        //     //     }
+        //     // }
+        // }
 
     //   stage("Bake (OpenShift Build)") {
     //         options {
@@ -231,7 +231,6 @@ pipeline {
                     
                     # probs point to the image inside ocp cluster or perhaps an external repo?
                     yq e ".orchestrator.image_repository = env(IMAGE_REPOSITORY)" -i chart/values.yaml
-                    yq e ".orchestrator.image_stream_name = env(APP_NAME)" -i chart/values.yaml
                     yq e ".namespace = env(TARGET_NAMESPACE)" -i chart/values.yaml
                     
                     # latest built image
@@ -272,7 +271,6 @@ pipeline {
                             
                             # probs point to the image inside ocp cluster or perhaps an external repo?
                             yq e ".orchestrator.image_repository = env(IMAGE_REPOSITORY)" -i chart/values.yaml
-                            yq e ".orchestrator.image_stream_name = env(APP_NAME)" -i chart/values.yaml
                             yq e ".namespace = env(TARGET_NAMESPACE)" -i chart/values.yaml
                             
                             # latest built image
