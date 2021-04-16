@@ -237,6 +237,7 @@ pipeline {
                     # latest built image
                     yq e ".app_tag = env(VERSION)" -i chart/values.yaml
                 '''
+                sh 'printenv'
                 sh '''
                     # package and release helm chart?
                     helm package chart/ --app-version ${VERSION} --version ${VERSION} --dependency-update
