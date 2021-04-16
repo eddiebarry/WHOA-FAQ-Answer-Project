@@ -33,6 +33,7 @@ orchestrator:
   build_tag: latest
   image_stream_name: orchestrator-img-stream
   image_repository: quay.io
+  service_name: orchestrator-service
   # image_name: 
   # image_namespace: whoacademy
   image_tag: latest
