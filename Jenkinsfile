@@ -83,7 +83,7 @@ pipeline {
                             env.IMAGE_REPOSITORY = 'image-registry.openshift-image-registry.svc:5000'
                             // ammend the name to create 'sandbox' deploys based on current branch
                             env.APP_NAME = "${GIT_BRANCH}-${NAME}".replace("/", "-").toLowerCase()
-                            env.TARGET_NAMESPACE = "vla-cicd-test"
+                            env.TARGET_NAMESPACE = "labs-test"
 
                             // env.RERANKER_APP_NAME = "${GIT_BRANCH}-${NAME}-reranker".replace("/", "-").toLowerCase()
                         }
@@ -278,7 +278,7 @@ pipeline {
                         // '''
                         sh 'printenv'
                         sh '''
-                            # helm uninstall ${APP_NAME} --namespace=${TARGET_NAMESPACE} || rc=$?
+                            helm uninstall ${APP_NAME} --namespace=${TARGET_NAMESPACE} || rc=$?
                             helm upgrade --install ${APP_NAME} \
                                 --namespace=${TARGET_NAMESPACE} \
                                 http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_HELM}/${APP_NAME}-${VERSION}.tgz
