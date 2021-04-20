@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.orchestrator.name }}
-        image: "image-registry.openshift-image-registry.svc:5000/labs-ci-cd/{{ .Values.orchestrator.name }}:latest"
+        image: "{{ .Values.orchestrator.image_repository }}/{{ .Values.namespace }}/{{ .Values.orchestrator.name }}:latest"
         ports:
         - containerPort: 5009
         readinessProbe:
