@@ -278,8 +278,8 @@ pipeline {
                         // '''
                         sh 'printenv'
                         sh '''
-                            helm uninstall ${APP_NAME} --namespace=${TARGET_NAMESPACE} --dry-run
-                            helm uninstall ${APP_NAME} --namespace=${TARGET_NAMESPACE} || rc=$?
+                            # helm uninstall ${APP_NAME} --namespace=${TARGET_NAMESPACE} --dry-run
+                            # helm uninstall ${APP_NAME} --namespace=${TARGET_NAMESPACE} || rc=$?
                             helm upgrade --install ${APP_NAME} \
                                 --namespace=${TARGET_NAMESPACE} \
                                 http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_HELM}/${APP_NAME}-${VERSION}.tgz
