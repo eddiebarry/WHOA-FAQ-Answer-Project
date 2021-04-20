@@ -1,0 +1,51 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: zookeeper
+  namespace: zookeeper-cluster
+  selfLink: /api/v1/namespaces/zookeeper-cluster/services/zookeeper
+  uid: 668ae2a7-04b4-4583-b209-1deee0aa85a5
+  resourceVersion: '30584612'
+  creationTimestamp: '2020-11-03T14:45:09Z'
+  labels:
+    name: zookeeper
+    template: zookeeper
+  managedFields:
+    - manager: kubectl-create
+      operation: Update
+      apiVersion: v1
+      time: '2020-11-03T14:45:09Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:labels':
+            .: {}
+            'f:name': {}
+            'f:template': {}
+        'f:spec':
+          'f:ports':
+            .: {}
+            'k:{"port":2181,"protocol":"TCP"}':
+              .: {}
+              'f:name': {}
+              'f:port': {}
+              'f:protocol': {}
+              'f:targetPort': {}
+          'f:selector':
+            .: {}
+            'f:name': {}
+          'f:sessionAffinity': {}
+          'f:type': {}
+spec:
+  ports:
+    - name: client
+      protocol: TCP
+      port: 2181
+      targetPort: 2181
+  selector:
+    name: zookeeper
+  clusterIP: 172.30.75.243
+  type: ClusterIP
+  sessionAffinity: None
+status:
+  loadBalancer: {}

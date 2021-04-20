@@ -1,0 +1,54 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: solr-test
+  namespace: zookeeper-cluster
+  selfLink: /apis/route.openshift.io/v1/namespaces/zookeeper-cluster/routes/solr-test
+  uid: fb614d6d-d4db-4033-bbfe-0c8b71da8b7c
+  resourceVersion: '31471073'
+  creationTimestamp: '2020-11-04T18:11:49Z'
+  annotations:
+    openshift.io/host.generated: 'true'
+  managedFields:
+    - manager: openshift-router
+      operation: Update
+      apiVersion: route.openshift.io/v1
+      time: '2020-11-04T18:11:49Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:status':
+          'f:ingress': {}
+    - manager: Mozilla
+      operation: Update
+      apiVersion: route.openshift.io/v1
+      time: '2020-11-04T18:14:04Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          'f:port':
+            .: {}
+            'f:targetPort': {}
+          'f:to':
+            'f:kind': {}
+            'f:name': {}
+            'f:weight': {}
+          'f:wildcardPolicy': {}
+spec:
+  host: solr-test-zookeeper-cluster.apps.who.lxp.academy.who.int
+  to:
+    kind: Service
+    name: test
+    weight: 100
+  port:
+    targetPort: 8983
+  wildcardPolicy: None
+status:
+  ingress:
+    - host: solr-test-zookeeper-cluster.apps.who.lxp.academy.who.int
+      routerName: default
+      conditions:
+        - type: Admitted
+          status: 'True'
+          lastTransitionTime: '2020-11-04T18:11:49Z'
+      wildcardPolicy: None
+      routerCanonicalHostname: apps.who.lxp.academy.who.int

@@ -1,0 +1,71 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: zookeeper-1
+  namespace: zookeeper-cluster
+  selfLink: /api/v1/namespaces/zookeeper-cluster/services/zookeeper-1
+  uid: 9e7b7697-437c-4128-8b28-c70ed47017a7
+  resourceVersion: '30584646'
+  creationTimestamp: '2020-11-03T14:45:09Z'
+  labels:
+    name: zookeeper-1
+    template: zookeeper
+  managedFields:
+    - manager: kubectl-create
+      operation: Update
+      apiVersion: v1
+      time: '2020-11-03T14:45:09Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:labels':
+            .: {}
+            'f:name': {}
+            'f:template': {}
+        'f:spec':
+          'f:ports':
+            .: {}
+            'k:{"port":2181,"protocol":"TCP"}':
+              .: {}
+              'f:name': {}
+              'f:port': {}
+              'f:protocol': {}
+              'f:targetPort': {}
+            'k:{"port":2888,"protocol":"TCP"}':
+              .: {}
+              'f:name': {}
+              'f:port': {}
+              'f:protocol': {}
+              'f:targetPort': {}
+            'k:{"port":3888,"protocol":"TCP"}':
+              .: {}
+              'f:name': {}
+              'f:port': {}
+              'f:protocol': {}
+              'f:targetPort': {}
+          'f:selector':
+            .: {}
+            'f:server-id': {}
+          'f:sessionAffinity': {}
+          'f:type': {}
+spec:
+  ports:
+    - name: client
+      protocol: TCP
+      port: 2181
+      targetPort: 2181
+    - name: followers
+      protocol: TCP
+      port: 2888
+      targetPort: 2888
+    - name: election
+      protocol: TCP
+      port: 3888
+      targetPort: 3888
+  selector:
+    server-id: '1'
+  clusterIP: 172.30.144.246
+  type: ClusterIP
+  sessionAffinity: None
+status:
+  loadBalancer: {}

@@ -1,0 +1,50 @@
+kind: DeploymentConfig
+apiVersion: apps.openshift.io/v1
+metadata:
+  name: "orc"
+  annotations:
+    description: Defines how to deploy the application server
+    template.alpha.openshift.io/wait-for-ready: 'true'
+spec:
+  strategy:
+    type: Rolling
+  triggers:
+  - type: ImageChange
+    imageChangeParams:
+      automatic: true
+      containerNames:
+      - orc
+      from:
+        kind: ImageStreamTag
+        # TODO : FIX NAMING
+        name: "orc:latest"
+  - type: ConfigChange
+  replicas: 1
+  selector:
+    name: "orc"
+  template:
+    metadata:
+      name: "orc"
+      labels:
+        name: "orc"
+    spec:
+      containers:
+      - name: orc
+        image: "image-registry.openshift-image-registry.svc:5000/labs-ci-cd/orc:latest"
+        ports:
+        - containerPort: 5009
+        readinessProbe:
+          timeoutSeconds: 3
+          initialDelaySeconds: 3
+          httpGet:
+            path: "/"
+            port: 5009
+        livenessProbe:
+          timeoutSeconds: 3
+          initialDelaySeconds: 30
+          httpGet:
+            path: "/"
+            port: 5009
+        resources:
+          limits:
+            memory: "512Mi"
