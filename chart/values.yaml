@@ -72,18 +72,11 @@ app_tag: latest
 #   enabled: true
 #   source_docker_file_path: ./WHO-FAQ-Rerank-Engine/Dockerfile
 
-# botpress:
-#   dcName: botpress-dc
-#   routeName: botpress-route
-#   serviceName: botpress-service
-#   enabled: true
-#   minReplicas: 1
-#   maxReplicas: 2
-#   target:
-#     apiVersion: apps.openshift.io/v1
-#     kind: DeploymentConfig
-#   cpuTarget: 1000m
-#   memTarget: 500Mi
+botpress:
+  name: bp
+  # enabled: true
+  # minReplicas: 1
+  # maxReplicas: 2
 
 
 # reranker:
