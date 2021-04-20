@@ -1,5 +1,5 @@
 apiVersion: v2
-name: orchestrator-server
+name: orc
 description: A Helm chart to deploy the interakt backend service
 type: application
 # HelmChart Version

@@ -121,13 +121,13 @@ pipeline {
                 //     curl -v -f -u ${NEXUS_CREDS} --upload-file dist/${PACKAGE} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${APP_NAME}/${PACKAGE}
                 // '''
 
-                // sh '''
-                //     cd WHO-FAQ-Rerank-Engine
-                //     python -m pip install --upgrade pip
-                //     pip install setuptools wheel
-                //     python setup.py sdist
-                //     curl -v -f -u ${NEXUS_CREDS} --upload-file dist/${RERANKER_PACKAGE} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${RERANKER_APP_NAME}/${RERANKER_PACKAGE}
-                // '''
+                sh '''
+                    cd WHO-FAQ-Rerank-Engine
+                    python -m pip install --upgrade pip
+                    pip install setuptools wheel
+                    python setup.py sdist
+                    curl -v -f -u ${NEXUS_CREDS} --upload-file dist/${RERANKER_PACKAGE} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${RERANKER_APP_NAME}/${RERANKER_PACKAGE}
+                '''
             }
             // // Disabling tests for now
             // // Post can be used both on individual stages and for the entire build.

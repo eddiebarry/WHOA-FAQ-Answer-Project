@@ -29,7 +29,7 @@ route: true
 
 
 orchestrator:
-  name: orchestrator-build
+  name: orc
   build_tag: latest
   image_stream_name: orchestrator-img-stream
   image_repository: quay.io
@@ -110,15 +110,15 @@ app_tag: latest
 #   cpuTarget: 1000m
 #   memTarget: 500Mi
 
-# redis:
-#   enabled: true
-#   memory_limit: 512Mi
-#   is_namespace: openshift
-#   redis_password: 'somepassword'
-#   redis_version: "5"
-#   volume_capacity: 1Gi
-#   service:
-#     port: 6379
+redis:
+  enabled: true
+  memory_limit: 512Mi
+  is_namespace: openshift
+  redis_password: 'password'
+  redis_version: "5"
+  volume_capacity: 1Gi
+  service:
+    port: 6379
 
 # storage:
 #   enabled: false
