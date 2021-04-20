@@ -1,7 +1,7 @@
-apiVersion: image.openshift.io/v1
-kind: ImageStream
-metadata:
-  name: {{ .Values.orchestrator.name }}
-  labels:
-    build: {{ .Chart.Name }}
-    app: {{ .Chart.Name }}
+# apiVersion: image.openshift.io/v1
+# kind: ImageStream
+# metadata:
+#   name: {{ .Values.orchestrator.name }}
+#   labels:
+#     build: {{ .Chart.Name }}
+#     app: {{ .Chart.Name }}

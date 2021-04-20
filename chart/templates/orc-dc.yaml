@@ -1,53 +1,53 @@
-kind: DeploymentConfig
-apiVersion: apps.openshift.io/v1
-metadata:
-  name: "{{ .Values.orchestrator.name }}"
-  labels:
-    build: {{ .Chart.Name }}
-    app: {{ .Chart.Name }}
-  annotations:
-    description: Defines how to deploy the application server
-    template.alpha.openshift.io/wait-for-ready: 'true'
-spec:
-  strategy:
-    type: Rolling
-  triggers:
-  - type: ImageChange
-    imageChangeParams:
-      automatic: true
-      containerNames:
-      - {{ .Values.orchestrator.name }}
-      from:
-        kind: ImageStreamTag
-        # TODO : FIX NAMING
-        name: "{{ .Values.orchestrator.name }}:latest"
-  - type: ConfigChange
-  replicas: 1
-  selector:
-    name: "{{ .Values.orchestrator.name }}"
-  template:
-    metadata:
-      name: "{{ .Values.orchestrator.name }}"
-      labels:
-        name: "{{ .Values.orchestrator.name }}"
-    spec:
-      containers:
-      - name: {{ .Values.orchestrator.name }}
-        image: "{{ .Values.orchestrator.image_repository }}/{{ .Values.namespace }}/{{ .Values.orchestrator.name }}:latest"
-        ports:
-        - containerPort: 5009
-        readinessProbe:
-          timeoutSeconds: 3
-          initialDelaySeconds: 3
-          httpGet:
-            path: "/"
-            port: 5009
-        livenessProbe:
-          timeoutSeconds: 3
-          initialDelaySeconds: 30
-          httpGet:
-            path: "/"
-            port: 5009
-        resources:
-          limits:
-            memory: "512Mi"
+# kind: DeploymentConfig
+# apiVersion: apps.openshift.io/v1
+# metadata:
+#   name: "{{ .Values.orchestrator.name }}"
+#   labels:
+#     build: {{ .Chart.Name }}
+#     app: {{ .Chart.Name }}
+#   annotations:
+#     description: Defines how to deploy the application server
+#     template.alpha.openshift.io/wait-for-ready: 'true'
+# spec:
+#   strategy:
+#     type: Rolling
+#   triggers:
+#   - type: ImageChange
+#     imageChangeParams:
+#       automatic: true
+#       containerNames:
+#       - {{ .Values.orchestrator.name }}
+#       from:
+#         kind: ImageStreamTag
+#         # TODO : FIX NAMING
+#         name: "{{ .Values.orchestrator.name }}:latest"
+#   - type: ConfigChange
+#   replicas: 1
+#   selector:
+#     name: "{{ .Values.orchestrator.name }}"
+#   template:
+#     metadata:
+#       name: "{{ .Values.orchestrator.name }}"
+#       labels:
+#         name: "{{ .Values.orchestrator.name }}"
+#     spec:
+#       containers:
+#       - name: {{ .Values.orchestrator.name }}
+#         image: "{{ .Values.orchestrator.image_repository }}/{{ .Values.namespace }}/{{ .Values.orchestrator.name }}:latest"
+#         ports:
+#         - containerPort: 5009
+#         readinessProbe:
+#           timeoutSeconds: 3
+#           initialDelaySeconds: 3
+#           httpGet:
+#             path: "/"
+#             port: 5009
+#         livenessProbe:
+#           timeoutSeconds: 3
+#           initialDelaySeconds: 30
+#           httpGet:
+#             path: "/"
+#             port: 5009
+#         resources:
+#           limits:
+#             memory: "512Mi"
