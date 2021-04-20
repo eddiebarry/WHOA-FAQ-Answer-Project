@@ -1,7 +1,7 @@
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
-  name: example
+  name: {{ .Values.botpress.name }}
 spec:
   selector:
     app: {{ .Values.botpress.name }}
@@ -13,6 +13,9 @@ spec:
     spec:
       containers:
         - name: {{ .Values.botpress.name }}
-          image: quay.io/whoacademy/virtual-learning-assistant
+          image: quay.io/whoacademy/botpress-team-jarvis
           ports:
             - containerPort: 3000
+          env:
+            - name: APP_DATA_PATH
+              value: /temp
