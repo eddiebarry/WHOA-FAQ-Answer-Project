@@ -5,7 +5,9 @@ metadata:
   annotations:
     template.openshift.io/expose-uri: redis://{.spec.clusterIP}:{.spec.ports[?(.name=="redis")].port}
   labels:
-    template: redis-persistent-template
+    template: redis-persistent-template    
+    build: {{ .Chart.Name }}
+    app: {{ .Chart.Name }}
   name: {{ template "redis.fullname" . }}
 spec:
   ports:

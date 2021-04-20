@@ -7,16 +7,25 @@ metadata:
   labels:
     template: redis-persistent-template
   name: {{ template "redis.name" . }}
+  labels:
+    build: {{ .Chart.Name }}
+    app: {{ .Chart.Name }}
 spec:
   replicas: 1
   selector:
     name: {{ template "redis.name" . }}
+    labels:
+      build: {{ .Chart.Name }}
+      app: {{ .Chart.Name }}
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
         name: {{ template "redis.name" . }}
+        labels:
+          build: {{ .Chart.Name }}
+          app: {{ .Chart.Name }}
     spec:
       containers:
       - env:
