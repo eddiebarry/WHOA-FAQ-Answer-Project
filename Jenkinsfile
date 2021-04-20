@@ -278,6 +278,7 @@ pipeline {
                         // '''
                         sh 'printenv'
                         sh '''
+                            helm uninstall ${APP_NAME} --namespace=${TARGET_NAMESPACE} --dry-run
                             helm uninstall ${APP_NAME} --namespace=${TARGET_NAMESPACE} || rc=$?
                             helm upgrade --install ${APP_NAME} \
                                 --namespace=${TARGET_NAMESPACE} \
