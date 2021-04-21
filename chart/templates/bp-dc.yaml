@@ -6,8 +6,8 @@ metadata:
   #   build: {{ .Chart.Name }}
   #   app: {{ .Chart.Name }}
 spec:
-  # selector:
-  #   app: {{ .Values.botpress.name }}
+  selector:
+    app: {{ .Values.botpress.name }}
   replicas: 1
   template:
     # metadata:
