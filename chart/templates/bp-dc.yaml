@@ -2,17 +2,17 @@ apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
   name: {{ .Values.botpress.name }}
-  labels:
-    build: {{ .Chart.Name }}
-    app: {{ .Chart.Name }}
+  # labels:
+  #   build: {{ .Chart.Name }}
+  #   app: {{ .Chart.Name }}
 spec:
-  selector:
-    app: {{ .Values.botpress.name }}
+  # selector:
+  #   app: {{ .Values.botpress.name }}
   replicas: 1
   template:
-    metadata:
-      labels:
-        app: {{ .Values.botpress.name }}
+    # metadata:
+    #   labels:
+    #     app: {{ .Values.botpress.name }}
     spec:
       containers:
         - name: {{ .Values.botpress.name }}
