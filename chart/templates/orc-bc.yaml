@@ -1,64 +1,64 @@
-# kind: BuildConfig
-# apiVersion: build.openshift.io/v1
-# metadata:
-#   name: "{{ .Values.orchestrator.name }}"
-#   labels:
-#     build: {{ .Chart.Name }}
-#     app: {{ .Chart.Name }}
-#   annotations:
-#     description: Defines how to build the application
-# spec:
-#   strategy:
-#     type: Docker
-#     dockerStrategy:
-#       env:
-#         - name: NLTK_DATA
-#           value: /root
-#   output:
-#     to:
-#       kind: ImageStreamTag
-#       name: {{ .Values.orchestrator.name }}:latest
-#   # TODO : automate dockerfile update
-#   source:
-#     type: Dockerfile
-#     dockerfile: >-
-#       FROM python:3.7
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: "{{ .Values.orchestrator.name }}"
+  labels:
+    build: {{ .Chart.Name }}
+    app: {{ .Chart.Name }}
+  annotations:
+    description: Defines how to build the application
+spec:
+  strategy:
+    type: Docker
+    dockerStrategy:
+      env:
+        - name: NLTK_DATA
+          value: /root
+  output:
+    to:
+      kind: ImageStreamTag
+      name: {{ .Values.orchestrator.name }}:latest
+  # TODO : automate dockerfile update
+  source:
+    type: Dockerfile
+    dockerfile: >-
+      FROM python:3.7
 
-#       WORKDIR /usr/src
+      WORKDIR /usr/src
 
-#       RUN git clone --branch feature/cicd-test\
-#           --recursive https://github.com/eddiebarry/WHOA-FAQ-Answer-Project.git
+      RUN git clone --branch feature/cicd-test\
+          --recursive https://github.com/eddiebarry/WHOA-FAQ-Answer-Project.git
 
-#       WORKDIR /usr/src/WHOA-FAQ-Answer-Project
+      WORKDIR /usr/src/WHOA-FAQ-Answer-Project
 
-#       RUN pip install -r requirements.txt
+      RUN pip install -r requirements.txt
 
-#       WORKDIR
-#       /usr/src/WHOA-FAQ-Answer-Project/WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights
+      WORKDIR
+      /usr/src/WHOA-FAQ-Answer-Project/WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights
 
-#       RUN  wget -O query_expansion_weights.zip
-#       https://s3-eu-west-1.amazonaws.com/model.weights.project.interakt/query_expansion_weights.zip
-#       \
-#           && unzip query_expansion_weights.zip \
-#           && rm query_expansion_weights.zip
+      RUN  wget -O query_expansion_weights.zip
+      https://s3-eu-west-1.amazonaws.com/model.weights.project.interakt/query_expansion_weights.zip
+      \
+          && unzip query_expansion_weights.zip \
+          && rm query_expansion_weights.zip
 
-#       WORKDIR /usr/src/WHOA-FAQ-Answer-Project
+      WORKDIR /usr/src/WHOA-FAQ-Answer-Project
 
-#       EXPOSE 5009
-
-
-#       ENTRYPOINT [ "gunicorn", "--bind", "0.0.0.0:5009", "wsgi:app",
-#       "--timeout", "600"]
+      EXPOSE 5009
 
 
-#       # gunicorn --bind 0.0.0.0:5009 wsgi:app --timeout 600
-#   triggers:
-#   - type: ImageChange
-#   - type: ConfigChange
-#   #TODO : on update github
-#   # - type: GitHub
-#   #   github:
-#   #     secret: "cS3AFvpd1DLz7C0VW5OVmJhTnXM0qwuOy4JFtulV"
-#   # - type: Generic
-#   #   generic:
-#   #     secret: "gUE5VbKpAmDhz0dYMx5VkZUGK31jQxgE2uOfazNv"
+      ENTRYPOINT [ "gunicorn", "--bind", "0.0.0.0:5009", "wsgi:app",
+      "--timeout", "600"]
+
+
+      # gunicorn --bind 0.0.0.0:5009 wsgi:app --timeout 600
+  triggers:
+  - type: ImageChange
+  - type: ConfigChange
+  #TODO : on update github
+  # - type: GitHub
+  #   github:
+  #     secret: "cS3AFvpd1DLz7C0VW5OVmJhTnXM0qwuOy4JFtulV"
+  # - type: Generic
+  #   generic:
+  #     secret: "gUE5VbKpAmDhz0dYMx5VkZUGK31jQxgE2uOfazNv"
