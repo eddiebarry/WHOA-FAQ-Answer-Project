@@ -2,9 +2,9 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: "{{ .Values.botpress.name }}"
-  labels:
-    build: {{ .Chart.Name }}
-    app: {{ .Chart.Name }}
+  # labels:
+  #   build: {{ .Chart.Name }}
+  #   app: {{ .Chart.Name }}
 spec:
   host: 
   to:
