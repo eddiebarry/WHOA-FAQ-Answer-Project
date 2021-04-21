@@ -3,16 +3,15 @@ kind: DeploymentConfig
 metadata:
   name: {{ .Values.botpress.name }}
   labels:
-    build: {{ .Chart.Name }}
-    - app: {{ .Chart.Name }}
+    {{- include "project.labels" . | nindent 4 }}
 spec:
   selector:
-    - app: {{ .Values.botpress.name }}
+    {{- include "project.selectorLabels" . | nindent 4 }}
   replicas: 1
   template:
     metadata:
       labels:
-        - app: {{ .Values.botpress.name }}
+        {{- include "project.labels" . | nindent 8 }}
     spec:
       containers:
         - name: {{ .Values.botpress.name }}

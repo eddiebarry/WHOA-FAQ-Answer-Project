@@ -3,8 +3,7 @@ apiVersion: v1
 metadata:
   name: "{{ .Values.botpress.name }}"
   labels:
-    build: {{ .Chart.Name }}
-    app: {{ .Chart.Name }}
+    {{- include "project.labels" . | nindent 4 }}
   annotations:
     description: Exposes and load balances the application pods
 spec:
@@ -13,4 +12,4 @@ spec:
     port: 3000
     targetPort: 3000
   selector:
-    name: "{{ .Values.botpress.name }}"
+    {{- include "project.selectorLabels" . | nindent 4 }}
