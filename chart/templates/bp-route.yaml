@@ -2,8 +2,8 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: "{{ .Values.botpress.name }}"
-  labels:
-    {{- include "project.labels" . | nindent 4 }}
+  # labels:
+    # {{- include "project.labels" . | nindent 4 }}
 spec:
   host: 
   to:
