@@ -9,7 +9,7 @@ spec:
     app: {{ .Values.botpress.name }}
   replicas: 1
   template:
-    metadata:
+    # metadata:
       # labels:
       #   {{- include "project.selectorLabels" . | nindent 8 }}
     spec:
