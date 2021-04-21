@@ -262,20 +262,6 @@ pipeline {
                     }
                     steps {
                         // TODO - if SANDBOX, create release in rando ns
-                        // sh 'printenv'
-                        // sh '''
-                        //     # might be overkill...
-                        //     yq e ".appVersion = env(VERSION)" -i chart/Chart.yaml
-                        //     yq e ".version = env(VERSION)" -i chart/Chart.yaml
-                        //     yq e ".name = env(APP_NAME)" -i chart/Chart.yaml # APP= feature-123-learning-experience-platform
-                            
-                        //     # probs point to the image inside ocp cluster or perhaps an external repo?
-                        //     yq e ".orchestrator.image_repository = env(IMAGE_REPOSITORY)" -i chart/values.yaml
-                        //     yq e ".namespace = env(TARGET_NAMESPACE)" -i chart/values.yaml
-                            
-                        //     # latest built image
-                        //     yq e ".app_tag = env(VERSION)" -i chart/values.yaml
-                        // '''
                         sh 'printenv'
                         sh '''
                             
@@ -356,59 +342,59 @@ pipeline {
             }
         }
 
-        // stage("Validate Deployment") {
-        //     failFast true
-        //     parallel {
-        //         stage("sandbox - validate deployment"){
-        //             options {
-        //                 skipDefaultCheckout(true)
-        //             }
-        //             agent {
-        //                 node {
-        //                     label "master"
-        //                 }
-        //             }
-        //             when {
-        //                 expression { GIT_BRANCH.startsWith("dev") || GIT_BRANCH.startsWith("feature") || GIT_BRANCH.startsWith("fix") }
-        //             }
-        //             steps {
-        //                 // sh '''
-        //                 //    set +x
-        //                 //    COUNTER=0
-        //                 //    DELAY=5
-        //                 //    MAX_COUNTER=60
-        //                 //    echo "Validating deployment of ${APP_NAME} in project ${TARGET_NAMESPACE}"
-        //                 //    LATEST_DC_VERSION=\$(oc get dc ${APP_NAME} -n ${TARGET_NAMESPACE} --template='{{ .status.latestVersion }}')
-        //                 //    RC_NAME=${APP_NAME}-\${LATEST_DC_VERSION}
-        //                 //    set +e
-        //                 //    while [ \$COUNTER -lt \$MAX_COUNTER ]
-        //                 //    do
-        //                 //      RC_ANNOTATION_RESPONSE=\$(oc get rc -n ${TARGET_NAMESPACE} \$RC_NAME --template="{{.metadata.annotations}}")
-        //                 //      echo "\$RC_ANNOTATION_RESPONSE" | grep openshift.io/deployment.phase:Complete >/dev/null 2>&1
-        //                 //      if [ \$? -eq 0 ]; then
-        //                 //        echo "Deployment Succeeded!"
-        //                 //        break
-        //                 //      fi
-        //                 //      echo "\$RC_ANNOTATION_RESPONSE" | grep -E 'openshift.io/deployment.phase:Failed|openshift.io/deployment.phase:Cancelled' >/dev/null 2>&1
-        //                 //      if [ \$? -eq 0 ]; then
-        //                 //        echo "Deployment Failed"
-        //                 //        exit 1
-        //                 //      fi
-        //                 //      if [ \$COUNTER -lt \$MAX_COUNTER ]; then
-        //                 //        echo -n "."
-        //                 //        COUNTER=\$(( \$COUNTER + 1 ))
-        //                 //      fi
-        //                 //      if [ \$COUNTER -eq \$MAX_COUNTER ]; then
-        //                 //        echo "Max Validation Attempts Exceeded. Failed Verifying Application Deployment..."
-        //                 //        exit 1
-        //                 //      fi
-        //                 //      sleep \$DELAY
-        //                 //    done
-        //                 //    set -e
-        //                 // '''
-        //             }
-        //         }
-        //     }
-        // }
+        stage("Validate Deployment") {
+            failFast true
+            parallel {
+                stage("sandbox - validate deployment"){
+                    options {
+                        skipDefaultCheckout(true)
+                    }
+                    agent {
+                        node {
+                            label "master"
+                        }
+                    }
+                    when {
+                        expression { GIT_BRANCH.startsWith("dev") || GIT_BRANCH.startsWith("feature") || GIT_BRANCH.startsWith("fix") }
+                    }
+                    steps {
+                        sh '''
+                           set +x
+                           COUNTER=0
+                           DELAY=5
+                           MAX_COUNTER=60
+                           echo "Validating deployment of ${APP_NAME} in project ${TARGET_NAMESPACE}"
+                           LATEST_DC_VERSION=\$(oc get dc ${APP_NAME} -n ${TARGET_NAMESPACE} --template='{{ .status.latestVersion }}')
+                           RC_NAME=${APP_NAME}-\${LATEST_DC_VERSION}
+                           set +e
+                           while [ \$COUNTER -lt \$MAX_COUNTER ]
+                           do
+                             RC_ANNOTATION_RESPONSE=\$(oc get rc -n ${TARGET_NAMESPACE} \$RC_NAME --template="{{.metadata.annotations}}")
+                             echo "\$RC_ANNOTATION_RESPONSE" | grep openshift.io/deployment.phase:Complete >/dev/null 2>&1
+                             if [ \$? -eq 0 ]; then
+                               echo "Deployment Succeeded!"
+                               break
+                             fi
+                             echo "\$RC_ANNOTATION_RESPONSE" | grep -E 'openshift.io/deployment.phase:Failed|openshift.io/deployment.phase:Cancelled' >/dev/null 2>&1
+                             if [ \$? -eq 0 ]; then
+                               echo "Deployment Failed"
+                               exit 1
+                             fi
+                             if [ \$COUNTER -lt \$MAX_COUNTER ]; then
+                               echo -n "."
+                               COUNTER=\$(( \$COUNTER + 1 ))
+                             fi
+                             if [ \$COUNTER -eq \$MAX_COUNTER ]; then
+                               echo "Max Validation Attempts Exceeded. Failed Verifying Application Deployment..."
+                               exit 1
+                             fi
+                             sleep \$DELAY
+                           done
+                           set -e
+                        '''
+                    }
+                }
+            }
+        }
     }
 }
