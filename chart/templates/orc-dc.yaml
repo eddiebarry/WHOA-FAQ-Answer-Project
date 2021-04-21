@@ -2,9 +2,9 @@ kind: DeploymentConfig
 apiVersion: apps.openshift.io/v1
 metadata:
   name: "{{ .Values.orchestrator.name }}"
-  labels:
-    build: {{ .Chart.Name }}
-    app: {{ .Chart.Name }}
+  # labels:
+  #   build: {{ .Chart.Name }}
+  #   app: {{ .Chart.Name }}
   annotations:
     description: Defines how to deploy the application server
     template.alpha.openshift.io/wait-for-ready: 'true'

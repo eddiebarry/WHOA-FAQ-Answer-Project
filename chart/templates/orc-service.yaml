@@ -2,9 +2,9 @@ kind: Service
 apiVersion: v1
 metadata:
   name: "{{ .Values.orchestrator.name }}"
-  labels:
-    build: {{ .Chart.Name }}
-    app: {{ .Chart.Name }}
+  # labels:
+  #   build: {{ .Chart.Name }}
+  #   app: {{ .Chart.Name }}
   annotations:
     description: Exposes and load balances the application pods
 spec:
