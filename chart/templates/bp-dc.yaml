@@ -3,8 +3,8 @@ kind: DeploymentConfig
 metadata:
   name: {{ .Values.botpress.name }}
   labels:
-    build: {{ .Values.botpress.name }}
-    app: {{ .Values.botpress.name }}
+    build: {{ .Chart.Name }}
+    app: {{ .Chart.Name }}
 spec:
   selector:
     app: {{ .Values.botpress.name }}
