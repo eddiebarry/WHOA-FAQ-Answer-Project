@@ -1,16 +1,16 @@
-kind: Service
-apiVersion: v1
-metadata:
-  name: "{{ .Values.orchestrator.name }}"
-  # labels:
-  #   build: {{ .Chart.Name }}
-  #   app: {{ .Chart.Name }}
-  annotations:
-    description: Exposes and load balances the application pods
-spec:
-  ports:
-  - name: web
-    port: 8080
-    targetPort: 5009
-  selector:
-    name: "{{ .Values.orchestrator.name }}"
+# kind: Service
+# apiVersion: v1
+# metadata:
+#   name: "{{ .Values.orchestrator.name }}"
+#   # labels:
+#   #   build: {{ .Chart.Name }}
+#   #   app: {{ .Chart.Name }}
+#   annotations:
+#     description: Exposes and load balances the application pods
+# spec:
+#   ports:
+#   - name: web
+#     port: 8080
+#     targetPort: 5009
+#   selector:
+#     name: "{{ .Values.orchestrator.name }}"
