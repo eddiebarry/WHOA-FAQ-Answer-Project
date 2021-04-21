@@ -1,16 +1,16 @@
-kind: Service
-apiVersion: v1
-metadata:
-  name: "{{ .Values.botpress.name }}"
-  # labels:
-  #   build: {{ .Chart.Name }}
-  #   app: {{ .Chart.Name }}
-  annotations:
-    description: Exposes and load balances the application pods
-spec:
-  ports:
-  - name: web
-    port: 8000
-    targetPort: 8000
-  selector:
-    name: "{{ .Values.botpress.name }}"
+# kind: Service
+# apiVersion: v1
+# metadata:
+#   name: "{{ .Values.botpress.name }}"
+#   # labels:
+#   #   build: {{ .Chart.Name }}
+#   #   app: {{ .Chart.Name }}
+#   annotations:
+#     description: Exposes and load balances the application pods
+# spec:
+#   ports:
+#   - name: web
+#     port: 8000
+#     targetPort: 8000
+#   selector:
+#     name: "{{ .Values.botpress.name }}"
