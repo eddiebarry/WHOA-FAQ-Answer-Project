@@ -18,7 +18,7 @@ spec:
         - name: {{ .Values.botpress.name }}
           image: quay.io/whoacademy/botpress-team-jarvis
           ports:
-            - containerPort: 3000
+            - containerPort: 8000
           env:
             - name: APP_DATA_PATH
               value: /temp
