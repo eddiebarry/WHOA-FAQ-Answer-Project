@@ -2,7 +2,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: "{{ .Values.botpress.name }}"
+  name: {{ .Values.botpress.name }}
   {{- if .Values.labels_enabled }}
   labels:
     build: {{ .Chart.Name }}
@@ -16,5 +16,5 @@ spec:
     port: 8000
     targetPort: 8000
   selector:
-    name: "{{ .Values.botpress.name }}"
+    name: { .Values.botpress.name }}
 {{- end }}
