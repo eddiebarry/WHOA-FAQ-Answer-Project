@@ -30,7 +30,8 @@ route: true
 
 orchestrator:
   name: orc
-  build_tag: latest
+  enabled: true
+  # build_tag: latest
   # image_stream_name: orchestrator-img-stream
   # image_repository: quay.io
   # service_name: orchestrator-service
@@ -39,7 +40,7 @@ orchestrator:
   # image_tag: latest
 
 namespace: labs-dev
-
+labels_enabled: true
 # app_tag: latest
 
 # postgresql:
@@ -74,7 +75,7 @@ namespace: labs-dev
 
 botpress:
   name: bp
-  # enabled: true
+  enabled: true
   # minReplicas: 1
   # maxReplicas: 2
 

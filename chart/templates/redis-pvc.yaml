@@ -5,9 +5,11 @@ metadata:
   labels:
     template: redis-persistent-template
   name: {{ template "redis.name" . }}
-  # labels:
-  #   build: {{ .Chart.Name }}
-  #   app: {{ .Chart.Name }}
+  {{- if eq .Values.labels_enabled true -}}
+  labels:
+    build: {{ .Chart.Name }}
+    app: {{ .Chart.Name }}
+  {{- end }}
 spec:
   accessModes:
   - ReadWriteOnce
