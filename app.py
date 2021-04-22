@@ -35,7 +35,8 @@ DEFAULT_PROJECT_ID = '999'
 DEFAULT_VERSION_ID = '0'
 
 SEARCH_ENGINE = SolrSearchEngine(
-    rerank_endpoint=RE_RANK_ENDPOINT+"/api/v1/reranking",
+    rerank_endpoint=None,
+    # rerank_endpoint=RE_RANK_ENDPOINT+"/api/v1/reranking",
     variation_generator_config=[
         VariationGenerator(\
         path="./WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights/model.ckpt-1004000",
@@ -633,7 +634,7 @@ def add_formatting(question_list):
                 print("failed in init")
     return question_list
 
-@app.before_first_request
+# @app.before_first_request
 def init_data():
     print("calling init function")
     #TODO : change to flask variable
