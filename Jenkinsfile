@@ -15,7 +15,7 @@ pipeline {
         ARGOCD_CONFIG_REPO_BRANCH = "master"
         SYSTEM_TEST_BRANCH = "master"
 
-          // Job name contains the branch eg ds-app-feature%2Fjenkins-123
+        // Job name contains the branch eg ds-app-feature%2Fjenkins-123
         JOB_NAME = "${JOB_NAME}".replace("%2F", "-").replace("/", "-")
 
         GIT_SSL_NO_VERIFY = true
@@ -84,8 +84,6 @@ pipeline {
                             // ammend the name to create 'sandbox' deploys based on current branch
                             env.APP_NAME = "${GIT_BRANCH}-${NAME}".replace("/", "-").toLowerCase()
                             env.TARGET_NAMESPACE = "labs-dev"
-
-                            // env.RERANKER_APP_NAME = "${GIT_BRANCH}-${NAME}-reranker".replace("/", "-").toLowerCase()
                         }
                     }
                 }
@@ -104,11 +102,6 @@ pipeline {
                     env.VERSIONED_APP_NAME = "${NAME}-${VERSION}"
                     env.PACKAGE = "${VERSIONED_APP_NAME}.tar.gz"
                     env.SECRET_KEY = 'gs7(p)fk=pf2(kbg*1wz$x+hnmw@y6%ij*x&pq4(^y8xjq$q#f' //TODO: get it from secret vault
-
-                    // env.RERANKER_VERSION = sh(returnStdout: true, script: "grep -oP \"(?<=version=')[^']*\" ./WHO-FAQ-Rerank-Engine/setup.py").trim()
-                    // env.VERSIONED_RERANKER_NAME = "${NAME}-${VERSION}-reranker"
-                    // env.RERANKER_PACKAGE = "${VERSIONED_RERANKER_NAME}.tar.gz"
-
                 }
                 sh 'printenv'
 
@@ -120,14 +113,6 @@ pipeline {
                     python setup.py sdist
                     curl -v -f -u ${NEXUS_CREDS} --upload-file dist/${PACKAGE} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${APP_NAME}/${PACKAGE}
                 '''
-
-                // sh '''
-                //     cd WHO-FAQ-Rerank-Engine
-                //     python -m pip install --upgrade pip
-                //     pip install setuptools wheel
-                //     python setup.py sdist
-                //     curl -v -f -u ${NEXUS_CREDS} --upload-file dist/${RERANKER_PACKAGE} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${RERANKER_APP_NAME}/${RERANKER_PACKAGE}
-                // '''
             }
             // // Disabling tests for now
             // // Post can be used both on individual stages and for the entire build.
@@ -191,6 +176,7 @@ pipeline {
                     yq e ".app_tag = env(VERSION)" -i chart/values.yaml
                 '''
                 sh 'printenv'
+                sh 'oc process -f chart/zookeeper/template.json | oc create -f -'
                 sh '''
                     # package and release helm chart?
                     helm package chart/ --app-version ${VERSION} --version ${VERSION} --dependency-update
@@ -218,7 +204,6 @@ pipeline {
                         // TODO - if SANDBOX, create release in rando ns
                         sh 'printenv'
                         sh 'ls'
-                        // sh 'oc process -f chart/zookeeper/template.json | oc create -f -'
                         sh '''
                             
                             # helm uninstall ${APP_NAME} --namespace=${TARGET_NAMESPACE} --dry-run
