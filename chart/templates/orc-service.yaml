@@ -12,7 +12,7 @@ metadata:
     description: Exposes and load balances the application pods
 spec:
   ports:
-  - name: web
+  - protocol: TCP
     port: 8080
     targetPort: 5009
   selector:
