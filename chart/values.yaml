@@ -1,68 +1,37 @@
-# replicas: 1
-# # build info not used atm
-# build:
-#   build_tag: latest
-#   base_image: python:3.7
-#   enabled: false
-#   source_docker_file_path: Dockerfile
-# image_repository: quay.io
-# image_name: 
-# image_namespace: whoacademy
-# image_tag: la
 
-# OCP route
+namespace: labs-dev
+# Labels dont work as expected yet
+labels_enabled: false
 route: true
 
-
-# #Django
-# #have to get this from vault etc. maybe
-# secret_key: gs7(p)fk=pf2(kbg*1wz$x+hnmw@y6%ij*x&pq4(^y8xjq$q#f
-# environment: dev
-# extra_env:
-#   - name: SUGGEST_KEYWORD_URL
-#     value: http://52.209.188.140:5007/api/v2/batch_keyword_extract
-#   - name: TRAIN_BOT_URL
-#     value: http://52.209.188.140:5007/api/v2/train_bot_json_array
-#   - name: TEST_BOT_URL
-#     value: http://52.209.188.140:5007/api/v2/get-bot-vla-orchestrator
-
-
-
+# build orc
 orchestrator:
   name: orc
   enabled: true
-  # build_tag: latest
-  # image_stream_name: orchestrator-img-stream
-  # image_repository: quay.io
-  # service_name: orchestrator-service
-  # image_name: 
-  # image_namespace: whoacademy
-  # image_tag: latest
 
-namespace: labs-dev
-labels_enabled: false
-# app_tag: latest
 
-# postgresql:
-#   enabled: true
-#   accessmode: ReadWriteOnce
-#   service:
-#     port: 5432
-#     type: ClusterIP
-#   image:
-#     tag: "9.6"
 
-#   storageClass:
-#   accessMode: ReadWriteOnce
-#   size: 5Gi
 
-#   # To use an external secret for the password for an external PostgreSQL
-#   # instance, set enabled to false and provide the name of the secret on the
-#   # line below:
-#   # existingSecret: ""
-#   username: "bastian"
-#   password: "balthazar"
-#   database: "interakt_backend"
+postgresql:
+  enabled: true
+  accessmode: ReadWriteOnce
+  service:
+    port: 5432
+    type: ClusterIP
+  image:
+    tag: "9.6"
+
+  storageClass:
+  accessMode: ReadWriteOnce
+  size: 5Gi
+
+  # To use an external secret for the password for an external PostgreSQL
+  # instance, set enabled to false and provide the name of the secret on the
+  # line below:
+  # existingSecret: ""
+  username: "bastian"
+  password: "balthazar"
+  database: "interakt_backend"
 
 #   ## Set annotations on pvc
 #   annotations: {}
