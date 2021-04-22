@@ -1,16 +1,18 @@
 {{- if eq .Values.botpress.enabled true -}}
-kind: Route
 apiVersion: route.openshift.io/v1
+kind: Route
 metadata:
-  name: {{ .Values.botpress.name }}
+  name: {{ .Values.botpress.name }}-route
   {{- if .Values.labels_enabled }}
   labels:
     build: {{ .Chart.Name }}
     app: {{ .Chart.Name }}
   {{- end }}
 spec:
-  host: 
+  path: /
   to:
     kind: Service
-    name: {{ .Values.botpress.name }}
+    name: {{ .Values.botpress.name }}-service
+  port:
+    targetPort: 8000
 {{- end }}

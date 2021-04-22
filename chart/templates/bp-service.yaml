@@ -1,20 +1,31 @@
 {{- if eq .Values.botpress.enabled true -}}
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
-  name: {{ .Values.botpress.name }}
+  name: {{ .Values.botpress.name }}-service
   {{- if .Values.labels_enabled }}
   labels:
     build: {{ .Chart.Name }}
     app: {{ .Chart.Name }}
   {{- end }}
-  annotations:
-    description: Exposes and load balances the application pods
 spec:
-  ports:
-  - protocol: TCP
-    port: 8000
-    targetPort: 8000
   selector:
-    name: {{ .Values.botpress.name }}
+    app: {{ .Values.botpress.name }}
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
 {{- end }}
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: bp-service
+#   namespace: labs-dev
+# spec:
+#   selector:
+#     app: bp
+#   ports:
+#     - protocol: TCP
+#       port: 8000
+#       targetPort: 8000
