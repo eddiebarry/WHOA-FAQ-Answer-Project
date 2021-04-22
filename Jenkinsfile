@@ -267,6 +267,8 @@ pipeline {
                             
                             # helm uninstall ${APP_NAME} --namespace=${TARGET_NAMESPACE} --dry-run
                             helm uninstall ${APP_NAME} --namespace=${TARGET_NAMESPACE} || rc=$?
+                            ls
+                            oc process -f chart/zookeeper/template.json | oc create -f -
                             sleep 40
                             helm upgrade --install ${APP_NAME} \
                                 --namespace=${TARGET_NAMESPACE} \
