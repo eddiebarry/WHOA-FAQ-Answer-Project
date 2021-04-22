@@ -316,14 +316,23 @@ def answer_question():
         app.config['cache'].set(id_query_key,query)
 
     # Logging
-    original_stdout = sys.stdout 
-    with open('./logs/log.txt', 'a') as f:
-        sys.stdout = f # Change the standard output to the file we created.
-        print(unique_id," - ", "time : ", datetime.now().strftime("%H:%M:%S"),)
-        print(unique_id," - ", "The user first said : ", request_json['first_text'])
-        print(unique_id," - ", "The user said this turn : ", request_json['query'])
-        print(unique_id," - ", resp_json)
-        sys.stdout = original_stdout
+    #     original_stdout = sys.stdout 
+    # with open('./logs/log.txt', 'a') as f:
+        # sys.stdout = f # Change the standard output to the file we created.
+    print(unique_id," - ", "time : ", datetime.now().strftime("%H:%M:%S"),)
+    print(unique_id," - ", "The user first said : ", request_json['first_text'])
+    print(unique_id," - ", "The user said this turn : ", request_json['query'])
+    print(unique_id," - ", resp_json)
+        # sys.stdout = original_stdout
+
+    # original_stdout = sys.stdout 
+    # with open('./logs/log.txt', 'a') as f:
+    #     sys.stdout = f # Change the standard output to the file we created.
+    #     print(unique_id," - ", "time : ", datetime.now().strftime("%H:%M:%S"),)
+    #     print(unique_id," - ", "The user first said : ", request_json['first_text'])
+    #     print(unique_id," - ", "The user said this turn : ", request_json['query'])
+    #     print(unique_id," - ", resp_json)
+    #     sys.stdout = original_stdout
 
     return jsonify(resp_json)
 
@@ -624,7 +633,7 @@ def add_formatting(question_list):
                 print("failed in init")
     return question_list
 
-# @app.before_first_request
+@app.before_first_request
 def init_data():
     print("calling init function")
     #TODO : change to flask variable
@@ -633,7 +642,7 @@ def init_data():
 
     request_json = populate_1500_questions(
         dir_ = "./accuracy_tests/intermediate_results/custom_lxp_lms_data",
-        project_id=3,
+        project_id=0,
         version_id=0
         )
     requires = [
