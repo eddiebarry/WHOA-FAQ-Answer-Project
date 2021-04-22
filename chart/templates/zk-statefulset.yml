@@ -27,6 +27,7 @@
 #                         "mountPath": "/work-dir"
 #                     }
 #                 ]
+#
 #             },
 #             {
 #                 "name": "bootstrap",
