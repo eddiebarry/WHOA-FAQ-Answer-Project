@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: solr-cloud-service
+spec:
+  ports:
+    - protocol: TCP
+      port: 8983
+      targetPort: 8983
+      nodePort: 31839
+  selector:
+    app: solr-app
