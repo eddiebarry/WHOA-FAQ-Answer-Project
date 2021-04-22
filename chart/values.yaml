@@ -40,7 +40,7 @@ orchestrator:
   # image_tag: latest
 
 namespace: labs-dev
-labels_enabled: true
+labels_enabled: false
 # app_tag: latest
 
 # postgresql:
