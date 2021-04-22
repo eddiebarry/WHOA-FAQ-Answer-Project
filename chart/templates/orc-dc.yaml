@@ -54,4 +54,7 @@ spec:
         resources:
           limits:
             memory: "512Mi"
+        env:
+            - name: NLTK_DATA
+              value: /usr/src/WHOA-FAQ-Answer-Project/nltk-data
 {{- end }}
