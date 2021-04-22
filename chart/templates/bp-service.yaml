@@ -16,5 +16,5 @@ spec:
     port: 8000
     targetPort: 8000
   selector:
-    name: { .Values.botpress.name }}
+    name: {{ .Values.botpress.name }}
 {{- end }}
