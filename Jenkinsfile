@@ -176,6 +176,7 @@ pipeline {
                     yq e ".app_tag = env(VERSION)" -i chart/values.yaml
                 '''
                 sh 'printenv'
+                sh 'oc project ${TARGET_NAMESPACE}'
                 sh 'oc process -f chart/zookeeper/template.json | oc create -f -'
                 sh '''
                     # package and release helm chart?
