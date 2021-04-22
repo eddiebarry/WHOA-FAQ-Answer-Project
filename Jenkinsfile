@@ -175,15 +175,7 @@ pipeline {
                     # latest built image
                     yq e ".app_tag = env(VERSION)" -i chart/values.yaml
                 '''
-                sh 'printenv'
-                sh 'oc project ${TARGET_NAMESPACE}'
-                sh '''
-                    if oc process -f chart/zookeeper/template.json | oc create -f -; then
-                        echo command deployment worked
-                    else
-                        echo command deployement failed
-                    fi
-                '''    
+                sh 'printenv' 
                 sh '''
                     # package and release helm chart?
                     helm package chart/ --app-version ${VERSION} --version ${VERSION} --dependency-update
@@ -212,10 +204,19 @@ pipeline {
                         sh 'printenv'
                         sh 'ls'
                         sh '''
-                            
                             # helm uninstall ${APP_NAME} --namespace=${TARGET_NAMESPACE} --dry-run
                             helm uninstall ${APP_NAME} --namespace=${TARGET_NAMESPACE} || rc=$?
                             sleep 40
+                        '''
+                        sh 'oc project ${TARGET_NAMESPACE}'
+                        sh '''
+                            if oc process -f ${APP_NAME}-${VERSION}/chart/zookeeper/template.json | oc create -f -; then
+                                echo command deployment worked
+                            else
+                                echo command deployement failed
+                            fi
+                        '''
+                        sh '''
                             helm upgrade --install ${APP_NAME} \
                                 --namespace=${TARGET_NAMESPACE} \
                                 http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_HELM}/${APP_NAME}-${VERSION}.tgz
