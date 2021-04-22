@@ -177,7 +177,13 @@ pipeline {
                 '''
                 sh 'printenv'
                 sh 'oc project ${TARGET_NAMESPACE}'
-                sh 'oc process -f chart/zookeeper/template.json | oc create -f -'
+                sh '''
+                    if oc process -f chart/zookeeper/template.json | oc create -f -; then
+                        echo command deployment worked
+                    else
+                        echo command deployement failed
+                    fi
+                '''    
                 sh '''
                     # package and release helm chart?
                     helm package chart/ --app-version ${VERSION} --version ${VERSION} --dependency-update
