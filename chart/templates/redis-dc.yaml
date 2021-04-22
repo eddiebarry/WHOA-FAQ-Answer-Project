@@ -7,7 +7,7 @@ metadata:
   labels:
     template: redis-persistent-template
   name: {{ template "redis.name" . }}
-  {{- if eq .Values.labels_enabled true -}}
+  {{- if .Values.labels_enabled }}
   labels:
     build: {{ .Chart.Name }}
     app: {{ .Chart.Name }}
@@ -16,7 +16,7 @@ spec:
   replicas: 1
   selector:
     name: {{ template "redis.name" . }}
-    {{- if eq .Values.labels_enabled true -}}
+    {{- if .Values.labels_enabled }}
     labels:
       build: {{ .Chart.Name }}
       app: {{ .Chart.Name }}
@@ -27,7 +27,7 @@ spec:
     metadata:
       labels:
         name: {{ template "redis.name" . }}
-        {{- if eq .Values.labels_enabled true -}}
+        {{- if .Values.labels_enabled }}
         labels:
           build: {{ .Chart.Name }}
           app: {{ .Chart.Name }}

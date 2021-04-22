@@ -3,7 +3,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: "{{ .Values.botpress.name }}"
-  {{- if eq .Values.labels_enabled true -}}
+  {{- if .Values.labels_enabled }}
   labels:
     build: {{ .Chart.Name }}
     app: {{ .Chart.Name }}
