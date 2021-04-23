@@ -14,10 +14,6 @@ metadata:
 spec:
   strategy:
     type: Docker
-    dockerStrategy:
-      env:
-        - name: NLTK_DATA
-          value: /root
   output:
     to:
       kind: ImageStreamTag
