@@ -6,12 +6,12 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: solr-app
+      app: {{ .Values.solr.name }}-app
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: solr-app
+        app: {{ .Values.solr.name }}-app
     spec:
       initContainers:
         - resources: {}
@@ -27,7 +27,7 @@ spec:
             - name: SOLR_HOME
               valueFrom:
                 configMapKeyRef:
-                  name: solr-cluster-config
+                  name: {{ .Values.solr.name }}-config
                   key: solrHome
           imagePullPolicy: Always
           volumeMounts:
@@ -48,7 +48,7 @@ spec:
             - name: SOLR_LOGS_DIR
               valueFrom:
                 configMapKeyRef:
-                  name: solr-cluster-config
+                  name: {{ .Values.solr.name }}-config
                   key: solrLogsDir
           imagePullPolicy: Always
           volumeMounts:
@@ -71,7 +71,7 @@ spec:
             - name: SOLR_HOME
               valueFrom:
                 configMapKeyRef:
-                  name: solr-cluster-config
+                  name: {{ .Values.solr.name }}-config
                   key: solrHome
           imagePullPolicy: IfNotPresent
           volumeMounts:
@@ -91,7 +91,7 @@ spec:
             successThreshold: 1
             failureThreshold: 3
           terminationMessagePath: /dev/termination-log
-          name: solr
+          name: {{ .Values.solr.name }}
           livenessProbe:
             tcpSocket:
               port: 8983
@@ -119,7 +119,7 @@ spec:
             - name: SOLR_HOME
               valueFrom:
                 configMapKeyRef:
-                  name: solr-cluster-config
+                  name: {{ .Values.solr.name }}-config
                   key: solrHome
             - name: POD_HOST_NAME
               valueFrom:
@@ -129,12 +129,12 @@ spec:
             - name: SOLR_LOGS_DIR
               valueFrom:
                 configMapKeyRef:
-                  name: solr-cluster-config
+                  name: {{ .Values.solr.name }}-config
                   key: solrLogsDir
             - name: SOLR_HEAP
               valueFrom:
                 configMapKeyRef:
-                  name: solr-cluster-config
+                  name: {{ .Values.solr.name }}-config
                   key: solrHeap
             - name: SOLR_HOST
               value: $(MY_POD_IP)

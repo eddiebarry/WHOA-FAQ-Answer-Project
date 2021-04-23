@@ -281,7 +281,7 @@ spec:
             - name: SOLR_HOME
               valueFrom:
                 configMapKeyRef:
-                  name: solr-cluster-config
+                  name: {{ .Values.solr.name }}-config
                   key: solrHome
           imagePullPolicy: Always
           volumeMounts:
@@ -302,7 +302,7 @@ spec:
             - name: SOLR_LOGS_DIR
               valueFrom:
                 configMapKeyRef:
-                  name: solr-cluster-config
+                  name: {{ .Values.solr.name }}-config
                   key: solrLogsDir
           imagePullPolicy: Always
           volumeMounts:
@@ -325,7 +325,7 @@ spec:
             - name: SOLR_HOME
               valueFrom:
                 configMapKeyRef:
-                  name: solr-cluster-config
+                  name: {{ .Values.solr.name }}-config
                   key: solrHome
           imagePullPolicy: IfNotPresent
           volumeMounts:
@@ -372,7 +372,7 @@ spec:
             - name: SOLR_HOME
               valueFrom:
                 configMapKeyRef:
-                  name: solr-cluster-config
+                  name: {{ .Values.solr.name }}-config
                   key: solrHome
             - name: POD_HOST_NAME
               valueFrom:
@@ -384,17 +384,17 @@ spec:
             - name: SOLR_LOGS_DIR
               valueFrom:
                 configMapKeyRef:
-                  name: solr-cluster-config
+                  name: {{ .Values.solr.name }}-config
                   key: solrLogsDir
             - name: SOLR_HEAP
               valueFrom:
                 configMapKeyRef:
-                  name: solr-cluster-config
+                  name: {{ .Values.solr.name }}-config
                   key: solrHeap
             - name: ZK_HOST
               valueFrom:
                 configMapKeyRef:
-                  name: solr-cluster-config
+                  name: {{ .Values.solr.name }}-config
                   key: zkHost
           ports:
             - name: solrport

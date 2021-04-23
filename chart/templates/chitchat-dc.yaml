@@ -1,0 +1,60 @@
+{{- if eq .Values.chitchat.enabled true -}}
+kind: DeploymentConfig
+apiVersion: apps.openshift.io/v1
+metadata:
+  name: "{{ .Values.chitchat.name }}"
+  {{- if .Values.labels_enabled }}
+  labels:
+    build: {{ .Chart.Name }}
+    app: {{ .Chart.Name }}
+  {{- end }}
+  annotations:
+    description: Defines how to deploy the application server
+    template.alpha.openshift.io/wait-for-ready: 'true'
+spec:
+  strategy:
+    type: Rolling
+  triggers:
+  - type: ImageChange
+    imageChangeParams:
+      automatic: true
+      containerNames:
+      - {{ .Values.chitchat.name }}
+      from:
+        kind: ImageStreamTag
+        # TODO : FIX NAMING
+        name: "{{ .Values.chitchat.name }}:latest"
+  - type: ConfigChange
+  replicas: 1
+  selector:
+    name: "{{ .Values.chitchat.name }}"
+  template:
+    metadata:
+      name: "{{ .Values.chitchat.name }}"
+      labels:
+        name: "{{ .Values.chitchat.name }}"
+    spec:
+      containers:
+      - name: {{ .Values.chitchat.name }}
+        image: "{{ .Values.chitchat.image_repository }}/{{ .Values.namespace }}/{{ .Values.chitchat.name }}:latest"
+        ports:
+        - containerPort: 5009
+        readinessProbe:
+          timeoutSeconds: 3
+          initialDelaySeconds: 3
+          httpGet:
+            path: "/"
+            port: 5009
+        livenessProbe:
+          timeoutSeconds: 3
+          initialDelaySeconds: 30
+          httpGet:
+            path: "/"
+            port: 5009
+        resources:
+          limits:
+            memory: "512Mi"
+        env:
+            - name: NLTK_DATA
+              value: /usr/src/WHOA-FAQ-Answer-Project/nltk-data
+{{- end }}

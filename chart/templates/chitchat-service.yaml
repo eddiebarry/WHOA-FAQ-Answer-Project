@@ -1,0 +1,20 @@
+{{- if eq .Values.chitchat.enabled true -}}
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Values.chitchat.name }}
+  {{- if .Values.labels_enabled }}
+  labels:
+    build: {{ .Chart.Name }}
+    app: {{ .Chart.Name }}
+  {{- end }}
+  annotations:
+    description: Exposes and load balances the application pods
+spec:
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 5001
+  selector:
+    name: "{{ .Values.chitchat.name }}"
+{{- end }}

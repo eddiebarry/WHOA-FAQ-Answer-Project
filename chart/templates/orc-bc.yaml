@@ -1,4 +1,5 @@
 {{- if eq .Values.orchestrator.enabled true -}}
+{{- if eq .Values.orchestrator.build_enabled true -}}
 kind: BuildConfig
 apiVersion: build.openshift.io/v1
 metadata:
@@ -65,4 +66,5 @@ spec:
   # - type: Generic
   #   generic:
   #     secret: "gUE5VbKpAmDhz0dYMx5VkZUGK31jQxgE2uOfazNv"
+{{- end }}
 {{- end }}

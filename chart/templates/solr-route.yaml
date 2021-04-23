@@ -1,12 +1,12 @@
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: solr-cloud-staging
+  name: {{ .Values.solr.name }}-route
 spec:
-  host: solr-labs-dev.apps.dev.lxp.academy.who.int
+  host: {{ .Values.solr.name }}-labs-dev.apps.dev.lxp.academy.who.int
   to:
     kind: Service
-    name: solr-cloud-service
+    name: {{ .Values.solr.name }}-service
     weight: 100
   port:
     targetPort: 8983
