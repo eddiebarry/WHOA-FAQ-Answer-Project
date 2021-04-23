@@ -1,9 +1,9 @@
-{{- if eq .Values.chitchat.enabled true -}}
-{{- if eq .Values.chitchat.build_enabled true -}}
+{{- if eq .Values.orchestrator.enabled true -}}
+{{- if eq .Values.orchestrator.build_enabled true -}}
 kind: BuildConfig
 apiVersion: build.openshift.io/v1
 metadata:
-  name: "{{ .Values.chitchat.name }}"
+  name: "{{ .Values.orchestrator.name }}"
   {{- if .Values.labels_enabled }}
   labels:
     build: {{ .Chart.Name }}
@@ -21,12 +21,11 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      name: {{ .Values.chitchat.name }}:latest
+      name: {{ .Values.orchestrator.name }}:latest
   # TODO : automate dockerfile update
   source:
     type: Dockerfile
     dockerfile: >-
-dockerfile: >-
       # conda create -n venv_name python=3.6
 
       # conda activate venv_name
