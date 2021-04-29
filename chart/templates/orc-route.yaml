@@ -1,16 +1,16 @@
-{{- if eq .Values.orchestrator.enabled true -}}
-kind: Route
-apiVersion: route.openshift.io/v1
-metadata:
-  name: {{ .Values.orchestrator.name }}
-  {{- if .Values.labels_enabled }}
-  labels:
-    build: {{ .Chart.Name }}
-    app: {{ .Chart.Name }}
-  {{- end }}
-spec:
-  host: 
-  to:
-    kind: Service
-    name: "{{ .Values.orchestrator.name }}"
-{{- end }}
+# {{- if eq .Values.orchestrator.enabled true -}}
+# kind: Route
+# apiVersion: route.openshift.io/v1
+# metadata:
+#   name: {{ .Values.orchestrator.name }}
+#   {{- if .Values.labels_enabled }}
+#   labels:
+#     build: {{ .Values.orchestrator.name }}-build
+#     app: {{ .Values.orchestrator.name }}-app
+#   {{- end }}
+# spec:
+#   host: 
+#   to:
+#     kind: Service
+#     name: "{{ .Values.orchestrator.name }}"
+# {{- end }}

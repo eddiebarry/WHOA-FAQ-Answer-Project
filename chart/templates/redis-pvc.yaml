@@ -7,8 +7,8 @@ metadata:
   name: {{ template "redis.name" . }}
   {{- if .Values.labels_enabled }}
   labels:
-    build: {{ .Chart.Name }}
-    app: {{ .Chart.Name }}
+    build: {{ .Values.redis.name }}-build
+    app: {{ .Values.redis.name }}-app
   {{- end }}
 spec:
   accessModes:

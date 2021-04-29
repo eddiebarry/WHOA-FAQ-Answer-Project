@@ -1,28 +1,28 @@
-{{- if eq .Values.botpress.enabled true -}}
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
-metadata:
-  name: {{ .Values.botpress.name }}
-  {{- if .Values.labels_enabled }}
-  labels:
-    build: {{ .Chart.Name }}
-    app: {{ .Chart.Name }}
-  {{- end }}
-spec:
-  selector:
-    app: {{ .Values.botpress.name }}
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: {{ .Values.botpress.name }}
-    spec:
-      containers:
-        - name: {{ .Values.botpress.name }}
-          image: quay.io/whoacademy/botpress-team-jarvis
-          ports:
-            - containerPort: 8000
-          env:
-            - name: APP_DATA_PATH
-              value: /temp
-{{- end }}
+# {{- if eq .Values.botpress.enabled true -}}
+# apiVersion: apps.openshift.io/v1
+# kind: DeploymentConfig
+# metadata:
+#   name: {{ .Values.botpress.name }}
+#   {{- if .Values.labels_enabled }}
+#   labels:
+#     build: {{ .Chart.Name }}
+#     app: {{ .Chart.Name }}
+#   {{- end }}
+# spec:
+#   selector:
+#     app: {{ .Values.botpress.name }}
+#   replicas: 1
+#   template:
+#     metadata:
+#       labels:
+#         app: {{ .Values.botpress.name }}
+#     spec:
+#       containers:
+#         - name: {{ .Values.botpress.name }}
+#           image: quay.io/whoacademy/botpress-team-jarvis
+#           ports:
+#             - containerPort: 8000
+#           env:
+#             - name: APP_DATA_PATH
+#               value: /temp
+# {{- end }}

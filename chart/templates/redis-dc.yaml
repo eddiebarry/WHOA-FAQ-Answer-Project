@@ -9,8 +9,8 @@ metadata:
   name: {{ template "redis.name" . }}
   {{- if .Values.labels_enabled }}
   labels:
-    build: {{ .Chart.Name }}
-    app: {{ .Chart.Name }}
+    build: {{ .Values.redis.name }}-build
+    app: {{ .Values.redis.name }}-app
   {{- end }}
 spec:
   replicas: 1
@@ -18,8 +18,8 @@ spec:
     name: {{ template "redis.name" . }}
     {{- if .Values.labels_enabled }}
     labels:
-      build: {{ .Chart.Name }}
-      app: {{ .Chart.Name }}
+      build: {{ .Values.redis.name }}-build
+      app: {{ .Values.redis.name }}-app
     {{- end }}
   strategy:
     type: Recreate
@@ -29,8 +29,8 @@ spec:
         name: {{ template "redis.name" . }}
         {{- if .Values.labels_enabled }}
         labels:
-          build: {{ .Chart.Name }}
-          app: {{ .Chart.Name }}
+          build: {{ .Values.redis.name }}-build
+          app: {{ .Values.redis.name }}-app
         {{- end }}
     spec:
       containers:

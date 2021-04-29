@@ -53,6 +53,7 @@ botpress:
 
 solr:
   name: solr
+  route_enabled: false
 
 # reranker:
 #   dcName: reranker-dc
@@ -79,6 +80,7 @@ solr:
 #   memTarget: 500Mi
 
 redis:
+  name: redis
   enabled: true
   memory_limit: 512Mi
   is_namespace: openshift
@@ -88,8 +90,8 @@ redis:
   service:
     port: 6379
 
-# storage:
-#   enabled: false
-#   volume_capacity: 100Mi
-#   storageClassName: azure-file-storage
-#   mountPath: /opt/app-root/src/vla/media
+storage:
+  enabled: false
+  volume_capacity: 100Mi
+  storageClassName: azure-file-storage
+  mountPath: /opt/app-root/src/vla/media

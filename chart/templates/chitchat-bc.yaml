@@ -1,124 +1,124 @@
-{{- if eq .Values.chitchat.enabled true -}}
-{{- if eq .Values.chitchat.build_enabled true -}}
-kind: BuildConfig
-apiVersion: build.openshift.io/v1
-metadata:
-  name: "{{ .Values.chitchat.name }}"
-  {{- if .Values.labels_enabled }}
-  labels:
-    build: {{ .Chart.Name }}
-    app: {{ .Chart.Name }}
-  {{- end }}
-  annotations:
-    description: Defines how to build the application
-spec:
-  strategy:
-    type: Docker
-  output:
-    to:
-      kind: ImageStreamTag
-      name: {{ .Values.chitchat.name }}:latest
-  # TODO : automate dockerfile update
-  source:
-    type: Dockerfile
-    dockerfile: >-
-      # conda create -n venv_name python=3.6
+# {{- if eq .Values.chitchat.enabled true -}}
+# {{- if eq .Values.chitchat.build_enabled true -}}
+# kind: BuildConfig
+# apiVersion: build.openshift.io/v1
+# metadata:
+#   name: "{{ .Values.chitchat.name }}"
+#   {{- if .Values.labels_enabled }}
+#   labels:
+#     build: {{ .Chart.Name }}
+#     app: {{ .Chart.Name }}
+#   {{- end }}
+#   annotations:
+#     description: Defines how to build the application
+# spec:
+#   strategy:
+#     type: Docker
+#   output:
+#     to:
+#       kind: ImageStreamTag
+#       name: {{ .Values.chitchat.name }}:latest
+#   # TODO : automate dockerfile update
+#   source:
+#     type: Dockerfile
+#     dockerfile: >-
+#       # conda create -n venv_name python=3.6
 
-      # conda activate venv_name
+#       # conda activate venv_name
 
-      # conda install -c pytorch faiss-cpu
+#       # conda install -c pytorch faiss-cpu
 
-      # # linux
+#       # # linux
 
-      # sudo apt install gcc
+#       # sudo apt install gcc
 
-      # git clone https://github.com/facebookresearch/fastText.git
+#       # git clone https://github.com/facebookresearch/fastText.git
 
-      # cd fastText
+#       # cd fastText
 
-      # sudo pip install .
-
-
-      # sudo /Users/edgarmonis/minicond/envs/venv_name/bin/pip 
+#       # sudo pip install .
 
 
-      # gunicorn --worker-class gevent --bind 0.0.0.0:5001   wsgi:app --workers
-      2 --worker-connections 2000 --timeout 60 --preload
+#       # sudo /Users/edgarmonis/minicond/envs/venv_name/bin/pip 
 
 
-      FROM continuumio/miniconda3
+#       # gunicorn --worker-class gevent --bind 0.0.0.0:5001   wsgi:app --workers
+#       2 --worker-connections 2000 --timeout 60 --preload
 
 
-      WORKDIR /app
+#       FROM continuumio/miniconda3
 
 
-      # Create the environment:
-
-      # COPY . .
-
-      # ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h"
-      skipcache
+#       WORKDIR /app
 
 
-      RUN git clone --branch hotfix-branch
-      https://github.com/eddiebarry/WHO-FAQ-Chitchat-API.git
+#       # Create the environment:
+
+#       # COPY . .
+
+#       # ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h"
+#       skipcache
 
 
-      WORKDIR /app/WHO-FAQ-Chitchat-API
+#       RUN git clone --branch hotfix-branch
+#       https://github.com/eddiebarry/WHO-FAQ-Chitchat-API.git
 
 
-      RUN conda env create -f env.yaml
+#       WORKDIR /app/WHO-FAQ-Chitchat-API
 
 
-      RUN git clone https://github.com/facebookresearch/fastText.git
+#       RUN conda env create -f env.yaml
 
 
-      WORKDIR /app/WHO-FAQ-Chitchat-API/fastText
-
-      RUN apt-get update
-
-      RUN apt install -y g++
-
-      RUN /opt/conda/envs/myenv/bin/pip install .
+#       RUN git clone https://github.com/facebookresearch/fastText.git
 
 
-      WORKDIR /app/WHO-FAQ-Chitchat-API
+#       WORKDIR /app/WHO-FAQ-Chitchat-API/fastText
 
-      SHELL ["conda", "run", "--no-capture-output", "-n", "myenv", "python",
-      "download_weights.py"]
+#       RUN apt-get update
 
+#       RUN apt install -y g++
 
-      # conda run --no-capture-output -n myenv python download_weights.py
-
-      # # Make RUN commands use the new environment:
-
-      # SHELL ["conda", "run", "-n", "myenv", "/bin/bash", "-c"]
+#       RUN /opt/conda/envs/myenv/bin/pip install .
 
 
-      # # Make sure the environment is activated:
+#       WORKDIR /app/WHO-FAQ-Chitchat-API
 
-      # RUN echo "Make sure flask is installed:"
+#       SHELL ["conda", "run", "--no-capture-output", "-n", "myenv", "python",
+#       "download_weights.py"]
 
-      # RUN python -c "import flask"
+
+#       # conda run --no-capture-output -n myenv python download_weights.py
+
+#       # # Make RUN commands use the new environment:
+
+#       # SHELL ["conda", "run", "-n", "myenv", "/bin/bash", "-c"]
 
 
-      # # The code to run when container is started:
+#       # # Make sure the environment is activated:
 
-      # COPY run.py .
+#       # RUN echo "Make sure flask is installed:"
 
-      ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "myenv",
-      "gunicorn", "--worker-class", "gevent", "--bind", "0.0.0.0:5001",
-      "wsgi:app", "--workers", "2", "--worker-connections", "2000", "--timeout",
-      "60", "--preload"]
-  triggers:
-  - type: ImageChange
-  - type: ConfigChange
-  #TODO : on update github
-  # - type: GitHub
-  #   github:
-  #     secret: "cS3AFvpd1DLz7C0VW5OVmJhTnXM0qwuOy4JFtulV"
-  # - type: Generic
-  #   generic:
-  #     secret: "gUE5VbKpAmDhz0dYMx5VkZUGK31jQxgE2uOfazNv"
-{{- end }}
-{{- end }}
+#       # RUN python -c "import flask"
+
+
+#       # # The code to run when container is started:
+
+#       # COPY run.py .
+
+#       ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "myenv",
+#       "gunicorn", "--worker-class", "gevent", "--bind", "0.0.0.0:5001",
+#       "wsgi:app", "--workers", "2", "--worker-connections", "2000", "--timeout",
+#       "60", "--preload"]
+#   triggers:
+#   - type: ImageChange
+#   - type: ConfigChange
+#   #TODO : on update github
+#   # - type: GitHub
+#   #   github:
+#   #     secret: "cS3AFvpd1DLz7C0VW5OVmJhTnXM0qwuOy4JFtulV"
+#   # - type: Generic
+#   #   generic:
+#   #     secret: "gUE5VbKpAmDhz0dYMx5VkZUGK31jQxgE2uOfazNv"
+# {{- end }}
+# {{- end }}

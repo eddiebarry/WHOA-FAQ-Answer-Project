@@ -1,3 +1,4 @@
+# {{- if eq .Values.solr.route_enabled true -}}
 # kind: Route
 # apiVersion: route.openshift.io/v1
 # metadata:
@@ -10,3 +11,4 @@
 #     weight: 100
 #   port:
 #     targetPort: 8983
+# {{- end }}

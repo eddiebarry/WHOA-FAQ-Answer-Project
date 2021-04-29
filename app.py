@@ -88,9 +88,24 @@ UPDATE_ENGINE = UpdateEngine(
 )
 
 app = flask.Flask(__name__)
-# app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'redis', 'CACHE_REDIS_URL': 'redis://cache:6379','CACHE_DEFAULT_TIMEOUT':3600})
-app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'simple'})
-app.config['cache'].clear()
+
+# Prod
+if os.getenv('CACHE_REDIS_HOST'):
+    app.config['cache'] = Cache(
+            app, 
+            config={
+                    'CACHE_TYPE': 'redis', 
+                    # 'CACHE_REDIS_URL': 'redis://cache:6379',
+                    'CACHE_DEFAULT_TIMEOUT':3600,
+                    'CACHE_REDIS_HOST': os.getenv('CACHE_REDIS_HOST'),
+                    'CACHE_REDIS_PORT': os.getenv('CACHE_REDIS_PORT'),
+                    'CACHE_REDIS_PASSWORD': os.getenv('CACHE_REDIS_PASSWORD'),
+                }
+        )
+else:
+    app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'simple'})
+
+# app.config['cache'].clear()
 app.config["DEBUG"] = False
 app.config['sim'] = NGram(2)
 # app.config['ID_KEYWORD_DICT']=ID_KEYWORD_DICT

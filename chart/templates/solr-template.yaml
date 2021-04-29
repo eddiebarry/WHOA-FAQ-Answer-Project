@@ -1,181 +1,181 @@
-kind: StatefulSet
-apiVersion: apps/v1
-metadata:
-  name: solr
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: {{ .Values.solr.name }}-app
-  template:
-    metadata:
-      creationTimestamp: null
-      labels:
-        app: {{ .Values.solr.name }}-app
-    spec:
-      initContainers:
-        - resources: {}
-          terminationMessagePath: /dev/termination-log
-          name: init-solr-data
-          command:
-            - /bin/sh
-            - '-c'
-            - >-
-              if [ ! -d $SOLR_HOME/lib ] ; then mkdir -p $SOLR_HOME/lib && chown
-              -R 8983:8983 $SOLR_HOME ; else true; fi
-          env:
-            - name: SOLR_HOME
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Values.solr.name }}-config
-                  key: solrHome
-          imagePullPolicy: Always
-          volumeMounts:
-            - name: volsolr
-              mountPath: /store
-          terminationMessagePolicy: File
-          image: busybox
-        - resources: {}
-          terminationMessagePath: /dev/termination-log
-          name: init-solr-logs
-          command:
-            - /bin/sh
-            - '-c'
-            - >-
-              if [ ! -d $SOLR_LOGS_DIR ] ; then mkdir -p $SOLR_LOGS_DIR && chown
-              8983:8983 $SOLR_LOGS_DIR ; else true; fi
-          env:
-            - name: SOLR_LOGS_DIR
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Values.solr.name }}-config
-                  key: solrLogsDir
-          imagePullPolicy: Always
-          volumeMounts:
-            - name: volsolr
-              mountPath: /store
-          terminationMessagePolicy: File
-          image: busybox
-        - resources: {}
-          terminationMessagePath: /dev/termination-log
-          name: init-solr-xml
-          command:
-            - /bin/sh
-            - '-c'
-            - >-
-              if [ ! -f $SOLR_HOME/solr.xml ] ; then cp
-              /opt/solr/server/solr/solr.xml $SOLR_HOME/solr.xml;sed -i
-              "s/<solr>/<solr><str name='sharedLib'>\/store\/data\/lib<\/str>/g"
-              $SOLR_HOME/solr.xml ; else true; fi 
-          env:
-            - name: SOLR_HOME
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Values.solr.name }}-config
-                  key: solrHome
-          imagePullPolicy: IfNotPresent
-          volumeMounts:
-            - name: volsolr
-              mountPath: /store
-          terminationMessagePolicy: File
-          # TODO : get rm3
-          image: 'solr:8.1.1'
-      containers:
-        - resources: {}
-          readinessProbe:
-            tcpSocket:
-              port: 8983
-            initialDelaySeconds: 5
-            timeoutSeconds: 1
-            periodSeconds: 10
-            successThreshold: 1
-            failureThreshold: 3
-          terminationMessagePath: /dev/termination-log
-          name: {{ .Values.solr.name }}
-          livenessProbe:
-            tcpSocket:
-              port: 8983
-            initialDelaySeconds: 15
-            timeoutSeconds: 1
-            periodSeconds: 20
-            successThreshold: 1
-            failureThreshold: 3
-          env:
-            - name: MY_POD_NAME
-              valueFrom:
-                fieldRef:
-                  apiVersion: v1
-                  fieldPath: metadata.name
-            - name: MY_POD_NAMESPACE
-              valueFrom:
-                fieldRef:
-                  apiVersion: v1
-                  fieldPath: metadata.namespace
-            - name: MY_POD_IP
-              valueFrom:
-                fieldRef:
-                  apiVersion: v1
-                  fieldPath: status.podIP
-            - name: SOLR_HOME
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Values.solr.name }}-config
-                  key: solrHome
-            - name: POD_HOST_NAME
-              valueFrom:
-                fieldRef:
-                  apiVersion: v1
-                  fieldPath: metadata.name
-            - name: SOLR_LOGS_DIR
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Values.solr.name }}-config
-                  key: solrLogsDir
-            - name: SOLR_HEAP
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Values.solr.name }}-config
-                  key: solrHeap
-            - name: SOLR_HOST
-              value: $(MY_POD_IP)
-            - name: ZK_HOST
-              value: >-
-                $(ZOOKEEPER_1_SERVICE_HOST):2181,$(ZOOKEEPER_2_SERVICE_HOST):2181,$(ZOOKEEPER_3_SERVICE_HOST):2181
-          ports:
-            - name: solrport
-              containerPort: 8983
-              protocol: TCP
-          imagePullPolicy: IfNotPresent
-          volumeMounts:
-            - name: volsolr
-              mountPath: /store
-          terminationMessagePolicy: File
-          image: 'solr:8.1.1'
-      restartPolicy: Always
-      terminationGracePeriodSeconds: 10
-      dnsPolicy: ClusterFirst
-      securityContext: {}
-      schedulerName: default-scheduler
-  volumeClaimTemplates:
-    - kind: PersistentVolumeClaim
-      apiVersion: v1
-      metadata:
-        name: volsolr
-        creationTimestamp: null
-      spec:
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 10Gi
-        storageClassName: managed-premium
-        volumeMode: Filesystem
-      status:
-        phase: Pending
-  serviceName: solrcluster
-  podManagementPolicy: OrderedReady
-  updateStrategy:
-    type: RollingUpdate
-    rollingUpdate:
-      partition: 0
-  revisionHistoryLimit: 10
+# kind: StatefulSet
+# apiVersion: apps/v1
+# metadata:
+#   name: solr
+# spec:
+#   replicas: 2
+#   selector:
+#     matchLabels:
+#       app: {{ .Values.solr.name }}-app
+#   template:
+#     metadata:
+#       creationTimestamp: null
+#       labels:
+#         app: {{ .Values.solr.name }}-app
+#     spec:
+#       initContainers:
+#         - resources: {}
+#           terminationMessagePath: /dev/termination-log
+#           name: init-solr-data
+#           command:
+#             - /bin/sh
+#             - '-c'
+#             - >-
+#               if [ ! -d $SOLR_HOME/lib ] ; then mkdir -p $SOLR_HOME/lib && chown
+#               -R 8983:8983 $SOLR_HOME ; else true; fi
+#           env:
+#             - name: SOLR_HOME
+#               valueFrom:
+#                 configMapKeyRef:
+#                   name: {{ .Values.solr.name }}-config
+#                   key: solrHome
+#           imagePullPolicy: Always
+#           volumeMounts:
+#             - name: volsolr
+#               mountPath: /store
+#           terminationMessagePolicy: File
+#           image: busybox
+#         - resources: {}
+#           terminationMessagePath: /dev/termination-log
+#           name: init-solr-logs
+#           command:
+#             - /bin/sh
+#             - '-c'
+#             - >-
+#               if [ ! -d $SOLR_LOGS_DIR ] ; then mkdir -p $SOLR_LOGS_DIR && chown
+#               8983:8983 $SOLR_LOGS_DIR ; else true; fi
+#           env:
+#             - name: SOLR_LOGS_DIR
+#               valueFrom:
+#                 configMapKeyRef:
+#                   name: {{ .Values.solr.name }}-config
+#                   key: solrLogsDir
+#           imagePullPolicy: Always
+#           volumeMounts:
+#             - name: volsolr
+#               mountPath: /store
+#           terminationMessagePolicy: File
+#           image: busybox
+#         - resources: {}
+#           terminationMessagePath: /dev/termination-log
+#           name: init-solr-xml
+#           command:
+#             - /bin/sh
+#             - '-c'
+#             - >-
+#               if [ ! -f $SOLR_HOME/solr.xml ] ; then cp
+#               /opt/solr/server/solr/solr.xml $SOLR_HOME/solr.xml;sed -i
+#               "s/<solr>/<solr><str name='sharedLib'>\/store\/data\/lib<\/str>/g"
+#               $SOLR_HOME/solr.xml ; else true; fi 
+#           env:
+#             - name: SOLR_HOME
+#               valueFrom:
+#                 configMapKeyRef:
+#                   name: {{ .Values.solr.name }}-config
+#                   key: solrHome
+#           imagePullPolicy: IfNotPresent
+#           volumeMounts:
+#             - name: volsolr
+#               mountPath: /store
+#           terminationMessagePolicy: File
+#           # TODO : get rm3
+#           image: 'solr:8.1.1'
+#       containers:
+#         - resources: {}
+#           readinessProbe:
+#             tcpSocket:
+#               port: 8983
+#             initialDelaySeconds: 5
+#             timeoutSeconds: 1
+#             periodSeconds: 10
+#             successThreshold: 1
+#             failureThreshold: 3
+#           terminationMessagePath: /dev/termination-log
+#           name: {{ .Values.solr.name }}
+#           livenessProbe:
+#             tcpSocket:
+#               port: 8983
+#             initialDelaySeconds: 15
+#             timeoutSeconds: 1
+#             periodSeconds: 20
+#             successThreshold: 1
+#             failureThreshold: 3
+#           env:
+#             - name: MY_POD_NAME
+#               valueFrom:
+#                 fieldRef:
+#                   apiVersion: v1
+#                   fieldPath: metadata.name
+#             - name: MY_POD_NAMESPACE
+#               valueFrom:
+#                 fieldRef:
+#                   apiVersion: v1
+#                   fieldPath: metadata.namespace
+#             - name: MY_POD_IP
+#               valueFrom:
+#                 fieldRef:
+#                   apiVersion: v1
+#                   fieldPath: status.podIP
+#             - name: SOLR_HOME
+#               valueFrom:
+#                 configMapKeyRef:
+#                   name: {{ .Values.solr.name }}-config
+#                   key: solrHome
+#             - name: POD_HOST_NAME
+#               valueFrom:
+#                 fieldRef:
+#                   apiVersion: v1
+#                   fieldPath: metadata.name
+#             - name: SOLR_LOGS_DIR
+#               valueFrom:
+#                 configMapKeyRef:
+#                   name: {{ .Values.solr.name }}-config
+#                   key: solrLogsDir
+#             - name: SOLR_HEAP
+#               valueFrom:
+#                 configMapKeyRef:
+#                   name: {{ .Values.solr.name }}-config
+#                   key: solrHeap
+#             - name: SOLR_HOST
+#               value: $(MY_POD_IP)
+#             - name: ZK_HOST
+#               value: >-
+#                 $(ZOOKEEPER_1_SERVICE_HOST):2181,$(ZOOKEEPER_2_SERVICE_HOST):2181,$(ZOOKEEPER_3_SERVICE_HOST):2181
+#           ports:
+#             - name: solrport
+#               containerPort: 8983
+#               protocol: TCP
+#           imagePullPolicy: IfNotPresent
+#           volumeMounts:
+#             - name: volsolr
+#               mountPath: /store
+#           terminationMessagePolicy: File
+#           image: 'solr:8.1.1'
+#       restartPolicy: Always
+#       terminationGracePeriodSeconds: 10
+#       dnsPolicy: ClusterFirst
+#       securityContext: {}
+#       schedulerName: default-scheduler
+#   volumeClaimTemplates:
+#     - kind: PersistentVolumeClaim
+#       apiVersion: v1
+#       metadata:
+#         name: volsolr
+#         creationTimestamp: null
+#       spec:
+#         accessModes:
+#           - ReadWriteOnce
+#         resources:
+#           requests:
+#             storage: 10Gi
+#         storageClassName: managed-premium
+#         volumeMode: Filesystem
+#       status:
+#         phase: Pending
+#   serviceName: solrcluster
+#   podManagementPolicy: OrderedReady
+#   updateStrategy:
+#     type: RollingUpdate
+#     rollingUpdate:
+#       partition: 0
+#   revisionHistoryLimit: 10
