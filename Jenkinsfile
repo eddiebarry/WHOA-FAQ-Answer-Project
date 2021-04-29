@@ -105,7 +105,7 @@ pipeline {
                 }
                 sh 'printenv'
 
-                // echo '### Packaging App for Nexus ###'
+                echo '### Packaging App for Nexus ###'
 
                 sh '''
                     python -m pip install --upgrade pip
@@ -114,45 +114,28 @@ pipeline {
                     curl -v -f -u ${NEXUS_CREDS} --upload-file dist/${PACKAGE} http://${SONATYPE_NEXUS_SERVICE_SERVICE_HOST}:${SONATYPE_NEXUS_SERVICE_SERVICE_PORT}/repository/${NEXUS_REPO_NAME}/${APP_NAME}/${PACKAGE}
                 '''
             }
-            // // Disabling tests for now
-            // // Post can be used both on individual stages and for the entire build.
-            // post {
-            //     always {
-            //         // archiveArtifacts "**"
-            //         junit 'xunittest.xml'
-            //         // publish html
-            //         publishHTML target: [
-            //             allowMissing: false,
-            //             alwaysLinkToLastBuild: false,
-            //             keepAll: true,
-            //             reportDir: 'cover',
-            //             reportFiles: 'index.html',
-            //             reportName: 'Django Code Coverage'
-            //         ]
-            //     }
-            // }
         }
 
-      stage("Bake (OpenShift Build)") {
-            options {
-                skipDefaultCheckout(true)
-            }
-            agent {
-                node {
-                    label "master"
-                }
-            }
-            steps {
-                sh 'printenv'
+    //   stage("Bake (OpenShift Build)") {
+    //         options {
+    //             skipDefaultCheckout(true)
+    //         }
+    //         agent {
+    //             node {
+    //                 label "master"
+    //             }
+    //         }
+    //         steps {
+    //             sh 'printenv'
 
-                echo '### Get Binary from Nexus and shove it in a box ###'
+    //             echo '### Get Binary from Nexus and shove it in a box ###'
 
                 
-                sh  '''
-                    rm -rf package-contents*
-                '''
-            }
-      }
+    //             sh  '''
+    //                 rm -rf package-contents*
+    //             '''
+    //         }
+    //   }
 
   stage("Helm Package App (master)") {
             agent {

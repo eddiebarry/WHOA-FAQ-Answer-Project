@@ -9,18 +9,18 @@ metadata:
   name: {{ template "redis.name" . }}
   {{- if .Values.labels_enabled }}
   labels:
-    build: {{ .Values.redis.name }}-build
-    app: {{ .Values.redis.name }}-app
+    build: {{ .Chart.Name }}
+    app: {{ .Chart.Name }}
   {{- end }}
 spec:
   replicas: 1
   selector:
     name: {{ template "redis.name" . }}
-    # {{- if .Values.labels_enabled }}
+    {{- if .Values.labels_enabled }}
     labels:
-      build: redis-build
-      app: redis-app
-    # {{- end }}
+      build: {{ .Chart.Name }}
+      app: {{ .Chart.Name }}
+    {{- end }}
   strategy:
     type: Recreate
   template:
@@ -29,8 +29,8 @@ spec:
         name: {{ template "redis.name" . }}
         {{- if .Values.labels_enabled }}
         labels:
-          build: {{ .Values.redis.name }}-build
-          app: {{ .Values.redis.name }}-app
+          build: {{ .Chart.Name }}
+          app: {{ .Chart.Name }}
         {{- end }}
     spec:
       containers:
