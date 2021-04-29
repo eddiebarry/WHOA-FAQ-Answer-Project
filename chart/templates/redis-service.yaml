@@ -4,12 +4,12 @@ kind: Service
 metadata:
   annotations:
     template.openshift.io/expose-uri: redis://{.spec.clusterIP}:{.spec.ports[?(.name=="redis")].port}
-  {{- if .Values.labels_enabled }}
+  # {{- if .Values.labels_enabled }}
   labels:
     template: redis-persistent-template  
-    build: {{ .Values.redis.name }}-build
-    app: {{ .Values.redis.name }}-app
-  {{- end }} 
+    build: redis-build
+    app: redis-app
+  # {{- end }} 
   name: {{ template "redis.fullname" . }}
 spec:
   ports:
