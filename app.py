@@ -104,8 +104,8 @@ if os.getenv('CACHE_REDIS_HOST'):
         )
 else:
     app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'simple'})
-
-# app.config['cache'].clear()
+    
+app.config['cache'].clear()
 app.config["DEBUG"] = False
 app.config['sim'] = NGram(2)
 # app.config['ID_KEYWORD_DICT']=ID_KEYWORD_DICT
