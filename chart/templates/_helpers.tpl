@@ -64,7 +64,7 @@ deploymentconfig: {{ include "project.fullname" . }}
   We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
 {{- define "redis.fullname" -}}
-{{- printf "%s-%s-%s" .Release.Name .Chart.Name .Values.redis.name | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s-%s" .Release.Name .Values.redis.name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
@@ -80,7 +80,7 @@ deploymentconfig: {{ include "project.fullname" . }}
   We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
 {{- define "orc.fullname" -}}
-{{- printf "%s-%s-%s" .Release.Name .Chart.Name .Values.orchestrator.name | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s-%s" .Release.Name .Values.orchestrator.name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
@@ -96,7 +96,7 @@ deploymentconfig: {{ include "project.fullname" . }}
   We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
 {{- define "chitchat.fullname" -}}
-{{- printf "%s-%s-%s" .Release.Name .Chart.Name .Values.chitchat.name | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s-%s" .Release.Name .Values.chitchat.name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
@@ -108,11 +108,11 @@ deploymentconfig: {{ include "project.fullname" . }}
 {{- end -}}
 
 {{/*
-  Create a default fully qualified orc name.
+  Create a default fully qualified botpress name.
   We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
 {{- define "botpress.fullname" -}}
-{{- printf "%s-%s-%s" .Release.Name .Chart.Name .Values.botpress.name | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s-%s" .Release.Name .Values.botpress.name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 
@@ -129,5 +129,5 @@ deploymentconfig: {{ include "project.fullname" . }}
   We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
 {{- define "solr.fullname" -}}
-{{- printf "%s-%s-%s" .Release.Name .Chart.Name .Values.solr.name | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s-%s" .Release.Name .Values.solr.name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
