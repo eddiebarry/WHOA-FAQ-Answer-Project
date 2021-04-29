@@ -28,6 +28,7 @@ pipeline {
         // Nexus Artifact repo
         NEXUS_REPO_NAME="labs-static"
         NEXUS_REPO_HELM = "helm-charts"
+
     }
 
     // The options directive is for configuration that applies to the whole job.
@@ -83,6 +84,7 @@ pipeline {
                             env.IMAGE_REPOSITORY = 'image-registry.openshift-image-registry.svc:5000'
                             // ammend the name to create 'sandbox' deploys based on current branch
                             env.APP_NAME = "${GIT_BRANCH}-${NAME}".replace("/", "-").toLowerCase()
+                            // DEPLOYEMENT_TO_CHECK = "${GIT_BRANCH}-${NAME}".replace("/", "-").toLowerCase()
                             env.TARGET_NAMESPACE = "labs-dev"
                         }
                     }
@@ -294,8 +296,10 @@ pipeline {
         //                    DELAY=5
         //                    MAX_COUNTER=60
         //                    echo "Validating deployment of ${APP_NAME} in project ${TARGET_NAMESPACE}"
+
         //                    LATEST_DC_VERSION=\$(oc get dc ${APP_NAME} -n ${TARGET_NAMESPACE} --template='{{ .status.latestVersion }}')
         //                    RC_NAME=${APP_NAME}-\${LATEST_DC_VERSION}
+                           
         //                    set +e
         //                    while [ \$COUNTER -lt \$MAX_COUNTER ]
         //                    do

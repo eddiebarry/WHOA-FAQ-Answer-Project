@@ -75,7 +75,7 @@ deploymentconfig: {{ include "project.fullname" . }}
   We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
 {{- define "redis.name" -}}
-{{- printf "redis-%s" .Chart.Name | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s-%s" .Chart.Name .Values.redis.name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
@@ -83,5 +83,21 @@ deploymentconfig: {{ include "project.fullname" . }}
   We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
 {{- define "redis.fullname" -}}
-{{- printf "redis-%s-%s" .Release.Name .Chart.Name | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s-%s-%s" .Release.Name .Chart.Name .Values.redis.name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
+  Create a short orc name.
+  We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+*/}}
+{{- define "orc.name" -}}
+{{- printf "%s-%s" .Chart.Name .Values.orchestrator.name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
+  Create a default fully qualified orc name.
+  We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+*/}}
+{{- define "orc.fullname" -}}
+{{- printf "%s-%s-%s" .Release.Name .Chart.Name .Values.orchestrator.name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}

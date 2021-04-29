@@ -1,20 +1,20 @@
-# {{- if eq .Values.orchestrator.enabled true -}}
-# kind: Service
-# apiVersion: v1
-# metadata:
-#   name: {{ .Values.orchestrator.name }}
-#   {{- if .Values.labels_enabled }}
-#   labels:
-#     build: {{ .Values.orchestrator.name }}-build
-#     app: {{ .Values.orchestrator.name }}-app
-#   {{- end }}
-#   annotations:
-#     description: Exposes and load balances the application pods
-# spec:
-#   ports:
-#   - protocol: TCP
-#     port: 8080
-#     targetPort: 5009
-#   selector:
-#     name: "{{ .Values.orchestrator.name }}"
-# {{- end }}
+{{- if eq .Values.orchestrator.enabled true -}}
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ template "orc.fullname" . }}
+  {{- if .Values.labels_enabled }}
+  labels:
+    build: {{ template "orc.name" . }}-build
+    app: {{ template "orc.name" . }}-app
+  {{- end }}
+  annotations:
+    description: Exposes and load balances the application pods
+spec:
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 5009
+  selector:
+    name: "{{ template "orc.name" . }}"
+{{- end }}
