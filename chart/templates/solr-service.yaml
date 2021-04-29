@@ -1,11 +1,11 @@
-# kind: Service
-# apiVersion: v1
-# metadata:
-#   name: {{ .Values.solr.name }}-service
-# spec:
-#   ports:
-#     - protocol: TCP
-#       port: 8983
-#       targetPort: 8983
-#   selector:
-#     app: {{ .Values.solr.name }}-app
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ template "solr.fullname" . }}-service
+spec:
+  ports:
+    - protocol: TCP
+      port: 8983
+      targetPort: 8983
+  selector:
+    app: {{ template "solr.name" . }}-app

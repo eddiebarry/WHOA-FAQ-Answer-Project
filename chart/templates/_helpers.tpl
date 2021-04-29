@@ -101,3 +101,52 @@ deploymentconfig: {{ include "project.fullname" . }}
 {{- define "orc.fullname" -}}
 {{- printf "%s-%s-%s" .Release.Name .Chart.Name .Values.orchestrator.name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{/*
+  Create a short chitchat name.
+  We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+*/}}
+{{- define "chitchat.name" -}}
+{{- printf "%s-%s" .Chart.Name .Values.chitchat.name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
+  Create a default fully qualified orc name.
+  We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+*/}}
+{{- define "chitchat.fullname" -}}
+{{- printf "%s-%s-%s" .Release.Name .Chart.Name .Values.chitchat.name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
+  Create a short botpress name.
+  We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+*/}}
+{{- define "botpress.name" -}}
+{{- printf "%s-%s" .Chart.Name .Values.botpress.name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
+  Create a default fully qualified orc name.
+  We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+*/}}
+{{- define "botpress.fullname" -}}
+{{- printf "%s-%s-%s" .Release.Name .Chart.Name .Values.botpress.name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+
+{{/*
+  Create a short solr name.
+  We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+*/}}
+{{- define "solr.name" -}}
+{{- printf "%s-%s" .Chart.Name .Values.solr.name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
+  Create a default fully qualified orc name.
+  We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+*/}}
+{{- define "solr.fullname" -}}
+{{- printf "%s-%s-%s" .Release.Name .Chart.Name .Values.solr.name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
