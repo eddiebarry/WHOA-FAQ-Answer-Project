@@ -1,7 +1,7 @@
 
 namespace: labs-dev
 # Labels dont work as expected yet
-labels_enabled: true
+labels_enabled: false
 route: true
 
 # build orc
