@@ -5,8 +5,7 @@ metadata:
   name: {{ template "botpress.fullname" . }}-service
   {{- if .Values.labels_enabled }}
   labels:
-    build: {{ .Chart.Name }}
-    app: {{ .Chart.Name }}
+    {{- include "project.labels" . | nindent 4 }}
   {{- end }}
 spec:
   selector:

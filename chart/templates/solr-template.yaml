@@ -2,6 +2,10 @@ kind: StatefulSet
 apiVersion: apps/v1
 metadata:
   name: solr
+  {{- if .Values.labels_enabled }}
+  labels:
+    {{- include "project.labels" . | nindent 4 }}
+  {{- end }}
 spec:
   replicas: 2
   selector:

@@ -2,6 +2,10 @@ kind: Service
 apiVersion: v1
 metadata:
   name: {{ template "solr.fullname" . }}-service
+  {{- if .Values.labels_enabled }}
+  labels:
+    {{- include "project.labels" . | nindent 4 }}
+  {{- end }}
 spec:
   ports:
     - protocol: TCP
