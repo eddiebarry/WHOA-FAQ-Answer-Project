@@ -1,11 +1,11 @@
-{{- if eq .Values.chitchat.enabled true -}}
-apiVersion: image.openshift.io/v1
-kind: ImageStream
-metadata:
-  name: {{ template "chitchat.name" . }}
-  {{- if .Values.labels_enabled }}
-  labels:
-    build: {{ .Chart.Name }}
-    app: {{ .Chart.Name }}
-  {{- end }}
-{{- end }}
+# {{- if eq .Values.chitchat.enabled true -}}
+# apiVersion: image.openshift.io/v1
+# kind: ImageStream
+# metadata:
+#   name: {{ template "chitchat.name" . }}
+#   {{- if .Values.labels_enabled }}
+#   labels:
+#     build: {{ .Chart.Name }}
+#     app: {{ .Chart.Name }}
+#   {{- end }}
+# {{- end }}

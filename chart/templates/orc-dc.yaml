@@ -1,60 +1,60 @@
-{{- if eq .Values.orchestrator.enabled true -}}
-kind: DeploymentConfig
-apiVersion: apps.openshift.io/v1
-metadata:
-  name: "{{ template "orc.name" . }}"
-  {{- if .Values.labels_enabled }}
-  labels:
-    build: {{ template "orc.name" . }}-build
-    app: {{ template "orc.name" . }}-app
-  {{- end }}
-  annotations:
-    description: Defines how to deploy the application server
-    template.alpha.openshift.io/wait-for-ready: 'true'
-spec:
-  strategy:
-    type: Rolling
-  triggers:
-  - type: ImageChange
-    imageChangeParams:
-      automatic: true
-      containerNames:
-      - {{ template "orc.name" . }}
-      from:
-        kind: ImageStreamTag
-        # TODO : FIX NAMING
-        name: "{{ template "orc.name" . }}:latest"
-  - type: ConfigChange
-  replicas: 1
-  selector:
-    name: "{{ template "orc.name" . }}"
-  template:
-    metadata:
-      name: "{{ template "orc.name" . }}"
-      labels:
-        name: "{{ template "orc.name" . }}"
-    spec:
-      containers:
-      - name: {{ template "orc.name" . }}
-        image: "{{ .Values.orchestrator.image_repository }}/{{ .Values.namespace }}/{{ template "orc.name" . }}:latest"
-        ports:
-        - containerPort: 5009
-        readinessProbe:
-          timeoutSeconds: 3
-          initialDelaySeconds: 3
-          httpGet:
-            path: "/"
-            port: 5009
-        livenessProbe:
-          timeoutSeconds: 3
-          initialDelaySeconds: 30
-          httpGet:
-            path: "/"
-            port: 5009
-        resources:
-          limits:
-            memory: "512Mi"
-        env:
-            - name: NLTK_DATA
-              value: /usr/src/WHOA-FAQ-Answer-Project/nltk-data
-{{- end }}
+# {{- if eq .Values.orchestrator.enabled true -}}
+# kind: DeploymentConfig
+# apiVersion: apps.openshift.io/v1
+# metadata:
+#   name: "{{ template "orc.name" . }}"
+#   {{- if .Values.labels_enabled }}
+#   labels:
+#     build: {{ template "orc.name" . }}-build
+#     app: {{ template "orc.name" . }}-app
+#   {{- end }}
+#   annotations:
+#     description: Defines how to deploy the application server
+#     template.alpha.openshift.io/wait-for-ready: 'true'
+# spec:
+#   strategy:
+#     type: Rolling
+#   triggers:
+#   - type: ImageChange
+#     imageChangeParams:
+#       automatic: true
+#       containerNames:
+#       - {{ template "orc.name" . }}
+#       from:
+#         kind: ImageStreamTag
+#         # TODO : FIX NAMING
+#         name: "{{ template "orc.name" . }}:latest"
+#   - type: ConfigChange
+#   replicas: 1
+#   selector:
+#     name: "{{ template "orc.name" . }}"
+#   template:
+#     metadata:
+#       name: "{{ template "orc.name" . }}"
+#       labels:
+#         name: "{{ template "orc.name" . }}"
+#     spec:
+#       containers:
+#       - name: {{ template "orc.name" . }}
+#         image: "{{ .Values.orchestrator.image_repository }}/{{ .Values.namespace }}/{{ template "orc.name" . }}:latest"
+#         ports:
+#         - containerPort: 5009
+#         readinessProbe:
+#           timeoutSeconds: 3
+#           initialDelaySeconds: 3
+#           httpGet:
+#             path: "/"
+#             port: 5009
+#         livenessProbe:
+#           timeoutSeconds: 3
+#           initialDelaySeconds: 30
+#           httpGet:
+#             path: "/"
+#             port: 5009
+#         resources:
+#           limits:
+#             memory: "512Mi"
+#         env:
+#             - name: NLTK_DATA
+#               value: /usr/src/WHOA-FAQ-Answer-Project/nltk-data
+# {{- end }}

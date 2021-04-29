@@ -1,11 +1,11 @@
-{{- if eq .Values.orchestrator.enabled true -}}
-apiVersion: image.openshift.io/v1
-kind: ImageStream
-metadata:
-  name: {{ template "orc.name" . }}
-  {{- if .Values.labels_enabled }}
-  labels:
-    build: {{ template "orc.name" . }}-build
-    app: {{ template "orc.name" . }}-app
-  {{- end }}
-{{- end }}
+# {{- if eq .Values.orchestrator.enabled true -}}
+# apiVersion: image.openshift.io/v1
+# kind: ImageStream
+# metadata:
+#   name: {{ template "orc.name" . }}
+#   {{- if .Values.labels_enabled }}
+#   labels:
+#     build: {{ template "orc.name" . }}-build
+#     app: {{ template "orc.name" . }}-app
+#   {{- end }}
+# {{- end }}
