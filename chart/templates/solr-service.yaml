@@ -12,4 +12,4 @@ spec:
       port: 8983
       targetPort: 8983
   selector:
-    {{- include "solr.selectorLabels" . | nindent 4 }}
+    app: {{ template "solr.name" . }}-app

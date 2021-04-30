@@ -9,11 +9,12 @@ metadata:
 spec:
   replicas: 2
   selector:
-    {{- include "solr.selectorLabels" . | nindent 4 }}
+    matchLabels:
+      app: {{ template "solr.name" . }}-app
   template:
     metadata:
       labels:
-        {{- include "solr.selectorLabels" . | nindent 8 }}
+        app: {{ template "solr.name" . }}-app
     spec:
       initContainers:
         - resources: {}
