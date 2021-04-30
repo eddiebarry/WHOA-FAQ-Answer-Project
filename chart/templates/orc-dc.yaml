@@ -55,5 +55,5 @@ spec:
             - name: SOLR_PORT
               value: 8983
             - name: SOLR_HOST
-              value: {{ include "orc.fullname" . | upper }}
+              value: {{ include "orc.fullname" . }}
 {{- end }}
