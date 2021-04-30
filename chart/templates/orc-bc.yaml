@@ -3,11 +3,9 @@ kind: BuildConfig
 apiVersion: build.openshift.io/v1
 metadata:
   name: {{ include "orc.name" . }}
-  {{- if eq .Values.labels_enabled true -}}
   labels:
     build: {{ include "orc.name" . }}
     app: {{ include "orc.name" . }}
-  {{- end }}
   annotations:
     description: Defines how to build the application
 spec:

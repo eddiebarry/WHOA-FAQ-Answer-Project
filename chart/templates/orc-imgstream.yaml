@@ -3,9 +3,7 @@ apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
   name: {{ include "orc.name" . }}
-  {{- if eq .Values.labels_enabled true -}}
   labels:
     build: {{ include "orc.name" . }}
     app: {{ include "orc.name" . }}
-  {{- end }}
 {{- end }}
