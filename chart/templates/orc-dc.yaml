@@ -2,7 +2,7 @@
 kind: DeploymentConfig
 apiVersion: apps.openshift.io/v1
 metadata:
-  name: "{{ template "orc.fullname" . }}"
+  name: "{{ include "orc.fullname" . }}"
   {{- if eq .Values.labels_enabled true -}}
   labels:
     {{- include "orc.labels" . | nindent 4 }}
@@ -18,10 +18,10 @@ spec:
     imageChangeParams:
       automatic: true
       containerNames:
-      - {{ template "orc.name" . }}
+      - {{ include "orc.name" . }}
       from:
         kind: ImageStreamTag
-        name: "{{ template "orc.name" . }}:latest"
+        name: "{{ include "orc.name" . }}:latest"
   - type: ConfigChange
   replicas: 1
   selector:
@@ -32,8 +32,8 @@ spec:
         {{- include "orc.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-      - name: {{ template "orc.name" . }}
-        image: "{{ .Values.orchestrator.image_repository }}/{{ .Values.namespace }}/{{ template "orc.name" . }}:latest"
+      - name: {{ include "orc.name" . }}
+        image: "{{ .Values.orchestrator.image_repository }}/{{ .Values.namespace }}/{{ include "orc.name" . }}:latest"
         ports:
         - containerPort: 5009
         readinessProbe:

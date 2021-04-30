@@ -2,7 +2,7 @@
 # apiVersion: route.openshift.io/v1
 # kind: Route
 # metadata:
-#   name: {{ template "botpress.name" . }}-route
+#   name: {{ include "botpress.name" . }}-route
 #   {{- if eq .Values.labels_enabled true -}}
 #   labels:
 #     {{- include "project.labels" . | nindent 4 }}
@@ -11,7 +11,7 @@
 #   path: /
 #   to:
 #     kind: Service
-#     name: {{ template "botpress.fullname" . }}-service
+#     name: {{ include "botpress.fullname" . }}-service
 #   port:
 #     targetPort: 3000
 # {{- end }}

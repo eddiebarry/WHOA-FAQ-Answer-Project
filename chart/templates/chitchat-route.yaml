@@ -2,7 +2,7 @@
 # kind: Route
 # apiVersion: route.openshift.io/v1
 # metadata:
-#   name: {{ template "chitchat.name" . }}
+#   name: {{ include "chitchat.name" . }}
 #   {{- if eq .Values.labels_enabled true -}}
 #   labels:
 #     build: {{ .Chart.Name }}
@@ -12,5 +12,5 @@
 #   host: 
 #   to:
 #     kind: Service
-#     name: "{{ template "chitchat.fullname" . }}"
+#     name: "{{ include "chitchat.fullname" . }}"
 # {{- end }}

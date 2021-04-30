@@ -2,14 +2,14 @@
 # apiVersion: v1
 # kind: Service
 # metadata:
-#   name: {{ template "botpress.fullname" . }}-service
+#   name: {{ include "botpress.fullname" . }}-service
 #   {{- if eq .Values.labels_enabled true -}}
 #   labels:
 #     {{- include "project.labels" . | nindent 4 }}
 #   {{- end }}
 # spec:
 #   selector:
-#     app: {{ template "botpress.name" . }}
+#     app: {{ include "botpress.name" . }}
 #   ports:
 #     - protocol: TCP
 #       port: 3000

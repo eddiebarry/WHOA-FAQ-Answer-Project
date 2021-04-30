@@ -3,7 +3,7 @@
 # kind: BuildConfig
 # apiVersion: build.openshift.io/v1
 # metadata:
-#   name: "{{ template "chitchat.name" . }}"
+#   name: "{{ include "chitchat.name" . }}"
 #   {{- if eq .Values.labels_enabled true -}}
 #   labels:
 #     build: {{ .Chart.Name }}
@@ -17,7 +17,7 @@
 #   output:
 #     to:
 #       kind: ImageStreamTag
-#       name: {{ template "chitchat.name" . }}:latest
+#       name: {{ include "chitchat.name" . }}:latest
 #   # TODO : automate dockerfile update
 #   source:
 #     type: Dockerfile

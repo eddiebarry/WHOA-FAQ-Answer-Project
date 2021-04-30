@@ -1,7 +1,7 @@
 # kind: StatefulSet
 # apiVersion: apps/v1
 # metadata:
-#   name: {{ template "solr.name" . }}
+#   name: {{ include "solr.name" . }}
 #   {{- if eq .Values.labels_enabled true -}}
 #   labels:
 #     {{- include "solr.labels" . | nindent 4 }}
@@ -10,11 +10,11 @@
 #   replicas: 2
 #   selector:
 #     matchLabels:
-#       app: {{ template "solr.name" . }}-app
+#       app: {{ include "solr.name" . }}-app
 #   template:
 #     metadata:
 #       labels:
-#         app: {{ template "solr.name" . }}-app
+#         app: {{ include "solr.name" . }}-app
 #     spec:
 #       initContainers:
 #         - resources: {}
@@ -30,7 +30,7 @@
 #             - name: SOLR_HOME
 #               valueFrom:
 #                 configMapKeyRef:
-#                   name: {{ template "solr.name" . }}-config
+#                   name: {{ include "solr.name" . }}-config
 #                   key: solrHome
 #           imagePullPolicy: Always
 #           volumeMounts:
@@ -51,7 +51,7 @@
 #             - name: SOLR_LOGS_DIR
 #               valueFrom:
 #                 configMapKeyRef:
-#                   name: {{ template "solr.name" . }}-config
+#                   name: {{ include "solr.name" . }}-config
 #                   key: solrLogsDir
 #           imagePullPolicy: Always
 #           volumeMounts:
@@ -74,7 +74,7 @@
 #             - name: SOLR_HOME
 #               valueFrom:
 #                 configMapKeyRef:
-#                   name: {{ template "solr.name" . }}-config
+#                   name: {{ include "solr.name" . }}-config
 #                   key: solrHome
 #           imagePullPolicy: IfNotPresent
 #           volumeMounts:
@@ -94,7 +94,7 @@
 #             successThreshold: 1
 #             failureThreshold: 3
 #           terminationMessagePath: /dev/termination-log
-#           name: {{ template "solr.name" . }}
+#           name: {{ include "solr.name" . }}
 #           livenessProbe:
 #             tcpSocket:
 #               port: 8983
@@ -122,7 +122,7 @@
 #             - name: SOLR_HOME
 #               valueFrom:
 #                 configMapKeyRef:
-#                   name: {{ template "solr.name" . }}-config
+#                   name: {{ include "solr.name" . }}-config
 #                   key: solrHome
 #             - name: POD_HOST_NAME
 #               valueFrom:
@@ -132,12 +132,12 @@
 #             - name: SOLR_LOGS_DIR
 #               valueFrom:
 #                 configMapKeyRef:
-#                   name: {{ template "solr.name" . }}-config
+#                   name: {{ include "solr.name" . }}-config
 #                   key: solrLogsDir
 #             - name: SOLR_HEAP
 #               valueFrom:
 #                 configMapKeyRef:
-#                   name: {{ template "solr.name" . }}-config
+#                   name: {{ include "solr.name" . }}-config
 #                   key: solrHeap
 #             - name: SOLR_HOST
 #               value: $(MY_POD_IP)

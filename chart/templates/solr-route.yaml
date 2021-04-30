@@ -2,7 +2,7 @@
 # kind: Route
 # apiVersion: route.openshift.io/v1
 # metadata:
-#   name: {{ template "solr.name" . }}
+#   name: {{ include "solr.name" . }}
 #   {{- if eq .Values.labels_enabled true -}}
 #   labels:
 #     {{- include "solr.labels" . | nindent 4 }}
@@ -10,7 +10,7 @@
 # spec:
 #   to:
 #     kind: Service
-#     name: {{ template "solr.fullname" . }}
+#     name: {{ include "solr.fullname" . }}
 #     weight: 100
 #   port:
 #     targetPort: 8983

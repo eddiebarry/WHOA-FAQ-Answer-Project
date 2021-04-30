@@ -2,7 +2,7 @@
 # kind: DeploymentConfig
 # apiVersion: apps.openshift.io/v1
 # metadata:
-#   name: "{{ template "chitchat.name" . }}"
+#   name: "{{ include "chitchat.name" . }}"
 #   {{- if eq .Values.labels_enabled true -}}
 #   labels:
 #     build: {{ .Chart.Name }}
@@ -19,24 +19,24 @@
 #     imageChangeParams:
 #       automatic: true
 #       containerNames:
-#       - {{ template "chitchat.name" . }}
+#       - {{ include "chitchat.name" . }}
 #       from:
 #         kind: ImageStreamTag
 #         # TODO : FIX NAMING
-#         name: "{{ template "chitchat.name" . }}:latest"
+#         name: "{{ include "chitchat.name" . }}:latest"
 #   - type: ConfigChange
 #   replicas: 1
 #   selector:
-#     name: "{{ template "chitchat.name" . }}"
+#     name: "{{ include "chitchat.name" . }}"
 #   template:
 #     metadata:
-#       name: "{{ template "chitchat.name" . }}"
+#       name: "{{ include "chitchat.name" . }}"
 #       labels:
-#         name: "{{ template "chitchat.name" . }}"
+#         name: "{{ include "chitchat.name" . }}"
 #     spec:
 #       containers:
-#       - name: {{ template "chitchat.name" . }}
-#         image: "{{ .Values.chitchat.image_repository }}/{{ .Values.namespace }}/{{ template "chitchat.name" . }}:latest"
+#       - name: {{ include "chitchat.name" . }}
+#         image: "{{ .Values.chitchat.image_repository }}/{{ .Values.namespace }}/{{ include "chitchat.name" . }}:latest"
 #         ports:
 #         - containerPort: 5009
 #         readinessProbe:

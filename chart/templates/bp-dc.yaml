@@ -2,22 +2,22 @@
 # apiVersion: apps.openshift.io/v1
 # kind: DeploymentConfig
 # metadata:
-#   name: {{ template "botpress.name" . }}
+#   name: {{ include "botpress.name" . }}
 #   {{- if eq .Values.labels_enabled true -}}
 #   labels:
 #     {{- include "project.labels" . | nindent 4 }}
 #   {{- end }}
 # spec:
 #   selector:
-#     app: {{ template "botpress.name" . }}
+#     app: {{ include "botpress.name" . }}
 #   replicas: 1
 #   template:
 #     metadata:
 #       labels:
-#         app: {{ template "botpress.name" . }}
+#         app: {{ include "botpress.name" . }}
 #     spec:
 #       containers:
-#         - name: {{ template "botpress.name" . }}
+#         - name: {{ include "botpress.name" . }}
 #           image: quay.io/whoacademy/botpress-team-jarvis
 #           ports:
 #             - containerPort: 8000
