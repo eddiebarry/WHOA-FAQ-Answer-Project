@@ -2,16 +2,15 @@
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: {{ template "solr.name" . }}-route
+  name: {{ template "solr.name" . }}
   {{- if .Values.labels_enabled }}
   labels:
-    {{- include "project.labels" . | nindent 4 }}
+    {{- include "solf.labels" . | nindent 4 }}
   {{- end }}
 spec:
-  host: {{ template "solr.name" . }}-labs-dev.apps.dev.lxp.academy.who.int
   to:
     kind: Service
-    name: {{ template "solr.fullname" . }}-service
+    name: {{ template "solr.fullname" . }}
     weight: 100
   port:
     targetPort: 8983

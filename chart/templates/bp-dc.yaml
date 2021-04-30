@@ -1,27 +1,27 @@
-{{- if eq .Values.botpress.enabled true -}}
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
-metadata:
-  name: {{ template "botpress.name" . }}
-  {{- if .Values.labels_enabled }}
-  labels:
-    {{- include "project.labels" . | nindent 4 }}
-  {{- end }}
-spec:
-  selector:
-    app: {{ template "botpress.name" . }}
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: {{ template "botpress.name" . }}
-    spec:
-      containers:
-        - name: {{ template "botpress.name" . }}
-          image: quay.io/whoacademy/botpress-team-jarvis
-          ports:
-            - containerPort: 8000
-          env:
-            - name: APP_DATA_PATH
-              value: /temp
-{{- end }}
+# {{- if eq .Values.botpress.enabled true -}}
+# apiVersion: apps.openshift.io/v1
+# kind: DeploymentConfig
+# metadata:
+#   name: {{ template "botpress.name" . }}
+#   {{- if .Values.labels_enabled }}
+#   labels:
+#     {{- include "project.labels" . | nindent 4 }}
+#   {{- end }}
+# spec:
+#   selector:
+#     app: {{ template "botpress.name" . }}
+#   replicas: 1
+#   template:
+#     metadata:
+#       labels:
+#         app: {{ template "botpress.name" . }}
+#     spec:
+#       containers:
+#         - name: {{ template "botpress.name" . }}
+#           image: quay.io/whoacademy/botpress-team-jarvis
+#           ports:
+#             - containerPort: 8000
+#           env:
+#             - name: APP_DATA_PATH
+#               value: /temp
+# {{- end }}

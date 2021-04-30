@@ -68,6 +68,10 @@ deploymentconfig: {{ include "project.fullname" . }}
 {{- end -}}
 
 {{/*
+  ********************************************************************************************************
+*/}}
+
+{{/*
   Create a short orc name.
   We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
@@ -82,6 +86,31 @@ deploymentconfig: {{ include "project.fullname" . }}
 {{- define "orc.fullname" -}}
 {{- printf "%s-%s" .Release.Name .Values.orchestrator.name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{/*
+Common labels
+*/}}
+{{- define "orc.labels" -}}
+helm.sh/chart: {{ include "project.chart" . }}
+{{ include "orc.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end -}}
+
+{{/*
+Selector labels orc
+*/}}
+{{- define "orc.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "orc.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+deploymentconfig: {{ include "orc.fullname" . }}
+{{- end -}}
+
+{{/*
+  ********************************************************************************************************
+*/}}
 
 {{/*
   Create a short chitchat name.
@@ -100,6 +129,31 @@ deploymentconfig: {{ include "project.fullname" . }}
 {{- end -}}
 
 {{/*
+Common labels
+*/}}
+{{- define "chitchat.labels" -}}
+helm.sh/chart: {{ include "project.chart" . }}
+{{ include "chitchat.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end -}}
+
+{{/*
+Selector labels chitchat
+*/}}
+{{- define "chitchat.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "chitchat.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+deploymentconfig: {{ include "chitchat.fullname" . }}
+{{- end -}}
+
+{{/*
+  ********************************************************************************************************
+*/}}
+
+{{/*
   Create a short botpress name.
   We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
@@ -115,6 +169,30 @@ deploymentconfig: {{ include "project.fullname" . }}
 {{- printf "%s-%s" .Release.Name .Values.botpress.name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{/*
+Common labels
+*/}}
+{{- define "botpress.labels" -}}
+helm.sh/chart: {{ include "project.chart" . }}
+{{ include "botpress.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end -}}
+
+{{/*
+Selector labels botpress
+*/}}
+{{- define "botpress.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "botpress.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+deploymentconfig: {{ include "botpress.fullname" . }}
+{{- end -}}
+
+{{/*
+  ********************************************************************************************************
+*/}}
 
 {{/*
   Create a short solr name.
@@ -131,3 +209,28 @@ deploymentconfig: {{ include "project.fullname" . }}
 {{- define "solr.fullname" -}}
 {{- printf "%s-%s" .Release.Name .Values.solr.name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{/*
+Common labels
+*/}}
+{{- define "solr.labels" -}}
+helm.sh/chart: {{ include "project.chart" . }}
+{{ include "solr.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end -}}
+
+{{/*
+Selector labels solr
+*/}}
+{{- define "solr.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "solr.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+deploymentconfig: {{ include "solr.fullname" . }}
+{{- end -}}
+
+{{/*
+  ********************************************************************************************************
+*/}}

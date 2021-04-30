@@ -1,10 +1,10 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: {{ template "solr.fullname" . }}-service
+  name: {{ template "solr.fullname" . }}
   {{- if .Values.labels_enabled }}
   labels:
-    {{- include "project.labels" . | nindent 4 }}
+    {{- include "solr.labels" . | nindent 4 }}
   {{- end }}
 spec:
   ports:
@@ -12,4 +12,4 @@ spec:
       port: 8983
       targetPort: 8983
   selector:
-    app: {{ template "solr.name" . }}-app
+    {{- include "solr.selectorLabels" . | nindent 4 }}

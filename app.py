@@ -104,7 +104,20 @@ if os.getenv('CACHE_REDIS_HOST'):
         )
 else:
     app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'simple'})
-    
+
+app.config['cache'] = Cache(
+    app, 
+    config={
+            'CACHE_TYPE': 'redis', 
+            # 'CACHE_REDIS_URL': 'redis://cache:6379',
+            'CACHE_DEFAULT_TIMEOUT':3600,
+            'CACHE_REDIS_HOST': os.getenv('CACHE_REDIS_HOST'),
+            'CACHE_REDIS_PORT': os.getenv('CACHE_REDIS_PORT'),
+            'CACHE_REDIS_PASSWORD': os.getenv('CACHE_REDIS_PASSWORD'),
+        }
+)
+
+
 app.config['cache'].clear()
 app.config["DEBUG"] = False
 app.config['sim'] = NGram(2)

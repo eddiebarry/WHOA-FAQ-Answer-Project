@@ -5,15 +5,15 @@ metadata:
   name: {{ template "orc.fullname" . }}
   {{- if .Values.labels_enabled }}
   labels:
-    {{- include "project.labels" . | nindent 4 }}
+    {{- include "orc.labels" . | nindent 4 }}
   {{- end }}
   annotations:
     description: Exposes and load balances the application pods
 spec:
   ports:
   - protocol: TCP
-    port: 8080
+    port: 5009
     targetPort: 5009
   selector:
-    name: "{{ template "orc.name" . }}"
+     {{- include "orc.selectorLabels" . | nindent 4 }}
 {{- end }}

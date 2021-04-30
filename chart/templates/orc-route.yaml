@@ -2,14 +2,14 @@
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: {{ template "orc.name" . }}
+  name: {{ template "orc.fullname" . }}
   {{- if .Values.labels_enabled }}
   labels:
-    {{- include "project.labels" . | nindent 4 }}
+    {{- include "orc.labels" . | nindent 4 }}
   {{- end }}
 spec:
   host: 
   to:
     kind: Service
-    name: "{{ template "orc.name" . }}"
+    name: "{{ template "orc.fullname" . }}"
 {{- end }}

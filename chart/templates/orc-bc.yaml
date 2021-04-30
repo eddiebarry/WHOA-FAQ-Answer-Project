@@ -3,10 +3,11 @@
 kind: BuildConfig
 apiVersion: build.openshift.io/v1
 metadata:
-  name: "{{ template "orc.name" . }}"
+  name: {{ template "orc.name" . }}
   {{- if .Values.labels_enabled }}
   labels:
-    {{- include "project.labels" . | nindent 4 }}
+    build: {{ template "orc.name" . }}
+    app: {{ template "orc.name" . }}
   {{- end }}
   annotations:
     description: Defines how to build the application
