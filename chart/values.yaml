@@ -85,7 +85,7 @@ mongo:
 
 redis:
   name: redis
-  enabled: false
+  enabled: true
   memory_limit: 512Mi
   is_namespace: openshift
   redis_password: 'password'
