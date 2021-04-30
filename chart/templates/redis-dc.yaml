@@ -7,31 +7,16 @@ metadata:
   labels:
     template: redis-persistent-template
   name: {{ template "redis.name" . }}
-  {{- if eq .Values.labels_enabled true -}}
-  labels:
-    build: {{ .Chart.Name }}
-    app: {{ .Chart.Name }}
-  {{- end }}
 spec:
   replicas: 1
   selector:
     name: {{ template "redis.name" . }}
-    {{- if eq .Values.labels_enabled true -}}
-    labels:
-      build: {{ .Chart.Name }}
-      app: {{ .Chart.Name }}
-    {{- end }}
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
         name: {{ template "redis.name" . }}
-        {{- if eq .Values.labels_enabled true -}}
-        labels:
-          build: {{ .Chart.Name }}
-          app: {{ .Chart.Name }}
-        {{- end }}
     spec:
       containers:
       - env:

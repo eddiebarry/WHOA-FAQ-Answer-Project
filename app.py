@@ -95,27 +95,28 @@ if os.getenv('CACHE_REDIS_HOST'):
             app, 
             config={
                     'CACHE_TYPE': 'redis', 
-                    # 'CACHE_REDIS_URL': 'redis://cache:6379',
+                    'CACHE_REDIS_URL': 'redis://cache:6379',
                     'CACHE_DEFAULT_TIMEOUT':3600,
-                    'CACHE_REDIS_HOST': os.getenv('CACHE_REDIS_HOST'),
-                    'CACHE_REDIS_PORT': os.getenv('CACHE_REDIS_PORT'),
-                    'CACHE_REDIS_PASSWORD': os.getenv('CACHE_REDIS_PASSWORD'),
+                    # 'CACHE_REDIS_HOST': os.getenv('CACHE_REDIS_HOST'),
+                    # 'CACHE_REDIS_PORT': os.getenv('CACHE_REDIS_PORT'),
+                    # 'CACHE_REDIS_PASSWORD': os.getenv('CACHE_REDIS_PASSWORD'),
                 }
         )
 else:
+    print("using local cache")
     app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'simple'})
 
-app.config['cache'] = Cache(
-    app, 
-    config={
-            'CACHE_TYPE': 'redis', 
-            # 'CACHE_REDIS_URL': 'redis://cache:6379',
-            'CACHE_DEFAULT_TIMEOUT':3600,
-            'CACHE_REDIS_HOST': os.getenv('CACHE_REDIS_HOST'),
-            'CACHE_REDIS_PORT': os.getenv('CACHE_REDIS_PORT'),
-            'CACHE_REDIS_PASSWORD': os.getenv('CACHE_REDIS_PASSWORD'),
-        }
-)
+# app.config['cache'] = Cache(
+#     app, 
+#     config={
+#             'CACHE_TYPE': 'redis', 
+#             # 'CACHE_REDIS_URL': 'redis://cache:6379',
+#             'CACHE_DEFAULT_TIMEOUT':3600,
+#             'CACHE_REDIS_HOST': os.getenv('CACHE_REDIS_HOST'),
+#             'CACHE_REDIS_PORT': os.getenv('CACHE_REDIS_PORT'),
+#             'CACHE_REDIS_PASSWORD': os.getenv('CACHE_REDIS_PASSWORD'),
+#         }
+# )
 
 
 app.config['cache'].clear()
