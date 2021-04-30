@@ -27,7 +27,7 @@ spec:
 
       WORKDIR /usr/src
 
-      RUN git clone --branch feature/cicd-test\
+      RUN git clone --branch feature/helm-chart-labels\
           --recursive https://github.com/eddiebarry/WHOA-FAQ-Answer-Project.git
 
       WORKDIR /usr/src/WHOA-FAQ-Answer-Project
