@@ -1,16 +1,16 @@
-# {{- if eq .Values.chitchat.enabled true -}}
-# kind: Route
-# apiVersion: route.openshift.io/v1
-# metadata:
-#   name: {{ include "chitchat.name" . }}
-#   {{- if eq .Values.labels_enabled true -}}
-#   labels:
-#     build: {{ .Chart.Name }}
-#     app: {{ .Chart.Name }}
-#   {{- end }}
-# spec:
-#   host: 
-#   to:
-#     kind: Service
-#     name: "{{ include "chitchat.fullname" . }}"
-# {{- end }}
+{{- if eq .Values.chitchat.enabled true -}}
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: {{ include "chitchat.name" . }}
+  {{- if eq .Values.labels_enabled true -}}
+  labels:
+    build: {{ .Chart.Name }}
+    app: {{ .Chart.Name }}
+  {{- end }}
+spec:
+  host: 
+  to:
+    kind: Service
+    name: "{{ include "chitchat.fullname" . }}"
+{{- end }}

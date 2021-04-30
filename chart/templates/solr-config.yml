@@ -1,12 +1,14 @@
-# kind: ConfigMap
-# apiVersion: v1
-# metadata:
-#   name: {{ include "solr.name" . }}-config
-# data:
-#   solrHeap: 2g
-#   solrHome: /store/data
-#   solrHost: $(MY_POD_IP)
-#   solrLogsDir: /store/logs
-#   solrPort: '8983'
-#   zkHost: >-
-#     $ZOOKEEPER_1_SERVICE_HOST:2181,$ZOOKEEPER_2_SERVICE_HOST:2181,$ZOOKEEPER_3_SERVICE_HOST:2181
+{{- if eq .Values.solr.enabled true -}}
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ include "solr.name" . }}-config
+data:
+  solrHeap: 2g
+  solrHome: /store/data
+  solrHost: $(MY_POD_IP)
+  solrLogsDir: /store/logs
+  solrPort: '8983'
+  zkHost: >-
+    $ZOOKEEPER_1_SERVICE_HOST:2181,$ZOOKEEPER_2_SERVICE_HOST:2181,$ZOOKEEPER_3_SERVICE_HOST:2181
+{{- end }}

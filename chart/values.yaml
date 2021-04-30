@@ -11,8 +11,8 @@ orchestrator:
 
 chitchat:
   name: chtchat
-  enabled: true
-  build_enabled: true
+  enabled: false
+  build_enabled: false
 
 
 # postgresql:
@@ -47,11 +47,11 @@ chitchat:
 
 botpress:
   name: bp
-  enabled: true
-  build_enabled: true
+  enabled: false
 
 solr:
   name: solr
+  enabled: false
   route_enabled: false
 
 # reranker:
@@ -80,7 +80,7 @@ solr:
 
 redis:
   name: redis
-  enabled: true
+  enabled: false
   memory_limit: 512Mi
   is_namespace: openshift
   redis_password: 'password'
