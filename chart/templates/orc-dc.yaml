@@ -25,7 +25,7 @@ spec:
   - type: ConfigChange
   replicas: 1
   selector:
-    {{- include 'orc'.selectorLabels" . | nindent 4 }}
+    {{- include 'orc.selectorLabels" . | nindent 4 }}
   template:
     metadata:
       labels:
