@@ -5,7 +5,7 @@ metadata:
   name: {{ template "solr.name" . }}
   {{- if .Values.labels_enabled }}
   labels:
-    {{- include "solf.labels" . | nindent 4 }}
+    {{- include "solr.labels" . | nindent 4 }}
   {{- end }}
 spec:
   to:
