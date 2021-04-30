@@ -91,8 +91,10 @@ UPDATE_ENGINE = UpdateEngine(
 app = flask.Flask(__name__)
 
 # Prod
-if os.getenv('CACHE_REDIS_PASSWORD'):
-    logging.debug("using redis cache")
+if os.getenv('REDIS_PASSWORD') is not None:
+    logging.info("using redis cache")
+    logging.info("cache url",'redis://:'+ os.getenv('REDIS_PASSWORD')\
+                        + os.getenv('REDIS_HOST')+ ':6379' )
     app.config['cache'] = Cache(
             app, 
             config={
@@ -103,6 +105,7 @@ if os.getenv('CACHE_REDIS_PASSWORD'):
                     'CACHE_DEFAULT_TIMEOUT':3600,
                 }
         )
+    
 else:
     """
     import flask
@@ -113,8 +116,8 @@ else:
     app.config['cache'].get("0")
     app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'redis', 'CACHE_REDIS_URL': 'redis:password@//feature-helm-chart-labels-vla-redis:6379',})
     """
-    logging.debug("using local cache")
-    app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'redis', })
+    logging.info("using local cache")
+    app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'simple'})
 
 # app.config['cache'] = Cache(
 #     app, 
