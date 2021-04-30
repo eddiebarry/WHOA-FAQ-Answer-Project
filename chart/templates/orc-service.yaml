@@ -1,6 +1,6 @@
 {{- if eq .Values.orchestrator.enabled true -}}
 kind: Service
-apiVersion: v1
+apiVersion: service.openshift.io/v1
 metadata:
   name: {{ include "orc.fullname" . }}
   labels:
