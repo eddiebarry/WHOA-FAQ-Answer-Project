@@ -3,10 +3,6 @@ kind: StatefulSet
 apiVersion: apps/v1
 metadata:
   name: {{ include "solr.name" . }}
-  {{- if eq .Values.labels_enabled true -}}
-  labels:
-    {{- include "solr.labels" . | nindent 4 }}
-  {{- end }}
 spec:
   replicas: 2
   selector:
