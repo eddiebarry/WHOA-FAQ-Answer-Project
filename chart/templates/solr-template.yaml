@@ -1,4 +1,4 @@
-{{- if eq .Values.orchestrator.enabled true -}}
+{{- if eq .Values.solr.enabled true -}}
 kind: StatefulSet
 apiVersion: apps/v1
 metadata:

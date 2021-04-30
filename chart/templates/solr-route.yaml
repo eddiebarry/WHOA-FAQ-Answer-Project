@@ -1,4 +1,4 @@
-{{- if eq .Values.orchestrator.enabled true -}}
+{{- if eq .Values.solr.enabled true -}}
 {{- if eq .Values.solr.route_enabled true -}}
 kind: Route
 apiVersion: route.openshift.io/v1

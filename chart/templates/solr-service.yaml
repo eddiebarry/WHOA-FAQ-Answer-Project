@@ -1,4 +1,4 @@
-{{- if eq .Values.orchestrator.enabled true -}}
+{{- if eq .Values.solr.enabled true -}}
 kind: Service
 apiVersion: v1
 metadata:
