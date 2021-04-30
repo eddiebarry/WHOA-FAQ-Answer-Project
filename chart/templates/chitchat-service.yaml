@@ -3,7 +3,7 @@
 # apiVersion: v1
 # metadata:
 #   name: {{ template "chitchat.fullname" . }}
-#   {{- if .Values.labels_enabled }}
+#   {{- if eq .Values.labels_enabled true -}}
 #   labels:
 #     build: {{ .Chart.Name }}
 #     app: {{ .Chart.Name }}

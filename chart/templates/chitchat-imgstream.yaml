@@ -3,7 +3,7 @@
 # kind: ImageStream
 # metadata:
 #   name: {{ template "chitchat.name" . }}
-#   {{- if .Values.labels_enabled }}
+#   {{- if eq .Values.labels_enabled true -}}
 #   labels:
 #     build: {{ .Chart.Name }}
 #     app: {{ .Chart.Name }}

@@ -4,7 +4,7 @@ kind: BuildConfig
 apiVersion: build.openshift.io/v1
 metadata:
   name: {{ template "orc.name" . }}
-  {{- if .Values.labels_enabled }}
+  {{- if eq .Values.labels_enabled true -}}
   labels:
     build: {{ template "orc.name" . }}
     app: {{ template "orc.name" . }}
