@@ -53,7 +53,7 @@ spec:
             - name: NLTK_DATA
               value: /usr/src/WHOA-FAQ-Answer-Project/nltk-data
             - name: SOLR_PORT
-              value: 8983
+              value: "8983"
             - name: SOLR_HOST
               value: {{ template "orc.fullname" . }}
 {{- end }}
