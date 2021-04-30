@@ -56,4 +56,11 @@ spec:
               value: "8983"
             - name: SOLR_HOST
               value: {{ template "orc.fullname" . }}
+            - name: REDIS_HOST
+              value: {{ template "redis.fullname" . }}
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: database-password
+                  name: {{ template "redis.name" . }}
 {{- end }}

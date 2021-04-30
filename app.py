@@ -1,5 +1,5 @@
 #TODO : FIX imports to follow pep8 sorted order
-import sys, os, json, pdb, requests, random, copy, hashlib
+import sys, os, json, pdb, requests, random, copy, hashlib, logging
 from datetime import datetime
 from similarity.ngram import NGram
 sys.path.append('WHO-FAQ-Keyword-Engine')
@@ -87,24 +87,34 @@ UPDATE_ENGINE = UpdateEngine(
     category_question_manager=category_question_manager
 )
 
+
 app = flask.Flask(__name__)
 
 # Prod
-if os.getenv('CACHE_REDIS_HOST'):
+if os.getenv('CACHE_REDIS_PASSWORD'):
+    logging.debug("using redis cache")
     app.config['cache'] = Cache(
             app, 
             config={
                     'CACHE_TYPE': 'redis', 
-                    'CACHE_REDIS_URL': 'redis://cache:6379',
+                    'CACHE_REDIS_URL': 'redis://:'\
+                        + os.getenv('REDIS_PASSWORD')\
+                        + os.getenv('REDIS_HOST')+ ':6379',
                     'CACHE_DEFAULT_TIMEOUT':3600,
-                    # 'CACHE_REDIS_HOST': os.getenv('CACHE_REDIS_HOST'),
-                    # 'CACHE_REDIS_PORT': os.getenv('CACHE_REDIS_PORT'),
-                    # 'CACHE_REDIS_PASSWORD': os.getenv('CACHE_REDIS_PASSWORD'),
                 }
         )
 else:
-    print("using local cache")
+    """
+    import flask
+    app = flask.Flask(__name__)
+    from flask_caching import Cache
     app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'simple'})
+    app.config['cache'].set("0","1")
+    app.config['cache'].get("0")
+    app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'redis', 'CACHE_REDIS_URL': 'redis:password@//feature-helm-chart-labels-vla-redis:6379',})
+    """
+    logging.debug("using local cache")
+    app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'redis', })
 
 # app.config['cache'] = Cache(
 #     app, 
