@@ -11,7 +11,7 @@ orchestrator:
 
 chitchat:
   name: chtchat
-  enabled: false
+  enabled: true
   build_enabled: false
 
 

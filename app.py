@@ -112,7 +112,7 @@ if os.getenv('REDIS_PASSWORD') is not None:
             config={
                     'CACHE_TYPE': 'redis', 
                     'CACHE_REDIS_URL': 'redis://:'\
-                        + os.getenv('REDIS_PASSWORD')\
+                        + os.getenv('REDIS_PASSWORD') + "@" \
                         + os.getenv('REDIS_HOST')+ ':6379',
                     'CACHE_DEFAULT_TIMEOUT':3600,
                 }
