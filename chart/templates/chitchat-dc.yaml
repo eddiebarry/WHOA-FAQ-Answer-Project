@@ -34,15 +34,15 @@ spec:
       - name: {{ include "chitchat.name" . }}
         image: "{{ .Values.chitchat.image_repository }}/{{ .Values.namespace }}/{{ include "chitchat.name" . }}:latest"
         securityContext:
-            runAsUser: 1000650001
+            runAsUser: 1000670001
         ports:
-        - containerPort: 5009
+        - containerPort: 8080
         readinessProbe:
           timeoutSeconds: 3
           initialDelaySeconds: 3
           httpGet:
             path: "/"
-            port: 5009
+            port: 8080
         livenessProbe:
           timeoutSeconds: 3
           initialDelaySeconds: 30

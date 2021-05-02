@@ -33,19 +33,19 @@ spec:
       - name: {{ include "orc.name" . }}
         image: "{{ .Values.orchestrator.image_repository }}/{{ .Values.namespace }}/{{ include "orc.name" . }}:latest"
         ports:
-        - containerPort: 5009
+        - containerPort: 8080
         readinessProbe:
           timeoutSeconds: 3
           initialDelaySeconds: 3
           httpGet:
             path: "/"
-            port: 5009
+            port: 8080
         livenessProbe:
           timeoutSeconds: 3
           initialDelaySeconds: 30
           httpGet:
             path: "/"
-            port: 5009
+            port: 8080
         resources:
           limits:
             memory: "512Mi"

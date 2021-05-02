@@ -10,8 +10,8 @@ metadata:
 spec:
   ports:
   - protocol: TCP
-    port: 5009
-    targetPort: 5009
+    port: 8080
+    targetPort: 8080
   selector:
      {{- include "orc.selectorLabels" . | nindent 4 }}
 {{- end }}
