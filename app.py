@@ -45,7 +45,8 @@ SEARCH_ENGINE = SolrSearchEngine(
     # rerank_endpoint=RE_RANK_ENDPOINT+"/api/v1/reranking",
     variation_generator_config=[
         VariationGenerator(\
-        path="./WHO-FAQ-Search-Engine/variation_generation/variation_generator_model_weights/model.ckpt-1004000",
+        path="./WHO-FAQ-Search-Engine/variation_generation/"\
+            +"variation_generator_model_weights/model.ckpt-1004000",
         max_length=5),   #variation_generator
         # None,
         ["question"] #fields_to_expand
@@ -105,7 +106,7 @@ if __name__ != '__main__':
 if os.getenv('REDIS_PASSWORD') is not None:
     app.logger.info("using redis cache")
     app.logger.info("cache url",'redis://:'+ os.getenv('REDIS_PASSWORD')\
-                        + os.getenv('REDIS_HOST')+ ':6379' )
+                    + "@" + os.getenv('REDIS_HOST')+ ':6379' )
     app.config['cache'] = Cache(
             app, 
             config={
@@ -116,7 +117,7 @@ if os.getenv('REDIS_PASSWORD') is not None:
                     'CACHE_DEFAULT_TIMEOUT':3600,
                 }
         )
-    
+# Local
 else:
     """
     import flask
@@ -340,43 +341,15 @@ def answer_question():
                 syn_str += syn+" ,"
         what_to_say["synonyms"] = syn_str
         resp_json["what_to_say"] = what_to_say
-
-        # # Logging
-        # original_stdout = sys.stdout 
-        # with open('./logs/log.txt', 'a') as f:
-        #     sys.stdout = f # Change the standard output to the file we created.
-        #     print('$'*80)
-        #     print("unique id", unique_id)
-        #     print("The user question is ", app.config['ID_QUERY_DICT'][unique_id])
-        #     print("The generated lucene query is ", query)
-        #     print("The results of the search are ", hits)
-        #     print('$'*80)
-        #     sys.stdout = original_stdout
-
-        # Reset unique id query to sentinel value
         query = "-1"
         app.config['cache'].set(id_query_key,query)
 
-    # Logging
-    #     original_stdout = sys.stdout 
-    # with open('./logs/log.txt', 'a') as f:
-        # sys.stdout = f # Change the standard output to the file we created.
     app.logger.info(
         unique_id,
         "\n- ", "The user first said : ", request_json['first_text'],
         "\n- ", "The user said this turn : ", request_json['query'],
         "\n- ", resp_json
     )
-        # sys.stdout = original_stdout
-
-    # original_stdout = sys.stdout 
-    # with open('./logs/log.txt', 'a') as f:
-    #     sys.stdout = f # Change the standard output to the file we created.
-    #     print(unique_id," - ", "time : ", datetime.now().strftime("%H:%M:%S"),)
-    #     print(unique_id," - ", "The user first said : ", request_json['first_text'])
-    #     print(unique_id," - ", "The user said this turn : ", request_json['query'])
-    #     print(unique_id," - ", resp_json)
-    #     sys.stdout = original_stdout
 
     return jsonify(resp_json)
 
