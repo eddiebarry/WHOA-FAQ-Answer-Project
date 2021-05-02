@@ -6,7 +6,7 @@ metadata:
   labels:
     {{- include "orc.labels" . | nindent 4 }}
   annotations:
-    description: Defines how to deploy the application server
+    description: Deployment of the orchestration server for the bot
     template.alpha.openshift.io/wait-for-ready: 'true'
 spec:
   strategy:

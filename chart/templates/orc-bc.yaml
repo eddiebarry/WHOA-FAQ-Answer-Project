@@ -45,10 +45,10 @@ spec:
 
       WORKDIR /usr/src/WHOA-FAQ-Answer-Project
 
-      EXPOSE 5009
+      EXPOSE 8080
 
 
-      ENTRYPOINT [ "gunicorn", "--bind", "0.0.0.0:5009", "wsgi:app",
+      ENTRYPOINT [ "gunicorn", "--bind", "0.0.0.0:8080", "wsgi:app",
       "--timeout", "600"]
 
 

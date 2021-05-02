@@ -1,14 +1,11 @@
 {{- if eq .Values.chitchat.enabled true -}}
-{{- if eq .Values.chitchat.build_enabled true -}}
 kind: BuildConfig
 apiVersion: build.openshift.io/v1
 metadata:
-  name: "{{ include "chitchat.name" . }}"
-  {{- if eq .Values.labels_enabled true -}}
+  name: {{ include "chitchat.name" . }}
   labels:
-    build: {{ .Chart.Name }}
-    app: {{ .Chart.Name }}
-  {{- end }}
+    build: {{ include "chitchat.name" . }}
+    app: {{ include "chitchat.name" . }}
   annotations:
     description: Defines how to build the application
 spec:
@@ -97,7 +94,7 @@ spec:
 
       # # Make sure the environment is activated:
 
-      # RUN echo "Make sure flask is installed:"
+      EXPOSE 8080
 
       # RUN python -c "import flask"
 
@@ -107,7 +104,7 @@ spec:
       # COPY run.py .
 
       ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "myenv",
-      "gunicorn", "--worker-class", "gevent", "--bind", "0.0.0.0:5001",
+      "gunicorn", "--worker-class", "gevent", "--bind", "0.0.0.0:8080",
       "wsgi:app", "--workers", "2", "--worker-connections", "2000", "--timeout",
       "60", "--preload"]
   triggers:
@@ -120,5 +117,4 @@ spec:
   # - type: Generic
   #   generic:
   #     secret: "gUE5VbKpAmDhz0dYMx5VkZUGK31jQxgE2uOfazNv"
-{{- end }}
 {{- end }}
