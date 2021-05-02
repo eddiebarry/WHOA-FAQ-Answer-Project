@@ -33,6 +33,8 @@ spec:
       containers:
       - name: {{ include "chitchat.name" . }}
         image: "{{ .Values.chitchat.image_repository }}/{{ .Values.namespace }}/{{ include "chitchat.name" . }}:latest"
+        securityContext:
+            runAsUser: 1000650001
         ports:
         - containerPort: 5009
         readinessProbe:

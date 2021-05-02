@@ -19,37 +19,13 @@ spec:
   source:
     type: Dockerfile
     dockerfile: >-
-      # conda create -n venv_name python=3.6
-
-      # conda activate venv_name
-
-      # conda install -c pytorch faiss-cpu
-
-      # # linux
-
-      # sudo apt install gcc
-
-      # git clone https://github.com/facebookresearch/fastText.git
-
-      # cd fastText
-
-      # sudo pip install .
-
-
-      # sudo /Users/edgarmonis/minicond/envs/venv_name/bin/pip 
-
-
-      # gunicorn --worker-class gevent --bind 0.0.0.0:5001   wsgi:app --workers
-      2 --worker-connections 2000 --timeout 60 --preload
-
-
       FROM continuumio/miniconda3
 
 
       WORKDIR /app
 
 
-      # Create the environment:
+      # RUN chown 1000650001 -R /opt/conda/envs/myenv/*
 
       # COPY . .
 
@@ -85,23 +61,10 @@ spec:
       "download_weights.py"]
 
 
-      # conda run --no-capture-output -n myenv python download_weights.py
-
-      # # Make RUN commands use the new environment:
-
-      # SHELL ["conda", "run", "-n", "myenv", "/bin/bash", "-c"]
-
-
-      # # Make sure the environment is activated:
-
       EXPOSE 8080
 
-      # RUN python -c "import flask"
 
-
-      # # The code to run when container is started:
-
-      # COPY run.py .
+      RUN chown 1000650001 -R /opt/conda/envs/myenv/*
 
       ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "myenv",
       "gunicorn", "--worker-class", "gevent", "--bind", "0.0.0.0:8080",
