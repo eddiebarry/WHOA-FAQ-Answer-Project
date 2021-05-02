@@ -34,7 +34,13 @@ from data.helpers import populate_1500_questions
 DEFAULT_PROJECT_ID = '999'
 DEFAULT_VERSION_ID = '0'
 
+if os.getenv("SOLR_HOST") is not None:
+    solr_url = "http://" + os.getenv("SOLR_HOST") +":"+os.getenv("SOLR_PORT")
+else:
+    solr_url = "default.com"
+
 SEARCH_ENGINE = SolrSearchEngine(
+    solr_url = solr_url,
     rerank_endpoint=None,
     # rerank_endpoint=RE_RANK_ENDPOINT+"/api/v1/reranking",
     variation_generator_config=[
@@ -90,10 +96,15 @@ UPDATE_ENGINE = UpdateEngine(
 
 app = flask.Flask(__name__)
 
+if __name__ != '__main__':
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
+
 # Prod
 if os.getenv('REDIS_PASSWORD') is not None:
-    logging.info("using redis cache")
-    logging.info("cache url",'redis://:'+ os.getenv('REDIS_PASSWORD')\
+    app.logger.info("using redis cache")
+    app.logger.info("cache url",'redis://:'+ os.getenv('REDIS_PASSWORD')\
                         + os.getenv('REDIS_HOST')+ ':6379' )
     app.config['cache'] = Cache(
             app, 
@@ -116,20 +127,8 @@ else:
     app.config['cache'].get("0")
     app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'redis', 'CACHE_REDIS_URL': 'redis:password@//feature-helm-chart-labels-vla-redis:6379',})
     """
-    logging.info("using local cache")
+    app.logger.info("using local cache")
     app.config['cache'] = Cache(app, config={'CACHE_TYPE': 'simple'})
-
-# app.config['cache'] = Cache(
-#     app, 
-#     config={
-#             'CACHE_TYPE': 'redis', 
-#             # 'CACHE_REDIS_URL': 'redis://cache:6379',
-#             'CACHE_DEFAULT_TIMEOUT':3600,
-#             'CACHE_REDIS_HOST': os.getenv('CACHE_REDIS_HOST'),
-#             'CACHE_REDIS_PORT': os.getenv('CACHE_REDIS_PORT'),
-#             'CACHE_REDIS_PASSWORD': os.getenv('CACHE_REDIS_PASSWORD'),
-#         }
-# )
 
 
 app.config['cache'].clear()
@@ -362,10 +361,12 @@ def answer_question():
     #     original_stdout = sys.stdout 
     # with open('./logs/log.txt', 'a') as f:
         # sys.stdout = f # Change the standard output to the file we created.
-    print(unique_id," - ", "time : ", datetime.now().strftime("%H:%M:%S"),)
-    print(unique_id," - ", "The user first said : ", request_json['first_text'])
-    print(unique_id," - ", "The user said this turn : ", request_json['query'])
-    print(unique_id," - ", resp_json)
+    app.logger.info(
+        unique_id,
+        "\n- ", "The user first said : ", request_json['first_text'],
+        "\n- ", "The user said this turn : ", request_json['query'],
+        "\n- ", resp_json
+    )
         # sys.stdout = original_stdout
 
     # original_stdout = sys.stdout 
@@ -740,3 +741,7 @@ def init_data():
 @app.route('/')
 def hello_world():
     return 'Hello, World! The service is up for serving qna to the bot :-)'
+
+@app.route('/liveness')
+def liveness():
+    return 'OK', 200
