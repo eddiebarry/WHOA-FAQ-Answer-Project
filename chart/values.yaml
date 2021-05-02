@@ -53,10 +53,10 @@ solr:
   enabled: true
   route_enabled: true
 
-# mongo:
-#   name: mongo
-#   enabled: false
-#   route_enabled: false
+mongo:
+  name: mongo
+  enabled: false
+  route_enabled: false
 
 # reranker:
 #   dcName: reranker-dc
