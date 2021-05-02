@@ -3,9 +3,7 @@ apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
   name: {{ include "chitchat.name" . }}
-  {{- if eq .Values.labels_enabled true -}}
   labels:
-    build: {{ .Chart.Name }}
-    app: {{ .Chart.Name }}
-  {{- end }}
+    build: {{ include "chitchat.name" . }}
+    app: {{ include "chitchat.name" . }}
 {{- end }}

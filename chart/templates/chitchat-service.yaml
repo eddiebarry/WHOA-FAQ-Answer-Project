@@ -3,18 +3,15 @@ kind: Service
 apiVersion: v1
 metadata:
   name: {{ include "chitchat.fullname" . }}
-  {{- if eq .Values.labels_enabled true -}}
   labels:
-    build: {{ .Chart.Name }}
-    app: {{ .Chart.Name }}
-  {{- end }}
+    {{- include "orc.labels" . | nindent 4 }}
   annotations:
-    description: Exposes and load balances the application pods
+    description: Exposes and load balances the application pods got chitchat
 spec:
   ports:
   - protocol: TCP
     port: 8080
-    targetPort: 5001
+    targetPort: 8080
   selector:
-    name: "{{ include "chitchat.name" . }}"
+     {{- include "orc.selectorLabels" . | nindent 4 }}
 {{- end }}

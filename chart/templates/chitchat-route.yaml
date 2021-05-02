@@ -3,11 +3,8 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: {{ include "chitchat.name" . }}
-  {{- if eq .Values.labels_enabled true -}}
   labels:
-    build: {{ .Chart.Name }}
-    app: {{ .Chart.Name }}
-  {{- end }}
+    {{- include "chitchat.labels" . | nindent 4 }}
 spec:
   host: 
   to:
