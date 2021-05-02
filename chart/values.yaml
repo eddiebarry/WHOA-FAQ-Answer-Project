@@ -46,7 +46,7 @@ chitchat:
 
 botpress:
   name: bp
-  enabled: false
+  enabled: true
 
 solr:
   name: solr

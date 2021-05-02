@@ -2,19 +2,17 @@
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
-  name: {{ include "botpress.name" . }}
-  {{- if eq .Values.labels_enabled true -}}
+  name: {{ include "botpress.fullname" . }}
   labels:
-    {{- include "project.labels" . | nindent 4 }}
-  {{- end }}
+    {{- include "botpress.labels" . | nindent 4 }}
 spec:
   selector:
-    app: {{ include "botpress.name" . }}
+    {{- include "botpress.selectorLabels" . | nindent 4 }}
   replicas: 1
   template:
     metadata:
       labels:
-        app: {{ include "botpress.name" . }}
+        {{- include "botpress.selectorLabels" . | nindent 8 }}
     spec:
       containers:
         - name: {{ include "botpress.name" . }}

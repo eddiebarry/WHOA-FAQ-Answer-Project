@@ -2,11 +2,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "botpress.fullname" . }}-service
-  {{- if eq .Values.labels_enabled true -}}
+  name: {{ include "botpress.fullname" . }}
   labels:
-    {{- include "project.labels" . | nindent 4 }}
-  {{- end }}
+    {{- include "botpress.labels" . | nindent 4 }}
+  annotations:
+    description: Exposes and load balances the application pods
 spec:
   selector:
     app: {{ include "botpress.name" . }}
