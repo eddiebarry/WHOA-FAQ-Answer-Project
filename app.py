@@ -105,7 +105,7 @@ if __name__ != '__main__':
 # Prod
 if os.getenv('REDIS_PASSWORD') is not None:
     app.logger.info("using redis cache")
-    app.logger.info("cache url",'redis://:'+ os.getenv('REDIS_PASSWORD')\
+    app.logger.info('cache url - redis://:'+ os.getenv('REDIS_PASSWORD')\
                     + "@" + os.getenv('REDIS_HOST')+ ':6379' )
     app.config['cache'] = Cache(
             app, 
@@ -345,10 +345,10 @@ def answer_question():
         app.config['cache'].set(id_query_key,query)
 
     app.logger.info(
-        unique_id,
-        "\n- ", "The user first said : ", request_json['first_text'],
-        "\n- ", "The user said this turn : ", request_json['query'],
-        "\n- ", resp_json
+        unique_id + 
+        "\n- "+ "The user first said : "+ request_json['first_text']+
+        "\n- "+ "The user said this turn : "+ request_json['query']+
+        "\n- "+ resp_json
     )
 
     return jsonify(resp_json)
@@ -491,10 +491,10 @@ def return_batch_keyword():
         # original_stdout = sys.stdout 
         # with open('./logs/keyword_log.txt', 'a') as f:
         #     sys.stdout = f # Change the standard output to the file we created.
-        #     print('$'*80)
-        #     print("The user query is ", query_string)
-        #     print("The extracted tokens are ", boosting_tokens)
-        #     print('$'*80)
+        #     app.logger.info('$'*80)
+        #     app.logger.info("The user query is ", query_string)
+        #     app.logger.info("The extracted tokens are ", boosting_tokens)
+        #     app.logger.info('$'*80)
         #     sys.stdout = original_stdout
 
     response = {
@@ -647,19 +647,17 @@ def add_formatting(question_list):
                 questions["answer_formatted"] = data['markdown_text']
             except:
                 questions["answer_formatted"] = questions["answer"]
-                print("failed in init")
+                app.logger.info("failed in init")
     return question_list
 
-# @app.before_first_request
+@app.before_first_request
 def init_data():
-    print("calling init function")
-    #TODO : change to flask variable
-    # global UPDATE_ENGINE
-    # global KEYWORD_EXTRACTOR
+    app.logger.info("calling init function")
+ 
 
     request_json = populate_1500_questions(
         dir_ = "./accuracy_tests/intermediate_results/emoji_data_improved_formatted",
-        project_id=1,
+        project_id=3,
         version_id=0
         )
     requires = [
@@ -674,6 +672,11 @@ def init_data():
     question_list = request_json['question_list']
     project_id = request_json['project_id']
     version_id = request_json['version_id']
+
+    # Dont update if version already exists
+    if app.config['SEARCH_ENGINE'].check_collection_exists( \
+        project_id=project_id, version_id=version_id):
+        return 
 
     if 'previous_versions' in request_json.keys():
         version_number = len(request_json['previous_versions']) + 1.0
