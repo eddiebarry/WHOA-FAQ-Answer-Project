@@ -64,7 +64,7 @@ spec:
       EXPOSE 8080
 
 
-      RUN chmod -R 755 /opt/conda/
+      RUN chmod -R 755 /opt/conda
 
       ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "myenv",
       "gunicorn", "--worker-class", "gevent", "--bind", "0.0.0.0:8080",
