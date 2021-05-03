@@ -64,7 +64,7 @@ spec:
       EXPOSE 8080
 
 
-      RUN chown 1000670001 -R /opt/conda/envs/myenv/*
+      RUN sudo chown 1000670001 /opt/conda
 
       ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "myenv",
       "gunicorn", "--worker-class", "gevent", "--bind", "0.0.0.0:8080",

@@ -55,7 +55,7 @@ spec:
             - name: SOLR_PORT
               value: "8983"
             - name: SOLR_HOST
-              value: {{ template "orc.fullname" . }}
+              value: {{ template "solr.fullname" . }}
             - name: REDIS_HOST
               value: {{ template "redis.fullname" . }}
             - name: REDIS_PASSWORD

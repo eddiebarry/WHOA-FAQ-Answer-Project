@@ -9,7 +9,7 @@ metadata:
     description: Exposes and load balances the application pods
 spec:
   selector:
-    app: {{ include "botpress.name" . }}
+     {{- include "botpress.selectorLabels" . | nindent 4 }}
   ports:
     - protocol: TCP
       port: 3000
