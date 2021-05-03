@@ -348,7 +348,7 @@ def answer_question():
         unique_id + 
         "\n- "+ "The user first said : "+ request_json['first_text']+
         "\n- "+ "The user said this turn : "+ request_json['query']+
-        "\n- "+ resp_json
+        "\n- "+ str(resp_json)
     )
 
     return jsonify(resp_json)

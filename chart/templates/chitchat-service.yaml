@@ -4,7 +4,7 @@ apiVersion: v1
 metadata:
   name: {{ include "chitchat.fullname" . }}
   labels:
-    {{- include "orc.labels" . | nindent 4 }}
+    {{- include "chitchat.labels" . | nindent 4 }}
   annotations:
     description: Exposes and load balances the application pods got chitchat
 spec:
@@ -13,5 +13,5 @@ spec:
     port: 8080
     targetPort: 8080
   selector:
-     {{- include "orc.selectorLabels" . | nindent 4 }}
+     {{- include "chitchat.selectorLabels" . | nindent 4 }}
 {{- end }}
