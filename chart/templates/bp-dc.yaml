@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: {{ include "botpress.name" . }}
-          image: quay.io/whoacademy/botpress-team-jarvis
+          image: quay.io/whoacademy/botpress-team-jarvis-04-may
           ports:
             - containerPort: 8000
           env:
