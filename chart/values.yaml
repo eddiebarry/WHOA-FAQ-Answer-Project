@@ -51,7 +51,7 @@ botpress:
 solr:
   name: solr
   enabled: true
-  route_enabled: true
+  route_enabled: false
 
 mongo:
   name: mongo

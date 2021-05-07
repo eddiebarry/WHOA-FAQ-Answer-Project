@@ -656,8 +656,8 @@ def init_data():
  
 
     request_json = populate_1500_questions(
-        dir_ = "./accuracy_tests/intermediate_results/emoji_data_improved_formatted",
-        project_id=3,
+        dir_ = "./accuracy_tests/intermediate_results/script_data_directly_from_designers",
+        project_id=4,
         version_id=0
         )
     requires = [
