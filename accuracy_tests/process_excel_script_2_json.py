@@ -6,12 +6,43 @@ added to the search index.
 
 
 from hashlib import sha512
-from json import dump as json_dump
+from json import dump as json_dump, load as json_load
 from os import getcwd
 from os.path import join as os_join
-from typing import Callable
+from typing import Callable, List
 
 from openpyxl import load_workbook
+
+
+# defininf category keywords:
+
+def clean_category_keywords(original: List[str]) -> List[str]:
+    """
+    Remove emojis and other special characters, split extreme
+    whitespaces/newlines and turn into lowercase each string of the list.
+    """
+    clean = []
+    for keyword in original:
+        keyword = keyword.strip()
+        keyword = ''.join([i if ord(i) < 128 else '' for i in keyword])
+        keyword = keyword.strip()
+        keyword = keyword.lower()
+        clean.append(keyword)
+    return clean
+
+types_filename = os_join(
+    getcwd(),
+    "data",
+    "unique_keywords",
+    "4_0_unique_keywords.json"
+)
+with open(types_filename, 'r', encoding='utf-8') as file:
+    keyword_categories = json_load(file)["type"]
+
+# cleaning categorie keyword names to the bare minimum for better matching:
+KEYWORD_CATEGORIES = clean_category_keywords(keyword_categories)
+
+DEFAULT_KEYWORD_CATEGORY = "something else"  # "None"
 
 
 def excel_2_json_wrapper() -> Callable:
@@ -34,14 +65,21 @@ def excel_2_json_wrapper() -> Callable:
 
         # iterating through row cells of the first column - the first row
         # cell contains a header:
-        for question_variants, answer in zip(sheet['A'][1:], sheet['B'][1:]):
+        for question_variants, answer, keywords in\
+                zip(sheet['A'][1:], sheet['B'][1:], sheet['C'][1:]):
 
             # skipping empty cells:
-            if question_variants.value is None or answer.value is None:
+            if question_variants.value is None or answer.value is None or\
+                    keywords.value is None:
                 continue
 
             # removing evantual initial/final whitespaces:
             answer = answer.value.strip()
+
+            # preprocessing keywords coherently with references:
+            keywords = keywords.value
+            keywords = keywords.split(",")
+            keywords = clean_category_keywords(keywords)
 
             # extracting questions in the current row cell - i.e. variations
             # of the same base question:
@@ -61,7 +99,18 @@ def excel_2_json_wrapper() -> Callable:
                     "question_variation_2": question,
                 }
 
-                object_dict['type'] = None
+                # associating the category extracted from the keywords as type
+                # or, in case none exists, a default category as type - when
+                # multiple categories are present among the keyworks, the
+                # script is ambiguously defined, so a random one is picked:
+                if keywords != "" and type(keywords) == list:
+                    for keyword in keywords:
+                        if keyword in KEYWORD_CATEGORIES:
+                            object_dict['type'] = keyword
+                            break
+                if 'type' not in object_dict:
+                    object_dict['type'] = DEFAULT_KEYWORD_CATEGORY
+
 
                 json_name = sha512(question.encode()).hexdigest()
                 json_file_name = os_join(
@@ -111,11 +160,6 @@ if __name__ == "__main__":
 # import os
 
 # xl = pd.read_csv("/usr/src/WHOA-FAQ-Answer-Project/accuracy_tests/emoji_qa_modified.csv")
-
-# filename = "/usr/src/WHOA-FAQ-Answer-Project/data/unique_keywords/" +\
-#     "4_0_unique_keywords.json"
-# with open(filename, 'r') as file:
-#     KEYWORDS = json.load(file)["type"]
 
 # def return_type(string):
 #     # pos_type = ["agenda","learning","course discovery","profile"]
